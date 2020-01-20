@@ -104,8 +104,8 @@ export default {
               component: './Armando',
             },{
               path: '/hector',
-              name: 'hector',
-              icon: 'smile',
+              name: 'Hector',
+              icon: 'user',
               component: './Hector',
             },{
               path: '/carlos',
