@@ -20,8 +20,12 @@ import 'moment/locale/en-au';
 @Form.create()
 @connect(({ armando, loading }) => ({
     armando,
-    loading: loading.models.armando
+    loading: loading.models.armando,
+    videogames:armando.videogames
 }))
+
+
+
 export default class Companies extends PureComponent {
 
 
@@ -30,74 +34,49 @@ export default class Companies extends PureComponent {
     }
     componentDidMount() {
 
-        /* this.props.dispatch({
-            type: 'companies/fetchCompanies',
+         this.props.dispatch({
+            type: 'armando/fetchVideoGames',
             payload: {
                 payload: {
-                    userId: localStorage.getItem("userId")
+                    consolesId:1
                     // userId: "darmando.lira@hotmail.com"
                 }
-
             },
         });
- */
+ 
        
 
 
     }
 
-    getColumns = (editCompany, showDepartments) => {
-
-        return [
-            // {
-            //     title: 'ID',
-            //     width: 50,
-            //     dataIndex: 'companyId',
-            //     key: 'companyId'
-            // },
-            {
-                title: 'Name',
-                dataIndex: 'companyName',
-            }, {
-                title: 'Email',
-                dataIndex: 'companyEmail',
-            }, {
-                title: 'Website',
-                dataIndex: 'companyWebSiteAddress',
-            }, {
-                title: 'Point of contact',
-                dataIndex: 'companyPointOfContact',
-                key: 'companyPointOfContact',
-
-            }, {
-                title: 'Actions', width: 120, fixed: 'right', dataIndex: '', key: 'x',
-                render: (text, record) => (
-                    <div style={{ textAlign: 'left' }}>
-                        <a onClick={() => { showDepartments(record) }} ><Icon type="cluster" /> Departments</a>
-                        <a onClick={() => { editCompany(record) }} ><Icon type="edit" /> Edit</a><br />
-
-
-
-
-                    </div>
-                )
-            }];
-    }
-
-    
-
     render() {
 
         
-        const { loading, armando: { armando }, } = this.props;
-
+        const { loading, armando: { armando },videogames } = this.props;
+        const columns = [
+            {
+              title: 'consolesId',
+              dataIndex: 'consolesId',
+              key: 'consolesId',
+            },
+            {
+              title: 'digital',
+              dataIndex: 'digital',
+              key: 'digital',
+            },
+            {
+              title: 'Address',
+              dataIndex: 'address',
+              key: 'address',
+            },
+          ];
         return (
             <PageHeaderWrapper>
                     <Card title={<span><Icon type="bank" />  Practice</span>} style={{ 'margin': '0px' }}>
-
-
-                        
-
+                        <Table
+                           dataSource= {videogames}
+                           columns={columns}
+                        />
                     </Card>
 
             </PageHeaderWrapper>

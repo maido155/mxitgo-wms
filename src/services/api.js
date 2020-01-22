@@ -232,6 +232,14 @@ export async function getComments({ payload }) {
   return request(`${ANT_DESIGN_PRO_TARGET}/user/comments/?payload=${JSON.stringify(payload)}`);
 }
 
+/***********GET VIDEOJUEGOS -ARMANDO-***************/
+export async function getVideoGames({ payload }) {
+  console.log({payload});
+  
+  return request(`${ANT_DESIGN_PRO_TARGET}/videogames?consolesId=${payload.consolesId}`);
+}
+/***************************************************/
+
 export async function generateCompany(params) {
   return request(`${ANT_DESIGN_PRO_TARGET}/companies`, {
     method: 'POST',

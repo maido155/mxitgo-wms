@@ -7,7 +7,8 @@ import {
     getDepartmentsByUsers,
     updateDepartment,
     generateDepartment,
-    deleteDepartment
+    deleteDepartment,
+    getVideoGames
 } from '../services/api';
 
 export default {
@@ -16,7 +17,8 @@ export default {
     state: {
         companies: [],
         industries: [],
-        departments: []
+        departments: [],
+        videogames: []
 
     },
 
@@ -29,6 +31,15 @@ export default {
                 payload: response,
             });
         },
+        /*************************************************/
+        *fetchVideoGames({payload}, {call, put}){
+            const response =  yield call(getVideoGames, payload);
+            yield put({
+                type: 'queryVideoGames',
+                payload: response,
+            });
+        },
+        /*************************************************/
         *fetchIndustries({ payload }, { call, put }) {
             const response = yield call(getIndustries, payload);
             yield put({
@@ -112,6 +123,16 @@ export default {
                 companies: action.payload
             };
         },
+        /*******************************/
+        queryVideoGames(state, action){
+            console.log(action.payload);
+
+            return{
+                ...state,
+                videogames: action.payload.body.Items
+            }
+        },
+        /*******************************/
         queryDepartmentsByUser(state, action) {
 
             console.log(action.payload);
