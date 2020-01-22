@@ -6,100 +6,91 @@ import { _ } from 'lodash';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 
 import {
-    Table, Card, Spin, Form, Button, Icon, LocaleProvider, Input, Select, Row, Col, notification
+    Table, Card, Spin, Form, Button, Icon, LocaleProvider, Input, Select, Row, Col, Notification, rowSelection
 } from 'antd';
-
-
-
-
-
-
 import 'moment/locale/en-au';
 
 
 @Form.create()
 @connect(({ hector, loading }) => ({
     hector,
-    loading: loading.models.hector
+    loading: loading.models.hector,
+    restaurants : hector.restaurants
 }))
+
 export default class Companies extends PureComponent {
+    
 
 
     state = {
-        loading: false
+        loading: false,
+        
     }
+
+    
     componentDidMount() {
 
-        /* this.props.dispatch({
-            type: 'companies/fetchCompanies',
+        this.props.dispatch({
+            type: 'restaurants/fetchRestaurants',
             payload: {
                 payload: {
-                    userId: localStorage.getItem("userId")
-                    // userId: "dhector.lira@hotmail.com"
+                    restaurantId: localStorage.getItem("restaurantId"),
+
                 }
 
             },
+            
         });
- */
+ 
+
        
 
 
     }
-
-    getColumns = (editCompany, showDepartments) => {
-
-        return [
-            // {
-            //     title: 'ID',
-            //     width: 50,
-            //     dataIndex: 'companyId',
-            //     key: 'companyId'
-            // },
-            {
-                title: 'Name',
-                dataIndex: 'companyName',
-            }, {
-                title: 'Email',
-                dataIndex: 'companyEmail',
-            }, {
-                title: 'Website',
-                dataIndex: 'companyWebSiteAddress',
-            }, {
-                title: 'Point of contact',
-                dataIndex: 'companyPointOfContact',
-                key: 'companyPointOfContact',
-
-            }, {
-                title: 'Actions', width: 120, fixed: 'right', dataIndex: '', key: 'x',
-                render: (text, record) => (
-                    <div style={{ textAlign: 'left' }}>
-                        <a onClick={() => { showDepartments(record) }} ><Icon type="cluster" /> Departments</a>
-                        <a onClick={() => { editCompany(record) }} ><Icon type="edit" /> Edit</a><br />
-
-
-
-
-                    </div>
-                )
-            }];
-    }
-
-    
+   
+ 
 
     render() {
 
-        
-        const { loading, hector: { hector }, } = this.props;
+        const columns = [
+            {
+              title: 'RestaurantId',
+              dataIndex: 'restaurantId',
+              render: text => <a>{text}</a>,
+            },
+            {
+              title: 'RestaurantDir',
+              dataIndex: 'restaurantDir',
+            },
+            {
+              title: 'Restaurant',
+              dataIndex: 'restaurant',
+            },
+            {
+                title: 'Menu',
+                dataIndex: 'menu',
+              }, {
+                title: 'PhoneNumber',
+                dataIndex: 'phoneNumber',
+              },
+              {
+                title: 'RestaurantData',
+                dataIndex: 'restaurantData',
+              },
+              {
+                title: 'Type',
+                dataIndex: 'type',
+              },
+
+          ];        
+        const { loading, hector: { hector }, restaurants} = this.props;
 
         return (
-            <PageHeaderWrapper>
-                    <Card title={<span><Icon type="bank" />  Practice</span>} style={{ 'margin': '0px' }}>
-
-
-                        
-
+            <PageHeaderWrapper style={{backgroundColor:"#1890ff"}}>
+                    <Card  title={<span><Icon type="bank" />  Practice</span>} style={{ 'margin': '0px' }}>
+                    <Table  columns={columns} dataSource={restaurants}  />
                     </Card>
-
+<button onClick={alert(restaurants)}>ghsxjh</button>
             </PageHeaderWrapper>
         );
     }
