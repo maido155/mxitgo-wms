@@ -98,6 +98,21 @@ export default {
               redirect: '/welcome',
             },
             {
+              path: '/armando',
+              name: 'armando',
+              icon: 'smile',
+              component: './Armando',
+            },{
+              path: '/hector',
+              name: 'hector',
+              icon: 'smile',
+              component: './Hector',
+            },{
+              path: '/carlos',
+              name: 'carlos',
+              icon: 'smile',
+              component: './Carlos',
+            },{
               path: '/welcome',
               name: 'welcome',
               icon: 'smile',
