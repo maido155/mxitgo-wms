@@ -103,24 +103,6 @@ export default {
               component: './Welcome',
             },
             {
-              path: '/armando',
-              name: 'Armando',
-              icon: 'smile',
-              component: './practice/Armando',
-            },
-            {
-              path: '/carlos',
-              name: 'Carlos',
-              icon: 'smile',
-              component: './practice/Carlos',
-            },
-            {
-              path: '/hector',
-              name: 'Hector',
-              icon: 'smile',
-              component: './practice/Hector',
-            },
-            {
               path: '/admin',
               name: 'admin',
               icon: 'crown',
