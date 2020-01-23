@@ -1,164 +1,49 @@
 
 import {
-    getCompanies,
-    getIndustries,
-    generateCompany,
-    updateCompany,
-    getDepartmentsByUsers,
-    updateDepartment,
-    generateDepartment,
-    deleteDepartment,
-    getVideoGames
+    getVideoGames,
+    generateVideogames
 } from '../services/api';
 
 export default {
-    namespace: 'armando',
+    namespace: 'armando', //nombre modelo
 
     state: {
-        companies: [],
-        industries: [],
-        departments: [],
         videogames: []
-
     },
 
     effects: {
-
-        *fetchCompanies({ payload }, { call, put }) {
-            const response = yield call(getCompanies, payload);
-            yield put({
-                type: 'queryCompanies',
-                payload: response,
-            });
-        },
         /*************************************************/
         *fetchVideoGames({payload}, {call, put}){
-            const response =  yield call(getVideoGames, payload);
+            let consolesId= payload.payload.consolesId;
+            const response =  yield call(getVideoGames, {consolesId});
             yield put({
                 type: 'queryVideoGames',
                 payload: response,
             });
         },
         /*************************************************/
-        *fetchIndustries({ payload }, { call, put }) {
-            const response = yield call(getIndustries, payload);
+
+        *generteVideoGames({payload},{call, put}){
+            let consolesId=payload.payload.GET.consolesId;
+            const response = yield call(generateVideogames, payload);
+            const responseVideoGames = yield call(getVideoGames, {consolesId});
             yield put({
-                type: 'queryIndustries',
-                payload: response,
+                type: 'queryVideoGames',
+                payload: responseVideoGames,
             });
         },
-        *generateCompany({ payload }, { call, put }) {
-            const response = yield call(generateCompany, payload);
-
-            const responseCompanies = yield call(getCompanies, {});
-            yield put({
-                type: 'queryCompanies',
-                payload: responseCompanies,
-            });
-        },
-        *generateDepartment({ payload }, { call, put }) {
-            const response = yield call(generateDepartment, payload);
-
-            const responseDepartments = yield call(getDepartmentsByUsers, payload);
-            yield put({
-                type: 'queryDepartmentsByUser',
-                payload: responseDepartments,
-            });
-        },
-        *deleteDepartment({ payload }, { call, put }) {
-            const response = yield call(deleteDepartment, payload);
-
-            const responseDepartments = yield call(getDepartmentsByUsers, payload);
-            yield put({
-                type: 'queryDepartmentsByUser',
-                payload: responseDepartments,
-            });
-        },
-
-
-
-        *updateCompany({ payload }, { call, put }) {
-            const response = yield call(updateCompany, payload);
-
-            const responseCompanies = yield call(getCompanies, {});
-            yield put({
-                type: 'queryCompanies',
-                payload: responseCompanies,
-            });
-
-
-            // const responseCompanies = yield call(getCompanies, payload);
-            // yield put({
-            //     type: 'queryCompanies',
-            //     payload: responseCompanies,
-            // });
-        },
-        *updateDepartment({ payload }, { call, put }) {
-            const response = yield call(updateDepartment, payload);
-
-            const responseDepartments = yield call(getDepartmentsByUsers, payload);
-            yield put({
-                type: 'queryDepartmentsByUser',
-                payload: responseDepartments,
-            });
-        },
-
-        *fetchDepartmentsByUser({ payload }, { call, put }) {
-            const response = yield call(getDepartmentsByUsers, payload);
-            yield put({
-                type: 'queryDepartmentsByUser',
-                payload: response,
-            });
-        },
-
+        /*************************************************/
     },
 
     reducers: {
-        queryCompanies(state, action) {
-
-            console.log(action.payload);
-
-            return {
-                ...state,
-                companies: action.payload
-            };
-        },
         /*******************************/
         queryVideoGames(state, action){
-            console.log(action.payload);
-
             return{
                 ...state,
                 videogames: action.payload.body.Items
             }
         },
         /*******************************/
-        queryDepartmentsByUser(state, action) {
-
-            console.log(action.payload);
-
-            return {
-                ...state,
-                departments: action.payload
-            };
-        },
-        queryIndustries(state, action) {
-
-            console.log(action.payload);
-
-            return {
-                ...state,
-                industries: action.payload
-            };
-        },
-        queryCompanyResponse(state, action) {
-
-            console.log(action.payload);
-            return {
-                ...state,
-                answer: action.payload
-            };
-        },
     },
 };
 
