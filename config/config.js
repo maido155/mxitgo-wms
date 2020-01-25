@@ -103,6 +103,12 @@ export default {
               component: './Welcome',
             },
             {
+              path: '/shippingMaster',
+              name: 'Shipping Master',
+              icon: 'smile',
+              component: './shipping/ShippingMaster',
+            },
+            {
               path: '/admin',
               name: 'admin',
               icon: 'crown',
