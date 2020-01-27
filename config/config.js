@@ -103,6 +103,11 @@ export default {
               component: './Welcome',
             },
             {
+              path: '/entrada',
+              name: 'Entrada',
+              component: './Entry/entrada',
+            },
+            {
               path: '/admin',
               name: 'admin',
               icon: 'crown',
