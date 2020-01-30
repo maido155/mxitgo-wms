@@ -104,6 +104,12 @@ export default {
             },
             {
 
+              path: '/generalProgramming',
+              name: 'Programación General',
+              icon: 'setting',
+              component: './generalProgramming/generalProgramming'
+            },{
+
               path: '/dashboard',
               name: 'Dashboard',
               icon: 'dashboard',
