@@ -103,10 +103,34 @@ export default {
               component: './Welcome',
             },
             {
+
               path: '/generalProgramming',
               name: 'Programación General',
               icon: 'setting',
-              component: './generalProgramming/generalProgramming',
+              component: './generalProgramming/generalProgramming'
+            },{
+
+              path: '/dashboard',
+              name: 'Dashboard',
+              icon: 'dashboard',
+              component: './Dashboard/dashboard',
+            },
+            {
+              path: '/entry',
+              name: 'Entry',
+              component: './Entry/entry',
+            },{
+
+              path: '/shippingMaster',
+              name: 'Maestro de envios',
+              icon: 'smile',
+              component: './shipping/ShippingMaster',
+            },
+            {
+              path: '/outWard',
+              name: 'Salidas',
+              icon: 'smile',
+              component: './outward/OutWard',
             },
             {
               path: '/admin',
