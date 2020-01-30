@@ -103,6 +103,12 @@ export default {
               component: './Welcome',
             },
             {
+              path: '/generalProgramming',
+              name: 'Programación General',
+              icon: 'setting',
+              component: './generalProgramming/generalProgramming',
+            },
+            {
               path: '/admin',
               name: 'admin',
               icon: 'crown',
