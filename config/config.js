@@ -103,6 +103,7 @@ export default {
               component: './Welcome',
             },
             {
+
               path: '/dashboard',
               name: 'Dashboard',
               icon: 'dashboard',
@@ -112,6 +113,18 @@ export default {
               path: '/entry',
               name: 'Entry',
               component: './Entry/entry',
+            },{
+
+              path: '/shippingMaster',
+              name: 'Maestro de envios',
+              icon: 'smile',
+              component: './shipping/ShippingMaster',
+            },
+            {
+              path: '/outWard',
+              name: 'Salidas',
+              icon: 'smile',
+              component: './outward/OutWard',
             },
             {
               path: '/admin',
