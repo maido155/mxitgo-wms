@@ -1,14 +1,16 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
-import { Table, Divider } from 'antd';
+import {isMobile} from 'react-device-detect';
+import { Table, Divider, Icon } from 'antd';
 
-const columns = [
+let columns = 
+  [
     {
       title: 'ID/Centros',
       dataIndex: 'id',
       key: 'id',
       width: 150,
-      render: text => <a>{text}</a>,
+      render: text => <a>{text}</a>
     },
     {
       title: 'Envio',
@@ -21,36 +23,103 @@ const columns = [
       width: 110
     },
     {
-        title: 'Entrada',
-        dataIndex: 'entrada',
-        width: 110
+      title: 'Entrada',
+      dataIndex: 'entrada',
+      width: 110
     },
     {
-        title: 'Premium (Plan/Conf)',
-        dataIndex: 'premium',
-        width: 120
+      title: 'Premium (Plan/Conf)',
+      dataIndex: 'premium',
+      width: 120
     },
     {
-        title: 'Gold (Plan/Conf)',
-        dataIndex: 'gold',
-        width: 110
+      title: 'Gold (Plan/Conf)',
+      dataIndex: 'gold',
+      width: 110
     },
     {
-        title: 'Segunda (Plan/Conf)',
-        dataIndex: 'segunda',
-        width: 120
+      title: 'Segunda (Plan/Conf)',
+      dataIndex: 'segunda',
+      width: 120
     },
     {
-        title: 'Mano (Plan/Conf)',
-        dataIndex: 'mano',
-        width: 110
+      title: 'Mano (Plan/Conf)',
+      dataIndex: 'mano',
+      width: 110
     },
     {
-        title: 'Dedo (Plan/Conf)',
-        dataIndex: 'dedo',
-        width: 110
+      title: 'Dedo (Plan/Conf)',
+      dataIndex: 'dedo',
+      width: 110
+    }
+  ];
+
+const data = 
+  [
+    {
+      key: '1',
+      id: 'TE0101023912231',
+      envio: 'Lunes',
+      llegada: 'Martes',
+      entrada: 'Miercoles',
+      premium:'1200/1150',
+      gold:'39/39',
+      segunda:'0/39',
+      mano: '0/39',
+      dedo: '0/39'
+
     },
     {
+      key: '2',
+      id: 'TE0101023912232',
+      envio: 'Martes',
+      llegada: 'Miercoles',
+      entrada: 'Jueves',
+      premium:'300/-',
+      gold:'220/-',
+      segunda:'220/-',
+      mano: '220/-',
+      dedo: '220/-'
+
+    },
+    {
+      key: '3',
+      id: 'TE0101023912233',
+      envio: 'Miercoles',
+      llegada: 'Jueves',
+      entrada: 'Viernes',
+      premium:'24/-',
+      gold:'43/-',
+      segunda:'43/-',
+      mano: '43/-',
+      dedo: '43/-'
+
+    }
+  ];
+
+  if(isMobile){
+    columns.push(
+      {
+        title: 'Acciones',
+        key: 'action',
+        fixed: 'right',
+        width: 130,
+        render: () => (
+          <span>
+            <Icon type="edit" />
+            <Divider type="vertical" />
+            <Icon type="check" />
+            <Divider type="vertical" />
+            <Icon type="minus" />
+            <Divider type="vertical" />
+            <Icon type="question" />
+          </span>
+        ),
+      }
+    );
+  }else{
+    columns.push(
+      {
         title: 'Acciones',
         key: 'action',
         fixed: 'right',
@@ -66,50 +135,10 @@ const columns = [
             <a>Entrada</a>
           </span>
         ),
-      },
-];
-const data = [
-    {
-        key: '1',
-        id: 'TE0101023912231',
-        envio: 'Lunes',
-        llegada: 'Martes',
-        entrada: 'Miercoles',
-        premium:'1200/1150',
-        gold:'39/39',
-        segunda:'0/39',
-        mano: '0/39',
-        dedo: '0/39'
+      }
+    );
+  }
 
-    },
-    {
-        key: '2',
-        id: 'TE0101023912232',
-        envio: 'Martes',
-        llegada: 'Miercoles',
-        entrada: 'Jueves',
-        premium:'300/-',
-        gold:'220/-',
-        segunda:'220/-',
-        mano: '220/-',
-        dedo: '220/-'
-  
-    },
-    {
-        key: '3',
-        id: 'TE0101023912233',
-        envio: 'Miercoles',
-        llegada: 'Jueves',
-        entrada: 'Viernes',
-        premium:'24/-',
-        gold:'43/-',
-        segunda:'43/-',
-        mano: '43/-',
-        dedo: '43/-'
-  
-    }
-];
-  
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);

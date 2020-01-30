@@ -2,48 +2,76 @@ import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import CalendarShippingMaster from './CalendarShippingMaster';
-import TabsShippingMaster from './TabsShippingMaster';
+import RadioGroupShippingMaster from './RadioGroupShippingMaster';
+import TableShippingMaster from './TableShippingMaster';
+import {isMobileOnly, isTablet} from 'react-device-detect'; 
+import { Card, Divider } from 'antd';
 
-import {
-    Card, Row, Col, Button, Icon, Tabs
-} from 'antd';
-
-class ShippingMaster extends PureComponent {
-    render() {          
-        return (
-            <PageHeaderWrapper>
+export default class ShippingMaster extends PureComponent {
+    render() { 
+        if(isMobileOnly){
+            return(
+                <PageHeaderWrapper>
                     <Card>
                         <div>
-                            <Row>
-                                <Col xs={0} sm={4} md={4} lg={4} xl={6}></Col>
-                                <Col xs={6} sm={4} md={4} lg={3} xl={2}>
-                                    <h3>Semana:</h3>
-                                </Col>
-                                <Col xs={18} sm={12} md={12} lg={13} xl={10}>
-                                    <CalendarShippingMaster/>
-                                </Col>
-                                <Col xs={0} sm={4} md={4} lg={4} xl={6}></Col>
-                            </Row>
+                            <CalendarShippingMaster 
+                                dataOne={24} dataTwo={24} dataThree={24} dataFour={"center"} dataFive={"center"} 
+                                dataSix={"center"} dataSeven={"0.5rem"}
+                            />
                         </div>
                         <br/>
                         <div>
-                            <Row>
-                                <Col span={2} offset={22}>
-                                    <Button type="primary" shape="circle" size="large">
-                                        <Icon type="plus" />
-                                    </Button>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col span={24}>
-                                    <TabsShippingMaster/>
-                                </Col>
-                            </Row>
+                            <RadioGroupShippingMaster dataEight={7} dataNine={13}/>
+                        </div>
+                        <Divider/>
+                        <div>
+                            <TableShippingMaster/>
                         </div>
                     </Card>
+                </PageHeaderWrapper>
+            ); 
+        }
+        if(isTablet){
+            return(
+                <PageHeaderWrapper>
+                    <Card>
+                        <div>
+                            <CalendarShippingMaster 
+                                dataOne={5} dataTwo={14} dataThree={5} dataFour={"right"} dataFive={"center"} 
+                                dataSix={"right"} dataSeven={""}
+                            />
+                        </div>
+                        <br/>
+                        <div>
+                            <RadioGroupShippingMaster dataEight={3} dataNine={7}/>
+                        </div>
+                        <Divider/>
+                        <div>
+                            <TableShippingMaster/>
+                        </div>
+                    </Card>
+                </PageHeaderWrapper>
+            ); 
+        }
+        return(
+            <PageHeaderWrapper>
+                <Card>
+                    <div>
+                        <CalendarShippingMaster 
+                            dataOne={7} dataTwo={9} dataThree={7} dataFour={"right"} dataFive={"center"} 
+                            dataSix={"right"} dataSeven={""}
+                        />
+                    </div>
+                    <br/>
+                    <div>
+                        <RadioGroupShippingMaster dataEight={2} dataNine={4}/>
+                    </div>
+                    <Divider/>
+                    <div>
+                        <TableShippingMaster/>
+                    </div>
+                </Card>
             </PageHeaderWrapper>
-        );
+        ); 
     }
 }
-
-export default ShippingMaster;
