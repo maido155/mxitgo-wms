@@ -13,13 +13,12 @@ export default class ShippingMaster extends PureComponent {
             return(
                 <PageHeaderWrapper>
                     <Card>
-                        <div>
+                        <div style={{marginBottom:"4%"}}>
                             <CalendarShippingMaster 
                                 dataOne={24} dataTwo={24} dataThree={24} dataFour={"center"} dataFive={"center"} 
                                 dataSix={"center"} dataSeven={"0.5rem"}
                             />
                         </div>
-                        <br/>
                         <div>
                             <RadioGroupShippingMaster dataEight={7} dataNine={13}/>
                         </div>
@@ -35,13 +34,12 @@ export default class ShippingMaster extends PureComponent {
             return(
                 <PageHeaderWrapper>
                     <Card>
-                        <div>
+                        <div style={{marginBottom:"3%"}}>
                             <CalendarShippingMaster 
                                 dataOne={5} dataTwo={14} dataThree={5} dataFour={"right"} dataFive={"center"} 
                                 dataSix={"right"} dataSeven={""}
                             />
                         </div>
-                        <br/>
                         <div>
                             <RadioGroupShippingMaster dataEight={3} dataNine={7}/>
                         </div>
@@ -56,13 +54,12 @@ export default class ShippingMaster extends PureComponent {
         return(
             <PageHeaderWrapper>
                 <Card>
-                    <div>
+                    <div style={{marginBottom:"1%"}}>
                         <CalendarShippingMaster 
                             dataOne={7} dataTwo={9} dataThree={7} dataFour={"right"} dataFive={"center"} 
                             dataSix={"right"} dataSeven={""}
                         />
                     </div>
-                    <br/>
                     <div>
                         <RadioGroupShippingMaster dataEight={2} dataNine={4}/>
                     </div>
