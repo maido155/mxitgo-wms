@@ -1,11 +1,27 @@
 import React, { PureComponent } from 'react';
 import {Row, Col,Typography,Card} from 'antd';
 
+import {isMobile} from "react-device-detect";
 
-const { Title } = Typography;
+
+const { Text } = Typography;
 
 class gridDashboard extends PureComponent {
     render() {
+        if(isMobile){
+            return (
+                <div>
+                    <Row type="flex" justify="space-around">
+                    
+                    <Col span xs={3} sm={6} md={6} lg={4} xl={2}> <Text strong>Miercoles</Text></Col>
+                    <Col span xs={3} sm={6} md={6} lg={4} xl={2}><Text strong>Jueves</Text></Col>
+                    <Col span xs={3} sm={6} md={6} lg={4} xl={2}><Text strong>Viernes</Text></Col>
+                    <Col span xs={3} sm={6} md={6} lg={4} xl={2}><Text strong>Sabado</Text></Col>
+                   
+                  </Row>
+                </div>
+            );
+        }
         return (
         <div>
             <Row type="flex" justify="space-between">

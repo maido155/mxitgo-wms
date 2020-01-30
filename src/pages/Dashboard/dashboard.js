@@ -13,14 +13,14 @@ import 'moment/locale/en-au';
 export default class Dashboard extends PureComponent {
 
   render() {
-    //if(isMobile){
+    if(isMobile){
     return (
      <PageHeaderWrapper>
       <Card>
       <Row>
-          <Col span={10}>
+          <Col span={4}>
           </Col>
-          <Col span={14}>
+          <Col span={20}>
             <Calendario/>
           </Col>
         </Row>
@@ -30,18 +30,20 @@ export default class Dashboard extends PureComponent {
      </PageHeaderWrapper>
     );
   }
- /* return (
+  return (
     <PageHeaderWrapper>
     <Card>
-    <Row>
-        <Col span={18}>
-        </Col>
-        <Col span={6}>
-          <Modal/>
-        </Col>
-      </Row>
-    </Card>
+      <Row>
+          <Col span={6}>
+          </Col>
+          <Col span={18}>
+            <Calendario/>
+          </Col>
+        </Row>
+        <Taabs/>
+        
+      </Card>
     </PageHeaderWrapper>
   );
-}*/
+}
 }
