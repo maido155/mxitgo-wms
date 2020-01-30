@@ -103,9 +103,15 @@ export default {
               component: './Welcome',
             },
             {
-              path: '/entrada',
-              name: 'Entrada',
-              component: './Entry/entrada',
+              path: '/dashboard',
+              name: 'Dashboard',
+              icon: 'dashboard',
+              component: './Dashboard/dashboard',
+            },
+            {
+              path: '/entry',
+              name: 'Entry',
+              component: './Entry/entry',
             },
             {
               path: '/admin',
