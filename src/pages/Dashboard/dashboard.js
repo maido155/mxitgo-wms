@@ -4,11 +4,12 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { _ } from 'lodash';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import Calendario from './datePicker';
-import Taabs from './tabsdashboard';
-import { Row, Col,Card} from 'antd';
+import Calendario from './calendarDashboard';
+import RadioDash from './radioDashboard';
+import { Row, Col,Card,Divider} from 'antd';
 import {isMobile} from "react-device-detect";
 import 'moment/locale/en-au';
+import GridVieew from './GridDashboard';
 
 export default class Dashboard extends PureComponent {
 
@@ -17,15 +18,15 @@ export default class Dashboard extends PureComponent {
     return (
      <PageHeaderWrapper>
       <Card>
-      <Row>
-          <Col span={4}>
-          </Col>
-          <Col span={20}>
-            <Calendario/>
-          </Col>
-        </Row>
-        <Taabs/>
-        
+          <div>
+            <Calendario   dataOne={24} dataTwo={24} dataFour={"center"} dataFive={"center"} />
+            </div>
+            <div>
+        <RadioDash dataEight={7} dataNine={13}/>
+        </div>
+        <div>
+          <GridVieew/>
+        </div>
       </Card>
      </PageHeaderWrapper>
     );
@@ -33,16 +34,18 @@ export default class Dashboard extends PureComponent {
   return (
     <PageHeaderWrapper>
     <Card>
-      <Row>
-          <Col span={6}>
-          </Col>
-          <Col span={18}>
-            <Calendario/>
-          </Col>
-        </Row>
-        <Taabs/>
-        
-      </Card>
+      <div>
+    
+            <Calendario dataOne={7} dataTwo={9} dataFour={"right"} dataFive={"center"} />
+       </div>
+       <Divider/>
+       <div>
+        <RadioDash dataEight={1} dataNine={24}/>
+        </div>
+        <div>
+          <GridVieew dataOne={1} dataTwo={3} dataThree={4} dataFour={5} dataFive={150} dataSix={200}/>
+        </div>
+        </Card>
     </PageHeaderWrapper>
   );
 }
