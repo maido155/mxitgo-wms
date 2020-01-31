@@ -2,8 +2,11 @@ import { Modal, Button, Calendar } from 'antd';
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import ButtonCenter from './buttonCenter';
+import ModalCalendar from './modalCalendar';
 import ButtonProduct from './buttonProduct';
 import TableModal from './tableModal'; 
+
+
 class ModalGeneralProgramming extends PureComponent {
   state = { visible: false };
 
@@ -38,9 +41,9 @@ class ModalGeneralProgramming extends PureComponent {
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-     
+          <ModalCalendar/>,
          <ButtonProduct/>,
-         
+
          <ButtonCenter/>,
          <TableModal/>
 
