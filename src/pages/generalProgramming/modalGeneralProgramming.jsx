@@ -41,10 +41,10 @@ class ModalGeneralProgramming extends PureComponent {
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-          <ModalCalendar/>,
-         <ButtonProduct/>,
+          <ModalCalendar/>
+         <ButtonProduct/>
 
-         <ButtonCenter/>,
+         <ButtonCenter/>
          <TableModal/>
 
         </Modal>

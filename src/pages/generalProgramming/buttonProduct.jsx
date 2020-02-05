@@ -14,7 +14,7 @@ class ButtonCenter extends PureComponent {
   render() {
     const { size } = this.state;
     return (
-      <div>
+      <div style={{marginTop: "4%"}}>
         <label>Producto: </label>
         <Radio.Group value={size} onChange={this.handleSizeChange}>
           <Radio.Button value="large">Gold</Radio.Button>

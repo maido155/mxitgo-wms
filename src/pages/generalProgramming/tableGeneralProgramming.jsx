@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
-import {Table, Icon} from 'antd';
+import {Table, Icon, Divider,} from 'antd';
 
 const columns = [
     {
@@ -27,23 +27,25 @@ const columns = [
       {
         title: 'Status',
         dataIndex: 'status',
-      },
-      {
-        title: 'Acciones',
-        dataIndex: 'actions',
-        render: () => (
-          <span>
-            <Icon type="edit" theme="filled" />
-      
-            <Icon type="close-circle" theme="filled" />
-           
-           <Icon type="arrows-alt" />
-           
-            <Icon type="eye" theme="filled" />
-          </span>
-        ),
-      },
+      }
   ];
+  columns.push(
+    {
+      title: 'Acciones',
+      dataIndex: 'actions',
+      render: () => (
+        <span>
+          <Icon type="edit" theme="filled" />
+          <Divider type="vertical" />
+          <Icon type="close-circle" theme="filled" />
+          <Divider type="vertical" />
+         <Icon type="arrows-alt" />
+         <Divider type="vertical" />
+          <Icon type="eye" theme="filled" />
+        </span>
+      ),
+    },
+  )
 
   const data = [
     {

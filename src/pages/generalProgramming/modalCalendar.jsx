@@ -12,7 +12,7 @@ class modalCalendar extends PureComponent {
   render() {
     const {dataOne, dataTwo, dataThree, dataFour, dataFive,dataSix,dataSeven} = this.props;
     return(
-        <div>
+        <div style={{marginBottom: "4%"}}>
             <Row type="flex" justify="left">
                 <Col span={dataOne} style={{textAlign: dataFour}}>
                     <label>Semana: </label>
