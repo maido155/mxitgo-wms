@@ -1,0 +1,88 @@
+@media screen and (max-width: 576px) {
+    .cancelarfooter {
+        margin-bottom: .5rem;
+    }
+    .formnweline {
+        margin-bottom: 5rem;
+    }
+    .adddrawerone {
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    .tabledrawerone {
+        margin-bottom: 7rem;
+    }
+    /* .week {
+        text-align: center
+    }
+    .calendar {
+        text-align: center
+    }
+    .addbutton {
+        margin-top: 1rem;
+        text-align: center
+    }
+    .product {
+        margin-top: 1rem;
+        text-align: center;
+    }
+    .typeProduct {
+        text-align: center;
+        width: 20rem;
+    } */
+}
+
+@media screen and (min-width: 576px) {
+    .adddrawerone {
+        margin-bottom: 1rem;
+        text-align: right;
+    }
+    .tabledrawerone {
+        margin-bottom: 4rem;
+    }
+    /* .week {
+        text-align: right
+    }
+    .calendar {
+        margin-left: .5rem;
+    }
+    .addbutton {
+        text-align: right
+    }
+    .product {
+        text-align: right;
+    }
+    .typeProduct {
+        text-align: center;
+    } */
+}
+
+@media screen and (min-width: 768px) {
+    .adddrawerone {
+        text-align: right;
+        margin-bottom: 1rem;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .adddrawerone {
+        text-align: right;
+        margin-bottom: 1rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .adddrawerone {
+        text-align: right;
+        margin-bottom: 1rem;
+    }
+    /* .calendar {
+        margin-left: .5rem;
+    }
+    .product {
+        text-align: center;
+    }
+    .typeProduct {
+        text-align: left;
+    } */
+}

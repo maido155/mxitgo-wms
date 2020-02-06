@@ -49,7 +49,7 @@ class TableComposition extends PureComponent{
     render(){
         return(
             <span>
-                <Table columns={columns} dataSource={data} size="middle" />
+                <Table columns={columns} dataSource={data} size="small"/>
             </span>
         );
     }

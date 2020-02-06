@@ -122,7 +122,7 @@ export default {
             },{
 
               path: '/shippingMaster',
-              name: 'Maestro de envios',
+              name: 'Maestro de envíos',
               icon: 'smile',
               component: './shipping/ShippingMaster',
             },
