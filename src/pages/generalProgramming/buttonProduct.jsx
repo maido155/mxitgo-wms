@@ -2,7 +2,7 @@ import { Button, Radio, Icon,label } from 'antd';
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 
-class ButtonCenter extends PureComponent {
+class ButtonProduct extends PureComponent {
   state = {
     size: 'large',
   };
@@ -25,4 +25,4 @@ class ButtonCenter extends PureComponent {
   }
 }
 
-export default ButtonCenter;
+export default ButtonProduct

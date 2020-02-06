@@ -4,7 +4,7 @@ import { _ } from 'lodash';
 import ButtonCenter from './buttonCenter';
 import ModalCalendar from './modalCalendar';
 import ButtonProduct from './buttonProduct';
-import TableModal from './tableModal'; 
+import TableModal from './TableModal'; 
 
 
 class ModalGeneralProgramming extends PureComponent {
@@ -33,7 +33,7 @@ class ModalGeneralProgramming extends PureComponent {
   render() {
     return (
       <div>
-        <Button type="primary" shape="circle" icon='plus' onClick={this.showModal}>
+        <Button type="primary" shape="circle" icon="plus" onClick={this.showModal}>
         </Button>
         <Modal
           title="Nueva programación"
@@ -43,7 +43,6 @@ class ModalGeneralProgramming extends PureComponent {
         >
           <ModalCalendar/>
          <ButtonProduct/>
-
          <ButtonCenter/>
          <TableModal/>
 
@@ -52,5 +51,5 @@ class ModalGeneralProgramming extends PureComponent {
     );
   }
 }
-
+    
 export default ModalGeneralProgramming;

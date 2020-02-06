@@ -6,7 +6,7 @@ import { Row, Col, Button, Icon, label } from 'antd';
 const { RangePicker} = DatePicker;
 
 
-class modalCalendar extends PureComponent {
+class ModalCalendar extends PureComponent {
  
 
   render() {
@@ -25,7 +25,8 @@ class modalCalendar extends PureComponent {
             </Row>
         </div>
     );
+ 
 }
 }
 
-export default modalCalendar;
+export default ModalCalendar;

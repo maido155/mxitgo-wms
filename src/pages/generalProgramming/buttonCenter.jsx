@@ -26,5 +26,5 @@ class ButtonCenter extends PureComponent {
     );
   }
 }
-
-export default ButtonCenter;
+  
+export default ButtonCenter
