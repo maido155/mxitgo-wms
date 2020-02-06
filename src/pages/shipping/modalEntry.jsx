@@ -4,9 +4,10 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { _ } from 'lodash';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import {Button,Divider,Modal,Icon} from 'antd';
+import {Button,Divider,Modal,Icon, Row} from 'antd';
 import Tabla from './tableModalEntry';
-import Taabs from './tabsModalEntry';
+import RadioGroupModal from './radioGroupModalEntry';
+import GridModal from './gridModalEntr';
 import {isMobile} from "react-device-detect";
 
 
@@ -63,8 +64,13 @@ state = {
             <div>
           <Tabla/> 
           <Divider/>
-          <Taabs/>
+         
+          <RadioGroupModal dataEight={1} dataNine={15}/>
+          
           </div>
+          <div>
+          <GridModal  dataOne={16} dataTwo={3} dataThree={10} dataFour={4}/>
+        </div>
         </Modal>
       </span>
     );
@@ -96,7 +102,10 @@ return (
           <div>
         <Tabla/> 
         <Divider/>
-        <Taabs/>
+        <RadioGroupModal dataEight={7} dataNine={13}/>
+        </div>
+        <div>
+          <GridModal  dataOne={8} dataTwo={2} dataThree={10} dataFour={4}/>
         </div>
       </Modal>
     </span>

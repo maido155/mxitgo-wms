@@ -47,8 +47,8 @@ const columns = [
     },
     {
       title: 'Llegada',
-      dataIndex: 'Llegada',
-      key: 'Llegada',
+      dataIndex: 'llegada',
+      key: 'llegada',
     },
     {
       title: 'Entrada',
@@ -57,8 +57,8 @@ const columns = [
     },
     {
       title: 'Chofer',
-      dataIndex: 'Chofer',
-      key: 'Chofer',
+      dataIndex: 'chofer',
+      key: 'chofer',
     },
   ];
   
@@ -71,9 +71,9 @@ const columns = [
         segunda: 39,
         mano: 79,
         dedo: 800,
-        salida: 13/7/19,
-        llegada: 15/7/19,
-        entrada: 15/7/19,
+        salida: 'Mie 13-07',
+        llegada: 'Jue 14-07',
+        entrada: 'Vie 15-07',
         chofer: 'Ramòn',
       },
      
@@ -85,13 +85,13 @@ const columns = [
        if (isMobile){
             return (
                 <span>
-                   <Table columns={columns} dataSource={data} scroll={{x: 'calc(850px + 50%)', y: 240}} />  
+                   <Table columns={columns} dataSource={data} scroll={{x: 1500, y: 300}} pagination={false}/>  
                 </span>
               );  
        }
         return (
           <span>
-             <Table columns={columns} dataSource={data} />  
+             <Table columns={columns} dataSource={data} pagination={false}/>  
           </span>
         );
         
