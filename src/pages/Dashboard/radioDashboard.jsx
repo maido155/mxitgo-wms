@@ -8,7 +8,7 @@ class radioDashboard extends PureComponent {
             <Row type="flex" justify="right">
                 <Col span={dataEight} style={{textAlign: "center"}}>
                 </Col>
-                <Col span={dataNine} style={{textAlign: "center"}}>
+                <Col span={dataNine} style={{textAlign: "center", margin:"1rem"}}>
                     <Radio.Group defaultValue="a">
                         <Radio.Button value="a">Gold</Radio.Button>
                         <Radio.Button value="b">Premium</Radio.Button>

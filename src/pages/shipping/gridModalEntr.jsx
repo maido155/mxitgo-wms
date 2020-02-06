@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
-import {Tabs,Input, Row, Col, Button} from 'antd';
+import {Input, Row, Col, Button} from 'antd';
 
-const { TabPane } = Tabs;
 const InputGroup = Input.Group;
 const { TextArea } = Input;
 
@@ -14,7 +13,7 @@ class gridModalEntry extends PureComponent {
 
 state = { size: 'small' };
 render() {
-    const { size } = this.state;
+    
     const {dataOne, dataTwo, dataThree, dataFour} = this.props;
     return (
         
