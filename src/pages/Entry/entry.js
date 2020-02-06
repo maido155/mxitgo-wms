@@ -4,7 +4,7 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { _ } from 'lodash';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import Modal from './modalEntry'
+import Modal from '../shipping/modalEntry'
 import { Row, Col,Card} from 'antd';
 import {isMobile} from "react-device-detect";
 import 'moment/locale/en-au';
