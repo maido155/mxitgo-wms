@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
-import {Table, Icon} from 'antd';
+import {Table, Icon, Input, Row, Col} from 'antd';
 
 const columns = [
     {
@@ -82,7 +82,78 @@ class tableModal extends PureComponent{
 
     render(){
         return(
-            <Table columns={columns} dataSource={data} />
+          <Row type="flex" justify="center">
+        <label>Jueves 8 Nov</label>
+          <Col >
+             <Input></Input>
+          </Col>
+          <Col >
+          <Input></Input>
+          </Col>
+          <Col >
+        <label>Viernes 9 Nov</label>
+          </Col>
+          <Col >
+             <Input></Input>
+          </Col>
+          <Col >
+          <Input></Input>
+          </Col>
+          <Col >
+        <label>Sab 10 Nov</label>
+          </Col>
+          <Col >
+             <Input></Input>
+          </Col>
+          <Col >
+          <Input></Input>
+          </Col>
+          <Col >
+        <label>Dom 11 Nov</label>
+          </Col>
+          <Col >
+             <Input></Input>
+          </Col>
+          <Col >
+          <Input></Input>
+          </Col>    
+           <Col >
+        <label>Lun 12 Nov</label>
+          </Col>
+          <Col >
+             <Input></Input>
+          </Col>
+          <Col >
+          <Input></Input>
+          </Col>
+          <Col >
+        <label>Mar 13 Nov</label>
+          </Col>
+          <Col >
+             <Input></Input>
+          </Col>
+          <Col >
+          <Input></Input>
+          </Col>
+          <Col >
+        <label>Mie 14 Nov</label>
+          </Col>
+          <Col >
+             <Input></Input>
+          </Col>
+          <Col >
+          <Input></Input>
+          </Col>
+          <Col >
+        <label>Total</label>
+          </Col>
+          <Col >
+          <label>0</label>
+          </Col>
+          <Col >
+          <label>0</label>
+          </Col>
+      </Row>
         );
     }
 

@@ -2,7 +2,7 @@ import { Button, Radio, Icon,label } from 'antd';
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 
-class ButtonCenter extends PureComponent {
+class ButtonProduct extends PureComponent {
   state = {
     size: 'large',
   };
@@ -14,7 +14,7 @@ class ButtonCenter extends PureComponent {
   render() {
     const { size } = this.state;
     return (
-      <div>
+      <div style={{marginTop: "4%"}}>
         <label>Producto: </label>
         <Radio.Group value={size} onChange={this.handleSizeChange}>
           <Radio.Button value="large">Gold</Radio.Button>
@@ -25,4 +25,4 @@ class ButtonCenter extends PureComponent {
   }
 }
 
-export default ButtonCenter;
+export default ButtonProduct

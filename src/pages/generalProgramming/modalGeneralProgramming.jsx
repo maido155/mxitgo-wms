@@ -2,8 +2,11 @@ import { Modal, Button, Calendar } from 'antd';
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import ButtonCenter from './buttonCenter';
+import ModalCalendar from './modalCalendar';
 import ButtonProduct from './buttonProduct';
-import TableModal from './tableModal'; 
+import TableModal from './TableModal'; 
+
+
 class ModalGeneralProgramming extends PureComponent {
   state = { visible: false };
 
@@ -30,7 +33,7 @@ class ModalGeneralProgramming extends PureComponent {
   render() {
     return (
       <div>
-        <Button type="primary" shape="circle" icon='plus' onClick={this.showModal}>
+        <Button type="primary" shape="circle" icon="plus" onClick={this.showModal}>
         </Button>
         <Modal
           title="Nueva programación"
@@ -38,10 +41,9 @@ class ModalGeneralProgramming extends PureComponent {
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-     
-         <ButtonProduct/>,
-         
-         <ButtonCenter/>,
+          <ModalCalendar/>
+         <ButtonProduct/>
+         <ButtonCenter/>
          <TableModal/>
 
         </Modal>
@@ -49,5 +51,5 @@ class ModalGeneralProgramming extends PureComponent {
     );
   }
 }
-
+    
 export default ModalGeneralProgramming;
