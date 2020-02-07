@@ -4,6 +4,7 @@ import DrawerShippingPrograming from './DrawerShippingPrograming';
 import ConfirmationShipping from './ConfirmationShipping';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
 import TableShippingMaster from './TableShippingMaster';
+import ModalEntry from './modalEntry';
 import Styles from './StylesShipping.css';
 import { _ } from 'lodash'; 
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
@@ -14,7 +15,9 @@ export default class ShippingMaster extends PureComponent {
     {
         visibleFirstDrawer: false,
         visibleSecondDrawer: false,
-        visibleThirdDrawer: false
+        visibleThirdDrawer: false,
+        visibleModal: false,
+        loadingModal: false
     }
 
     showFirstDrawer = () =>{
@@ -35,6 +38,19 @@ export default class ShippingMaster extends PureComponent {
         });
     };
 
+    showModal = () => {
+        this.setState({
+          visibleModal: true
+        });
+    };
+
+    handleOk = () => {
+        this.setState({ loadingModal: true });
+        setTimeout(() => {
+          this.setState({ loadingModal: false, visibleModal: false });
+        }, 3000);
+    };
+
     onCloseFirstDrawer = () =>{
         this.setState({
             visibleFirstDrawer: false
@@ -51,6 +67,10 @@ export default class ShippingMaster extends PureComponent {
         this.setState({
             visibleThirdDrawer: false
         });
+    };
+
+    handleCancel = () => {
+        this.setState({ visibleModal: false });
     };
 
     render() {
@@ -92,13 +112,23 @@ export default class ShippingMaster extends PureComponent {
                     <Divider/>
                     <Row>
                         <Col span={24}>
-                            <TableShippingMaster clickFirstTable={this.showFirstDrawer} clickthirdTable={this.showThirdDrawer}/>
+                            <TableShippingMaster 
+                                clickFirstTable={this.showFirstDrawer} 
+                                clickthirdTable={this.showThirdDrawer}
+                                clickModal={this.showModal}
+                            />
                             <ConfirmationShipping
                                 visibleThird={this.state.visibleThirdDrawer}
                                 closeThirdDrawer={this.onCloseThirdDrawer}
                                 showSecond={this.showSecondDrawer}
                                 visibleSecond={this.state.visibleSecondDrawer}
                                 closeSecond={this.onCloseSecondDrawer} 
+                            />
+                            <ModalEntry
+                                visibleModal={this.state.visibleModal}
+                                successModal={this.handleOk}
+                                cancelModal={this.handleCancel}
+                                loadingModal={this.state.loadingModal}
                             />
                         </Col>
                     </Row>
