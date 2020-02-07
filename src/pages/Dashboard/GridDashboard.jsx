@@ -17,7 +17,7 @@ class GridDashboard extends PureComponent {
           <Row type="flex" justify="space-around">
          
               <Col xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
-              <Title level={dataThree}>Miercoles</Title>
+              <Title level={dataThree}>Miércoles</Title>
               <Card style={{ width: dataFive }} size='small'>
                
                 <p><Title type="danger" level={dataFour}>1500</Title></p>
@@ -54,7 +54,7 @@ class GridDashboard extends PureComponent {
               </Card>
               </Col>
               <Col xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
-              <Title level={dataThree}>Sabado</Title>
+              <Title level={dataThree}>Sábado</Title>
               <Card style={{ width: dataFive }} size='small'>
               <p><Title level={dataFour}>1500</Title></p>
                 <Tooltip >

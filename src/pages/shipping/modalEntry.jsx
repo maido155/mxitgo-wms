@@ -4,9 +4,9 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { _ } from 'lodash';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import {Button,Divider,Modal,Icon, Row} from 'antd';
+import {Button,Divider,Modal,Icon, Row,Col} from 'antd';
 import Tabla from './tableModalEntry';
-import RadioGroupModal from './radioGroupModalEntry';
+import RadioGroupModal from '../generalComponents/RadioGroupComponent';
 import GridModal from './gridModalEntr';
 import {isMobile} from "react-device-detect";
 
@@ -64,8 +64,13 @@ state = {
             <div>
           <Tabla/> 
           <Divider/>
-         
-          <RadioGroupModal dataEight={1} dataNine={15}/>
+          <Row type="flex" justify="center">
+                    <Col span={dataEight} style={{textAlign: "center"}}>
+                    </Col>
+                    <Col span={dataNine} style={{textAlign: "center"}}>
+                       <RadioGroupModal dataEight={1} dataNine={15}/>
+                    </Col>
+          </Row>
           
           </div>
           <div>
@@ -102,7 +107,13 @@ return (
           <div>
         <Tabla/> 
         <Divider/>
-        <RadioGroupModal dataEight={7} dataNine={13}/>
+        <Row type="flex" justify="center">
+                    <Col span={2} style={{textAlign: "center"}}>
+                    </Col>
+                    <Col span={22} style={{textAlign: "center"}}>
+                   <RadioGroupModal/>
+                   </Col>
+        </Row>
         </div>
         <div>
           <GridModal  dataOne={8} dataTwo={2} dataThree={10} dataFour={4}/>
