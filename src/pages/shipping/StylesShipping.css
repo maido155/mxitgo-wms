@@ -10,26 +10,14 @@
         text-align: center;
     }
     .tabledrawerone {
-        margin-bottom: 7rem;
+        margin-bottom: 5rem;
     }
-    /* .week {
-        text-align: center
-    }
-    .calendar {
-        text-align: center
-    }
-    .addbutton {
-        margin-top: 1rem;
-        text-align: center
-    }
-    .product {
-        margin-top: 1rem;
+    .addshippingmaster {
         text-align: center;
     }
-    .typeProduct {
-        text-align: center;
-        width: 20rem;
-    } */
+    .lastcolumn {
+        margin-bottom: 4rem;
+    }
 }
 
 @media screen and (min-width: 576px) {
@@ -40,27 +28,21 @@
     .tabledrawerone {
         margin-bottom: 4rem;
     }
-    /* .week {
-        text-align: right
-    }
-    .calendar {
-        margin-left: .5rem;
-    }
-    .addbutton {
-        text-align: right
-    }
-    .product {
+    .addshippingmaster {
         text-align: right;
     }
-    .typeProduct {
-        text-align: center;
-    } */
+    .lastcolumn {
+        margin-bottom: 3rem;
+    }
 }
 
 @media screen and (min-width: 768px) {
     .adddrawerone {
         text-align: right;
         margin-bottom: 1rem;
+    }
+    .addshippingmaster {
+        text-align: right;
     }
 }
 
@@ -69,6 +51,9 @@
         text-align: right;
         margin-bottom: 1rem;
     }
+    .addshippingmaster {
+        text-align: right;
+    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -76,13 +61,10 @@
         text-align: right;
         margin-bottom: 1rem;
     }
-    /* .calendar {
-        margin-left: .5rem;
+    .addshippingmaster {
+        text-align: right;
     }
-    .product {
-        text-align: center;
+    .lastcolumn {
+        margin-bottom: 3rem;
     }
-    .typeProduct {
-        text-align: left;
-    } */
 }

@@ -1,18 +1,20 @@
 import React, { PureComponent } from 'react';
 import RangePickerComponent from '../generalComponents/RangePickerComponent';
 import DrawerShippingPrograming from './DrawerShippingPrograming';
+import ConfirmationShipping from './ConfirmationShipping';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
 import TableShippingMaster from './TableShippingMaster';
 import Styles from './StylesShipping.css';
 import { _ } from 'lodash'; 
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { Card, Divider, Row, Col, Button, Icon } from 'antd';
+import { Card, Divider, Row, Col, Button, Icon, Form } from 'antd';
 
 export default class ShippingMaster extends PureComponent {
     state=
     {
         visibleFirstDrawer: false,
-        visibleSecondDrawer: false
+        visibleSecondDrawer: false,
+        visibleThirdDrawer: false
     }
 
     showFirstDrawer = () =>{
@@ -24,6 +26,12 @@ export default class ShippingMaster extends PureComponent {
     showSecondDrawer = () =>{
         this.setState({
             visibleSecondDrawer: true
+        });
+    };
+
+    showThirdDrawer = () =>{
+        this.setState({
+            visibleThirdDrawer: true
         });
     };
 
@@ -39,43 +47,59 @@ export default class ShippingMaster extends PureComponent {
         });
     };
 
+    onCloseThirdDrawer = () =>{
+        this.setState({
+            visibleThirdDrawer: false
+        });
+    };
+
     render() {
+        const formItemLayout = {
+            labelCol: {xs: { span: 24 },sm: { span: 9 },md: { span: 9 },lg: { span: 9 },xl: { span: 9 }},
+            wrapperCol: {xs: { span: 24 },sm: { span: 15 },md: { span: 15 },lg: { span: 15 },xl: { span: 15  }}
+        };
         return(
             <PageHeaderWrapper>
                 <Card>
-                    <Row>
-                        <Col xs={24} sm={4} md={4} lg={5} xl={8} className={Styles.week}>
-                            <h3>Semana:</h3>
-                        </Col>
-                        <Col xs={24} sm={16} md={14} lg={13} xl={8} className={Styles.calendar}>
-                            <RangePickerComponent/>
-                        </Col>
-                        <Col xs={24} sm={3} md={5} lg={5} xl={7} className={Styles.addbutton}>
-                            <Button type="primary" shape="circle" size="large" onClick={this.showFirstDrawer}>
-                                <Icon type="plus" />
-                            </Button>
-                            <DrawerShippingPrograming 
-                                visibleFirst={this.state.visibleFirstDrawer} 
-                                closeFirst={this.onCloseFirstDrawer}
-                                showSecond={this.showSecondDrawer} 
-                                visibleSecond={this.state.visibleSecondDrawer}
-                                closeSecond={this.onCloseSecondDrawer}
+                    <Form {...formItemLayout}>
+                        <Row type="flex" justify="center">
+                            <Col xs={24} sm={16} md={16} lg={16} xl={16}>
+                                <Form.Item label="Semana:">
+                                    <RangePickerComponent/>
+                                </Form.Item>
+                            </Col>
+                            <Col xs={24} sm={6} md={6} lg={6} xl={6} className={Styles.addshippingmaster}>
+                                <Button type="primary" shape="circle" size="large" onClick={this.showFirstDrawer}>
+                                    <Icon type="plus" />
+                                </Button>
+                                <DrawerShippingPrograming 
+                                    visibleFirst={this.state.visibleFirstDrawer} 
+                                    closeFirst={this.onCloseFirstDrawer}
+                                    showSecond={this.showSecondDrawer} 
+                                    visibleSecond={this.state.visibleSecondDrawer}
+                                    closeSecond={this.onCloseSecondDrawer}
                                 />
-                        </Col>  
-                    </Row>
-                    <Row type="flex" justify="center">
-                        <Col xs={16} sm={6} md={4} lg={4} xl={3} className={Styles.product}>
-                            <h3>Producto:</h3>
-                        </Col>
-                        <Col xs={16} sm={10} md={8} lg={8} xl={4} className={Styles.typeProduct}>
-                            <RadioGroupComponent/>
-                        </Col>
-                    </Row>
+                            </Col>  
+                        </Row>
+                        <Row type="flex" justify="center">
+                            <Col xs={24} sm={12} md={12} lg={12} xl={13}>
+                                <Form.Item label="Producto:">
+                                    <RadioGroupComponent/>
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                    </Form>
                     <Divider/>
                     <Row>
-                        <Col>
-                            <TableShippingMaster
-                                clickFirstTable={this.showFirstDrawer}/>
+                        <Col span={24}>
+                            <TableShippingMaster clickFirstTable={this.showFirstDrawer} clickthirdTable={this.showThirdDrawer}/>
+                            <ConfirmationShipping
+                                visibleThird={this.state.visibleThirdDrawer}
+                                closeThirdDrawer={this.onCloseThirdDrawer}
+                                showSecond={this.showSecondDrawer}
+                                visibleSecond={this.state.visibleSecondDrawer}
+                                closeSecond={this.onCloseSecondDrawer} 
+                            />
                         </Col>
                     </Row>
                 </Card>

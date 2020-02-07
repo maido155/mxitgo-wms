@@ -3,7 +3,6 @@ import { _ } from 'lodash';
 import {isMobile} from 'react-device-detect';
 import { Table, Divider, Icon} from 'antd';
 import ModalDeleteComponent from '../generalComponents/ModalDeleteComponent';
-import ModalConfirmComponent from '../generalComponents/ModalConfirmComponent';
 
 export default class TableShippingMaster extends PureComponent{
     render(){
@@ -113,13 +112,17 @@ export default class TableShippingMaster extends PureComponent{
             width: 130,
             render: () => (
               <span>
-                <Icon type="edit" onClick={this.props.clickFirstTable}/>
+                  <a onClick={this.props.clickFirstTable}>
+                    <Icon type="edit" />
+                  </a>
                 <Divider type="vertical" />
-                <Icon type="check" />
+                  <a onClick={this.props.clickthirdTable}>
+                    <Icon type="fullscreen" />
+                  </a>
                 <Divider type="vertical" />
-                <Icon type="minus" />
+                  <ModalDeleteComponent/>
                 <Divider type="vertical" />
-                <Icon type="question" />
+                  <a><Icon type="question" /></a>
               </span>
             ),
           }
@@ -130,16 +133,20 @@ export default class TableShippingMaster extends PureComponent{
             title: 'Acciones',
             key: 'action',
             fixed: 'right',
-            width: 270,
+            width: 320,
             render: () => (
               <span>
-                <a onClick={this.props.clickFirstTable}>Editar</a>
+                  <a onClick={this.props.clickFirstTable}>
+                    <Icon type="edit" />Editar
+                  </a>
                 <Divider type="vertical" />
-                  <ModalConfirmComponent/>
+                  <a onClick={this.props.clickthirdTable}>
+                    <Icon type="fullscreen" />Confirmar
+                  </a>
                 <Divider type="vertical" />
                   <ModalDeleteComponent/>
                 <Divider type="vertical" />
-                <a>Entrada</a>
+                <a><Icon type="question" />Entrada</a>
               </span>
             ),
           }
