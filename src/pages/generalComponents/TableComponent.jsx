@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
-import { Table, Divider } from 'antd';
+import { Table, Divider, Icon } from 'antd';
 import ModalDeleteComponent from './ModalDeleteComponent';
+import {isMobile} from 'react-device-detect';
 
 export default class TableComponent extends PureComponent{
     render(){
@@ -36,20 +37,48 @@ export default class TableComponent extends PureComponent{
             dataIndex: 'dedo',
             width: 100
         },
-        {
+      ];
+
+      if(isMobile){
+        columns.push(
+          {
             title: 'Acciones',
             key: 'action',
             fixed: 'right',
-            width: 120,
+            width: 150,
             render: () => (
+              
               <span>
-                <a onClick={this.props.showDrawer}>Editar</a>
+                <a onClick={this.props.showDrawer}>
+                  <Icon type="edit" />
+                </a>
                 <Divider type="vertical" />
                   <ModalDeleteComponent/>
               </span>
             ),
-        }
-      ];
+          }
+        );
+      }else{
+        columns.push(
+          {
+            title: 'Acciones',
+            key: 'action',
+            fixed: 'right',
+            width: 150,
+            render: () => (
+              
+              <span>
+                <a onClick={this.props.showDrawer}>
+                  <Icon type="edit" />Editar
+                </a>
+                <Divider type="vertical" />
+                  <ModalDeleteComponent/>
+              </span>
+            ),
+          }
+        );
+      }
+
       const data = [
         {
             key: '1',
@@ -92,7 +121,7 @@ export default class TableComponent extends PureComponent{
         return(
             <Table 
               rowSelection={rowSelection} columns={columns} dataSource={data} pagination={false} 
-              scroll={{x: 950, y: 300}} size="small"
+              scroll={{x: 1000, y: 300}} size="small"
             />
         );
     }

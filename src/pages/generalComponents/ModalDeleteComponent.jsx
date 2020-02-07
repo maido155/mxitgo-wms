@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
-import { Modal} from 'antd';
+import { Modal, Icon} from 'antd';
+import {isMobile} from 'react-device-detect';
 
 const { confirm } = Modal;
 
@@ -22,10 +23,18 @@ function showDeleteConfirm() {
 
 export default class ModalDeleteComponent extends PureComponent{
     render(){
+      if(isMobile){
         return(
-            <a onClick={showDeleteConfirm} type="dashed">
-              Eliminar
-            </a>
+          <a onClick={showDeleteConfirm} type="dashed">
+            <Icon type="close" />
+          </a>
         );
+      }else{
+        return(
+          <a onClick={showDeleteConfirm} type="dashed">
+            <Icon type="close" />Eliminar
+          </a>
+        );
+      }
     }
 }
