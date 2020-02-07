@@ -116,10 +116,6 @@ export default {
               component: './Dashboard/dashboard',
             },
             {
-              path: '/entry',
-              name: 'Entry',
-              component: './Entry/entry',
-            },{
 
               path: '/shippingMaster',
               name: 'Maestro de envíos',

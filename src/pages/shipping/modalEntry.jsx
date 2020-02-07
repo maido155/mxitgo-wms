@@ -5,107 +5,76 @@ import { routerRedux } from 'dva/router';
 import { _ } from 'lodash';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import {Button,Divider,Modal,Icon, Row,Col} from 'antd';
-import Tabla from './tableModalEntry';
+import TableModal from './tableModalEntry';
 import RadioGroupModal from '../generalComponents/RadioGroupComponent';
-import GridModal from './gridModalEntr';
+import GridModal from './gridModalEntry';
 import {isMobile} from "react-device-detect";
 
 
 import 'moment/locale/en-au';
 
-class modalEntry extends PureComponent {
-state = {
-    loading: false,
-    visible: false,
-  };
-
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-
-  handleOk = () => {
-    this.setState({ loading: true });
-    setTimeout(() => {
-      this.setState({ loading: false, visible: false });
-    }, 3000);
-  };
-
-  handleCancel = () => {
-    this.setState({ visible: false });
-  };
+class ModalEntry extends PureComponent {
+  if(isMobile){
+    return (
+     <span>
+      
+      <Modal
+        width= '100%'
+        title="Nueva Entrada"
+        visible={this.props.visibleModal}
+        onOk={this.props.successModal}
+        onCancel={this.props.cancelModal}
+        footer={[
+           <Button key="back" type="danger" onClick={this.props.cancelModal}>
+               Cancelar
+           </Button>,
+           <Button key="submit" type="primary" loading={this.props.loadingModal} onClick={this.props.successModal}>
+               Aceptar
+           </Button>,
+        ]}
+         //imports Tabla and Tabs From respective js
+       >
+           <div>
+         <TableModal/> 
+         <Divider/>
+         <Row type="flex" justify="center">
+                   <Col span={dataEight} style={{textAlign: "center"}}>
+                   </Col>
+                   <Col span={dataNine} style={{textAlign: "center"}}>
+                      <RadioGroupModal dataEight={1} dataNine={15}/>
+                   </Col>
+         </Row>
+         
+         </div>
+         <div>
+         <GridModal  dataOne={16} dataTwo={3} dataThree={10} dataFour={4}/>
+       </div>
+       </Modal>
+     </span>
+   );
+ }
 
   render() {
-    const { loading } = this.state;
-    if(isMobile){
-     return (
-      <span>
-        <Button type="primary" size="small" onClick={this.showModal}>
-        <Icon type="plus" />
-            Nueva Entrada
-        </Button>
-        <Modal
-          width= '100%'
-          title="Nueva Entrada"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          footer={[
-            <Button key="back" type="danger" onClick={this.handleCancel}>
-              Cancel
-            </Button>,
-            <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
-              Submit
-            </Button>,
-          ]}
-          //imports Tabla and Tabs From respective js
-        >
-            <div>
-          <Tabla/> 
-          <Divider/>
-          <Row type="flex" justify="center">
-                    <Col span={dataEight} style={{textAlign: "center"}}>
-                    </Col>
-                    <Col span={dataNine} style={{textAlign: "center"}}>
-                       <RadioGroupModal dataEight={1} dataNine={15}/>
-                    </Col>
-          </Row>
-          
-          </div>
-          <div>
-          <GridModal  dataOne={16} dataTwo={3} dataThree={10} dataFour={4}/>
-        </div>
-        </Modal>
-      </span>
-    );
-  }
-
-
-return (
+   return (
     <span>
-      <Button type="primary" size="large" onClick={this.showModal}>
-      <Icon type="plus" />
-          Nueva Entrada
-      </Button>
       <Modal
         width= '80%'
         title="Nueva Entrada"
-        visible={this.state.visible}
-        onOk={this.handleOk}
-        onCancel={this.handleCancel}
+        visible={this.props.visibleModal}
+        onOk={this.props.successModal}
+        onCancel={this.props.cancelModal}
         footer={[
-          <Button key="back" type="danger" onClick={this.handleCancel}>
+          <Button key="back" type="danger" onClick={this.props.cancelModal}>
             Cancel
           </Button>,
-          <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
+          <Button key="submit" type="primary" loading={this.props.loadingModal} onClick={this.props.successModal}>
             Submit
           </Button>,
         ]}
         //imports Tabla and Tabs From respective js
       >
-          <div>
-        <Tabla/> 
+        <div>
+        <TableModal/> 
         <Divider/>
         <Row type="flex" justify="center">
                     <Col span={2} style={{textAlign: "center"}}>
@@ -118,10 +87,11 @@ return (
         <div>
           <GridModal  dataOne={8} dataTwo={2} dataThree={10} dataFour={4}/>
         </div>
+
       </Modal>
     </span>
   );
 }
 }
 
-export default modalEntry;
+export default ModalEntry;

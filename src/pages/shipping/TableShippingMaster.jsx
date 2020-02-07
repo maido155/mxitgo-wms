@@ -146,7 +146,7 @@ export default class TableShippingMaster extends PureComponent{
                 <Divider type="vertical" />
                   <ModalDeleteComponent/>
                 <Divider type="vertical" />
-                <a><Icon type="question" />Entrada</a>
+                <a onClick={this.props.clickModal}><Icon type="question" />Entrada</a>
               </span>
             ),
           }

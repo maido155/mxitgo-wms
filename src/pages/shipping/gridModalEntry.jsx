@@ -85,19 +85,19 @@ render() {
                     <label>Fotos</label>
                 </Col>
                 <Col span={dataTwo} style={{padding:"0.5rem"}}>
-                    <Button>Default</Button>
+                    <Button>Foto</Button>
                 </Col>
                 <Col span={dataTwo} style={{padding:"0.5rem"}}>
-                    <Button>Default</Button>
+                    <Button>Foto</Button>
                 </Col>
                 <Col span={dataTwo} style={{padding:"0.5rem"}}>
-                    <Button>Default</Button>
+                    <Button>Foto</Button>
                 </Col>
                 <Col span={dataTwo} style={{padding:"0.5rem"}}>
-                    <Button>Default</Button>
+                    <Button>Foto</Button>
                 </Col>
                 <Col span={dataTwo} style={{padding:"0.5rem"}}>
-                    <Button>Default</Button>
+                    <Button>Foto</Button>
                 </Col>
             </Row>
         
