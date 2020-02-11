@@ -18,86 +18,86 @@ class GridDashboard extends PureComponent {
          
               <Col xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <Title level={dataThree}>Miércoles</Title>
-              <Card style={{ width: dataFive }} size='small'>
+              <Card style={{ width: dataFive, height: "10rem" }} size='small'>
                
-                <p><Title type="danger" level={dataFour}>1500</Title></p>
+                <Title type="danger" level={dataFour}>1500</Title>
                 <Tooltip >
                    <Progress percent={60} successPercent={30} showInfo={false} strokeWidth={dataSeven} />
                </Tooltip>
-                <p>Planeados: </p>
-                <p>Confirmados: </p>
-                <p><Text type="danger">cancelados: </Text></p>
+                <Text>Planeados: </Text>
+                <Text>Confirmados: </Text>
+                <Text type="danger">Cancelados: </Text>
               </Card>
               </Col>
               <Col xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
                 <Title level={dataThree}>Jueves</Title>
-              <Card style={{ width: dataFive }} size='small'>
-              <p><Title  level={dataFour}>1500</Title></p>
+              <Card style={{ width: dataFive, height: "10rem"}} size='small'>
+              <Title  level={dataFour}>1500</Title>
                 <Tooltip >
                    <Progress percent={60} successPercent={30} showInfo={false} strokeWidth={dataSeven} />
                </Tooltip>
-                <p>Planeados: </p>
-                <p>Confirmados: </p>
-                
+               <Text>Planeados: </Text>
+                <Text>Confirmados: </Text>
+
               </Card>
               </Col>
               <Col xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <Title level={dataThree}>Viernes</Title>
-              <Card style={{ width: dataFive }} size='small'>
-              <p><Title level={dataFour}>1500</Title></p>
+              <Card style={{ width: dataFive, height: "10rem" }} size='small'>
+              <Title level={dataFour}>1500</Title>
                 <Tooltip >
                    <Progress percent={60} successPercent={30} showInfo={false} strokeWidth={dataSeven} />
                </Tooltip>
-                <p>Planeados: </p>
-                <p>Confirmados: </p>
+                 <Text>Planeados: </Text>
+                <Text>Confirmados: </Text>
                 
               </Card>
               </Col>
               <Col xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <Title level={dataThree}>Sábado</Title>
-              <Card style={{ width: dataFive }} size='small'>
-              <p><Title level={dataFour}>1500</Title></p>
+              <Card style={{ width: dataFive, height: "10rem" }} size='small'>
+              <Title level={dataFour}>1500</Title>
                 <Tooltip >
                    <Progress percent={60} successPercent={30} showInfo={false} strokeWidth={dataSeven} />
                </Tooltip>
-                <p>Planeados: </p>
-                <p>Confirmados: </p>
+                 <Text>Planeados: </Text>
+                <Text>Confirmados: </Text>
                 
               </Card>
               </Col>
               <Col xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <Title level={dataThree}>Domingo</Title>
-              <Card style={{ width: dataFive }} size='small'>
-              <p><Title level={dataFour}>1500</Title></p>
+              <Card style={{ width: dataFive, height: "10rem" }} size='small'>
+              <Title level={dataFour}>1500</Title>
                 <Tooltip >
                    <Progress percent={60} successPercent={30} showInfo={false} strokeWidth={dataSeven} />
                </Tooltip>
-                <p>Planeados: </p>
-                <p>Confirmados: </p>
+                 <Text>Planeados: </Text>
+                <Text>Confirmados: </Text>
                 
               </Card>
               </Col>
               <Col xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <Title level={dataThree}>Lunes</Title>
-              <Card style={{ width: dataFive }} size='small'>
-              <p><Title level={dataFour}>1500</Title></p>
-                <Tooltip >
-                   <Progress percent={60} successPercent={30} showInfo={false} strokeWidth={dataSeven} />
+              <Card style={{ width: dataFive, height: "10rem" }} size='small'>
+              <Title level={dataFour}>1500</Title>
+                <Tooltip>
+                   <Progress percent={60} successPercent={30} showInfo={false} strokeWidth={dataSeven}/>
                </Tooltip>
-                <p>Planeados: </p>
-                <p>Confirmados: </p>
+                 <Text>Planeados: </Text>
+                <Text>Confirmados: </Text>
                 
               </Card>
               </Col>
               <Col xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <Title level={dataThree}>Martes</Title>
-              <Card style={{ width: dataFive }} size='small'>
-              <p><Title level={dataFour}>1500</Title></p>
+              <Card style={{ width: dataFive, height: "10rem" }} size='small'>
+              <Title level={dataFour}>1500</Title>
                 <Tooltip >
                    <Progress percent={60} successPercent={30} showInfo={false} strokeWidth={dataSeven} />
                </Tooltip>
-                <p>Planeados: </p>
-                <p>Confirmados: </p>
+                 <Text>Planeados: </Text>
+                <Text>Confirmados: </Text>
                 
               </Card>
               </Col>

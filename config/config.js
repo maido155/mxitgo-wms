@@ -94,13 +94,13 @@ export default {
           authority: ['admin', 'user'],
           routes: [{
               path: '/',
-              redirect: '/welcome',
+              redirect: '/dashboard',
             },
             {
-              path: '/welcome',
-              name: 'welcome',
-              icon: 'smile',
-              component: './Welcome',
+              path: '/dashboard',
+              name: 'Dashboard',
+              icon: 'dashboard',
+              component: './Dashboard/Dashboard',
             },
             {
 
@@ -108,12 +108,6 @@ export default {
               name: 'Programación General',
               icon: 'setting',
               component: './generalProgramming/generalProgramming'
-            },{
-
-              path: '/dashboard',
-              name: 'Dashboard',
-              icon: 'dashboard',
-              component: './Dashboard/dashboard',
             },
             {
 
