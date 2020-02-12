@@ -62,31 +62,25 @@ export default class DrawerShippingPrograming extends PureComponent{
                                 <TableComponent showDrawer={this.props.showSecond}/>
                             </Col>
                         </Row>
-                            <div
-                                style={{
-                                position: 'absolute',
-                                right: 0,
-                                bottom: 0,
-                                width: '100%',
-                                borderTop: '1px solid #e9e9e9',
-                                padding: '10px 16px',
-                                background: '#fff',
-                                textAlign: 'center',
-                                }}
-                            >
-                                <Row type="flex" justify="center">
-                                    <Col xs={24} sm={9} md={9} xl={5} className={Styles.cancelarfooter}>
-                                        <Button type="primary" onClick={this.props.closeFirst}>
-                                            Programar
-                                        </Button>
-                                    </Col>
-                                    <Col xs={24} sm={9} md={9} xl={5}>
-                                        <Button type="danger" onClick={this.props.closeFirst}>
-                                            Cancelar
-                                        </Button>
-                                    </Col>
-                                </Row>
-                            </div>
+                        <div
+                            style={{
+                            position: 'absolute',
+                            right: 0,
+                            bottom: 0,
+                            width: '100%',
+                            borderTop: '1px solid #e9e9e9',
+                            padding: '10px 16px',
+                            background: '#fff',
+                            textAlign: 'right',
+                            }}
+                        >
+                            <Button type="danger" onClick={this.props.closeFirst} className={Styles.cancelarfooter}>
+                                Cancelar
+                            </Button>
+                            <Button type="primary" onClick={this.props.closeFirst}>
+                                Programar
+                            </Button>    
+                        </div>
                     </Form>
                 </Drawer>
             </div>
