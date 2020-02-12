@@ -11,7 +11,7 @@ class ModalCalendar extends PureComponent {
 
   render() {
     const formItemLayout = {
-        labelCol: {xs: { span: 24 },sm: { span: 9 },md: { span: 9 },lg: { span: 9 },xl: { span: 9 }},
+        labelCol: {xs: { span: 24 },sm: { span: 10 },md: { span: 10 },lg: { span: 10 },xl: { span: 10 }},
         wrapperCol: {xs: { span: 24 },sm: { span: 15 },md: { span: 15 },lg: { span: 15 },xl: { span: 15  }}
     };
     const {dataOne, dataTwo, dataThree, dataFour, dataFive,dataSix,dataSeven} = this.props;
@@ -20,11 +20,11 @@ class ModalCalendar extends PureComponent {
         <div style={{marginBottom: "4%"}}>
             <span>
             <Form {...formItemLayout}> 
-            <Row type="flex" justify="left">
-                <Col  style={{textAlign:"center"}}>
+            <Row type="flex" justify="center">
+                <Col xs={3} sm={3} md={3} lg={3} xl={3} style={{textAlign:"left"}}>
                     <label>Semana: </label>
                 </Col>
-                <Col  xs={20} sm={20} md={20} lg={20} xl={20}>
+                <Col  xs={18} sm={18} md={18} lg={18} xl={18}>
                     <RangePicker/>
                 </Col>
                 <Col>

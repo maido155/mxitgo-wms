@@ -40,14 +40,23 @@ class ModalGeneralProgramming extends PureComponent {
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+          
+          footer={[
+            <Button key="Cancelar" onClick={this.handleCancel}>
+              Cancelar
+            </Button>,
+            <Button key="Aceptar" type="primary" onClick={this.handleOk}>
+              Aceptar
+            </Button>,
+          ]}
         >
+          
          <ModalCalendar/>
          <Divider type="horizontal"></Divider>
          <ButtonProduct/>
          <ButtonCenter/>
          <Divider type="horizontal"></Divider>
          <TableModal/>
-         <Divider type="horizontal"></Divider>
         </Modal>
       </div>
     );

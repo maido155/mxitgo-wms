@@ -93,17 +93,17 @@ const data = [
        
         render: () => (
           <span>
-            <a>Editar</a>
             <a><Icon type="edit" theme="filled" /></a>
+            <a> Editar</a>
             <Divider type="vertical" />
-            <a>Cancelar</a>
             <a><Icon type="close-circle" theme="filled" /></a>
+            <a> Cancelar</a>
             <Divider type="vertical" />
-            <a>function</a>
             <a><Icon type="arrows-alt" /></a>
+            <a> Pendiente</a>
             <Divider type="vertical" />
-            <a>Visualizar</a>
             <a><Icon type="eye" theme="filled"  /></a>
+            <a> Visualizar</a>
           </span>
         ),
       }
