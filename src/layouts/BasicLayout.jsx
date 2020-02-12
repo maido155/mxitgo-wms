@@ -33,31 +33,13 @@ const menuDataRender = menuList =>
 
 const defaultFooterDom = (
   <DefaultFooter
-    //copyright="2019 蚂蚁金服体验技术部出品"
+    copyright="2020 MXITGO"
     links={[
-      {
-       /* key: 'Ant Design Pro',
-        title: 'Ant Design Pro',
-        href: 'https://pro.ant.design',
-        blankTarget: true,*/
-      },
-      {
-       /* key: 'github',
-        title: <Icon type="github" />,
-        href: 'https://github.com/ant-design/ant-design-pro',
-        blankTarget: true,*/
-      },
-      {
-      /*  key: 'Ant Design',
-        title: 'Ant Design',
-        href: 'https://ant.design',
-        blankTarget: true,*/
-      },
     ]}
   />
 );
 
-/*const footerRender = () => {
+const footerRender = () => {
   if (!isAntDesignPro()) {
     return defaultFooterDom;
   }
@@ -81,7 +63,7 @@ const defaultFooterDom = (
       </div>
     </>
   );
-};*/
+};
 
 const BasicLayout = props => {
   const {
@@ -154,7 +136,7 @@ const BasicLayout = props => {
           <span>{route.breadcrumbName}</span>
         );
       }}
-      //footerRender={footerRender}
+      footerRender={footerRender}
       menuDataRender={menuDataRender}
       formatMessage={formatMessage}
       rightContentRender={() => <RightContent />}

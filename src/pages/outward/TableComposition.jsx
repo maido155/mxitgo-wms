@@ -1,24 +1,23 @@
 import React, { PureComponent } from 'react';
-import { _ } from 'lodash';
-
-import { Table } from 'antd';
+import { _ } from 'lodash'; 
+import { Table, Divider, Tag } from 'antd';
 
 const columns = [
     {
       title: 'Pedido',
       dataIndex: 'pedido',
+      render: text => <a>{text}</a>,
     },
     {
       title: 'Pallets asignados',
-      dataIndex: 'pallets',
+      dataIndex: 'pallets'
     },
     {
-      title: 'Cajas asignadas',
-      dataIndex: 'cajas',
-    },
-  ];
-
-  const data = [
+      title: 'Cajas asignados',
+      dataIndex: 'cajas'
+    }
+];
+const data = [
     {
         key: '1',
         pedido: 'TE1001120201',
@@ -43,16 +42,11 @@ const columns = [
         pallets: 15,
         cajas: 900
     }
-  ];
-
-class TableComposition extends PureComponent{
-    render(){
-        return(
-            <span>
-                <Table columns={columns} dataSource={data} size="small"/>
-            </span>
-        );
+];
+export default class TableComposition extends PureComponent {
+    render() {
+        return (
+            <Table columns={columns} dataSource={data} pagination={false}/>
+        );            
     }
 }
-
-export default TableComposition;

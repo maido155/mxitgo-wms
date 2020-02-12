@@ -32,7 +32,7 @@ export default class ModalDeleteComponent extends PureComponent{
       }else{
         return(
           <a onClick={showDeleteConfirm} type="dashed">
-            <Icon type="close" />Eliminar
+            <Icon type="close" /> Eliminar
           </a>
         );
       }

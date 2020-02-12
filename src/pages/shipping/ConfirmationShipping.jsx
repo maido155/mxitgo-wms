@@ -92,21 +92,15 @@ export default class ConfirmationShipping extends PureComponent{
                             borderTop: '1px solid #e9e9e9',
                             padding: '10px 16px',
                             background: '#fff',
-                            textAlign: 'center',
+                            textAlign: 'right',
                             }}
                         >
-                            <Row type="flex" justify="center">
-                                <Col xs={24} sm={9} md={9} xl={5} className={Styles.cancelarfooter}>
-                                    <Button type="primary" onClick={this.props.closeThirdDrawer}>
-                                        Programar
-                                    </Button>
-                                </Col>
-                                <Col xs={24} sm={9} md={9} xl={5}>
-                                    <Button type="danger" onClick={this.props.closeThirdDrawer}>
-                                        Cancelar
-                                    </Button>
-                                </Col>
-                            </Row>
+                            <Button type="danger" onClick={this.props.closeThirdDrawer} className={Styles.cancelarfooter}>
+                                Cancelar
+                            </Button>
+                            <Button type="primary" onClick={this.props.closeThirdDrawer}>
+                                Programar
+                            </Button>    
                         </div>
                     </Form>
                 </Drawer>

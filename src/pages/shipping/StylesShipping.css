@@ -1,6 +1,6 @@
 @media screen and (max-width: 576px) {
     .cancelarfooter {
-        margin-bottom: .5rem;
+        margin-right: 1rem;
     }
     .formnweline {
         margin-bottom: 5rem;
@@ -34,6 +34,9 @@
     .lastcolumn {
         margin-bottom: 3rem;
     }
+    .cancelarfooter {
+        margin-right: 1rem;
+    }
 }
 
 @media screen and (min-width: 768px) {
@@ -44,6 +47,9 @@
     .addshippingmaster {
         text-align: right;
     }
+    .cancelarfooter {
+        margin-right: 1rem;
+    }
 }
 
 @media screen and (min-width: 992px) {
@@ -53,6 +59,9 @@
     }
     .addshippingmaster {
         text-align: right;
+    }
+    .cancelarfooter {
+        margin-right: 1rem;
     }
 }
 
@@ -66,5 +75,8 @@
     }
     .lastcolumn {
         margin-bottom: 3rem;
+    }
+    .cancelarfooter {
+        margin-right: 1rem;
     }
 }

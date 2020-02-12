@@ -64,12 +64,12 @@ export default class TableComponent extends PureComponent{
             title: 'Acciones',
             key: 'action',
             fixed: 'right',
-            width: 150,
+            width: 155,
             render: () => (
               
               <span>
                 <a onClick={this.props.showDrawer}>
-                  <Icon type="edit" />Editar
+                  <Icon type="edit" /> Editar
                 </a>
                 <Divider type="vertical" />
                   <ModalDeleteComponent/>

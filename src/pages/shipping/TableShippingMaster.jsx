@@ -55,7 +55,7 @@ export default class TableShippingMaster extends PureComponent{
           width: 100
         },
         {
-          title: 'Status',
+          title: 'Estado',
           dataIndex: 'status',
           width: 100
         }
@@ -133,20 +133,20 @@ export default class TableShippingMaster extends PureComponent{
             title: 'Acciones',
             key: 'action',
             fixed: 'right',
-            width: 320,
+            width: 340,
             render: () => (
               <span>
                   <a onClick={this.props.clickFirstTable}>
-                    <Icon type="edit" />Editar
+                    <Icon type="edit" /> Editar
                   </a>
                 <Divider type="vertical" />
                   <a onClick={this.props.clickthirdTable}>
-                    <Icon type="fullscreen" />Confirmar
+                    <Icon type="fullscreen" /> Confirmar
                   </a>
                 <Divider type="vertical" />
                   <ModalDeleteComponent/>
                 <Divider type="vertical" />
-                <a onClick={this.props.clickModal}><Icon type="question" />Entrada</a>
+                <a onClick={this.props.clickModal}><Icon type="question" /> Entrada</a>
               </span>
             ),
           }

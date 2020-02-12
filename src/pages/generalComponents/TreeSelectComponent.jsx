@@ -47,14 +47,14 @@ export default class TreeSelectComponent extends PureComponent{
             onChange: this.onChange,
             treeCheckable: true,
             showCheckedStrategy: SHOW_PARENT,
-            searchPlaceholder: 'Please select',
+            searchPlaceholder: 'Selecciona',
             style: {
               width: '100%',
             },
           };
 
         return(
-            <TreeSelect {...tProps} />
+          <TreeSelect {...tProps} />
         );
     }
 }
