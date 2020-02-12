@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import {Row, Col,Typography,Card, Tooltip,Progress} from 'antd';
+import {Row, Col,Typography,Card, Tooltip,Progress, Divider} from 'antd';
 
 
 
@@ -102,6 +102,7 @@ class GridDashboard extends PureComponent {
               </Card>
               </Col>
           </Row>
+          <Divider/>
           <Row type="flex" justify="space-around">
               <Col span={6}></Col>
               <Col span={12}><Title level={4}>Totales</Title></Col>
