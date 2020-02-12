@@ -1,4 +1,4 @@
-import { Modal, Button, Calendar } from 'antd';
+import { Modal, Button, Calendar, Divider } from 'antd';
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import ButtonCenter from './buttonCenter';
@@ -40,12 +40,23 @@ class ModalGeneralProgramming extends PureComponent {
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+          
+          footer={[
+            <Button key="Cancelar" onClick={this.handleCancel}>
+              Cancelar
+            </Button>,
+            <Button key="Aceptar" type="primary" onClick={this.handleOk}>
+              Aceptar
+            </Button>,
+          ]}
         >
-          <ModalCalendar/>
+          
+         <ModalCalendar/>
+         <Divider type="horizontal"></Divider>
          <ButtonProduct/>
          <ButtonCenter/>
+         <Divider type="horizontal"></Divider>
          <TableModal/>
-
         </Modal>
       </div>
     );

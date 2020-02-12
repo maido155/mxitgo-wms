@@ -1,8 +1,4 @@
-/**
- * Ant Design Pro v4 use `@ant-design/pro-layout` to handle Layout.
- * You can view component api by:
- * https://github.com/ant-design/ant-design-pro-layout
- */
+
 import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
 import React, { useEffect } from 'react';
 import { Link } from 'umi';
@@ -37,31 +33,31 @@ const menuDataRender = menuList =>
 
 const defaultFooterDom = (
   <DefaultFooter
-    copyright="2019 蚂蚁金服体验技术部出品"
+    //copyright="2019 蚂蚁金服体验技术部出品"
     links={[
       {
-        key: 'Ant Design Pro',
+       /* key: 'Ant Design Pro',
         title: 'Ant Design Pro',
         href: 'https://pro.ant.design',
-        blankTarget: true,
+        blankTarget: true,*/
       },
       {
-        key: 'github',
+       /* key: 'github',
         title: <Icon type="github" />,
         href: 'https://github.com/ant-design/ant-design-pro',
-        blankTarget: true,
+        blankTarget: true,*/
       },
       {
-        key: 'Ant Design',
+      /*  key: 'Ant Design',
         title: 'Ant Design',
         href: 'https://ant.design',
-        blankTarget: true,
+        blankTarget: true,*/
       },
     ]}
   />
 );
 
-const footerRender = () => {
+/*const footerRender = () => {
   if (!isAntDesignPro()) {
     return defaultFooterDom;
   }
@@ -85,7 +81,7 @@ const footerRender = () => {
       </div>
     </>
   );
-};
+};*/
 
 const BasicLayout = props => {
   const {
@@ -158,7 +154,7 @@ const BasicLayout = props => {
           <span>{route.breadcrumbName}</span>
         );
       }}
-      footerRender={footerRender}
+      //footerRender={footerRender}
       menuDataRender={menuDataRender}
       formatMessage={formatMessage}
       rightContentRender={() => <RightContent />}

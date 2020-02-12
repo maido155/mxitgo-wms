@@ -14,9 +14,9 @@ class ButtonCenter extends PureComponent {
   render() {
     const { size } = this.state;
     return (
-      <div style={{marginTop: "4%", marginBottom: "4%"}}>
-          <label>Centro: </label>
-        <Radio.Group value={size} onChange={this.handleSizeChange}>
+      <div style={{marginTop: "4%", marginBottom: "4%", marginLeft:"4%"}}>
+          <label style={{ marginLeft:"4%"}}>Centro: </label>
+        <Radio.Group value={size} onChange={this.handleSizeChange} style={{marginTop: "4%", marginBottom: "4%", marginLeft:"4%"}} >
           <Radio.Button value="large">Vallejo</Radio.Button>
           <Radio.Button value="default">Cuautitlán</Radio.Button>
           <Radio.Button value="small">Reparto</Radio.Button>

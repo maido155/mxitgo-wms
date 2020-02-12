@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
-import {Table, Icon, Input, Row, Col} from 'antd';
+import {Table, Icon, Input, Row, Col, Form} from 'antd';
 
 
   
@@ -8,100 +8,78 @@ import {Table, Icon, Input, Row, Col} from 'antd';
 class tableModal extends PureComponent{
 
     render(){
+      const formItemLayout = {
+        labelCol: {xs: { span: 24 },sm: { span: 10 },md: { span: 10 },lg: { span: 10 },xl: { span:19 }},
+        wrapperCol: {xs: { span: 24 },sm: { span: 15 },md: { span: 15 },lg: { span: 15 },xl: { span: 15  }}
+    };
         return(
-          <Row type="flex" justify="center">
-        <label>Jue 8 Nov:</label>
-          <Col >
-              <Input style={{marginRight:"1%", marginLeft:"1%", marginBottom: "1%", marginTop:"1%"}}></Input>
-          </Col>
-           <Col style={{marginRight:"1%", marginLeft:"1%"}}></Col>
-          <Col >
-           <Input style={{marginRight:"1%", marginLeft:"1%", marginBottom: "1%", marginTop:"1%"}}></Input>
-          </Col>
-
-          <Col >
-        <label>Vie 9 Nov:</label>
-          </Col>
-          <Col >
-              <Input style={{marginRight:"1%", marginLeft:"1%", marginBottom: "1%", marginTop:"1%"}}></Input>
-          </Col>
-           <Col style={{marginRight:"1%", marginLeft:"1%"}}></Col>
-          <Col >
-           <Input style={{marginRight:"1%", marginLeft:"1%", marginBottom: "1%", marginTop:"1%"}}></Input>
-          </Col>
-
-          <Col >
-        <label>Sab 10 Nov:</label>
-          </Col>
-          <Col >
-              <Input style={{marginRight:"1%", marginLeft:"1%", marginBottom: "1%", marginTop:"1%"}}></Input>
-          </Col>
-           <Col style={{marginRight:"1%", marginLeft:"1%"}}></Col>
-          <Col >
-           <Input style={{marginRight:"1%", marginLeft:"1%", marginBottom: "1%", marginTop:"1%"}}></Input>
-          </Col>
-
-          <Col >
-        <label>Dom 11 Nov:</label>
-          </Col>
-          <Col >
-              <Input style={{marginRight:"1%", marginLeft:"1%", marginBottom: "1%", marginTop:"1%"}}></Input>
-          </Col>
-           <Col style={{marginRight:"1%", marginLeft:"1%"}}></Col>
-          <Col >
-           <Input style={{marginRight:"1%", marginLeft:"1%", marginBottom: "1%", marginTop:"1%"}}></Input>
-          </Col>  
-
-           <Col >
-        <label>Lun 12 Nov:</label>
-          </Col>
-          <Col >
-              <Input style={{marginRight:"1%", marginLeft:"1%", marginBottom: "1%", marginTop:"1%"}}></Input>
-          </Col>
-           <Col style={{marginRight:"1%", marginLeft:"1%"}}></Col>
-          <Col >
-           <Input style={{marginRight:"1%", marginLeft:"1%"}}></Input>
-          </Col>
-
-          <Col >
-        <label>Mar 13 Nov:</label>
-          </Col>
-          <Col >
-              <Input style={{marginRight:"1%", marginLeft:"1%", marginBottom: "1%", marginTop:"1%"}}></Input>
-          </Col>
-           <Col style={{marginRight:"1%", marginLeft:"1%"}}></Col>
-          <Col >
-           <Input style={{marginRight:"1%", marginLeft:"1%", marginBottom: "1%", marginTop:"1%"}}></Input>
-          </Col>
-
-          <Col >
-        <label>Mie 14 Nov:</label>
-          </Col>
-          <Col >
-             <Input style={{marginRight:"1%", marginLeft:"1%", marginBottom: "1%", marginTop:"1%"}}></Input>
-          </Col>
-          <Col style={{marginRight:"1%", marginLeft:"1%"}}></Col>
-          <Col >
-           <Input style={{marginRight:"1%", marginLeft:"1%", marginBottom: "1%", marginTop:"1%"}}></Input>
-          </Col>
-           <Col >
-        <label>Mie 14 Nov:</label>
-          </Col>
-          <Col >
-             <Input style={{marginRight:"1%", marginLeft:"1%", marginBottom: "1%", marginTop:"1%"}}></Input>
-          </Col>
-          <Col style={{marginRight:"1%", marginLeft:"1%"}}></Col>
-          <Col >
-           <Input style={{marginRight:"1%", marginLeft:"1%", marginBottom: "1%", marginTop:"1%"}}></Input>
-          </Col>
-          <div>
-          <label >Total</label>
-           
-          <label>0</label>
-         
-          <label>0</label>
-      </div>
-      </Row>
+         <span>
+            <Form {...formItemLayout}> 
+           <Row>
+            <Col xs={8} sm={9} md={9} lg={9} xl={9}></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}> <label>Pallets</label></Col>
+            <Col xs={2} sm={2} md={2} lg={2} xl={2}></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}> <label>Cajas</label></Col>
+           </Row>
+          
+           <Row>
+             <Col xs={7} sm={7} md={7} lg={7} xl={7}> 
+            <Form.Item label="Jue 8 Nov"></Form.Item></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}>  <Input></Input></Col>
+            <Col xs={2} sm={2} md={2} lg={2} xl={2}></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}> <Input></Input></Col>
+           </Row>
+           <Row>
+            <Col xs={7} sm={7} md={7} lg={7} xl={7}> 
+            <Form.Item label="Vie 9 Nov"></Form.Item></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}>  <Input></Input></Col>
+            <Col xs={2} sm={2} md={2} lg={2} xl={2}></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}> <Input></Input></Col>
+           </Row>
+           <Row>
+            <Col xs={7} sm={7} md={7} lg={7} xl={7}> 
+            <Form.Item label="Sab 10 Nov"></Form.Item></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}>  <Input></Input></Col>
+            <Col xs={2} sm={2} md={2} lg={2} xl={2}></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}> <Input></Input></Col>
+           </Row>
+           <Row>
+            <Col xs={7} sm={7} md={7} lg={7} xl={7}> 
+            <Form.Item label="Dom 11 Nov"></Form.Item></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}>  <Input></Input></Col>
+            <Col xs={2} sm={2} md={2} lg={2} xl={2}></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}> <Input></Input></Col>
+           </Row>
+           <Row>
+            <Col xs={7} sm={7} md={7} lg={7} xl={7}> 
+            <Form.Item label="Lun 12 Nov"></Form.Item></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}>  <Input></Input></Col>
+            <Col xs={2} sm={2} md={2} lg={2} xl={2}></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}> <Input></Input></Col>
+           </Row>
+           <Row>
+            <Col xs={7} sm={7} md={7} lg={7} xl={7}> 
+            <Form.Item label="Mar 13 Nov"></Form.Item></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}>  <Input></Input></Col>
+            <Col xs={2} sm={2} md={2} lg={2} xl={2}></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}> <Input></Input></Col>
+           </Row>
+           <Row>
+            <Col xs={7} sm={7} md={7} lg={7} xl={7}> 
+            <Form.Item label="Mie 14 Nov"></Form.Item></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}>  <Input></Input></Col>
+            <Col xs={2} sm={2} md={2} lg={2} xl={2}></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}> <Input></Input></Col>
+           </Row>
+           <Row>
+            <Col xs={9} sm={9} md={9} lg={9} xl={9}> 
+            <Form.Item label="Total" ></Form.Item></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}>  <label>0</label></Col>
+            <Col xs={2} sm={2} md={2} lg={2} xl={2}></Col>
+            <Col xs={5} sm={5} md={5} lg={5} xl={5}> <label>0</label></Col>
+           </Row>
+           </Form>
+         </span>
     
       
         );
