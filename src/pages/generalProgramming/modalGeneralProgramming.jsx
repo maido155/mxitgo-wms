@@ -42,8 +42,8 @@ class ModalGeneralProgramming extends PureComponent {
           onCancel={this.handleCancel}
           
           footer={[
-            <Button key="Cancelar" onClick={this.handleCancel}>
-              Cancelar
+            <Button key="Limpiar" onClick={this.handleCancel}>
+              Limpiar
             </Button>,
             <Button key="Aceptar" type="primary" onClick={this.handleOk}>
               Aceptar
