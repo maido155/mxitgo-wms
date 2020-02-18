@@ -113,7 +113,7 @@ export default {
               path: '/generalProgramming',
               name: 'Programación General',
               icon: 'setting',
-              component: './generalProgramming/generalProgramming'
+              component: './generalProgramming/generalProgramming',
             },
             {
               path: '/shippingMaster',
