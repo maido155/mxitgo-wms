@@ -127,6 +127,15 @@ export default {
               icon: 'smile',
               component: './outward/OutWard',
             },
+
+            
+            {
+              path: '/usuarios',
+              name: 'Usuarios',
+              icon: 'user',
+              component: './UsersModule/UsersLayout',
+            },
+        
             {
               path: '/admin',
               name: 'admin',
