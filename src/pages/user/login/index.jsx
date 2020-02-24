@@ -11,7 +11,7 @@ import poolData from './../../../../config/config';
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginComponents;
 const AmazonCognitoIdentity  = require('amazon-cognito-identity-js');
 //const Cognito = require('./../../../utils/Cognito.js');
-c
+
 
 
 @connect(({ login, loading }) => ({
