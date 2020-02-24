@@ -6,10 +6,12 @@ import { connect } from 'dva';
 import LoginComponents from './components/Login';
 import styles from './style.less';
 import router from 'umi/router';
+import poolData from './../../../../config/config';
 //import { config as AWSConfig } from 'aws-sdk';
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginComponents;
 const AmazonCognitoIdentity  = require('amazon-cognito-identity-js');
 //const Cognito = require('./../../../utils/Cognito.js');
+c
 
 
 @connect(({ login, loading }) => ({
@@ -57,7 +59,7 @@ class Login extends Component {
     return; 
    }
     var poolData = {
-      UserPoolId : ANT_DESIGN_PRO_USER_POOL_ID, // your user pool id here "us-east-1_3ANmKhLSt"
+      UserPoolId : ANT_DESIGN_PRO_CLIENT_ID , // your user pool id here "us-east-1_3ANmKhLSt"
       ClientId : ANT_DESIGN_PRO_CLIENT_ID // your app client id here "25h6ahb7sda3lvk1qs8v5u0ol0"
     };
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
@@ -88,8 +90,8 @@ class Login extends Component {
     var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
  
     var poolData = {
-      UserPoolId : "us-east-1_3ANmKhLSt", // your user pool id here  ANT_DESIGN_PRO_USER_POOL_ID,
-      ClientId : "25h6ahb7sda3lvk1qs8v5u0ol0" // your app client id here ANT_DESIGN_PRO_CLIENT_ID
+      UserPoolId : ANT_DESIGN_PRO_CLIENT_ID , // your user pool id here "us-east-1_3ANmKhLSt"
+      ClientId : ANT_DESIGN_PRO_CLIENT_ID // your app client id here ANT_DESIGN_PRO_CLIENT_ID
     };
     // Create the User Pool Object
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
