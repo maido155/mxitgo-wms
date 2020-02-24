@@ -1,12 +1,14 @@
 import * as AWS from 'aws-sdk';
+import ConfigPool from './../../config/config';
+
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 
 const signUpCognito = (data) => {
     return new Promise((resolve, reject) => {
         var CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool; //llamar libreria de cognito, conectar
         var poolData = { //valores desde conigto de aws
-            UserPoolId: 'us-east-1_3ANmKhLSt', // Your user pool id here
-            ClientId: '25h6ahb7sda3lvk1qs8v5u0ol0', // Your client id here
+            UserPoolId: ConfigPool.poolData.UserPoolId, // Your user pool id here
+            ClientId: ConfigPool.poolData.ClientId, // Your client id here
         };
         var userPool = new CognitoUserPool(poolData); //genara conexion
         var attributeList = []; //array meter valores de formulario
@@ -36,7 +38,7 @@ const signUpCognito = (data) => {
             if (err) {
                 reject(err)
             } else {
-                alert("Agregado");
+                resolve(result);
             }
         });
     })
