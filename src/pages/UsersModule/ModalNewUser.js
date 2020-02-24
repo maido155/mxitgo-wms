@@ -1,6 +1,7 @@
 import { Modal, Button, Calendar, Divider, Card,label } from 'antd';
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
+import TableNewUser from './TableNewUser'
 
 
 class ModalNewUser extends PureComponent {
@@ -46,7 +47,9 @@ class ModalNewUser extends PureComponent {
           ]}
         >
           
-       <Card><label> DATOS DATOS DATOS</label></Card>
+       <Card>
+         <TableNewUser/>
+       </Card>
         </Modal>
       </div>
     );
