@@ -6,7 +6,6 @@ import { connect } from 'dva';
 import LoginComponents from './components/Login';
 import styles from './style.less';
 import router from 'umi/router';
-import poolData from './../../../../config/config';
 //import { config as AWSConfig } from 'aws-sdk';
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginComponents;
 const AmazonCognitoIdentity  = require('amazon-cognito-identity-js');
@@ -90,7 +89,7 @@ class Login extends Component {
     var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
  
     var poolData = {
-      UserPoolId : ANT_DESIGN_PRO_CLIENT_ID , // your user pool id here "us-east-1_3ANmKhLSt"
+      UserPoolId : ANT_DESIGN_PRO_USER_POOL_ID, // your user pool id here "us-east-1_3ANmKhLSt"
       ClientId : ANT_DESIGN_PRO_CLIENT_ID // your app client id here ANT_DESIGN_PRO_CLIENT_ID
     };
     // Create the User Pool Object
@@ -112,7 +111,7 @@ class Login extends Component {
         
 
 
-      //  router.push(`/welcome`);
+       router.push(`/dashboard`);
       },
       onFailure: function(err) {
         if(err){
