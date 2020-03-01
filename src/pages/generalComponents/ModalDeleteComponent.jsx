@@ -26,13 +26,13 @@ export default class ModalDeleteComponent extends PureComponent{
       if(isMobile){
         return(
           <a onClick={showDeleteConfirm} type="dashed">
-            <Icon type="close" />
+            <Icon type="delete" />
           </a>
         );
       }else{
         return(
           <a onClick={showDeleteConfirm} type="dashed">
-            <Icon type="close" /> Eliminar
+            <Icon type="delete" /> Eliminar
           </a>
         );
       }

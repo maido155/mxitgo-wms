@@ -18,6 +18,9 @@
     .lastcolumn {
         margin-bottom: 4rem;
     }
+    .producto {
+        cursor: pointer;
+    }
 }
 
 @media screen and (min-width: 576px) {
@@ -37,6 +40,9 @@
     .cancelarfooter {
         margin-right: 1rem;
     }
+    .producto {
+        cursor: pointer;
+    }
 }
 
 @media screen and (min-width: 768px) {
@@ -50,6 +56,9 @@
     .cancelarfooter {
         margin-right: 1rem;
     }
+    .producto {
+        cursor: pointer;
+    }
 }
 
 @media screen and (min-width: 992px) {
@@ -62,6 +71,9 @@
     }
     .cancelarfooter {
         margin-right: 1rem;
+    }
+    .producto {
+        cursor: pointer;
     }
 }
 
@@ -78,5 +90,8 @@
     }
     .cancelarfooter {
         margin-right: 1rem;
+    }
+    .producto {
+        cursor: pointer;
     }
 }

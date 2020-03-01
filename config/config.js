@@ -117,14 +117,27 @@ export default {
             {
               path: '/shippingMaster',
               name: 'Maestro de envíos',
-              icon: 'smile',
+              icon: 'arrow-right',
               component: './shipping/ShippingMaster',
             },
             {
               path: '/outWard',
               name: 'Salidas',
-              icon: 'smile',
+              icon: 'arrow-left',
               component: './outward/OutWard',
+            },
+            {
+              path: '/account',
+              name: 'Account',
+              icon: 'user',
+              routes: [
+                {
+                  path: '/account/center',
+                  name: 'Account Center',
+                  icon: 'setting',
+                  component: './account/AccountCenter'
+                }
+              ]
             },
             {
               path: '/admin',

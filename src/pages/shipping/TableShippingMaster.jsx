@@ -1,10 +1,33 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import {isMobile} from 'react-device-detect';
-import { Table, Divider, Icon} from 'antd';
+import { Table, Divider, Icon, Typography } from 'antd';
 import ModalDeleteComponent from '../generalComponents/ModalDeleteComponent';
+import ModalProductTable from '../generalComponents/ModalProductTable';
+import Styles from './StylesShipping.css';
+
+const { Text } = Typography;
 
 export default class TableShippingMaster extends PureComponent{
+  state={
+    visibleModalProduct: false
+  };
+  showModal = () => {
+    this.setState({
+      visibleModalProduct: true,
+    });
+  };
+  handleOk = e => {
+    this.setState({
+      visibleModalProduct: false,
+    });
+  };
+  handleCancel = e => {
+    this.setState({
+      visibleModalProduct: false,
+    });
+  };
+
     render(){
       let columns = [
         {
@@ -68,7 +91,8 @@ export default class TableShippingMaster extends PureComponent{
           envio: 'Lunes',
           llegada: 'Martes',
           entrada: 'Miercoles',
-          premium:'1200/1150',
+          premium: <Text type="danger" onClick={this.showModal} className={Styles.producto}>1200/1150</Text>,
+          // premium:'1200/1150',
           gold:'39/39',
           segunda:'0/39',
           mano: '0/39',
@@ -117,12 +141,12 @@ export default class TableShippingMaster extends PureComponent{
                   </a>
                 <Divider type="vertical" />
                   <a onClick={this.props.clickthirdTable}>
-                    <Icon type="fullscreen" />
+                    <Icon type="check" />
                   </a>
                 <Divider type="vertical" />
                   <ModalDeleteComponent/>
                 <Divider type="vertical" />
-                  <a onClick={this.props.clickModal}><Icon type="question" /></a>
+                  <a onClick={this.props.clickModal}><Icon type="form" /></a>
               </span>
             ),
           }
@@ -141,12 +165,12 @@ export default class TableShippingMaster extends PureComponent{
                   </a>
                 <Divider type="vertical" />
                   <a onClick={this.props.clickthirdTable}>
-                    <Icon type="fullscreen" /> Confirmar
+                    <Icon type="check" /> Confirmar
                   </a>
                 <Divider type="vertical" />
                   <ModalDeleteComponent/>
                 <Divider type="vertical" />
-                <a onClick={this.props.clickModal}><Icon type="question" /> Entrada</a>
+                <a onClick={this.props.clickModal}><Icon type="form" /> Entrada</a>
               </span>
             ),
           }
@@ -164,9 +188,16 @@ export default class TableShippingMaster extends PureComponent{
         };
 
         return(
+          <div>
             <Table size="small" rowSelection={rowSelection} columns={columns} dataSource={data} 
               scroll={{ x: 1300, y: 300 }} pagination={false}
             />
+            <ModalProductTable
+            visipleModal ={this.state.visibleModalProduct}
+            ok = {this.handleOk}
+            cancel = {this.handleCancel} 
+          />
+          </div>
         );
     }
 }
