@@ -30,7 +30,7 @@ class ModalNewUser extends PureComponent {
   render() {
     return (
       <div>
-        <Button type="primary" onClick={this.showModal}> Agregar Usuario</Button>
+        <Button type="primary" onClick={this.showModal}> Agregar Usuario +</Button>
         <Modal
           title="Nuevo Usuario"
           visible={this.state.visible}

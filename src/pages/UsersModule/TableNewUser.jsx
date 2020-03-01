@@ -13,30 +13,29 @@ class TableNewUser extends PureComponent{
         return(
          <span>
             <Form {...formItemLayout}> 
-           <Row>
-            <Col ></Col>
-            <Col > <label style={{ marginLeft:"5%"}}>Nombre</label></Col>
-            <Col >  <Input></Input></Col>
+            <Row>
+            <Col > <label style={{   marginBottom:"3%", marginTop:"3%"}}>Nombre</label></Col>
+             <Col style={{ marginBottom:"3%", marginTop:"3%"}} > <Input></Input></Col>
            </Row>
           
            <Row>
-            <Col > <label style={{ marginLeft:"5%"}}>Apeido paterno</label></Col>
-            <Col > <Input></Input></Col>
+            <Col > <label style={{ marginBottom:"3%", marginTop:"3%"}}>Apellido paterno</label></Col>
+             <Col style={{ marginBottom:"3%", marginTop:"3%"}} > <Input></Input></Col>
            </Row>
 
            <Row>
-            <Col > <label style={{ marginLeft:"5%"}}>Apeido materno</label></Col>
-            <Col > <Input></Input></Col>
+            <Col > <label style={{ marginBottom:"3%", marginTop:"3%"}}>Apellido materno</label></Col>
+             <Col style={{ marginBottom:"3%", marginTop:"3%"}} > <Input></Input></Col>
            </Row>
 
            <Row>
-            <Col > <label style={{ marginLeft:"5%"}}>Correo electónico</label></Col>
-            <Col > <Input></Input></Col>
+            <Col > <label style={{ marginBottom:"3%", marginTop:"3%"}}>Correo electrónico</label></Col>
+            <Col style={{ marginBottom:"3%", marginTop:"3%"}} > <Input></Input></Col>
            </Row>
 
            <Row>
-            <Col > <label style={{ marginLeft:"5%"}}>Teléfono</label></Col>
-            <Col > <Input></Input></Col>
+            <Col > <label style={{ marginBottom:"3%", marginTop:"3%"}}>Teléfono</label></Col>
+             <Col style={{ marginBottom:"3%", marginTop:"3%"}} > <Input></Input></Col>
            </Row>
            </Form>
          </span>
