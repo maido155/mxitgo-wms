@@ -73,13 +73,13 @@ const data = [
        
         render: () => (
           <span>
-           <Icon type="edit" theme="filled" />
+           <a> <Icon type="edit" theme="filled" /> </a> 
             <Divider type="vertical" />
-            <Icon type="close-circle" theme="filled" />
+           <a><Icon type="close-circle" theme="filled" /></a> 
             <Divider type="vertical" />
-            <Icon type="arrows-alt" />
+            <a>  <Icon type="arrows-alt" /></a> 
             <Divider type="vertical" />
-            <Icon type="eye" theme="filled"  />
+            <a>  <Icon type="eye" theme="filled"  /> </a> 
           </span>
         ),
       }
