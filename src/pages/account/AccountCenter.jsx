@@ -2,14 +2,31 @@ import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import Avatar from '../generalComponents/AvatarAccount';
-import { Card, Form, Row, Col, Typography, Divider, Icon } from 'antd';
-import { MailOutlined } from '@ant-design/icons';
+import { Card, Row, Col, Typography, Divider, Icon } from 'antd';
+import { connect } from 'dva';
 import Styles from './StylesAccount.css';
 
 const { Title, Text } = Typography;
 
+@connect(({ user, loading }) => ({
+    user,
+    loading: loading.models.user,
+    userByEmail:user.userByEmail
+}))
+
 export default class AccountCenter extends PureComponent{
+    componentDidMount() {
+        this.props.dispatch({
+           type: 'user/fetchUserByEmail',
+           payload: {
+               payload: {
+                   email:"lopezarmando1112@gmail.com"
+               }
+           },
+       });
+    }
     render(){
+        const { loading, user: { user },userByEmail } = this.props;
         return(
             <PageHeaderWrapper>
                 <Card>
