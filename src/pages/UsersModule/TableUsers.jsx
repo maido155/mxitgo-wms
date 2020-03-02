@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';  
-import { Card, Table } from 'antd';
+import { Card, Table, Icon, Divider } from 'antd';
+import {isMobile} from 'react-device-detect';
 
 const columns = [
   {
@@ -24,7 +25,47 @@ const columns = [
       title: 'Teléfono',
       dataIndex: 'phone',
     }
-];
+]
+if(isMobile){
+  columns.push(
+    {
+      title: 'Acciones',
+      key: 'action',
+      fixed: 'right',
+     
+      render: () => (
+        <span>
+         <Icon type="edit" theme="filled" />
+          <Divider type="vertical" />
+          <Icon type="close-circle" theme="filled" />
+          <Divider type="vertical" />
+          <Icon type="arrows-alt" />
+          <Divider type="vertical" />
+          <Icon type="eye" theme="filled"  />
+        </span>
+      ),
+    }
+  );
+}else{
+  columns.push(
+    {
+      title: 'Acciones',
+      key: 'action',
+      fixed: 'right',
+     
+      render: () => (
+        <span>
+          <a><Icon type="edit" theme="filled" /></a>
+          <a> Editar usuario</a>
+          <Divider type="vertical" />
+          <a><Icon type="close-circle" theme="filled" /></a>
+          <a> Eliminar usuario</a>
+        </span>
+      ),
+    }
+  );
+}
+
 
 const data = [
   
