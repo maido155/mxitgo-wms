@@ -130,10 +130,17 @@ export default {
 
             
             {
-              path: '/usuarios',
-              name: 'Usuarios',
-              icon: 'user',
-              component: './UsersModule/UsersLayout',
+              path: '/userSettings',
+              name: 'Configuración de usuarios',
+              icon: 'control',
+              routes: [
+               {
+                 path:'./UsersModule/UsersLayout',
+                 name:'Usuarios',
+                 icon:'user',
+                 component: './UsersModule/UsersLayout'
+               }
+             ]
             },
         
             {
