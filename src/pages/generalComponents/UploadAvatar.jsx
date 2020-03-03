@@ -1,37 +1,43 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
-import { Avatar, Button } from 'antd';
+import { Upload, Button, Icon} from 'antd';
+import AvatarAccount from './AvatarAccount';
+import Styles from './StylesGeneral.css';
 
-const UserList = ['U', 'Lucy', 'Tom', 'Edward'];
-const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+function getBase64(img, callback) {
+  const reader = new FileReader();
+  reader.addEventListener('load', () => callback(reader.result));
+  reader.readAsDataURL(img);
+}
 
 export default class UploadAvatar extends PureComponent{
-    state = {
-      user: UserList[0],
-      color: colorList[0],
-    };
-
-  changeUser = () => {
-    const index = UserList.indexOf(this.state.user);
-    this.setState({
-      user: index < UserList.length - 1 ? UserList[index + 1] : UserList[0],
-      color: index < colorList.length - 1 ? colorList[index + 1] : colorList[0],
-    });
+  state = {
   };
-    render(){
-        return( 
-          <div>
-          <Avatar style={{ backgroundColor: this.state.color, verticalAlign: 'middle' }} size="large">
-            {this.state.user}
-          </Avatar>
-          <Button
-            size="small"
-            style={{ marginLeft: 16, verticalAlign: 'middle' }}
-            onClick={this.changeUser}
-          >
-            Change
-          </Button>
-        </div>        
-        );
+
+  handleChange = info => {
+    if (info.file.status === 'done') {
+      getBase64(info.file.originFileObj, imageUrl =>
+        this.setState({
+          imageUrl
+        }),
+      );
     }
+  };
+
+  render(){
+    const { imageUrl } = this.state;
+    return(  
+      <div>
+        <Upload
+          onChange={this.handleChange}
+          showUploadList={false}
+        >
+          <AvatarAccount dataImagen={imageUrl}/>
+          <Button className={Styles.avatar}>
+            <Icon type="upload"/>Cargar Imagen
+          </Button>
+        </Upload>
+      </div>  
+    );
+  }
 }

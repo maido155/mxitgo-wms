@@ -6,7 +6,7 @@ export default class AvatarAccount extends PureComponent{
     render(){
         return(
             <div>
-                <Avatar size={120} src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"/>
+                <Avatar size={200} src={this.props.dataImagen}/>
           </div>
         );
     }

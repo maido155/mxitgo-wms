@@ -2,12 +2,36 @@
     .labelone {
         text-align: left;
     }
+    .avatar {
+        margin-top: 1rem;
+        width: 10rem;
+    }
 }
 
-@media screen and (min-width: 576px) {}
+@media screen and (min-width: 576px) {
+    .avatar {
+        margin-top: 1rem;
+        width: 10rem;
+    }
+}
 
-@media screen and (min-width: 768px) {}
+@media screen and (min-width: 768px) {
+    .avatar {
+        margin-top: 1rem;
+        width: 10rem;
+    }
+}
 
-@media screen and (min-width: 992px) {}
+@media screen and (min-width: 992px) {
+    .avatar {
+        margin-top: 1rem;
+        width: 10rem;
+    }
+}
 
-@media screen and (min-width: 1200px) {}
+@media screen and (min-width: 1200px) {
+    .avatar {
+        margin-top: 1rem;
+        width: 10rem;
+    }
+}

@@ -127,23 +127,8 @@ export default {
               component: './outward/OutWard',
             },
             {
-              path: '/account',
-              name: 'Account',
-              icon: 'user',
-              routes: [
-                {
-                  path: '/account/center',
-                  name: 'Account Center',
-                  icon: 'setting',
-                  component: './account/AccountCenter'
-                },
-                {
-                  path: '/account/settings',
-                  name: 'Account Settings',
-                  icon: 'setting',
-                  component: './account/AccountSettings'
-                }
-              ]
+              path: '/settings',
+              component: './account/AccountSettings'
             },
             {
               path: '/admin',

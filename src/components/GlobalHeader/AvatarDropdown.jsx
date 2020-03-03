@@ -21,8 +21,7 @@ class AvatarDropdown extends React.Component {
 
       return;
     }
-
-    router.push(`/account/${key}`);
+    router.push(`/${key}`);
   };
 
   render() {
@@ -35,23 +34,28 @@ class AvatarDropdown extends React.Component {
     } = this.props;
     const menuHeaderDropdown = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick}>
-        {menu && (
+        {/* {menu && (
           <Menu.Item key="center">
             <Icon type="user" />
             <FormattedMessage id="menu.account.center" defaultMessage="account center" />
           </Menu.Item>
-        )}
-        {menu && (
+        )} */}
+        {/* {menu && (
           <Menu.Item key="settings">
             <Icon type="setting" />
             <FormattedMessage id="menu.account.settings" defaultMessage="account settings" />
           </Menu.Item>
-        )}
-        {menu && <Menu.Divider />}
+        )} */}
+        {/* {menu && <Menu.Divider />} */}
 
         <Menu.Item key="logout">
           <Icon type="logout" />
           <FormattedMessage id="menu.account.logout" defaultMessage="logout" />
+        </Menu.Item>
+
+        <Menu.Item key="settings">
+          <Icon type="setting" />
+          <FormattedMessage id="menu.account.settings" defaultMessage="account settings" />
         </Menu.Item>
       </Menu>
     );
@@ -59,7 +63,8 @@ class AvatarDropdown extends React.Component {
       <HeaderDropdown overlay={menuHeaderDropdown}>
         <span className={`${styles.action} ${styles.account}`}>
           <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
-          <span className={styles.name}>{currentUser.name}</span>
+          {/* <span className={styles.name}>{currentUser.name}</span> */}
+          <span className={styles.name}>Armando</span>
         </span>
       </HeaderDropdown>
     ) : (

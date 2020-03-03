@@ -263,7 +263,7 @@ class Register extends Component{
                   >
                     {getFieldDecorator('password', {
                       rules: [{ validator: this.checkPassword }]
-                    })(<Input size="large" type="password" placeholder={'Contraseña'}
+                    })(<Input.Password size="large" type="password" placeholder={'Contraseña'}
                         prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                     />,)}
                   </Popover>
@@ -272,7 +272,7 @@ class Register extends Component{
                   {getFieldDecorator('confirm', {
                     rules: [{ required: true, message: '¡Por favor, confirme su contraseña!'},
                             { validator: this.checkConfirm }]
-                    })(<Input size="large" type="password" placeholder={'Ingrese de nuevo la contraseña'}
+                    })(<Input.Password size="large" type="password" placeholder={'Ingrese de nuevo la contraseña'}
                       prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                   />)}
                 </FormItem>
