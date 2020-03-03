@@ -35,7 +35,7 @@ const UserModel = {
     queryUserByEmail(state, action){
       return{
         ...state,
-        userByEmail: action.payload.body.Items
+        userByEmail: action.payload
       }
     },
     saveCurrentUser(state, action) {

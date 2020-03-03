@@ -136,6 +136,12 @@ export default {
                   name: 'Account Center',
                   icon: 'setting',
                   component: './account/AccountCenter'
+                },
+                {
+                  path: '/account/settings',
+                  name: 'Account Settings',
+                  icon: 'setting',
+                  component: './account/AccountSettings'
                 }
               ]
             },

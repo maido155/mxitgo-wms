@@ -37,17 +37,25 @@ export default class AccountCenter extends PureComponent{
                     </Row>
                     <Row justify="center" className={Styles.name}> 
                         <Col xs={4} sm={6} md={6} lg={6} xl={8}></Col>
-                        <Col xs={14} sm={13} md={13} lg={13} xl={7}><Title level={4}>Jose Armando Lopez Aguilar</Title></Col>
+                        <Col xs={14} sm={13} md={13} lg={13} xl={7}>
+                            <Title level={4}>
+                                {userByEmail.name + " " + userByEmail.family_name + " " + userByEmail.middle_name}
+                            </Title>
+                        </Col>
                         <Col xs={4} sm={5} md={5} lg={5} xl={8}></Col>
                     </Row>
                     <Divider/>
                     <Row justify="center" className={Styles.mail}> 
                         <Col xs={2} sm={1} md={1} lg={1} xl={1}><Icon type="mail"/></Col>
-                        <Col xs={22} sm={23} md={23} lg={23} xl={23}><Text>lopezarmando1112@gmail.com</Text></Col>
+                        <Col xs={22} sm={23} md={23} lg={23} xl={23}>
+                            <Text>{userByEmail.email}</Text>
+                        </Col>
                     </Row>
                     <Row justify="center"> 
                         <Col xs={2} sm={1} md={1} lg={1} xl={1}><Icon type="mobile"/></Col>
-                        <Col xs={22} sm={23} md={23} lg={23} xl={23}><Text>+5214491173295</Text></Col>
+                        <Col xs={22} sm={23} md={23} lg={23} xl={23}>
+                            <Text>{userByEmail.phone_number}</Text>
+                        </Col>
                     </Row>
                 </Card>
             </PageHeaderWrapper>
