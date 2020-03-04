@@ -5,8 +5,7 @@ import { Link } from 'umi';
 import { connect } from 'dva';
 import LoginComponents from './components/Login';
 import styles from './style.less';
-import router from 'umi/router';
-import poolData from './../../../../config/config';
+//import router from 'umi/router';
 //import { config as AWSConfig } from 'aws-sdk';
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginComponents;
 const AmazonCognitoIdentity  = require('amazon-cognito-identity-js');
@@ -110,7 +109,7 @@ class Login extends Component {
         
 
 
-      //  router.push(`/welcome`);
+       //router.push(`/dashboard`);
       },
       onFailure: function(err) {
         if(err){
@@ -259,35 +258,6 @@ class Login extends Component {
 */
  
  
-  onTabChange = type => {
-    this.setState({
-      type,
-    });
-  };
-  onGetCaptcha = () =>
-    new Promise((resolve, reject) => {
-      if (!this.loginForm) {
-        return;
-      }
-
-      this.loginForm.validateFields(['mobile'], {}, async (err, values) => {
-        if (err) {
-          reject(err);
-        } else {
-          const { dispatch } = this.props;
-
-          try {
-            const success = await dispatch({
-              type: 'login/getCaptcha',
-              payload: values.mobile,
-            });
-            resolve(!!success);
-          } catch (error) {
-            reject(error);
-          }
-        }
-      });
-    });
   renderMessage = content => (
     <Alert
       style={{
@@ -309,7 +279,6 @@ class Login extends Component {
         <LoginComponents
          
          defaultActiveKey={type}
-          onTabChange={this.onTabChange}
           onSubmit={this.handleSubmit}
           onCreate={form => {
             this.loginForm = form;
@@ -371,7 +340,7 @@ class Login extends Component {
               style={{
                 float: 'right',
               }}
-              href=""
+             onClick={this.showModal}
             > 
               <FormattedMessage id="olvidaste tu contraseña?" //"user-login.login.forgot-password"
               /> 

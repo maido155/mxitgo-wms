@@ -34,7 +34,7 @@ class ModalEntry extends PureComponent {
             Submit
           </Button>,
         ]}
-         //imports Tabla and Tabs From respective js
+         //imports Tabla From respective js
        >
            <div>
          <TableModal/> 
