@@ -18,7 +18,7 @@ var ladaPhone = "+521";
 
 class AccountSettings extends PureComponent{
     state = {
-        loading: false,
+        loading: false
     }
 
     componentDidMount() {
@@ -32,8 +32,40 @@ class AccountSettings extends PureComponent{
        });
     }
 
-    handleSubmit = (info) =>{
-        console.log(info);
+    handleSubmit = e => {
+        e.preventDefault();
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            var phone_number = values.prefix + values.phone_number;
+            values.phone_number = phone_number;
+          if (!err) {
+            console.log('Received values of form: ', values);
+            this.putDataUser(values);
+          }
+        });
+      };
+
+      putDataUser = (values) => {
+        this.props.dispatch({
+            type: '',
+            payload: {
+                payload: {
+                    GET: {
+                        email:"lopezarmando1112@gmail.com",
+                    },
+                    PUT: {
+                        name: "name",
+                        valueName: values.name,
+                        family: "family_name",
+                        valueFamiy: values.family_name,
+                        middle: "middle_name",
+                        valueMiddle: values.middle_name,
+                        phone: "phone_number",
+                        valuePhone: values.phone_number,
+                        username: values.email
+                    }
+                },
+            },
+        });
     }
 
     render(){
@@ -56,7 +88,7 @@ class AccountSettings extends PureComponent{
           const prefixSelector = getFieldDecorator('prefix', {
             initialValue: ladaPhone,
           })(
-            <Select onChange={this.handleChange}>
+            <Select>
               <Option value="+521">+521</Option>
               <Option value="+522">+522</Option>
             </Select>,
@@ -110,31 +142,21 @@ class AccountSettings extends PureComponent{
                                             (<Input disabled/>)}
                                     </Form.Item>
                                 </Col>
-                                <Col lg={12} xl={12}>
+                                {/* <Col lg={12} xl={12}>
                                     <Form.Item>
-                                        <Button
-                                            size="large"
-                                            loading={submitting}
-                                            type="primary"
-                                            htmlType="submit"
-                                        >
+                                        <Button loading={submitting} type="primary" htmlType="submit">
                                             Guardar
                                         </Button>  
                                     </Form.Item>
+                                </Col> */}
+                            </Row>
+                            <Row>
+                                <Col span={22} className={Styles.botton}>
+                                        <Button loading={submitting} type="primary" htmlType="submit">
+                                            Guardar
+                                        </Button>   
                                 </Col>
                             </Row>
-                            {/* <Row>
-                                <Col span={22} className={Styles.botton}>
-                                    <Button
-                                        size="large"
-                                        loading={submitting}
-                                        type="primary"
-                                        htmlType="submit"
-                                    >
-                                        Guardar
-                                    </Button>     
-                                </Col>
-                            </Row> */}
                         </Form>
                     </Spin>
                 </Card>
