@@ -15,3 +15,11 @@ export async function getDataUserByEmail({ email }) {
         `${ANT_DESIGN_PRO_TARGET}/user/email?email=${email}`
     );
 }
+
+export async function updateDataUser({ payload }){
+    return request(`${ANT_DESIGN_PRO_TARGET}/user`,{
+        method: 'PUT',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(payload.PUT),
+      });
+}

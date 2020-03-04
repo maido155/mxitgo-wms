@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { Card, Row, Col, Form, Input, Divider, Select, Spin, Button } from 'antd';
+import { Card, Row, Col, Form, Input, Divider, Select, Spin, Button, Icon } from 'antd';
 import Upload from '../generalComponents/UploadAvatar';
 import Styles from './StylesAccount.css';
 import { connect } from 'dva';
@@ -46,7 +46,7 @@ class AccountSettings extends PureComponent{
 
       putDataUser = (values) => {
         this.props.dispatch({
-            type: '',
+            type: 'user/updateDataUser',
             payload: {
                 payload: {
                     GET: {
@@ -128,7 +128,7 @@ class AccountSettings extends PureComponent{
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
-                                    <Form.Item label="Telefono:">
+                                    <Form.Item label="Teléfono:">
                                         {getFieldDecorator('phone_number', { initialValue: numberPhone,
                                             rules: [{ required: true, message: 'Por favor ingrese su número de teléfono!' },
                                             { pattern: /^\d{10}$/, message: 'Formato invalido!'}],})
@@ -136,7 +136,7 @@ class AccountSettings extends PureComponent{
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
-                                    <Form.Item label="Correo Electronico:">
+                                    <Form.Item label="Correo Electrónico:">
                                         {getFieldDecorator('email',{ initialValue: userByEmail.email, 
                                             rules: [{ required: true, message: 'Ingresa tu correo electronico!'},{ type: 'email', message: 'Este correo no es valido!'}]})
                                             (<Input disabled/>)}
@@ -153,7 +153,7 @@ class AccountSettings extends PureComponent{
                             <Row>
                                 <Col span={22} className={Styles.botton}>
                                         <Button loading={submitting} type="primary" htmlType="submit">
-                                            Guardar
+                                            <Icon type="check" />Guardar
                                         </Button>   
                                 </Col>
                             </Row>
