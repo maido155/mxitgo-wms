@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import {Table, Icon, Input, Row, Col, Form} from 'antd';
+import modalCalendar from './modalCalendar'
 
 
 class EditData extends PureComponent{
@@ -14,9 +15,9 @@ class EditData extends PureComponent{
          <span>
             <Form {...formItemLayout}> 
            <Row>
-            <Col ></Col>
-            <Col > <label style={{ marginLeft:"5%"}}>Semana</label></Col>
-            <Col >  <Input></Input></Col>
+             <div>
+             <modalCalendar/>
+             </div>
            </Row>
           
            <Row>

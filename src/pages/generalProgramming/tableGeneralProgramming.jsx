@@ -2,11 +2,12 @@ import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import {isMobile} from 'react-device-detect';
 import { Table, Divider, Icon } from 'antd';
-import ModalEdit from './ModalEdit'
-
+import ModalEdit from './ModalEdit';
+import ModalCancel from './ModalCancel';
 
 class TableGeneralProgramming extends PureComponent{
-state = { visibleEdit: false };
+state = { visibleEdit: false, visibleCancel: false  };
+
 
 showModalEdit = () => {
   this.setState({
@@ -27,6 +28,27 @@ handleCancelEdit = e => {
     visibleEdit: false,
   });
 };
+//------------------------------cancel----------------------------
+showModalCancel = () => {
+  this.setState({
+    visibleCancel: true,
+  });
+};
+
+handleOkCancel = e => {
+  console.log(e);
+  this.setState({
+    visibleCancel: false,
+  });
+};
+
+handleCancel = e => {
+  console.log(e);
+  this.setState({
+    visibleCancel: false,
+  });
+};
+
 
 
 //pego las funciones bajo el class
@@ -103,13 +125,11 @@ handleCancelEdit = e => {
              
               render: () => (
                 <span>
-                 <a> <Icon type="edit" theme="filled" /> </a> 
+                 <a  onClick={this.showModalEdit}> <Icon type="edit" theme="filled" /> </a> 
                   <Divider type="vertical" />
-                 <a onClick={this.showModalEdit}><Icon type="close-circle" theme="filled" /></a> 
+                 <a onClick={this.showModalCancel}><Icon type="close-circle" theme="filled" /></a> 
                   <Divider type="vertical" />
-                  <a>  <Icon type="arrows-alt" /></a> 
-                  <Divider type="vertical" />
-                  <a>  <Icon type="eye" theme="filled"  /> </a> 
+                  <a onClick={this.showModalEdit} >  <Icon type="arrows-alt" /></a> 
                 </span>
               ),
             }
@@ -127,13 +147,10 @@ handleCancelEdit = e => {
                   <a onClick={this.showModalEdit}> Editar</a> 
                   <Divider type="vertical" />
                   <a><Icon type="close-circle" theme="filled" /></a>
-                  <a> Cancelar</a>
+                  <a onClick={this.showModalCancel}> Cancelar</a>
                   <Divider type="vertical" />
                   <a><Icon type="arrows-alt" /></a>
-                  <a> Pendiente</a>
-                  <Divider type="vertical" />
-                  <a><Icon type="eye" theme="filled"  /></a>
-                  <a> Visualizar</a>
+                  <a onClick={this.showModalEdit}> Visualizar</a>
                 </span>
               ),
             }
@@ -156,6 +173,12 @@ handleCancelEdit = e => {
             stateModalEdit = {this.state.visibleEdit}
             ok = {this.handleOkEdit}
             cancel = {this.handleCancelEdit}
+            />
+
+            <ModalCancel 
+            stateModalCancel = {this.state.visibleCancel}
+            ok = {this.handleOkCancel}
+            cancel = {this.handleCancel}
             />
               <Table  style={{marginTop: "2%"}} size="small" rowSelection={rowSelection} columns={columns} dataSource={data}  />
            </div>
