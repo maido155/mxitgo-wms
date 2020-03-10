@@ -1,35 +1,36 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { Table, Divider, Tag } from 'antd';
 
 const columns = [
     {
-      title: 'Pedido',
+      title: formatMessage({ id: 'outWard.label.tableassignment-order' }),
       dataIndex: 'pedido',
       render: text => <a>{text}</a>,
     },
     {
-      title: 'Pallets recibidos (Total)',
+      title: formatMessage({ id: 'outWard.label.tableassignment-pallets-re' }),
       dataIndex: 'palletsto'
     },
     {
-      title: 'Cajas recibidos (Total)',
+      title: formatMessage({ id: 'outWard.label.tableassignment-boxes-re' }),
       dataIndex: 'cajasto'
     },
     {
-      title: 'Pallets disponibles',
+      title: formatMessage({ id: 'outWard.label.tableassignment-pallets-di' }),
       dataIndex: 'palletsde'
     },
     {
-      title: 'Cajas disponibles',
+      title: formatMessage({ id: 'outWard.label.tableassignment-boxes-di' }),
       dataIndex: 'cajasde'
     },
     {
-        title: 'Asignar',
+        title: formatMessage({ id: 'outWard.label.tableassignment-assign' }),
         key: 'action',
         render: () => (
           <span>
-              <a>Asignar</a>     
+              <a><FormattedMessage id="outWard.label.tableassignment-assign"/></a>     
           </span>
         )
     }

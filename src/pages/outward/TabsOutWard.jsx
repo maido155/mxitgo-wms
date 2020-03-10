@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import TableOutWard from './TableOutWard';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { _ } from 'lodash'; 
 import { Tabs } from 'antd';
 
@@ -9,7 +10,7 @@ export default class TabsOutWard extends PureComponent {
     render() {
         return (
             <Tabs type="card">
-                <TabPane tab="Vallejo" key="1">
+                <TabPane tab={formatMessage({ id: 'outWard.label.tabs-one' })} key="1">
                     <TableOutWard
                         visibleDrawerOne={this.props.visibleDrawerOne}
                         showDrawerOne={this.props.showDrawerOne}
@@ -19,7 +20,7 @@ export default class TabsOutWard extends PureComponent {
                         closeDrawerTwo={this.props.closeDrawerTwo}     
                     />
                 </TabPane>
-                <TabPane tab="Cuauhtitlan" key="2">
+                <TabPane tab={formatMessage({ id: 'outWard.label.tabs-two' })} key="2">
                     <TableOutWard
                         visibleDrawerOne={this.props.visibleDrawerOne}
                         showDrawerOne={this.props.showDrawerOne}
@@ -29,7 +30,7 @@ export default class TabsOutWard extends PureComponent {
                         closeDrawerTwo={this.props.closeDrawerTwo}     
                     />
                 </TabPane>
-                <TabPane tab="Reparto" key="3">
+                <TabPane tab={formatMessage({ id: 'outWard.label.tabs-three' })} key="3">
                     <TableOutWard
                         visibleDrawerOne={this.props.visibleDrawerOne}
                         showDrawerOne={this.props.showDrawerOne}

@@ -2,13 +2,14 @@ import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import { Drawer, Button } from 'antd';
 import Table from './TableComposition';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import Assignment from './AssignmentOutWard';
 
 export default class CompositionOutWard extends PureComponent {
     render() {
         return (
             <Drawer
-                title="Ver composición"
+                title={formatMessage({ id: 'outWard.label.composition-outward' })}
                 placement="right"
                 width={"70%"}
                 closable={true}
@@ -30,12 +31,16 @@ export default class CompositionOutWard extends PureComponent {
                         borderRadius: '0 0 4px 4px',
                     }}
                 >
-                    <Button style={{marginRight: 8,}} onClick={this.props.showOne}>Asignación</Button>
+                    <Button style={{marginRight: 8,}} onClick={this.props.showOne}>
+                        <FormattedMessage id="outWard.button.composition-outward-assing"/>
+                    </Button>
                     <Assignment
                         visibleOne={this.props.visibleOne}
                         closeOne={this.props.closeOne}
                     />
-                    <Button onClick={this.props.closeTwo} type="primary">Aceptar</Button>
+                    <Button onClick={this.props.closeTwo} type="primary">
+                        <FormattedMessage id="outWard.button.composition-outward-ok"/>
+                    </Button>
                 </div>
             </Drawer>
         );            

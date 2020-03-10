@@ -4,6 +4,7 @@ import DrawerShippingPrograming from './DrawerShippingPrograming';
 import ConfirmationShipping from './ConfirmationShipping';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
 import TableShippingMaster from './TableShippingMaster';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import ModalEntry from './modalEntry';
 import Styles from './StylesShipping.css';
 import { _ } from 'lodash'; 
@@ -84,7 +85,7 @@ export default class ShippingMaster extends PureComponent {
                     <Form {...formItemLayout}>
                         <Row type="flex" justify="center">
                             <Col xs={24} sm={16} md={16} lg={16} xl={16}>
-                                <Form.Item label="Semana:">
+                                <Form.Item label={formatMessage({ id: 'outWard.label.week' })}>
                                     <RangePickerComponent/>
                                 </Form.Item>
                             </Col>
@@ -103,7 +104,7 @@ export default class ShippingMaster extends PureComponent {
                         </Row>
                         <Row type="flex" justify="center">
                             <Col xs={24} sm={12} md={12} lg={12} xl={13}>
-                                <Form.Item label="Producto:">
+                                <Form.Item label={formatMessage({ id: 'outWard.label.product' })}>
                                     <RadioGroupComponent/>
                                 </Form.Item>
                             </Col>

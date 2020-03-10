@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
 import { Modal, Icon} from 'antd';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import {isMobile} from 'react-device-detect';
 
 const { confirm } = Modal;
@@ -32,7 +33,7 @@ export default class ModalDeleteComponent extends PureComponent{
       }else{
         return(
           <a onClick={showDeleteConfirm} type="dashed">
-            <Icon type="delete" /> Eliminar
+            <Icon type="delete" /><FormattedMessage id="shipping.label.table-shipping.entry"/>
           </a>
         );
       }

@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { Card, Row, Col, Form, Input, Divider, Select, Spin, Button, Icon } from 'antd';
+import { Card, Row, Col, Form, Input, Divider, Select, Spin, Button, Icon, message} from 'antd';
 import Upload from '../generalComponents/UploadAvatar';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import Styles from './StylesAccount.css';
 import { connect } from 'dva';
 
@@ -13,7 +14,8 @@ var ladaPhone = "+521";
 @connect(({ user, loading }) => ({
     user,
     loading: loading.models.user,
-    userByEmail:user.userByEmail
+    userByEmail:user.userByEmail,
+    isUpdated:user.isUpdated
 }))
 
 class AccountSettings extends PureComponent{
@@ -26,12 +28,12 @@ class AccountSettings extends PureComponent{
            type: 'user/fetchUserByEmail',
            payload: {
                payload: {
-                   email:"lopezarmando1112@gmail.com"
+                   email: localStorage.getItem('email')
                }
            },
        });
     }
-
+    
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -50,7 +52,7 @@ class AccountSettings extends PureComponent{
             payload: {
                 payload: {
                     GET: {
-                        email:"lopezarmando1112@gmail.com",
+                        email: localStorage.getItem('email')
                     },
                     PUT: {
                         name: "name",
@@ -68,6 +70,13 @@ class AccountSettings extends PureComponent{
         });
     }
 
+    UpdateValidation = () => {
+        this.props.dispatch({
+            type: 'user/updateValidation',
+            payload: {},
+        });
+    }
+
     render(){
 
         const formItemLayout = {
@@ -75,12 +84,17 @@ class AccountSettings extends PureComponent{
             wrapperCol: {xs: { span: 24 },sm: { span: 12 },md: { span: 14 },lg: { span: 14 },xl: { span: 14  }}
         };
 
-        const { form, loading, user: { user },userByEmail, submitting } = this.props;
+        const { form, loading, user: { user },userByEmail,isUpdated, submitting } = this.props;
         const { getFieldDecorator } = form;
     
         const number = userByEmail.phone_number;
 
-        if(userByEmail.length != 0){
+        if(isUpdated){
+            message.success(formatMessage({ id: 'accountSettings.mode.message.save' }));
+            this.UpdateValidation();
+        }
+
+        if(number != undefined){
             numberPhone = number.substr(4);
             ladaPhone = number.substr(-14,4);
         }
@@ -89,78 +103,72 @@ class AccountSettings extends PureComponent{
             initialValue: ladaPhone,
           })(
             <Select>
-              <Option value="+521">+521</Option>
-              <Option value="+522">+522</Option>
+              <Option value="+521"><FormattedMessage id="accountSettings.label.prefix-one"/></Option>
+              <Option value="+522"><FormattedMessage id="accountSettings.label.prefix-two"/></Option>
             </Select>,
           );
 
-        return(
-            <PageHeaderWrapper  title="Account Settings">
-                <Card>
-                    <Spin tip="Loading Account" spinning={loading}>
-                        <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-                            <Row>
-                                <Col lg={12} xl={24} className={Styles.avatar}>
-                                    <Upload/>
-                                </Col>
-                            </Row>
-                            <Divider/>
-                            <Row>
-                                <Col lg={12} xl={12}>
-                                    <Form.Item label="Nombre(s):">
-                                        {getFieldDecorator('name', { initialValue: userByEmail.name,
-                                            rules: [{ required: true, message: 'Ingresa tu nombre!'}]})
-                                        (<Input  defaultValue="hola" />)}
-                                    </Form.Item>
-                                </Col>
-                                <Col lg={12} xl={12}>
-                                    <Form.Item label="Apellido Paterno:">
-                                        {getFieldDecorator('family_name',{ initialValue: userByEmail.family_name,
-                                            rules: [{ required: true, message: 'Ingresa tu apellido paterno!'}]})
-                                        (<Input/>)}
-                                    </Form.Item>
-                                </Col>
-                                <Col lg={12} xl={12}>
-                                    <Form.Item label="Apellido Materno:">
-                                        {getFieldDecorator('middle_name',{ initialValue: userByEmail.middle_name,
-                                            rules: [{ required: true, message: 'Ingresa tu apellido materno!'}]})
-                                        (<Input/>)}
-                                    </Form.Item>
-                                </Col>
-                                <Col lg={12} xl={12}>
-                                    <Form.Item label="Teléfono:">
-                                        {getFieldDecorator('phone_number', { initialValue: numberPhone,
-                                            rules: [{ required: true, message: 'Por favor ingrese su número de teléfono!' },
-                                            { pattern: /^\d{10}$/, message: 'Formato invalido!'}],})
-                                            (<Input addonBefore={prefixSelector}/>)}
-                                    </Form.Item>
-                                </Col>
-                                <Col lg={12} xl={12}>
-                                    <Form.Item label="Correo Electrónico:">
-                                        {getFieldDecorator('email',{ initialValue: userByEmail.email, 
-                                            rules: [{ required: true, message: 'Ingresa tu correo electronico!'},{ type: 'email', message: 'Este correo no es valido!'}]})
-                                            (<Input disabled/>)}
-                                    </Form.Item>
-                                </Col>
-                                {/* <Col lg={12} xl={12}>
-                                    <Form.Item>
-                                        <Button loading={submitting} type="primary" htmlType="submit">
-                                            Guardar
-                                        </Button>  
-                                    </Form.Item>
-                                </Col> */}
-                            </Row>
-                            <Row>
-                                <Col span={22} className={Styles.botton}>
-                                        <Button loading={submitting} type="primary" htmlType="submit">
-                                            <Icon type="check" />Guardar
-                                        </Button>   
-                                </Col>
-                            </Row>
-                        </Form>
-                    </Spin>
-                </Card>
-        </PageHeaderWrapper>
+        return( 
+                <PageHeaderWrapper  title={formatMessage({ id: 'accountSettings.mode.message.account' })}>
+                    <Card>
+                        <Spin tip={formatMessage({ id: 'accountSettings.security.message.account' })} spinning={loading} >
+                            <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+                                <Row>
+                                    <Col lg={12} xl={24} className={Styles.avatar}>
+                                        <Upload/>
+                                    </Col>
+                                </Row>
+                                <Divider/>
+                                <Row>
+                                    <Col lg={12} xl={12}>
+                                        <Form.Item label={formatMessage({ id: 'register.label.name' })}>
+                                            {getFieldDecorator('name', { initialValue: userByEmail.name,
+                                                rules: [{ required: true, message: <FormattedMessage id="register.mode.message.name"/>}]})
+                                            (<Input  defaultValue="hola" />)}
+                                        </Form.Item>
+                                    </Col>
+                                    <Col lg={12} xl={12}>
+                                        <Form.Item label={formatMessage({ id: 'register.label.lastfam' })}>
+                                            {getFieldDecorator('family_name',{ initialValue: userByEmail.family_name,
+                                                rules: [{ required: true, message: <FormattedMessage id="register.mode.message.lastfam"/>}]})
+                                            (<Input/>)}
+                                        </Form.Item>
+                                    </Col>
+                                    <Col lg={12} xl={12}>
+                                        <Form.Item label={formatMessage({ id: 'register.label.lastmid' })}>
+                                            {getFieldDecorator('middle_name',{ initialValue: userByEmail.middle_name,
+                                                rules: [{ required: true, message: <FormattedMessage id="register.mode.message.lastmid"/>}]})
+                                            (<Input/>)}
+                                        </Form.Item>
+                                    </Col>
+                                    <Col lg={12} xl={12}>
+                                        <Form.Item label={formatMessage({ id: 'register.label.phone' })}>
+                                            {getFieldDecorator('phone_number', { initialValue: numberPhone,
+                                                rules: [{ required: true, message: <FormattedMessage id="register.mode.message.phone"/> },
+                                                { pattern: /^\d{10}$/, message: <FormattedMessage id="register.security.message.phone"/>}],})
+                                                (<Input addonBefore={prefixSelector}/>)}
+                                        </Form.Item>
+                                    </Col>
+                                    <Col lg={12} xl={12}>
+                                        <Form.Item label={formatMessage({ id: 'register.label.email' })}>
+                                            {getFieldDecorator('email',{ initialValue: userByEmail.email, 
+                                                rules: [{ required: true, message: <FormattedMessage id="register.mode.message.email"/>},
+                                                { type: 'email', message: <FormattedMessage id="register.mode.message.email-inv"/>}]})
+                                                (<Input disabled/>)}
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col span={22} className={Styles.botton}>
+                                            <Button loading={submitting} type="primary" htmlType="submit">
+                                                <Icon type="check" /><FormattedMessage id="accountSettings.button.save"/>
+                                            </Button>   
+                                    </Col>
+                                </Row>
+                            </Form>
+                        </Spin>
+                    </Card>
+                </PageHeaderWrapper>
         );
     }
 }

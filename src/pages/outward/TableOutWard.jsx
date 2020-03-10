@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import { Table, Divider, Button, Checkbox  } from 'antd';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import AssignmentOutWard from './AssignmentOutWard';
 import CompositionOutWard from './CompositionOutWard';
 
@@ -13,12 +14,12 @@ export default class TableOutWard extends PureComponent {
                 width: 100
             },
             {
-                title: 'Pallets asignados/requeridos',
+                title: formatMessage({ id: 'outWard.label.table-pallets' }),
                 dataIndex: 'pallets',
                 width: 190
             },
             {
-                title: 'Cajas asignados/requeridos',
+                title: formatMessage({ id: 'outWard.label.table-boxes' }),
                 dataIndex: 'cajas',
                 width: 180
             },
@@ -28,13 +29,17 @@ export default class TableOutWard extends PureComponent {
                 width: 480,
                 render: () => (
                   <span>
-                        <Button type="primary" onClick={this.props.showDrawerOne}>Asignar</Button>
+                        <Button type="primary" onClick={this.props.showDrawerOne}>
+                            <FormattedMessage id="outWard.button.assign"/>
+                        </Button>
                         <AssignmentOutWard 
                             visibleOne={this.props.visibleDrawerOne}
                             closeOne={this.props.closeDrawerOne}
                         />
                     <Divider type="vertical" />
-                        <Button onClick={this.props.showDrawerTwo}>Ver composición</Button>
+                        <Button onClick={this.props.showDrawerTwo}>
+                            <FormattedMessage id="outWard.button.composition"/>
+                        </Button>
                         <CompositionOutWard
                             visibleTwo={this.props.visibleDrawerTwo}
                             closeTwo={this.props.closeDrawerTwo}
@@ -43,7 +48,9 @@ export default class TableOutWard extends PureComponent {
                             closeOne={this.props.closeDrawerOne}
                         />
                     <Divider type="vertical" />
-                        <Checkbox>Confirmar</Checkbox>      
+                        <Checkbox>
+                            <FormattedMessage id="outWard.button.confirm"/>
+                        </Checkbox>      
                   </span>
                 ),
             }

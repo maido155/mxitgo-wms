@@ -3,6 +3,7 @@ import { _ } from 'lodash';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import RangePickerComponent from '../generalComponents/RangePickerComponent';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import TabsOutWard from './TabsOutWard';
 import { Card, Form, Row, Col } from 'antd';
 
@@ -43,14 +44,14 @@ export default class OutWard extends PureComponent {
                         <Form {...formItemLayout}>
                             <Row type="flex" justify="start">
                                 <Col xs={24} sm={20} md={18} lg={18} xl={18}>
-                                    <Form.Item label="Semana:">
+                                    <Form.Item label={formatMessage({ id: 'outWard.label.week' })}>
                                         <RangePickerComponent/>
                                     </Form.Item>
                                 </Col>
                             </Row>
                             <Row type="flex" justify="center">
                                 <Col xs={24} sm={12} md={16} lg={16} xl={8}>
-                                    <Form.Item label="Producto:">
+                                    <Form.Item label={formatMessage({ id: 'outWard.label.product' })}>
                                         <RadioGroupComponent/>
                                     </Form.Item>
                                 </Col>

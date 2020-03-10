@@ -1,10 +1,11 @@
 import { queryCurrent, getDataUserByEmail, updateDataUser, query as queryUsers } from '@/services/user';
+
 const UserModel = {
   namespace: 'user',
   state: {
     currentUser: {},
     userByEmail: [],
-    // isUpdated: false
+    isUpdated: false
   },
   effects: {
     *fetch(_, { call, put }) {
@@ -36,25 +37,38 @@ const UserModel = {
       let email = payload.payload.GET.email;
       const response = yield call(updateDataUser, payload);
       const responseDataUser = yield call(getDataUserByEmail, {email});
-      var update = this;
-      // if(response == "success"){
-      //   update.setState({
-      //     isUpdated: true
-      //   });
-      // }
       yield put({
-          type: 'queryUserByEmail',
+          type: 'queryDataUser',
           payload: responseDataUser,
       });
     },
 
+    *updateValidation({payload},{call, put}){
+      yield put({
+        type: 'queryValidation',
+        payload: {},
+      });
+    },
   },
   reducers: {
     queryUserByEmail(state, action){
       return{
         ...state,
         userByEmail: action.payload,
-        // isUpdated
+        isUpdated: false
+      }
+    },
+    queryDataUser(state, action){
+      return{
+        ...state,
+        userByEmail: action.payload,
+        isUpdated: true
+      }
+    },
+    queryValidation(state, action){
+      return{
+        ...state,
+        isUpdated: false
       }
     },
     saveCurrentUser(state, action) {

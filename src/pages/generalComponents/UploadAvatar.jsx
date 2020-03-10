@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
 import { Upload, Button, Icon} from 'antd';
 import AvatarAccount from './AvatarAccount';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import Styles from './StylesGeneral.css';
 
 function getBase64(img, callback) {
@@ -34,7 +35,7 @@ export default class UploadAvatar extends PureComponent{
         >
           <AvatarAccount dataImagen={imageUrl}/>
           <Button className={Styles.avatar}>
-            <Icon type="upload"/>Cargar Imagen
+            <Icon type="upload"/><FormattedMessage id="accountSettings.label.upload-image"/>
           </Button>
         </Upload>
       </div>  

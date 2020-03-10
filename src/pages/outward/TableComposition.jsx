@@ -1,19 +1,20 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { Table, Divider, Tag } from 'antd';
 
 const columns = [
     {
-      title: 'Pedido',
+      title: formatMessage({ id: 'outWard.label.tableassignment-order' }),
       dataIndex: 'pedido',
       render: text => <a>{text}</a>,
     },
     {
-      title: 'Pallets asignados',
+      title: formatMessage({ id: 'outWard.button.composition-outward-pallets-ass' }),
       dataIndex: 'pallets'
     },
     {
-      title: 'Cajas asignados',
+      title: formatMessage({ id: 'outWard.button.composition-outward-boxes-ass' }),
       dataIndex: 'cajas'
     }
 ];
