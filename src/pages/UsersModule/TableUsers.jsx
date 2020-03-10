@@ -56,10 +56,10 @@ if(isMobile){
       render: () => (
         <span>
           <a><Icon type="edit" theme="filled" /></a>
-          <a> Editar usuario</a>
+          <a> Editar</a>
           <Divider type="vertical" />
           <a><Icon type="close-circle" theme="filled" /></a>
-          <a> Eliminar usuario</a>
+          <a> Eliminar</a>
         </span>
       ),
     }
