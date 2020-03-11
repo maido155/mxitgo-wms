@@ -172,7 +172,7 @@ export default class TableShippingMaster extends PureComponent{
                   <ModalDeleteComponent/>
                 <Divider type="vertical" />
                 <a onClick={this.props.clickModal}><Icon type="form" />
-                  <FormattedMessage id="shipping.label.table-shipping.delete"/>
+                  <FormattedMessage id="shipping.label.table-shipping.entry"/>
                 </a>
               </span>
             ),

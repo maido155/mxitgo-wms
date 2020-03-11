@@ -33,7 +33,7 @@ export default class ModalDeleteComponent extends PureComponent{
       }else{
         return(
           <a onClick={showDeleteConfirm} type="dashed">
-            <Icon type="delete" /><FormattedMessage id="shipping.label.table-shipping.entry"/>
+            <Icon type="delete" /><FormattedMessage id="shipping.label.table-shipping.delete"/>
           </a>
         );
       }
