@@ -49,6 +49,17 @@ const UserModel = {
         payload: {},
       });
     },
+
+    // *saveAvatarUser({payload},{call, put}){
+    //   let email = payload.payload.GET.email;
+    //   const response = yield call(updateDataUser, payload);
+    //   const responseDataUser = yield call(getDataUserByEmail, {email});
+    //   yield put({
+    //       type: 'queryDataUser',
+    //       payload: responseDataUser,
+    //   });
+    // },
+
   },
   reducers: {
     queryUserByEmail(state, action){

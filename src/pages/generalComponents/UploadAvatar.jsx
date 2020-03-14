@@ -5,35 +5,15 @@ import AvatarAccount from './AvatarAccount';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import Styles from './StylesGeneral.css';
 
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
-}
-
 export default class UploadAvatar extends PureComponent{
-  state = {
-  };
-
-  handleChange = info => {
-    if (info.file.status === 'done') {
-      getBase64(info.file.originFileObj, imageUrl =>
-        this.setState({
-          imageUrl
-        }),
-      );
-    }
-  };
-
   render(){
-    const { imageUrl } = this.state;
     return(  
       <div>
         <Upload
-          onChange={this.handleChange}
+          onChange={this.props.changeImagen}
           showUploadList={false}
         >
-          <AvatarAccount dataImagen={imageUrl}/>
+          <AvatarAccount dataImagen={this.props.stateImage}/>
           <Button className={Styles.avatar}>
             <Icon type="upload"/><FormattedMessage id="accountSettings.label.upload-image"/>
           </Button>

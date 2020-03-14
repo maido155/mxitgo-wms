@@ -20,7 +20,8 @@ var ladaPhone = "+521";
 
 class AccountSettings extends PureComponent{
     state = {
-        loading: false
+        loading: false,
+        imageUrl: "" //add
     }
 
     componentDidMount() {
@@ -33,15 +34,17 @@ class AccountSettings extends PureComponent{
            },
        });
     }
-    
+
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
+            values["urlimage"] = this.state.imageUrl;
             var phone_number = values.prefix + values.phone_number;
             values.phone_number = phone_number;
           if (!err) {
             console.log('Received values of form: ', values);
             this.putDataUser(values);
+            this.saveAvatarUser(values); //add
           }
         });
       };
@@ -70,12 +73,45 @@ class AccountSettings extends PureComponent{
         });
     }
 
+    saveAvatarUser = (values) => { //add
+        this.props.dispatch({
+            type: 'user/',
+            payload: {
+                payload: {
+                    GET: {
+                        email: localStorage.getItem('email')
+                    },
+                    POST: {
+                        urlImage: values.urlimage,
+                        user: values.email
+                    }
+                },
+            },
+        });
+    }
+
     UpdateValidation = () => {
         this.props.dispatch({
             type: 'user/updateValidation',
             payload: {},
         });
     }
+
+    getBase64 = (img, callback) =>{ //add
+        const reader = new FileReader();
+        reader.addEventListener('load', () => callback(reader.result));
+        reader.readAsDataURL(img);
+    }
+
+    handleChange = info => { //add
+        if (info.file.status === 'done') {
+          this.getBase64(info.file.originFileObj, imageUrl =>
+            this.setState({
+              imageUrl
+            }),
+          );
+        }
+    };
 
     render(){
 
@@ -115,7 +151,7 @@ class AccountSettings extends PureComponent{
                             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                                 <Row>
                                     <Col lg={12} xl={24} className={Styles.avatar}>
-                                        <Upload/>
+                                        <Upload changeImagen={this.handleChange} stateImage={this.state.imageUrl}/>
                                     </Col>
                                 </Row>
                                 <Divider/>

@@ -20,7 +20,7 @@ const plugins = [
         // default zh-CN
         default: 'es-ES',
         // default true, when it is true, will use `navigator.language` overwrite default
-        baseNavigator: true,
+        // baseNavigator: true,
       },
       dynamicImport: {
         loadingComponent: './components/PageLoading/index',
@@ -100,7 +100,7 @@ export default {
           routes: [
             {
               path: '/',
-              redirect: '/dashboard',
+              redirect: '/user/login',
             },
             {
               path: '/dashboard',
