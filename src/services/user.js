@@ -23,3 +23,17 @@ export async function updateDataUser({ payload }){
         body: JSON.stringify(payload.PUT),
       });
 }
+
+export async function getAvatarUser({ user }) {
+    return request(
+      `${ANT_DESIGN_PRO_TARGET}/user/avatar?user=${user}`
+      );
+}
+
+export async function saveAvatarUser({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/user/avatar`,{
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(payload.POST),
+    });
+  }

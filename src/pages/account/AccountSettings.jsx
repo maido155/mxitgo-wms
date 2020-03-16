@@ -15,13 +15,14 @@ var ladaPhone = "+521";
     user,
     loading: loading.models.user,
     userByEmail:user.userByEmail,
-    isUpdated:user.isUpdated
+    isUpdated:user.isUpdated,
+    avatarUser:user.avatarUser
 }))
 
 class AccountSettings extends PureComponent{
+    
     state = {
         loading: false,
-        imageUrl: "" //add
     }
 
     componentDidMount() {
@@ -33,18 +34,26 @@ class AccountSettings extends PureComponent{
                }
            },
        });
+       this.props.dispatch({
+            type: 'user/fetchAvatarUser',
+            payload: {
+                payload: {
+                    user: localStorage.getItem('email')
+                }
+            },
+        });
     }
 
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
-            values["urlimage"] = this.state.imageUrl;
+            values["urlimage"] = this.props.avatarUser.urlImage;
             var phone_number = values.prefix + values.phone_number;
             values.phone_number = phone_number;
           if (!err) {
             console.log('Received values of form: ', values);
             this.putDataUser(values);
-            this.saveAvatarUser(values); //add
+            this.saveAvatarUser(values);
           }
         });
       };
@@ -73,17 +82,17 @@ class AccountSettings extends PureComponent{
         });
     }
 
-    saveAvatarUser = (values) => { //add
+    saveAvatarUser = (values) => { 
         this.props.dispatch({
-            type: 'user/',
+            type: 'user/saveAvatarUser',
             payload: {
                 payload: {
                     GET: {
-                        email: localStorage.getItem('email')
+                        user: localStorage.getItem('email')
                     },
                     POST: {
                         urlImage: values.urlimage,
-                        user: values.email
+                        user: localStorage.getItem('email')
                     }
                 },
             },
@@ -97,21 +106,32 @@ class AccountSettings extends PureComponent{
         });
     }
 
-    getBase64 = (img, callback) =>{ //add
+    getBase64 = (img, callback) =>{
         const reader = new FileReader();
         reader.addEventListener('load', () => callback(reader.result));
         reader.readAsDataURL(img);
     }
 
-    handleChange = info => { //add
+    handleChange = info => {
         if (info.file.status === 'done') {
           this.getBase64(info.file.originFileObj, imageUrl =>
-            this.setState({
-              imageUrl
-            }),
+            this.props.dispatch({
+                type: 'user/updateValidationAvatar',
+                payload: {
+                    body:{
+                        Items:{
+                            [0]:{
+                                urlImage: imageUrl,
+                                user: localStorage.getItem('email')
+                            }
+                        }
+                    }
+                },
+            })
           );
         }
     };
+
 
     render(){
 
@@ -120,9 +140,8 @@ class AccountSettings extends PureComponent{
             wrapperCol: {xs: { span: 24 },sm: { span: 12 },md: { span: 14 },lg: { span: 14 },xl: { span: 14  }}
         };
 
-        const { form, loading, user: { user },userByEmail,isUpdated, submitting } = this.props;
+        const { form, loading, user: { user },userByEmail,isUpdated, submitting, avatarUser } = this.props;
         const { getFieldDecorator } = form;
-    
         const number = userByEmail.phone_number;
 
         if(isUpdated){
@@ -151,7 +170,15 @@ class AccountSettings extends PureComponent{
                             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                                 <Row>
                                     <Col lg={12} xl={24} className={Styles.avatar}>
-                                        <Upload changeImagen={this.handleChange} stateImage={this.state.imageUrl}/>
+                                        {
+                                            avatarUser != undefined  
+                                            ? <div>
+                                                <Upload changeImagen={this.handleChange} stateImage={avatarUser.urlImage}/>
+                                                {localStorage.setItem("url", this.props.avatarUser.urlImage)}
+                                            </div> 
+                                            : <Upload changeImagen={this.handleChange}/>
+        
+                                        }
                                     </Col>
                                 </Row>
                                 <Divider/>
