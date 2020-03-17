@@ -30,6 +30,12 @@ class AvatarDropdown extends React.Component {
         avatar: '',
         name: '',
       },
+      userByEmail = {
+        name: ''
+      },
+      avatarUser = {
+        urlImage: ''
+      },
       menu,
     } = this.props;
     const menuHeaderDropdown = (
@@ -48,8 +54,19 @@ class AvatarDropdown extends React.Component {
     return currentUser && currentUser.name ? (
       <HeaderDropdown overlay={menuHeaderDropdown}>
         <span className={`${styles.action} ${styles.account}`}>
-          <Avatar size="small" className={styles.avatar} src={localStorage.getItem('url')} alt="avatar" />
-          <span className={styles.name}>{localStorage.getItem('userName')}</span>
+          {
+            userByEmail.urlImage == "undefined"
+            ? 
+              <div>
+                <Avatar size="small" className={styles.avatar} src={localStorage.getItem('url')} alt="avatar" />
+                <span className={styles.name}>{localStorage.getItem('userName')}</span>
+              </div>
+            : 
+              <div>
+                <Avatar size="small" className={styles.avatar} src={avatarUser.urlImage} alt="avatar" />
+                <span className={styles.name}>{userByEmail.name}</span>
+              </div>
+          }
         </span>
       </HeaderDropdown>
     ) : (
@@ -66,4 +83,6 @@ class AvatarDropdown extends React.Component {
 
 export default connect(({ user }) => ({
   currentUser: user.currentUser,
+  userByEmail:user.userByEmail,
+  avatarUser:user.avatarUser
 }))(AvatarDropdown);

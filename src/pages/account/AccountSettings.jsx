@@ -47,9 +47,15 @@ class AccountSettings extends PureComponent{
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
-            values["urlimage"] = this.props.avatarUser.urlImage;
-            var phone_number = values.prefix + values.phone_number;
-            values.phone_number = phone_number;
+            let vali = localStorage.getItem('url');
+            if(vali == "undefined"){
+                message.error(formatMessage({ id: 'accountSettings.mode.message.err' }));
+                return;
+            }else{
+                values["urlimage"] = this.props.avatarUser.urlImage;
+                var phone_number = values.prefix + values.phone_number;
+                values.phone_number = phone_number;
+            }
           if (!err) {
             console.log('Received values of form: ', values);
             this.putDataUser(values);
@@ -176,7 +182,7 @@ class AccountSettings extends PureComponent{
                                                 <Upload changeImagen={this.handleChange} stateImage={avatarUser.urlImage}/>
                                                 {localStorage.setItem("url", this.props.avatarUser.urlImage)}
                                             </div> 
-                                            : <Upload changeImagen={this.handleChange}/>
+                                            : <Upload changeImagen={this.handleChange} stateImage={"https://elsignificadode.com/wp-content/uploads/blanco.jpg"}/>
         
                                         }
                                     </Col>

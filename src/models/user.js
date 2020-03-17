@@ -71,12 +71,12 @@ const UserModel = {
             });
         },
 
-        *updateValidationAvatar({ payload }, { call, put }){
-          console.log(payload);
-          yield put({
-            type: 'queryAvatarUser',
-            payload: payload,
-          });
+        * updateValidationAvatar({ payload }, { call, put }) {
+            console.log(payload);
+            yield put({
+                type: 'queryAvatarUser',
+                payload: payload,
+            });
         }
     },
     reducers: {
