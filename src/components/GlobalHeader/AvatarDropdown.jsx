@@ -26,10 +26,6 @@ class AvatarDropdown extends React.Component {
 
   render() {
     const {
-      currentUser = {
-        avatar: '',
-        name: '',
-      },
       userByEmail = {
         name: ''
       },
@@ -51,22 +47,11 @@ class AvatarDropdown extends React.Component {
         </Menu.Item>
       </Menu>
     );
-    return currentUser && currentUser.name ? (
+    return userByEmail && userByEmail.name ? (
       <HeaderDropdown overlay={menuHeaderDropdown}>
         <span className={`${styles.action} ${styles.account}`}>
-          {
-            userByEmail.urlImage == "undefined"
-            ? 
-              <div>
-                <Avatar size="small" className={styles.avatar} src={localStorage.getItem('url')} alt="avatar" />
-                <span className={styles.name}>{localStorage.getItem('userName')}</span>
-              </div>
-            : 
-              <div>
-                <Avatar size="small" className={styles.avatar} src={avatarUser.urlImage} alt="avatar" />
-                <span className={styles.name}>{userByEmail.name}</span>
-              </div>
-          }
+          <Avatar size="small" className={styles.avatar} src={avatarUser.urlImage} alt="avatar" />
+          <span className={styles.name}>{userByEmail.name}</span>
         </span>
       </HeaderDropdown>
     ) : (
