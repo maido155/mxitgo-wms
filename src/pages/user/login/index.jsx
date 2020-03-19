@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Link } from 'umi';
 import { connect } from 'dva';
 import LoginComponents from './components/Login';
+import ModalChangePassword from '../login/components/Login/ModalChangePassword'
 import styles from './style.less';
 //import router from 'umi/router';
 //import { config as AWSConfig } from 'aws-sdk';
@@ -186,6 +187,14 @@ class Login extends Component {
     })
   }
 
+  showModal = () => {
+    this.setState({
+      visibleChangePassword : true
+    })
+  }
+  handleCancel = () => {
+    this.setState({ visibleChangePassword: false });
+};
 /*  handleSubmitChangePassword= () => {
     const form = this.formRefDraw.props.form;
     let _self = this;
@@ -340,8 +349,12 @@ class Login extends Component {
               style={{
                 float: 'right',
               }}
-             onClick={this.showModal}
+              onClick={this.showModal}
             > 
+              <ModalChangePassword
+                visiblePassword = {this.state.visibleChangePassword}
+                onCancel={this.handleCancel}
+              />
               <FormattedMessage id="olvidaste tu contraseña?" //"user-login.login.forgot-password"
               /> 
             </a> 

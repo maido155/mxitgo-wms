@@ -58,7 +58,7 @@ const ModalChangePassword = Form.create()(
         onClickChangePassword = (e) => {
             const { onChangePassword } = this.props;
             this.setState({visibleFormCode:true, disabledBtnSendMail:true});
-            onChangePassword();
+            //onChangePassword();
         }
         onClickConfirmCode = (_this) => {
             const { onConfirmCode } = this.props;
@@ -70,8 +70,9 @@ const ModalChangePassword = Form.create()(
             }
         }
         
+        
         render() {
-            const { visible, onCancel, onConfirmCode, form } = this.props;
+            const { visiblePassword, onCancel, onConfirmCode, form } = this.props;
             const { getFieldDecorator } = form;
             const {visibleFormCode,disabledBtnSendMail} = this.state;
           
@@ -82,8 +83,8 @@ const ModalChangePassword = Form.create()(
                 <LocaleProvider locale={en_US}>
                     
                 <Modal
-                    visible={visible}
-                    title="Forgot your password?"
+                    visible={visiblePassword}
+                    title="Olvidaste tu contraseña?"
                     // okText="Change"
                     cancelText="Cancel"
                     onCancel={onCancel}
@@ -132,15 +133,15 @@ const ModalChangePassword = Form.create()(
 
                                     
                                 
-                                    {/* <FormItem label="New Password">
+                                     <FormItem label="Confirm Password">
                                         {getFieldDecorator('newPassword', {
                                             rules: [{
                                                 required: true, message: 'Please input the new password!',
                                         }],
                                         })(
-                                            <Input type="text" onBlur={this.handleConfirmBlur}/>
+                                            <Input.Password type="text" onBlur={this.handleNewPasswordBlur}/>
                                         )}
-                                    </FormItem>   */}
+                                    </FormItem>   
                                     <Form.Item>
                                     <Button type="primary" htmlType="submit" onClick={onConfirmCode}>
                                         Change Password
