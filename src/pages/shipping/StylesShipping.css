@@ -21,6 +21,13 @@
     .producto {
         cursor: pointer;
     }
+    .label {
+        text-align: center;
+        margin-right: 0.5rem;
+    }
+    .input {
+        margin-top: 0.5rem;
+    }
 }
 
 @media screen and (min-width: 576px) {
@@ -43,6 +50,10 @@
     .producto {
         cursor: pointer;
     }
+    .label {
+        text-align: center;
+        margin-right: 0.5rem;
+    }
 }
 
 @media screen and (min-width: 768px) {
@@ -59,6 +70,10 @@
     .producto {
         cursor: pointer;
     }
+    .label {
+        text-align: center;
+        margin-right: 0.5rem;
+    }
 }
 
 @media screen and (min-width: 992px) {
@@ -74,6 +89,10 @@
     }
     .producto {
         cursor: pointer;
+    }
+    .label {
+        text-align: center;
+        margin-right: 0.5rem;
     }
 }
 
@@ -93,5 +112,12 @@
     }
     .producto {
         cursor: pointer;
+    }
+    .label {
+        text-align: center;
+        margin-right: 0.5rem;
+    }
+    .input {
+        margin-top: 0.5rem;
     }
 }

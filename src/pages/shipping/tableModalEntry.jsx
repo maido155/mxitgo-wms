@@ -91,7 +91,7 @@ const columns = [
        }
         return (
           <span>
-             <Table columns={columns} dataSource={data} pagination={false}/>  
+             <Table columns={columns} dataSource={data} scroll={{x: 1190, y: 300}} pagination={false}/>  
           </span>
         );
         

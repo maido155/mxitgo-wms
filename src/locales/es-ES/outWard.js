@@ -1,6 +1,7 @@
 export default {
     'outWard.label.week': 'Semana',
     'outWard.label.product': 'Producto',
+    'outWard.label.client': 'Cliente',
     'outWard.label.radio-group-gold': 'Gold',
     'outWard.label.radio-group-premium': 'Premium',
     'outWard.label.tabs-one': 'Vallejo',

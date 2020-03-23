@@ -6,6 +6,30 @@ import AssignmentOutWard from './AssignmentOutWard';
 import CompositionOutWard from './CompositionOutWard';
 
 export default class TableOutWard extends PureComponent {
+    state = { 
+        visibleAssign: false,
+        visibleCompo: false
+    };
+    showOne = () => {
+        this.setState({
+          visibleAssign: true,
+        });
+    };
+    showTwo = () => {
+        this.setState({
+          visibleCompo: true,
+        });
+    };
+    onCloseOne = () => {
+        this.setState({
+          visibleAssign: false,
+        });
+    };
+    onCloseTwo = () => {
+        this.setState({
+          visibleCompo: false,
+        });
+    };
     render() {
         const columns = [
             {
@@ -29,23 +53,23 @@ export default class TableOutWard extends PureComponent {
                 width: 480,
                 render: () => (
                   <span>
-                        <Button type="primary" onClick={this.props.showDrawerOne}>
+                        <Button type="primary" onClick={this.showOne}>
                             <FormattedMessage id="outWard.button.assign"/>
                         </Button>
                         <AssignmentOutWard 
-                            visibleOne={this.props.visibleDrawerOne}
-                            closeOne={this.props.closeDrawerOne}
+                            visibleOne={this.state.visibleAssign}
+                            closeOne={this.onCloseOne}
                         />
                     <Divider type="vertical" />
-                        <Button onClick={this.props.showDrawerTwo}>
+                        <Button onClick={this.showTwo}>
                             <FormattedMessage id="outWard.button.composition"/>
                         </Button>
                         <CompositionOutWard
-                            visibleTwo={this.props.visibleDrawerTwo}
-                            closeTwo={this.props.closeDrawerTwo}
-                            showOne={this.props.showDrawerOne}
-                            visibleOne={this.props.visibleDrawerOne}
-                            closeOne={this.props.closeDrawerOne}
+                            visibleTwo={this.state.visibleCompo}
+                            closeTwo={this.onCloseTwo}
+                            showOne={this.showOne}
+                            visibleOne={this.state.visibleAssign}
+                            closeOne={this.onCloseOne}
                         />
                     <Divider type="vertical" />
                         <Checkbox>

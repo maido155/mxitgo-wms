@@ -14,7 +14,7 @@ export default {
     'shipping.label.table-shipping.confirm': 'Confirmar',
     'shipping.label.table-shipping.delete': 'Eliminar',
     'shipping.label.table-shipping.entry': 'Entrada',
-    'shipping.drawershipping.label.title': 'Programación de Envíos',
+    'shipping.drawershipping.label.title': 'Envíos',
     'shipping.drawershipping.label.date-exit': 'Fecha de salida',
     'shipping.drawershipping.label.date-arrival': 'Fecha de llegada',
     'shipping.drawershipping.label.date-entry': 'Fecha de entrada',
