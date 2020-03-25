@@ -23,10 +23,9 @@
     }
     .label {
         text-align: center;
-        margin-right: 0.5rem;
     }
-    .input {
-        margin-top: 0.5rem;
+    .labelTitle {
+        text-align: center;
     }
 }
 
@@ -52,7 +51,10 @@
     }
     .label {
         text-align: center;
-        margin-right: 0.5rem;
+    }
+    .labelTitle {
+        text-align: center;
+        margin-top: 1.4rem;
     }
 }
 
@@ -72,7 +74,13 @@
     }
     .label {
         text-align: center;
-        margin-right: 0.5rem;
+    }
+    .labelTitle {
+        margin-top: 1rem;
+        text-align: center;
+    }
+    .row {
+        margin-top: 1rem;
     }
 }
 
@@ -90,9 +98,15 @@
     .producto {
         cursor: pointer;
     }
+    .labelTitle {
+        margin-top: 1rem;
+        text-align: center;
+    }
     .label {
         text-align: center;
-        margin-right: 0.5rem;
+    }
+    .row {
+        margin-top: 1rem;
     }
 }
 
@@ -113,11 +127,14 @@
     .producto {
         cursor: pointer;
     }
+    .labelTitle {
+        margin-top: 1.5rem;
+        text-align: center;
+    }
     .label {
         text-align: center;
-        margin-right: 0.5rem;
     }
-    .input {
-        margin-top: 0.5rem;
+    .row {
+        margin-top: 1rem;
     }
 }
