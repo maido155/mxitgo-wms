@@ -210,7 +210,7 @@ export async function getIndustries() {
 
 export async function getUsers({ payload }) {
   console.log(payload);
-  return request(`${ANT_DESIGN_PRO_TARGET}/users?userId=${payload.userId}`);
+  return request(`${ANT_DESIGN_PRO_TARGET}/dev/user/email?email=${payload.userId}`);
 }
 
 export async function getCompaniesByUsers({ payload }) {

@@ -2,82 +2,61 @@ import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
 import { Table, Divider, Icon } from 'antd';
 import ModalDeleteComponent from './ModalDeleteComponent';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import {isMobile} from 'react-device-detect';
 
 export default class TableComponent extends PureComponent{
     render(){
       const columns = [
         {
-            title: 'Centro',
+            title: formatMessage({ id: 'shipping.tablecomponent.label.center' }),
             dataIndex: 'center',
             width: 200
         },
         {
-            title: 'Premium',
+            title: formatMessage({ id: 'shipping.tablecomponent.label.premium' }),
             dataIndex: 'premium',
             width: 100
         },
         {
-            title: 'Gold',
+            title: formatMessage({ id: 'shipping.tablecomponent.label.gold' }),
             dataIndex: 'gold',
             width: 100
         },
         {
-            title: 'Segunda',
+            title: formatMessage({ id: 'shipping.tablecomponent.label.second' }),
             dataIndex: 'segunda',
             width: 100
         },
         {
-            title: 'Mano',
+            title: formatMessage({ id: 'shipping.tablecomponent.label.hand' }),
             dataIndex: 'mano',
             width: 100
         },
         {
-            title: 'Dedo',
+            title: formatMessage({ id: 'shipping.tablecomponent.label.finger' }),
             dataIndex: 'dedo',
             width: 100
         },
+        {
+          title: formatMessage({ id: 'shipping.tablecomponent.label.actions' }),
+          key: 'action',
+          fixed: 'right',
+          width: isMobile ? 90 : 155,
+          render: () => (
+            <span>
+              <a onClick={this.props.showDrawer}>
+                { isMobile
+                  ?<Icon type="edit" />
+                  : <span><Icon type="edit" /><FormattedMessage id="shipping.label.table-shipping.edit"/></span>
+                }
+              </a>
+              <Divider type="vertical" />
+                <ModalDeleteComponent/>
+            </span>
+          ),
+        }
       ];
-
-      if(isMobile){
-        columns.push(
-          {
-            title: 'Acciones',
-            key: 'action',
-            fixed: 'right',
-            width: 150,
-            render: () => (
-              
-              <span>
-                <a onClick={this.props.showDrawer}>
-                  <Icon type="edit" />
-                </a>
-                <Divider type="vertical" />
-                  <ModalDeleteComponent/>
-              </span>
-            ),
-          }
-        );
-      }else{
-        columns.push(
-          {
-            title: 'Acciones',
-            key: 'action',
-            fixed: 'right',
-            width: 150,
-            render: () => (
-              
-              <span>
-                <a onClick={this.props.showDrawer}>
-                  <Icon type="edit" />Editar
-                </a>
-                <Divider type="vertical" />
-                  <ModalDeleteComponent/>
-              </span>
-            ),
-          }
-        );
-      }
 
       const data = [
         {

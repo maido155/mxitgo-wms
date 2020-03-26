@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { _ } from 'lodash';
 import { TreeSelect } from 'antd';
 
@@ -47,14 +48,14 @@ export default class TreeSelectComponent extends PureComponent{
             onChange: this.onChange,
             treeCheckable: true,
             showCheckedStrategy: SHOW_PARENT,
-            searchPlaceholder: 'Please select',
+            searchPlaceholder: formatMessage({ id: 'shipping.treeselect.label.select' }),
             style: {
               width: '100%',
             },
           };
 
         return(
-            <TreeSelect {...tProps} />
+          <TreeSelect {...tProps} />
         );
     }
 }

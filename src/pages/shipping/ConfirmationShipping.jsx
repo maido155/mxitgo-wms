@@ -4,6 +4,7 @@ import { Drawer, Button, Row, Col, Icon, Form, Divider,Typography, Input  } from
 import Styles from './StylesShipping.css';
 import DatePicker from '../generalComponents/DatePickerComponent';
 import TextArea from '../generalComponents/TextAreaComponent';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import TableComponent from '../generalComponents/TableComponent';
 import NewLine from './NewLine';
 
@@ -18,7 +19,7 @@ export default class ConfirmationShipping extends PureComponent{
         return(
             <div>
                 <Drawer
-                    title="Confirmacion de envíos"
+                    title={formatMessage({ id: 'shipping.shippingconfirmation.title' })}
                     width={"80%"}
                     closable={true}
                     onClose={this.props.closeThirdDrawer}
@@ -27,29 +28,29 @@ export default class ConfirmationShipping extends PureComponent{
                     <Form {...formItemLayout}>
                         <Row>
                             <Col xl={12}>
-                                <Form.Item label="Id Pedido:">
+                                <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.id-order' })}>
                                     <Text strong>TE0101023912231</Text>
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Row>
                             <Col lg={12} xl={12}>
-                                <Form.Item label="Fecha de salida:">
+                                <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-exit' })}>
                                     <DatePicker/>
                                 </Form.Item>
                             </Col>
                             <Col lg={12} xl={12}>
-                                <Form.Item label="Fecha de llegada:">
+                                <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-arrival' })}>
                                     <DatePicker/>
                                 </Form.Item>
                             </Col>
                             <Col lg={12} xl={12}>
-                                <Form.Item label="Fecha de entrada:">
+                                <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-entry' })}>
                                     <DatePicker/>
                                 </Form.Item>
                             </Col>
                             <Col lg={12} xl={12}>
-                                <Form.Item label="Comentarios:">
+                                <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-comments' })}>
                                     <TextArea/>
                                 </Form.Item>
                             </Col>
@@ -73,12 +74,12 @@ export default class ConfirmationShipping extends PureComponent{
                         </Row>
                         <Row className={Styles.lastcolumn}>
                             <Col lg={12} xl={12}>
-                                <Form.Item label="Chofer:">
+                                <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.driver' })}>
                                     <Input/>
                                 </Form.Item>
                             </Col>
                             <Col lg={12} xl={12}>
-                                <Form.Item label="Telefono:">
+                                <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.phone' })}>
                                     <Input/>
                                 </Form.Item>
                             </Col>
@@ -92,21 +93,15 @@ export default class ConfirmationShipping extends PureComponent{
                             borderTop: '1px solid #e9e9e9',
                             padding: '10px 16px',
                             background: '#fff',
-                            textAlign: 'center',
+                            textAlign: 'right',
                             }}
                         >
-                            <Row type="flex" justify="center">
-                                <Col xs={24} sm={9} md={9} xl={5} className={Styles.cancelarfooter}>
-                                    <Button type="primary" onClick={this.props.closeThirdDrawer}>
-                                        Programar
-                                    </Button>
-                                </Col>
-                                <Col xs={24} sm={9} md={9} xl={5}>
-                                    <Button type="danger" onClick={this.props.closeThirdDrawer}>
-                                        Cancelar
-                                    </Button>
-                                </Col>
-                            </Row>
+                            <Button type="danger" onClick={this.props.closeThirdDrawer} className={Styles.cancelarfooter}>
+                                <FormattedMessage id="shipping.button.cancel"/>
+                            </Button>
+                            <Button type="primary" onClick={this.props.closeThirdDrawer}>
+                                <FormattedMessage id="shipping.button.program"/>
+                            </Button>    
                         </div>
                     </Form>
                 </Drawer>

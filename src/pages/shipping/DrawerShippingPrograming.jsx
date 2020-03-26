@@ -5,6 +5,7 @@ import Styles from './StylesShipping.css';
 import DatePicker from '../generalComponents/DatePickerComponent';
 import TextArea from '../generalComponents/TextAreaComponent';
 import TableComponent from '../generalComponents/TableComponent';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import NewLine from './NewLine';
 
 export default class DrawerShippingPrograming extends PureComponent{
@@ -16,7 +17,7 @@ export default class DrawerShippingPrograming extends PureComponent{
         return(
             <div>
                 <Drawer
-                    title="Programación de Envíos"
+                    title={formatMessage({ id: 'shipping.drawershipping.label.title' })}
                     width={"80%"}
                     closable={true}
                     onClose={this.props.closeFirst}
@@ -25,22 +26,22 @@ export default class DrawerShippingPrograming extends PureComponent{
                     <Form {...formItemLayout}>
                         <Row>
                             <Col lg={12} xl={12}>
-                                <Form.Item label="Fecha de salida:">
+                                <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-exit' })}>
                                     <DatePicker/>
                                 </Form.Item>
                             </Col>
                             <Col lg={12} xl={12}>
-                                <Form.Item label="Fecha de llegada:">
+                                <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-arrival' })}>
                                     <DatePicker/>
                                 </Form.Item>
                             </Col>
                             <Col lg={12} xl={12}>
-                                <Form.Item label="Fecha de entrada:">
+                                <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-entry' })}>
                                     <DatePicker/>
                                 </Form.Item>
                             </Col>
                             <Col lg={12} xl={12}>
-                                <Form.Item label="Comentarios:">
+                                <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-comments' })}>
                                     <TextArea/>
                                 </Form.Item>
                             </Col>
@@ -62,31 +63,25 @@ export default class DrawerShippingPrograming extends PureComponent{
                                 <TableComponent showDrawer={this.props.showSecond}/>
                             </Col>
                         </Row>
-                            <div
-                                style={{
-                                position: 'absolute',
-                                right: 0,
-                                bottom: 0,
-                                width: '100%',
-                                borderTop: '1px solid #e9e9e9',
-                                padding: '10px 16px',
-                                background: '#fff',
-                                textAlign: 'center',
-                                }}
-                            >
-                                <Row type="flex" justify="center">
-                                    <Col xs={24} sm={9} md={9} xl={5} className={Styles.cancelarfooter}>
-                                        <Button type="primary" onClick={this.props.closeFirst}>
-                                            Programar
-                                        </Button>
-                                    </Col>
-                                    <Col xs={24} sm={9} md={9} xl={5}>
-                                        <Button type="danger" onClick={this.props.closeFirst}>
-                                            Cancelar
-                                        </Button>
-                                    </Col>
-                                </Row>
-                            </div>
+                        <div
+                            style={{
+                            position: 'absolute',
+                            right: 0,
+                            bottom: 0,
+                            width: '100%',
+                            borderTop: '1px solid #e9e9e9',
+                            padding: '10px 16px',
+                            background: '#fff',
+                            textAlign: 'right',
+                            }}
+                        >
+                            <Button type="danger" onClick={this.props.closeFirst} className={Styles.cancelarfooter}>
+                                <FormattedMessage id="shipping.button.cancel"/>
+                            </Button>
+                            <Button type="primary" onClick={this.props.closeFirst}>
+                                <FormattedMessage id="shipping.button.program"/>
+                            </Button>    
+                        </div>
                     </Form>
                 </Drawer>
             </div>

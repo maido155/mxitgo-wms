@@ -1,64 +1,73 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
 import { Table} from 'antd';
-import {isMobile} from "react-device-detect";
-
 
 const columns = [
     {
       title: 'Id',
       dataIndex: 'id',
       key: 'id',
+      width: 110,
     },
     {
       title: 'Ubicacion',
       dataIndex: 'ubicacion',
       key: 'ubicacion',
+      width: 100,
     },
     {
       title: 'Premium',
       dataIndex: 'premium',
       key: 'premium',
+      width: 100,
     },
     {
       title: 'Gold',
       dataIndex: 'gold',
       key: 'gold',
+      width: 100,
     },
     {
       title: 'Segunda',
       dataIndex: 'segunda',
       key: 'segunda',
+      width: 100,
     },
     {
       title: 'Mano',
       dataIndex: 'mano',
       key: 'mano',
+      width: 100,
     },
     {
       title: 'Dedo',
       dataIndex: 'dedo',
       key: 'dedo',
+      width: 100,
     },
     {
       title: 'Salida',
       dataIndex: 'salida',
       key: 'salida',
+      width: 100,
     },
     {
       title: 'Llegada',
       dataIndex: 'llegada',
       key: 'llegada',
+      width: 100,
     },
     {
       title: 'Entrada',
       dataIndex: 'entrada',
       key: 'entrada',
+      width: 100,
     },
     {
       title: 'Chofer',
       dataIndex: 'chofer',
       key: 'chofer',
+      width: 100,
     },
   ];
   
@@ -82,17 +91,8 @@ const columns = [
   class tableModalEntry extends PureComponent {
       
     render() {
-       if (isMobile){
-            return (
-                <span>
-                   <Table columns={columns} dataSource={data} scroll={{x: 1500, y: 300}} pagination={false}/>  
-                </span>
-              );  
-       }
         return (
-          <span>
-             <Table columns={columns} dataSource={data} pagination={false}/>  
-          </span>
+          <Table columns={columns} dataSource={data} scroll={{x: 700}} pagination={false}/>  
         );
         
     }      

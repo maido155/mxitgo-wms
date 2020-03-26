@@ -5,7 +5,7 @@ import { DatePicker } from 'antd';
 export default class DatePickerComponent extends PureComponent{
     render(){
         return(
-            <DatePicker style={{ width: '100%'}}/>
+                <DatePicker style={{ width: '100%'}}/>
         );
     }
 }
