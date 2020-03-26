@@ -40,10 +40,7 @@ class ModalNewUser extends PureComponent {
           footer={[
             <Button key="cancelar" onClick={this.handleCancel}>
               Cancelar
-            </Button>,
-            <Button key="crear" type="primary" onClick={this.handleOk}>
-              Crear
-            </Button>,
+            </Button>
           ]}
         >
           

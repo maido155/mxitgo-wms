@@ -1,3 +1,4 @@
+  
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';  
 import { Card, Table, Icon, Divider } from 'antd';
@@ -14,14 +15,14 @@ const columns = [
     dataIndex: 'firstLastName',
   },
   {
-    title: 'Apellido materno',
+    title: 'Apellido materno', 
     dataIndex: 'secondLastName',
   },
   {
       title: 'Correo electrónico',
-      dataIndex: 'email',
-    },
-    {
+      dataIndex: 'email', 
+    }, 
+    { 
       title: 'Teléfono',
       dataIndex: 'phone',
     }
@@ -92,4 +93,4 @@ class TableUsers extends PureComponent{
     }
 }
 
-export default TableUsers;
+export default TableUsers; 
