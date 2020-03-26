@@ -23,19 +23,11 @@ function showDeleteConfirm() {
 }
 
 export default class ModalDeleteComponent extends PureComponent{
-    render(){
-      if(isMobile){
-        return(
-          <a onClick={showDeleteConfirm} type="dashed">
-            <Icon type="delete" />
-          </a>
-        );
-      }else{
-        return(
-          <a onClick={showDeleteConfirm} type="dashed">
-            <Icon type="delete" /><FormattedMessage id="shipping.label.table-shipping.delete"/>
-          </a>
-        );
-      }
-    }
+  render(){
+    return(
+      <a onClick={showDeleteConfirm} type="dashed">
+        {isMobile ? <Icon type="delete" /> : <span><Icon type="delete" /><FormattedMessage id="shipping.label.table-shipping.delete"/></span>}
+      </a>
+    );
+  }
 }

@@ -82,6 +82,38 @@ export default class TableShippingMaster extends PureComponent{
           title: formatMessage({ id: 'shipping.label.table-shipping.status' }),
           dataIndex: 'status',
           width: 100
+        },
+        {
+          title: formatMessage({ id: 'shipping.label.table-shipping.actions' }),
+          key: 'action',
+          fixed: 'right',
+          width: isMobile ? 130 : 340,
+          render: () => (
+            <span>
+                <a onClick={this.props.clickFirstTable}>
+                  {isMobile 
+                    ?  <Icon type="edit"/>
+                    : <span><Icon type="edit" /><FormattedMessage id="shipping.label.table-shipping.edit"/></span>
+                  }
+                </a>
+              <Divider type="vertical"/>
+                <a onClick={this.props.clickthirdTable}>
+                  {isMobile 
+                    ? <Icon type="check"/>
+                    : <span><Icon type="check" /><FormattedMessage id="shipping.label.table-shipping.confirm"/></span>
+                  }
+                </a>
+              <Divider type="vertical"/>
+                <ModalDeleteComponent/>
+              <Divider type="vertical"/>
+              <a onClick={this.props.clickModal}>
+                {isMobile 
+                    ? <Icon type="form"/>
+                    : <span><Icon type="form"/><FormattedMessage id="shipping.label.table-shipping.entry"/></span>
+                }
+              </a>
+            </span>
+          ),
         }
       ];
 
@@ -93,7 +125,6 @@ export default class TableShippingMaster extends PureComponent{
           llegada: 'Martes',
           entrada: 'Miercoles',
           premium: <Text type="danger" onClick={this.showModal} className={Styles.producto}>1200/1150</Text>,
-          // premium:'1200/1150',
           gold:'39/39',
           segunda:'0/39',
           mano: '0/39',
@@ -128,58 +159,6 @@ export default class TableShippingMaster extends PureComponent{
         }
       ];
 
-      if(isMobile){
-        columns.push(
-          {
-            title: formatMessage({ id: 'shipping.label.table-shipping.actions' }),
-            key: 'action',
-            fixed: 'right',
-            width: 130,
-            render: () => (
-              <span>
-                  <a onClick={this.props.clickFirstTable}>
-                    <Icon type="edit" />
-                  </a>
-                <Divider type="vertical" />
-                  <a onClick={this.props.clickthirdTable}>
-                    <Icon type="check" />
-                  </a>
-                <Divider type="vertical" />
-                  <ModalDeleteComponent/>
-                <Divider type="vertical" />
-                  <a onClick={this.props.clickModal}><Icon type="form" /></a>
-              </span>
-            ),
-          }
-        );
-      }else{
-        columns.push(
-          {
-            title: formatMessage({ id: 'shipping.label.table-shipping.actions' }),
-            key: 'action',
-            fixed: 'right',
-            width: 340,
-            render: () => (
-              <span>
-                  <a onClick={this.props.clickFirstTable}>
-                    <Icon type="edit" /><FormattedMessage id="shipping.label.table-shipping.edit"/>
-                  </a>
-                <Divider type="vertical" />
-                  <a onClick={this.props.clickthirdTable}>
-                    <Icon type="check" /><FormattedMessage id="shipping.label.table-shipping.confirm"/>
-                  </a>
-                <Divider type="vertical" />
-                  <ModalDeleteComponent/>
-                <Divider type="vertical" />
-                <a onClick={this.props.clickModal}><Icon type="form" />
-                  <FormattedMessage id="shipping.label.table-shipping.entry"/>
-                </a>
-              </span>
-            ),
-          }
-        );
-      }
-
       const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
           console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -193,7 +172,7 @@ export default class TableShippingMaster extends PureComponent{
         return(
           <div>
             <Table size="small" rowSelection={rowSelection} columns={columns} dataSource={data} 
-              scroll={{ x: 1300, y: 300 }} pagination={false}
+              scroll={{ x: 1700, y: 300 }} pagination={false}
             />
             <ModalProductTable
             visipleModal ={this.state.visibleModalProduct}

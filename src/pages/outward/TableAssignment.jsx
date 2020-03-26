@@ -72,7 +72,7 @@ const data = [
 export default class TableAssignment extends PureComponent {
     render() {
         return (
-            <Table columns={columns} dataSource={data} pagination={false}/>
+            <Table columns={columns} dataSource={data} scroll pagination={false}/>
         );            
     }
 }

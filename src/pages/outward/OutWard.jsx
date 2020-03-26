@@ -19,21 +19,21 @@ export default class OutWard extends PureComponent {
                     <Card>
                         <Form {...formItemLayout}>
                             <Row type="flex" justify="center"> 
-                                <Col xs={1} sm={1} md={1} lg={1} xl={16}>
+                                <Col xs={24} sm={23} md={17} lg={16} xl={16}>
                                     <Form.Item label={formatMessage({ id: 'outWard.label.week' })}>
                                         <RangePickerComponent/>
                                     </Form.Item>
                                 </Col>
                             </Row>
                             <Row type="flex" justify="center">
-                                <Col xs={1} sm={1} md={1} lg={1} xl={8}>
+                                <Col xs={24} sm={23} md={17} lg={16} xl={8}>
                                     <Form.Item label={formatMessage({ id: 'outWard.label.product' })}>
                                         <RadioGroupComponent/>
                                     </Form.Item>
                                 </Col>
                             </Row>
                             <Row type="flex" justify="center">
-                                <Col xs={1} sm={1} md={1} lg={1} xl={10}>
+                                <Col xs={24} sm={23} md={17} lg={16} xl={10}>
                                     <Form.Item label={formatMessage({ id: 'outWard.label.client' })}>
                                         <TabsOutWard/>
                                     </Form.Item>  

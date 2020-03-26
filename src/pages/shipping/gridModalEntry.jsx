@@ -1,71 +1,90 @@
 import React, { PureComponent } from 'react';
-import {Input, Row, Col, Button,Icon,Form} from 'antd';
-import { Typography } from 'antd';
-import Styles from './StylesShipping.css';
+import { Table, Input, Form } from 'antd';
 
-const { Text } = Typography;
-const InputGroup = Input.Group;
-const { TextArea } = Input;
+class gridModalEntry extends React.Component {
+    state = {
+        dataSource: [
+            {
+                key: '0',
+                features: 'Cantidades',
+                premium: <Input/>,
+                gold: <Input/>,
+                second: <Input/>,
+                hand: <Input/>,
+                finger: <Input/>
+            },
+            {
+                key: '1',
+                features: 'Temperatura',
+                premium: <Input/>,
+                gold: <Input/>,
+                second: <Input/>,
+                hand: <Input/>,
+                finger: <Input/>
+            },
+            {
+                key: '2',
+                features: 'Fotos',
+                premium: <Input/>,
+                gold: <Input/>,
+                second: <Input/>,
+                hand: <Input/>,
+                finger: <Input/>
+            },
+        ],
+        // count: 2,
+    };
 
-class gridModalEntry extends PureComponent {
+    columns = [
+        {
+            title: '',
+            dataIndex: 'features',
+            width: 100
+        },
+        {
+            title: 'Premium',
+            dataIndex: 'premium',
+            align: 'center',
+            width: 100
+        },
+        {
+            title: 'Gold',
+            dataIndex: 'gold',
+            align: 'center',
+            width: 100
+        },
+        {
+            title: 'Segunda',
+            dataIndex: 'second',
+            align: 'center',
+            width: 100
+        },
+        {
+            title: 'Mano',
+            dataIndex: 'hand',
+            align: 'center',
+            width: 100
+        },
+        {
+            title: 'Dedo',
+            dataIndex: 'finger',
+            align: 'center',
+            width: 100
+        }
+    ];
+
     render() {
+        const { dataSource } = this.state;
         return (
-            <div>
-                <Row type="flex" justify="space-around">
-                    <Col xs={0} sm={0} md={1} lg={2} xl={3}></Col>
-                    <Col xs={24} sm={5} md={4} lg={3} xl={2} className={Styles.labelTitle}>
-                        <Text strong>Cantidades</Text>
-                    </Col>
-                    <Col xs={7} sm={4} md={3} lg={3} xl={3} className={Styles.label}>
-                        <Text>Premium</Text>
-                        <Input/>
-                    </Col>
-                    <Col xs={5} sm={3} md={3} lg={3} xl={3} className={Styles.label}>
-                        <Text>Gold</Text>
-                        <Input/>
-                    </Col>
-                    <Col xs={7} sm={4} md={3} lg={3} xl={3} className={Styles.label}>
-                        <Text>Segunda</Text>
-                        <Input/>
-                    </Col>
-                    <Col xs={5} sm={3} md={3} lg={3} xl={3} className={Styles.label}>
-                        <Text>Mano</Text>
-                        <Input/>
-                    </Col>
-                    <Col xs={5} sm={3} md={3} lg={3} xl={3} className={Styles.label}>
-                        <Text>Dedo</Text>
-                        <Input/>
-                    </Col>
-                    <Col xs={0} sm={0} md={1} lg={2} xl={3}></Col>
-                </Row>
-                {/* <Row type="flex" justify="space-around" className={Styles.row}>
-                    <Col xs={0} sm={0} md={1} lg={2} xl={3}></Col>
-                    <Col xs={24} sm={24} md={4} lg={3} xl={2} className={Styles.label}>
-                        <Text strong>Temperatura</Text>
-                    </Col>
-                    <Col xs={7} sm={4} md={3} lg={3} xl={3} className={Styles.label}>
-                        <Text>Premium</Text>
-                        <Input/>
-                    </Col>
-                    <Col xs={7} sm={4} md={3} lg={3} xl={3} className={Styles.label}>
-                        <Text>Gold</Text>
-                        <Input/>
-                    </Col>
-                    <Col xs={7} sm={4} md={3} lg={3} xl={3} className={Styles.label}>
-                        <Text>Segunda</Text>
-                        <Input/>
-                    </Col>
-                    <Col xs={11} sm={4} md={3} lg={3} xl={3} className={Styles.label}>
-                        <Text>Mano</Text>
-                        <Input/>
-                    </Col>
-                    <Col xs={11} sm={4} md={3} lg={3} xl={3} className={Styles.label}>
-                        <Text>Dedo</Text>
-                        <Input/>
-                    </Col>
-                    <Col xs={0} sm={0} md={1} lg={2} xl={3}></Col>
-                </Row> */}
-            </div>
+            <Table 
+                style={{marginTop: "2rem"}} 
+                size="small" 
+                columns={this.columns} 
+                dataSource={dataSource} 
+                pagination={false} 
+                bordered={false}
+                scroll={{x: 600}}
+            />
         );
     }
 }

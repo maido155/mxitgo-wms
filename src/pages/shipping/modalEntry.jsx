@@ -1,18 +1,17 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
-import {Button,Divider,Modal,Icon,Form, Row,Col, Radio }from 'antd';
+import { Button, Modal, Row, Col }from 'antd';
 import TableModal from './tableModalEntry';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
-import { formatMessage } from 'umi-plugin-react/locale';
 import GridModal from './gridModalEntry';
 
 class ModalEntry extends PureComponent {
   render() {
     return (
       <Modal
-        width= '80%'
         title="Nueva Entrada"
         centered
+        width= "80%"
         visible={this.props.visibleModal}
         onOk={this.props.successModal}
         onCancel={this.props.cancelModal}
@@ -26,19 +25,11 @@ class ModalEntry extends PureComponent {
         ]}
       >
         <TableModal/>
-        <Form style={{marginTop: "1rem"}}>
-          <Row type="flex" justify="center">
-            <Col xs={20} sm={10} md={7} lg={6} xl={4}>
-              <Form.Item>
-                <Radio.Group defaultValue="a">
-                  <Radio.Button value="a">Recibidos</Radio.Button>
-                  <Radio.Button value="b">Merma</Radio.Button>
-                </Radio.Group>
-              </Form.Item>
-            </Col>
-          </Row>
-        </Form>
-        <GridModal/>
+        <Row type="flex" justify="center">
+          <Col xs={24} sm={24} md={24} lg={19} xl={15}>
+            <GridModal/>
+          </Col>
+        </Row>
       </Modal>
     );
   }

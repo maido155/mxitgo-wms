@@ -1,6 +1,6 @@
 @media screen and (max-width: 576px) {
     .cancelarfooter {
-        margin-right: 1rem;
+        margin-right: 0.7rem;
     }
     .formnweline {
         margin-bottom: 5rem;
@@ -20,12 +20,6 @@
     }
     .producto {
         cursor: pointer;
-    }
-    .label {
-        text-align: center;
-    }
-    .labelTitle {
-        text-align: center;
     }
 }
 
@@ -49,13 +43,6 @@
     .producto {
         cursor: pointer;
     }
-    .label {
-        text-align: center;
-    }
-    .labelTitle {
-        text-align: center;
-        margin-top: 1.4rem;
-    }
 }
 
 @media screen and (min-width: 768px) {
@@ -72,16 +59,6 @@
     .producto {
         cursor: pointer;
     }
-    .label {
-        text-align: center;
-    }
-    .labelTitle {
-        margin-top: 1rem;
-        text-align: center;
-    }
-    .row {
-        margin-top: 1rem;
-    }
 }
 
 @media screen and (min-width: 992px) {
@@ -97,16 +74,6 @@
     }
     .producto {
         cursor: pointer;
-    }
-    .labelTitle {
-        margin-top: 1rem;
-        text-align: center;
-    }
-    .label {
-        text-align: center;
-    }
-    .row {
-        margin-top: 1rem;
     }
 }
 
@@ -126,15 +93,5 @@
     }
     .producto {
         cursor: pointer;
-    }
-    .labelTitle {
-        margin-top: 1.5rem;
-        text-align: center;
-    }
-    .label {
-        text-align: center;
-    }
-    .row {
-        margin-top: 1rem;
     }
 }

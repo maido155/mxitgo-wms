@@ -38,47 +38,25 @@ export default class TableComponent extends PureComponent{
             dataIndex: 'dedo',
             width: 100
         },
+        {
+          title: formatMessage({ id: 'shipping.tablecomponent.label.actions' }),
+          key: 'action',
+          fixed: 'right',
+          width: isMobile ? 90 : 155,
+          render: () => (
+            <span>
+              <a onClick={this.props.showDrawer}>
+                { isMobile
+                  ?<Icon type="edit" />
+                  : <span><Icon type="edit" /><FormattedMessage id="shipping.label.table-shipping.edit"/></span>
+                }
+              </a>
+              <Divider type="vertical" />
+                <ModalDeleteComponent/>
+            </span>
+          ),
+        }
       ];
-
-      if(isMobile){
-        columns.push(
-          {
-            title: formatMessage({ id: 'shipping.tablecomponent.label.actions' }),
-            key: 'action',
-            fixed: 'right',
-            width: 150,
-            render: () => (
-              
-              <span>
-                <a onClick={this.props.showDrawer}>
-                  <Icon type="edit" />
-                </a>
-                <Divider type="vertical" />
-                  <ModalDeleteComponent/>
-              </span>
-            ),
-          }
-        );
-      }else{
-        columns.push(
-          {
-            title: formatMessage({ id: 'shipping.tablecomponent.label.actions' }),
-            key: 'action',
-            fixed: 'right',
-            width: 155,
-            render: () => (
-              
-              <span>
-                <a onClick={this.props.showDrawer}>
-                  <Icon type="edit" /><FormattedMessage id="shipping.label.table-shipping.edit"/>
-                </a>
-                <Divider type="vertical" />
-                  <ModalDeleteComponent/>
-              </span>
-            ),
-          }
-        );
-      }
 
       const data = [
         {

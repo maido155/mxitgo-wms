@@ -14,7 +14,7 @@ export default  class NewLine extends PureComponent{
             return(
                 <Drawer
                     title={formatMessage({ id: 'shipping.newline.label.title' })}
-                    width={"50%"}
+                    width={"70%"}
                     closable={true}
                     onClose={this.props.closeDrawer}
                     visible={this.props.visibleDrawer}
