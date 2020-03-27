@@ -4,7 +4,6 @@ import slash from 'slash2';
 import themePluginConfig from './themePluginConfig';
 const { pwa } = defaultSettings; // preview.pro.ant.design only do not use in your production ;
 // preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
-
 const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION } = process.env;
 const isAntDesignProPreview = ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site';
 const plugins = [
@@ -19,9 +18,9 @@ const plugins = [
         // default false
         enable: true,
         // default zh-CN
-        default: 'zh-CN',
+        default: 'es-ES',
         // default true, when it is true, will use `navigator.language` overwrite default
-        baseNavigator: true,
+        // baseNavigator: true,
       },
       dynamicImport: {
         loadingComponent: './components/PageLoading/index',
@@ -82,6 +81,12 @@ export default {
           path: '/user/login',
           component: './user/login',
         },
+        {
+          name: 'register',
+          icon: 'smile',
+          path: '/user/register',
+          component: './user/register',
+        },
       ],
     },
     {
@@ -95,28 +100,35 @@ export default {
           routes: [
             {
               path: '/',
-              redirect: '/welcome',
+              redirect: '/user/login',
             },
             {
-              path: '/armando',
-              name: 'armando',
-              icon: 'smile',
-              component: './Armando',
-            },{
-              path: '/hector',
-              name: 'hector',
-              icon: 'smile',
-              component: './Hector',
-            },{
-              path: '/carlos',
-              name: 'carlos',
-              icon: 'smile',
-              component: './Carlos',
-            },{
-              path: '/welcome',
-              name: 'welcome',
-              icon: 'smile',
-              component: './Welcome',
+              path: '/dashboard',
+              name: 'Dashboard',
+              icon: 'dashboard',
+              component: './Dashboard/Dashboard',
+            },
+            {
+              path: '/generalProgramming',
+              name: 'Programación General',
+              icon: 'setting',
+              component: './generalProgramming/generalProgramming'
+            },
+            {
+              path: '/shippingMaster',
+              name: 'Maestro de envíos',
+              icon: 'arrow-right',
+              component: './shipping/ShippingMaster',
+            },
+            {
+              path: '/outWard',
+              name: 'Salidas',
+              icon: 'arrow-left',
+              component: './outward/OutWard',
+            },
+            {
+              path: '/settings',
+              component: './account/AccountSettings'
             },
             {
               path: '/admin',
@@ -145,7 +157,12 @@ export default {
   },
   define: {
     ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION:
-      ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION || '', // preview.pro.ant.design only do not use in your production ; preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
+    ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION || '',
+    // preview.pro.ant.design only do not use in your production ; preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
+    // ANT_DESIGN_PRO_TARGET: 'https://9j8ucg1yhj.execute-api.us-east-1.amazonaws.com/desarrollo'
+    ANT_DESIGN_PRO_USER_POOL_ID: 'us-east-1_3ANmKhLSt',
+    ANT_DESIGN_PRO_CLIENT_ID: '25h6ahb7sda3lvk1qs8v5u0ol0',
+    ANT_DESIGN_PRO_TARGET: '/api/',
   },
   ignoreMomentLocale: true,
   lessLoaderOptions: {
@@ -179,12 +196,15 @@ export default {
   },
   manifest: {
     basePath: '/',
-  }, // chainWebpack: webpackPlugin,
-  // proxy: {
-  //   '/server/api/': {
-  //     target: 'https://preview.pro.ant.design/',
-  //     changeOrigin: true,
-  //     pathRewrite: { '^/server': '' },
-  //   },
-  // },
+  },
+  // chainWebpack: webpackPlugin,
+  proxy: {
+    '/api/': {
+      target: process.env.TARGET,
+      changeOrigin: true,
+      pathRewrite: {
+        '^/api': '',
+      },
+    },
+  },
 };

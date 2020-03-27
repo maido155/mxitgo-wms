@@ -1,6 +1,6 @@
 import { stringify } from 'querystring';
 import { router } from 'umi';
-import { fakeAccountLogin, getFakeCaptcha } from '@/services/login';
+import { fakeAccountLogin, getFakeCaptcha, getDataUserByEmail } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
 const Model = {
@@ -9,35 +9,53 @@ const Model = {
     status: undefined,
   },
   effects: {
+
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
+      let email = payload.email;
+      const response = yield call(getDataUserByEmail, email);
       yield put({
         type: 'changeLoginStatus',
         payload: response,
       }); // Login successfully
-
-      if (response.status === 'ok') {
+      console.log("***RESPONSE");
+      console.log(response);
+  
+      if (response) {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;
 
-        if (redirect) {
-          const redirectUrlParams = new URL(redirect);
+        // if (redirect) {
+        //   const redirectUrlParams = new URL(redirect);
 
-          if (redirectUrlParams.origin === urlParams.origin) {
-            redirect = redirect.substr(urlParams.origin.length);
+        //   if (redirectUrlParams.origin === urlParams.origin) {
+        //     redirect = redirect.substr(urlParams.origin.length);
 
-            if (redirect.match(/^\/.*#/)) {
-              redirect = redirect.substr(redirect.indexOf('#') + 1);
-            }
-          } else {
-            window.location.href = '/';
-            return;
-          }
-        }
+        //     if (redirect.match(/^\/.*#/)) {
+        //       redirect = redirect.substr(redirect.indexOf('#') + 1);
+        //     }
+        //   } else {
+        //     window.location.href = redirect;
+        //     return;
+        //   }
+        // }
+        // yield delay(3000);
+         //yield put(routerRedux.replace( '/'));
+         //yield put(routerRedux.push('/welcome'));
 
-        router.replace(redirect || '/');
+
+        localStorage.setItem('userId',              response.sub);
+        localStorage.setItem('emailVerified',       response.email_verified);
+        localStorage.setItem('userName',            response.name);
+        localStorage.setItem('phoneNumberVerified', response.phone_number_verified);
+        localStorage.setItem('phoneNumber',         response.phone_number); 
+        localStorage.setItem('middleName',          response.middle_name); 
+        localStorage.setItem('familyName',          response.family_name); 
+        localStorage.setItem('email',               response.email); 
+        
+        window.location.href = '/dashboard';
       }
+     
     },
 
     *getCaptcha({ payload }, { call }) {
@@ -59,7 +77,7 @@ const Model = {
   },
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
+      setAuthority(payload.custom_currentAuthority);
       return { ...state, status: payload.status, type: payload.type };
     },
   },

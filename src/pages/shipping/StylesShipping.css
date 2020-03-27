@@ -1,0 +1,97 @@
+@media screen and (max-width: 576px) {
+    .cancelarfooter {
+        margin-right: 0.7rem;
+    }
+    .formnweline {
+        margin-bottom: 5rem;
+    }
+    .adddrawerone {
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    .tabledrawerone {
+        margin-bottom: 5rem;
+    }
+    .addshippingmaster {
+        text-align: center;
+    }
+    .lastcolumn {
+        margin-bottom: 4rem;
+    }
+    .producto {
+        cursor: pointer;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .adddrawerone {
+        margin-bottom: 1rem;
+        text-align: right;
+    }
+    .tabledrawerone {
+        margin-bottom: 4rem;
+    }
+    .addshippingmaster {
+        text-align: right;
+    }
+    .lastcolumn {
+        margin-bottom: 3rem;
+    }
+    .cancelarfooter {
+        margin-right: 1rem;
+    }
+    .producto {
+        cursor: pointer;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .adddrawerone {
+        text-align: right;
+        margin-bottom: 1rem;
+    }
+    .addshippingmaster {
+        text-align: right;
+    }
+    .cancelarfooter {
+        margin-right: 1rem;
+    }
+    .producto {
+        cursor: pointer;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .adddrawerone {
+        text-align: right;
+        margin-bottom: 1rem;
+    }
+    .addshippingmaster {
+        text-align: right;
+    }
+    .cancelarfooter {
+        margin-right: 1rem;
+    }
+    .producto {
+        cursor: pointer;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .adddrawerone {
+        text-align: right;
+        margin-bottom: 1rem;
+    }
+    .addshippingmaster {
+        text-align: right;
+    }
+    .lastcolumn {
+        margin-bottom: 3rem;
+    }
+    .cancelarfooter {
+        margin-right: 1rem;
+    }
+    .producto {
+        cursor: pointer;
+    }
+}

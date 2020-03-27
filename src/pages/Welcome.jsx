@@ -4,6 +4,7 @@ import { FormattedMessage } from 'umi-plugin-react/locale';
 import { Card, Typography, Alert } from 'antd';
 import styles from './Welcome.less';
 
+
 const CodePreview = ({ children }) => (
   <pre className={styles.pre}>
     <code>
@@ -14,9 +15,7 @@ const CodePreview = ({ children }) => (
 
 export default () => (
   <PageHeaderWrapper>
-    <Card>
-      <div>Welcome to WMS</div>
-    </Card>
+  
     <p
       style={{
         textAlign: 'center',
