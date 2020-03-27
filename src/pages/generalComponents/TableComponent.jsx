@@ -42,7 +42,7 @@ export default class TableComponent extends PureComponent{
           title: formatMessage({ id: 'shipping.tablecomponent.label.actions' }),
           key: 'action',
           fixed: 'right',
-          width: isMobile ? 90 : 155,
+          width: isMobile ? 70 : 155,
           render: () => (
             <span>
               <a onClick={this.props.showDrawer}>
@@ -100,7 +100,7 @@ export default class TableComponent extends PureComponent{
         return(
             <Table 
               rowSelection={rowSelection} columns={columns} dataSource={data} pagination={false} 
-              scroll={{x: 1000, y: 300}} size="small"
+              scroll={{x: 1000}} size="small"
             />
         );
     }

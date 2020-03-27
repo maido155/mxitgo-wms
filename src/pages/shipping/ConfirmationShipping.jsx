@@ -7,6 +7,7 @@ import TextArea from '../generalComponents/TextAreaComponent';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import TableComponent from '../generalComponents/TableComponent';
 import NewLine from './NewLine';
+import {isMobile} from 'react-device-detect';
 
 const { Text } = Typography;
 
@@ -20,7 +21,7 @@ export default class ConfirmationShipping extends PureComponent{
             <div>
                 <Drawer
                     title={formatMessage({ id: 'shipping.shippingconfirmation.title' })}
-                    width={"80%"}
+                    width={isMobile ? "100%" : "80%"}
                     closable={true}
                     onClose={this.props.closeThirdDrawer}
                     visible={this.props.visibleThird}  

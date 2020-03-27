@@ -4,6 +4,7 @@ import { Drawer, Button } from 'antd';
 import Table from './TableComposition';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import Assignment from './AssignmentOutWard';
+import {isMobile} from 'react-device-detect';
 
 export default class CompositionOutWard extends PureComponent {
     render() {
@@ -11,7 +12,7 @@ export default class CompositionOutWard extends PureComponent {
             <Drawer
                 title={formatMessage({ id: 'outWard.label.composition-outward' })}
                 placement="right"
-                width={"70%"}
+                width={isMobile ? "100%" : "70%"}
                 closable={true}
                 onClose={this.props.closeTwo}
                 visible={this.props.visibleTwo}

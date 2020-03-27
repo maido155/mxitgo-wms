@@ -4,6 +4,7 @@ import { Drawer, Button,Row, Col, InputNumber, Form } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import Styles from './StylesShipping.css';
 import TreeSelectComponent from '../generalComponents/TreeSelectComponent';
+import {isMobile} from 'react-device-detect';
 
 export default  class NewLine extends PureComponent{
     render(){
@@ -14,7 +15,7 @@ export default  class NewLine extends PureComponent{
             return(
                 <Drawer
                     title={formatMessage({ id: 'shipping.newline.label.title' })}
-                    width={"70%"}
+                    width={isMobile ? "100%" : "50%"}
                     closable={true}
                     onClose={this.props.closeDrawer}
                     visible={this.props.visibleDrawer}

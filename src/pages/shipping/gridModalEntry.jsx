@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { List } from 'antd';
+import { List, Icon } from 'antd';
 import DrawerProducts from './drawerEntryProducts';
 
 const dataSource = [
@@ -41,7 +41,7 @@ class gridModalEntry extends React.Component {
                 dataSource={dataSource}
                 bordered
                 renderItem={item => (
-                <List.Item key={item.id}actions={[<a onClick={this.showDrawerProducts} key={`a-${item.id}`}>Propiedades</a>,]}>
+                <List.Item key={item.id}actions={[<a onClick={this.showDrawerProducts} key={`a-${item.id}`}><Icon type="eye"/></a>,]}>
                     <List.Item.Meta title={item.name}/>
                 </List.Item>
                 )}
