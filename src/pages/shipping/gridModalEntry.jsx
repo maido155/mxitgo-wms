@@ -1,90 +1,55 @@
 import React, { PureComponent } from 'react';
-import { Table, Input, Form } from 'antd';
+import { List } from 'antd';
+import DrawerProducts from './drawerEntryProducts';
 
+const dataSource = [
+    {
+        name: 'Premium'
+    },
+    {
+        name: 'Gold'
+    },
+    {
+        name: 'Segunda'
+    },
+    {
+        name: 'Mano'
+    },
+    {
+        name: 'Dedo'
+    }
+]
 class gridModalEntry extends React.Component {
-    state = {
-        dataSource: [
-            {
-                key: '0',
-                features: 'Cantidades',
-                premium: <Input/>,
-                gold: <Input/>,
-                second: <Input/>,
-                hand: <Input/>,
-                finger: <Input/>
-            },
-            {
-                key: '1',
-                features: 'Temperatura',
-                premium: <Input/>,
-                gold: <Input/>,
-                second: <Input/>,
-                hand: <Input/>,
-                finger: <Input/>
-            },
-            {
-                key: '2',
-                features: 'Fotos',
-                premium: <Input/>,
-                gold: <Input/>,
-                second: <Input/>,
-                hand: <Input/>,
-                finger: <Input/>
-            },
-        ],
-        // count: 2,
+    state = { visisbleProducts: false };
+
+    showDrawerProducts = () => {
+      this.setState({
+        visisbleProducts: true,
+      });
+    };
+  
+    onCloseProducts = () => {
+      this.setState({
+        visisbleProducts: false,
+      });
     };
 
-    columns = [
-        {
-            title: '',
-            dataIndex: 'features',
-            width: 100
-        },
-        {
-            title: 'Premium',
-            dataIndex: 'premium',
-            align: 'center',
-            width: 100
-        },
-        {
-            title: 'Gold',
-            dataIndex: 'gold',
-            align: 'center',
-            width: 100
-        },
-        {
-            title: 'Segunda',
-            dataIndex: 'second',
-            align: 'center',
-            width: 100
-        },
-        {
-            title: 'Mano',
-            dataIndex: 'hand',
-            align: 'center',
-            width: 100
-        },
-        {
-            title: 'Dedo',
-            dataIndex: 'finger',
-            align: 'center',
-            width: 100
-        }
-    ];
-
     render() {
-        const { dataSource } = this.state;
         return (
-            <Table 
-                style={{marginTop: "2rem"}} 
-                size="small" 
-                columns={this.columns} 
-                dataSource={dataSource} 
-                pagination={false} 
-                bordered={false}
-                scroll={{x: 600}}
+            <div>
+            <List
+                dataSource={dataSource}
+                bordered
+                renderItem={item => (
+                <List.Item key={item.id}actions={[<a onClick={this.showDrawerProducts} key={`a-${item.id}`}>Propiedades</a>,]}>
+                    <List.Item.Meta title={item.name}/>
+                </List.Item>
+                )}
             />
+            <DrawerProducts
+                visibleDrawer={this.state.visisbleProducts}
+                onCancel={this.onCloseProducts}/>
+          </div>
         );
     }
 }

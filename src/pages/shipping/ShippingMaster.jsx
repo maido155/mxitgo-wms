@@ -5,7 +5,7 @@ import ConfirmationShipping from './ConfirmationShipping';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
 import TableShippingMaster from './TableShippingMaster';
 import { formatMessage } from 'umi-plugin-react/locale';
-import ModalEntry from './modalEntry';
+import DrawerEntry from './drawerEntry';
 import Styles from './StylesShipping.css';
 import { _ } from 'lodash'; 
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
@@ -125,7 +125,7 @@ export default class ShippingMaster extends PureComponent {
                                         visibleSecond={this.state.visibleSecondDrawer}
                                         closeSecond={this.onCloseSecondDrawer} 
                                     />
-                                    <ModalEntry
+                                    <DrawerEntry
                                         visibleModal={this.state.visibleModal}
                                         successModal={this.handleOk}
                                         cancelModal={this.handleCancel}
