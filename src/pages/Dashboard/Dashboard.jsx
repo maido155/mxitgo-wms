@@ -76,6 +76,7 @@ export default class Dashboard extends PureComponent {
               </Form>
               <div>
                 <GridDashboard xs={24} sm={12} md={8} lg={6} xl={3} txs={15} tsm={10} tmd={8} tlg={7} txl={6} dataTwo={3} dataThree={4} dataFour={2} dataFive={150} dataSix={200}/>
+                test
               </div>
               </Card>
           </PageHeaderWrapper>
