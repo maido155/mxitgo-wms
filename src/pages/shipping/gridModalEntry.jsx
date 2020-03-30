@@ -4,19 +4,25 @@ import DrawerProducts from './drawerEntryProducts';
 
 const dataSource = [
     {
-        name: 'Premium'
+        name: 'Premium',
+        quantities: '1200'
+
     },
     {
-        name: 'Gold'
+        name: 'Gold',
+        quantities: '38'
     },
     {
-        name: 'Segunda'
+        name: 'Segunda',
+        quantities: '39'
     },
     {
-        name: 'Mano'
+        name: 'Mano',
+        quantities: '79'
     },
     {
-        name: 'Dedo'
+        name: 'Dedo',
+        quantities: '800'
     }
 ]
 class gridModalEntry extends React.Component {
@@ -42,7 +48,7 @@ class gridModalEntry extends React.Component {
                 bordered
                 renderItem={item => (
                 <List.Item key={item.id}actions={[<a onClick={this.showDrawerProducts} key={`a-${item.id}`}><Icon type="eye"/></a>,]}>
-                    <List.Item.Meta title={item.name}/>
+                    <List.Item.Meta title={item.name} description={'Cantidad: ' + item.quantities}/>
                 </List.Item>
                 )}
             />

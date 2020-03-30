@@ -29,6 +29,7 @@ export default {
     'shipping.newline.label.title': 'Nueva Linea',
     'shipping.treeselect.label.select': 'Selecciona',
     'shipping.button.program': 'Programar',
+    'shipping.button.conf': 'Confirmar',
     'shipping.button.cancel': 'Cancelar',
     'shipping.shippingconfirmation.title': 'Confirmacion de envíos',
     'shipping.shippingconfirmation.id-order': 'Id Pedido',

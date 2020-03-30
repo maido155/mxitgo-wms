@@ -14,12 +14,16 @@
     }
     .addshippingmaster {
         text-align: center;
+        margin-bottom: 1rem;
     }
     .lastcolumn {
         margin-bottom: 4rem;
     }
     .producto {
         cursor: pointer;
+    }
+    .comments {
+        margin-top: 1.5rem;
     }
 }
 
@@ -33,6 +37,7 @@
     }
     .addshippingmaster {
         text-align: right;
+        margin-bottom: 1rem;
     }
     .lastcolumn {
         margin-bottom: 3rem;
@@ -43,6 +48,9 @@
     .producto {
         cursor: pointer;
     }
+    .comments {
+        margin-top: 1rem;
+    }
 }
 
 @media screen and (min-width: 768px) {
@@ -52,6 +60,7 @@
     }
     .addshippingmaster {
         text-align: right;
+        margin-bottom: 1rem;
     }
     .cancelarfooter {
         margin-right: 1rem;
@@ -68,6 +77,7 @@
     }
     .addshippingmaster {
         text-align: right;
+        margin-bottom: 1rem;
     }
     .cancelarfooter {
         margin-right: 1rem;
@@ -84,6 +94,7 @@
     }
     .addshippingmaster {
         text-align: right;
+        margin-bottom: 1rem;
     }
     .lastcolumn {
         margin-bottom: 3rem;

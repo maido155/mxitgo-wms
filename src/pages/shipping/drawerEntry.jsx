@@ -4,6 +4,7 @@ import { Drawer,Button, Row, Col, Form, Input, Upload, Icon, message} from 'antd
 import TableModal from './tableModalEntry';
 import GridModal from './gridModalEntry';
 import {isMobile} from 'react-device-detect';
+import Styles from './StylesShipping.css';
 
 const { TextArea } = Input;
 
@@ -71,7 +72,7 @@ class drawerEntry extends PureComponent {
                         <GridModal/>
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                        <Form {...formItemLayout}>
+                        <Form {...formItemLayout} className={Styles.comments}>
                             <Form.Item label={'Comentarios'}>
                                 <TextArea/>
                             </Form.Item>
@@ -107,7 +108,7 @@ class drawerEntry extends PureComponent {
                         Cancelar
                     </Button>
                     <Button onClick={this.props.cancelModal} type="primary">
-                        Programar
+                        Aceptar
                     </Button>
                 </div>
             </Drawer>

@@ -101,7 +101,7 @@ export default class ConfirmationShipping extends PureComponent{
                                 <FormattedMessage id="shipping.button.cancel"/>
                             </Button>
                             <Button type="primary" onClick={this.props.closeThirdDrawer}>
-                                <FormattedMessage id="shipping.button.program"/>
+                                <FormattedMessage id="shipping.button.conf"/>
                             </Button>    
                         </div>
                     </Form>

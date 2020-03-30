@@ -42,7 +42,7 @@ export default class TableComponent extends PureComponent{
           title: formatMessage({ id: 'shipping.tablecomponent.label.actions' }),
           key: 'action',
           fixed: 'right',
-          width: isMobile ? 70 : 155,
+          width: isMobile ? 80 : 155,
           render: () => (
             <span>
               <a onClick={this.props.showDrawer}>
