@@ -7,7 +7,8 @@ import LoginComponents from './components/Login';
 import ModalChangePassword from '../login/components/Login/ModalChangePassword'
 import styles from './style.less';
 //import router from 'umi/router';
-//import { config as AWSConfig } from 'aws-sdk';
+import { config as AWSConfig } from 'aws-sdk';
+var AWS = require('aws-sdk');
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginComponents;
 const AmazonCognitoIdentity  = require('amazon-cognito-identity-js');
 //const Cognito = require('./../../../utils/Cognito.js');
@@ -22,7 +23,7 @@ class Login extends Component {
   state = {
     type: 'account',
     autoLogin: true,
-    visibleChangePassword : false,
+    visible: false,
     userData: {},
     userAttributes: {}
   };
@@ -57,7 +58,7 @@ class Login extends Component {
     return; 
    }
     var poolData = {
-      UserPoolId : ANT_DESIGN_PRO_CLIENT_ID , // your user pool id here "us-east-1_3ANmKhLSt"
+      UserPoolId : ANT_DESIGN_PRO_USER_POOL_ID, // your user pool id here "us-east-1_3ANmKhLSt"
       ClientId : ANT_DESIGN_PRO_CLIENT_ID // your app client id here "25h6ahb7sda3lvk1qs8v5u0ol0"
     };
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
@@ -68,7 +69,7 @@ class Login extends Component {
     var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
     cognitoUser.confirmPassword(code, newPassword,  {
       onSuccess: function (result) {
-        message.success("Password changed successfully");
+        message.success("Contrasea restaurada exitosamente!");
       },
       onFailure: function(err) {
         if(err){
@@ -135,7 +136,7 @@ class Login extends Component {
           // newPassword: password that user has given
           // attributesData: object with key as attribute name and value that the user has given.
           self.setState({
-            visibleChangePassword : true,
+            visibleModal : true,
             userData: userData,
             userAttributes: userAttributes
           });
@@ -181,21 +182,23 @@ class Login extends Component {
     this.formRefDraw = formRef;
   }
 
-  hideModalNewUser = () => {
-    this.setState({
-      visibleChangePassword : false
-    })
-  }
+ 
 
   showModal = () => {
     this.setState({
-      visibleChangePassword : true
-    })
-  }
+      visible: true
+    });
+  };
+
   handleCancel = () => {
-    this.setState({ visibleChangePassword: false });
-};
-/*  handleSubmitChangePassword= () => {
+    console.log('jj');
+    this.setState({
+      visible: false
+    });
+  };
+  
+  
+ handleSubmitChangePassword= () => {
     const form = this.formRefDraw.props.form;
     let _self = this;
     form.validateFields((err, values) => {
@@ -210,8 +213,8 @@ class Login extends Component {
         var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
      
         var poolData = {
-          UserPoolId : "us-east-1_3ANmKhLSt", // your user pool id here
-          ClientId : "25h6ahb7sda3lvk1qs8v5u0ol0" // your app client id here
+          UserPoolId : ANT_DESIGN_PRO_USER_POOL_ID,
+          ClientId : ANT_DESIGN_PRO_CLIENT_ID,
         };
         var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
         var userData = {
@@ -220,19 +223,20 @@ class Login extends Component {
         };
         var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
   
-
+        AWS.config.update({ region: 'us-east-1', accessKeyId: 'AKIAWDTBANJH3M5N4UES', secretAccessKey: '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' });
         var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 
 
+
         var params = {
-        ClientId: "25h6ahb7sda3lvk1qs8v5u0ol0", // required 
+        ClientId:  ANT_DESIGN_PRO_CLIENT_ID, // required 
         Username: values.email, // required 
         };
         cognitoidentityserviceprovider.forgotPassword(params, function(err, data) {
         if (err){
           message.error(err.stack); // an error occurred
         }else{
-          message.success("We sent an email for restore password: "+ data.CodeDeliveryDetails.Destination);  // successful response
+          message.success("Enviamos un email para restaurar la contraseña: "+ data.CodeDeliveryDetails.Destination);  // successful response
         }  
       });
       
@@ -264,7 +268,7 @@ class Login extends Component {
 
     });
 }
-*/
+
  
  
   renderMessage = content => (
@@ -352,8 +356,11 @@ class Login extends Component {
               onClick={this.showModal}
             > 
               <ModalChangePassword
-                visiblePassword = {this.state.visibleChangePassword}
+                visible = {this.state.visible}
+                wrappedComponentRef = {this.saveFormRefDraw}
                 onCancel={this.handleCancel}
+                onChangePass={this.handleSubmitChangePassword}
+                onConfirmCode={this.handleConfirmCode}
               />
               <FormattedMessage id="olvidaste tu contraseña?" //"user-login.login.forgot-password"
               /> 
