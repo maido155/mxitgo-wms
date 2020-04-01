@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
 import { Drawer, Button, Form, Input,Upload, Icon, message } from 'antd';
+import {isMobile} from 'react-device-detect';
 
 function getBase64(img, callback) {
     const reader = new FileReader();
@@ -47,16 +48,15 @@ class drawerEntryProducts extends PureComponent {
         };
         const uploadButton = (
             <div>
-              <Icon type={this.state.loading ? 'loading' : 'plus'} />
-              <div className="ant-upload-text">Upload</div>
+              <Icon type={this.state.loading ? 'loading' : 'camera'} />
             </div>
         );
         const { imageUrl } = this.state;
       return (
         <div>
             <Drawer
-                title="Propiedades"
-                width={"60%"}
+                title="Detalle Del Producto"
+                width={isMobile ? "100%" : "50%"}
                 onClose={this.props.onCancel}
                 visible={this.props.visibleDrawer}
                 bodyStyle={{ paddingBottom: 80 }}
@@ -68,7 +68,7 @@ class drawerEntryProducts extends PureComponent {
                     <Form.Item label={'Temperatura'}>
                         <Input/>
                     </Form.Item>
-                    <Form.Item label={'Fotos'}>
+                    <Form.Item label={'Foto'}>
                         <Upload
                             name="avatar"
                             listType="picture-card"

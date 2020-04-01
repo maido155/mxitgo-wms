@@ -35,59 +35,59 @@ export default class TableShippingMaster extends PureComponent{
           title: formatMessage({ id: 'shipping.label.table-shipping.id' }),
           dataIndex: 'id',
           key: 'id',
-          width: 140,
+          width: isMobile ? 120 : 140,
           render: text => <a>{text}</a>
         },
         {
           title: formatMessage({ id: 'shipping.label.table-shipping.shipping' }),
           dataIndex: 'envio',
-          width: 100
+          width: isMobile ? 70 : 90,
         },
         {
           title: formatMessage({ id: 'shipping.label.table-shipping.arrival' }),
           dataIndex: 'llegada',
-          width: 100
+          width: isMobile ? 70 : 90,
         },
         {
           title: formatMessage({ id: 'shipping.label.table-shipping.entry' }),
           dataIndex: 'entrada',
-          width: 100
+          width: isMobile ? 70 : 90,
         },
         {
           title: formatMessage({ id: 'shipping.label.table-shipping.premium' }),
           dataIndex: 'premium',
-          width: 100
+          width: isMobile ? 130 : 100,
         },
         {
           title: formatMessage({ id: 'shipping.label.table-shipping.gold' }),
           dataIndex: 'gold',
-          width: 100
+          width: isMobile ? 110 : 100,
         },
         {
           title: formatMessage({ id: 'shipping.label.table-shipping.second' }),
           dataIndex: 'segunda',
-          width: 100
+          width: isMobile ? 130 : 100,
         },
         {
           title: formatMessage({ id: 'shipping.label.table-shipping.hand' }),
           dataIndex: 'mano',
-          width: 100
+          width: isMobile ? 120 : 100,
         },
         {
           title: formatMessage({ id: 'shipping.label.table-shipping.finger' }),
           dataIndex: 'dedo',
-          width: 100
+          width: isMobile ? 120 : 100,
         },
         {
           title: formatMessage({ id: 'shipping.label.table-shipping.status' }),
           dataIndex: 'status',
-          width: 100
+          width: isMobile ? 90 : 100,
         },
         {
           title: formatMessage({ id: 'shipping.label.table-shipping.actions' }),
           key: 'action',
           fixed: 'right',
-          width: isMobile ? 130 : 340,
+          width: isMobile ? 100 : 340,
           render: () => (
             <span>
                 <a onClick={this.props.clickFirstTable}>
@@ -172,7 +172,7 @@ export default class TableShippingMaster extends PureComponent{
         return(
           <div>
             <Table size="small" rowSelection={rowSelection} columns={columns} dataSource={data} 
-              scroll={{ x: 1700, y: 300 }} pagination={false}
+              scroll={ isMobile ? {x: 1300} : { x: 1350}} pagination={false}
             />
             <ModalProductTable
             visipleModal ={this.state.visibleModalProduct}

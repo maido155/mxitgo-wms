@@ -76,34 +76,22 @@ export default class ShippingMaster extends PureComponent {
 
     render() {
         const formItemLayout = {
-            labelCol: {xs: { span: 24 },sm: { span: 9 },md: { span: 9 },lg: { span: 9 },xl: { span: 9 }},
-            wrapperCol: {xs: { span: 24 },sm: { span: 15 },md: { span: 15 },lg: { span: 15 },xl: { span: 15  }}
+            labelCol: {xs: { span: 24 },sm: { span: 7 },md: { span: 9 },lg: { span: 9 },xl: { span: 5 }},
+            wrapperCol: {xs: { span: 24 },sm: { span: 14 },md: { span: 15 },lg: { span: 15 },xl: { span: 15 }}
         };
         return(
                     <PageHeaderWrapper>
                         <Card>
                             <Form {...formItemLayout}>
                                 <Row type="flex" justify="center">
-                                    <Col xs={24} sm={16} md={16} lg={16} xl={16}>
+                                    <Col xs={24} sm={23} md={17} lg={16} xl={16}>
                                         <Form.Item label={formatMessage({ id: 'outWard.label.week' })}>
                                             <RangePickerComponent/>
                                         </Form.Item>
                                     </Col>
-                                    <Col xs={24} sm={6} md={6} lg={6} xl={6} className={Styles.addshippingmaster}>
-                                        <Button type="primary" shape="circle" size="large" onClick={this.showFirstDrawer}>
-                                            <Icon type="plus" />
-                                        </Button>
-                                        <DrawerShippingPrograming 
-                                            visibleFirst={this.state.visibleFirstDrawer} 
-                                            closeFirst={this.onCloseFirstDrawer}
-                                            showSecond={this.showSecondDrawer} 
-                                            visibleSecond={this.state.visibleSecondDrawer}
-                                            closeSecond={this.onCloseSecondDrawer}
-                                        />
-                                    </Col>  
                                 </Row>
                                 <Row type="flex" justify="center">
-                                    <Col xs={24} sm={12} md={12} lg={12} xl={13}>
+                                    <Col xs={24} sm={23} md={17} lg={16} xl={8}>
                                         <Form.Item label={formatMessage({ id: 'outWard.label.product' })}>
                                             <RadioGroupComponent/>
                                         </Form.Item>
@@ -111,6 +99,20 @@ export default class ShippingMaster extends PureComponent {
                                 </Row>
                             </Form>
                             <Divider/>
+                            <Row>
+                                <Col span={22} className={Styles.addshippingmaster}>
+                                    <Button type="primary" shape="circle" size="large" onClick={this.showFirstDrawer}>
+                                        <Icon type="plus" />
+                                    </Button>
+                                    <DrawerShippingPrograming 
+                                        visibleFirst={this.state.visibleFirstDrawer} 
+                                        closeFirst={this.onCloseFirstDrawer}
+                                        showSecond={this.showSecondDrawer} 
+                                        visibleSecond={this.state.visibleSecondDrawer}
+                                        closeSecond={this.onCloseSecondDrawer}
+                                    />
+                                </Col>  
+                            </Row>
                             <Row>
                                 <Col span={24}>
                                     <TableShippingMaster 

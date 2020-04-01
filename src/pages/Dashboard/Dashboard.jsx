@@ -66,7 +66,7 @@ export default class Dashboard extends PureComponent {
             <Divider/>
             <div>
             <Row type="flex" justify="center">
-                <Col xs={24} sm={12} md={12} lg={12} xl={5}>
+                <Col xs={24} sm={12} md={12} lg={12} xl={6}>
                    <Form.Item label="">
                        <RadioGroupComponent/>
                    </Form.Item>

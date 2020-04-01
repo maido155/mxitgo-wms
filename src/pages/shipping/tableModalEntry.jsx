@@ -16,36 +16,6 @@ const columns = [
       width: 100,
     },
     {
-      title: 'Premium',
-      dataIndex: 'premium',
-      key: 'premium',
-      width: 100,
-    },
-    {
-      title: 'Gold',
-      dataIndex: 'gold',
-      key: 'gold',
-      width: 100,
-    },
-    {
-      title: 'Segunda',
-      dataIndex: 'segunda',
-      key: 'segunda',
-      width: 100,
-    },
-    {
-      title: 'Mano',
-      dataIndex: 'mano',
-      key: 'mano',
-      width: 100,
-    },
-    {
-      title: 'Dedo',
-      dataIndex: 'dedo',
-      key: 'dedo',
-      width: 100,
-    },
-    {
       title: 'Salida',
       dataIndex: 'salida',
       key: 'salida',

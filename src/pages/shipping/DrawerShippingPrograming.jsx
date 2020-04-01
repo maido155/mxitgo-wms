@@ -7,6 +7,7 @@ import TextArea from '../generalComponents/TextAreaComponent';
 import TableComponent from '../generalComponents/TableComponent';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import NewLine from './NewLine';
+import {isMobile} from 'react-device-detect';
 
 export default class DrawerShippingPrograming extends PureComponent{
     render(){
@@ -18,7 +19,7 @@ export default class DrawerShippingPrograming extends PureComponent{
             <div>
                 <Drawer
                     title={formatMessage({ id: 'shipping.drawershipping.label.title' })}
-                    width={"80%"}
+                    width={isMobile ? "100%" : "80%"}
                     closable={true}
                     onClose={this.props.closeFirst}
                     visible={this.props.visibleFirst}  

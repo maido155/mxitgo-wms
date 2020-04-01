@@ -3,6 +3,7 @@ import Table from './TableAssignment';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { _ } from 'lodash'; 
 import { Drawer,Row, Col, Button, Icon, Divider } from 'antd';
+import {isMobile} from 'react-device-detect';
 
 export default class AssignmentOutWard extends PureComponent {
     render() {
@@ -10,7 +11,7 @@ export default class AssignmentOutWard extends PureComponent {
             <Drawer
                 title={formatMessage({ id: 'outWard.label.assignment-outward' })}
                 placement="right"
-                width={"80%"}
+                width={isMobile ? "100%" : "80%"}
                 closable={true}
                 onClose={this.props.closeOne}
                 visible={this.props.visibleOne}

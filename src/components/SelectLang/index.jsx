@@ -24,7 +24,7 @@ const SelectLang = props => {
     'zh-TW': '🇭🇰',
     'en-US': '🇺🇸',
     'pt-BR': '🇧🇷',
-    'es-ES': 'ᴇ🇸',
+    'es-ES': '🇲🇽',
   };
   const langMenu = (
     <Menu className={styles.menu} selectedKeys={[selectedLang]} onClick={changeLang}>
