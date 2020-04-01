@@ -11,7 +11,7 @@ export default class TableComponent extends PureComponent{
         {
             title: formatMessage({ id: 'shipping.tablecomponent.label.center' }),
             dataIndex: 'center',
-            width: 200
+            width: isMobile ? 150 : 200,
         },
         {
             title: formatMessage({ id: 'shipping.tablecomponent.label.premium' }),
@@ -100,7 +100,7 @@ export default class TableComponent extends PureComponent{
         return(
             <Table 
               rowSelection={rowSelection} columns={columns} dataSource={data} pagination={false} 
-              scroll={{x: 1000}} size="small"
+              scroll={isMobile ? {x: 760} :{x: 1000}} size="small"
             />
         );
     }
