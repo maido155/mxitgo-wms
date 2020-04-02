@@ -117,13 +117,13 @@ export default {
             {
               path: '/shippingMaster',
               name: 'Maestro de envíos',
-              icon: 'arrow-right',
+              icon: 'export',
               component: './shipping/ShippingMaster',
             },
             {
               path: '/outWard',
               name: 'Salidas',
-              icon: 'arrow-left',
+              icon: 'import',
               component: './outward/OutWard',
             },
             {

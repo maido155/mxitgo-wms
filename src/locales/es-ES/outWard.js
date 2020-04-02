@@ -17,7 +17,7 @@ export default {
     'outWard.button.assignment-outward': 'Empezar de nuevo',
     'outWard.button.cancel-assignment-outward': 'Cancelar',
     'outWard.button.ok-assignment-outward': 'Aceptar',
-    'outWard.label.tableassignment-order': 'Pedido',
+    'outWard.label.tableassignment-order': 'Envíos',
     'outWard.label.tableassignment-pallets-re': 'Pallets recibidos (Total)',
     'outWard.label.tableassignment-boxes-re': 'Cajas recibidos (Total)',
     'outWard.label.tableassignment-pallets-di': 'Pallets disponibles',
@@ -28,4 +28,5 @@ export default {
     'outWard.button.composition-outward-ok': 'Aceptar',
     'outWard.button.composition-outward-pallets-ass': 'Pallets asignados',
     'outWard.button.composition-outward-boxes-ass': 'Cajas asignados',
+    'menu.Salidas': 'Salidas'
 };

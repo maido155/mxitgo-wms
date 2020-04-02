@@ -34,6 +34,7 @@ export default {
     'shipping.shippingconfirmation.title': 'Confirmacion de envíos',
     'shipping.shippingconfirmation.id-order': 'Id Pedido',
     'shipping.shippingconfirmation.driver': 'Chofer',
-    'shipping.shippingconfirmation.phone': 'Telefono'
+    'shipping.shippingconfirmation.phone': 'Telefono',
+    'menu.Maestro de envíos': 'Maestro de envíos'
 
 };

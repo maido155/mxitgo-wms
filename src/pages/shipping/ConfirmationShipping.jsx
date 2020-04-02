@@ -24,7 +24,8 @@ export default class ConfirmationShipping extends PureComponent{
                     width={isMobile ? "100%" : "80%"}
                     closable={true}
                     onClose={this.props.closeThirdDrawer}
-                    visible={this.props.visibleThird}  
+                    visible={this.props.visibleThird} 
+                    getContainer={false}  
                 >
                     <Form {...formItemLayout}>
                         <Row>

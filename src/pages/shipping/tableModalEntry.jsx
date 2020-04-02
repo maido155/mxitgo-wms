@@ -62,7 +62,7 @@ const columns = [
       
     render() {
         return (
-          <Table columns={columns} dataSource={data} scroll={{x: 700}} pagination={false}/>  
+          <Table columns={columns} dataSource={data} scroll={{x: 'max-content'}} pagination={false}/>  
         );
         
     }      

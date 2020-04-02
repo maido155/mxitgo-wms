@@ -65,6 +65,7 @@ class drawerEntry extends PureComponent {
                 onClose={this.props.cancelModal}
                 visible={this.props.visibleModal}
                 bodyStyle={{ paddingBottom: 80 }}
+                getContainer={false} 
             >
                 <TableModal/>
                 <Row type="flex" justify="center" style={{marginTop: "2rem"}}>

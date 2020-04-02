@@ -5,16 +5,17 @@ import { _ } from 'lodash';
 import { Drawer,Row, Col, Button, Icon, Divider } from 'antd';
 import {isMobile} from 'react-device-detect';
 
-export default class AssignmentOutWard extends PureComponent {
+export default class AssignmentOutWard extends PureComponent {;
     render() {
         return (
             <Drawer
                 title={formatMessage({ id: 'outWard.label.assignment-outward' })}
                 placement="right"
-                width={isMobile ? "100%" : "80%"}
+                width={isMobile ? "100%" : "70%"}
                 closable={true}
                 onClose={this.props.closeOne}
                 visible={this.props.visibleOne}
+                getContainer={false} 
             >
                 <Row type="flex" justify="center">
                     <Col xs={24} sm={1} md={1} lg={1} xl={1} style={{textAlign: "center"}}>
