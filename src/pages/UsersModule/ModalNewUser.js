@@ -38,9 +38,7 @@ class ModalNewUser extends PureComponent {
           onCancel={this.handleCancel}
           
           footer={[
-            <Button key="cancelar" onClick={this.handleCancel}>
-              Cancelar
-            </Button>
+           
           ]}
         >
           
