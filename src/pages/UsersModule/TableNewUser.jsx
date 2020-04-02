@@ -2,17 +2,25 @@ import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import {Table, Icon, Input, Row, Col, Form, Select, Button} from 'antd';
 const {Option}=Select;
-const Cognito = require('./../../utils/Cognito.js');
+const Cognito = require('./../../utils/Cognito');
 
 class TableNewUser extends PureComponent{
 
+  state = {
+  
+    valueOption: '+521'
+  }
+
+
   handleSubmit = (e) => {
     e.preventDefault();
-    
+    var self = this;
+  
     const { form } = this.props;
     form.validateFields({ force: true }, (err, values) => {
       if (!err) {
-        
+        var phone_number = self.state.valueOption + values.phone_number;
+        values.phone_number = phone_number;
         Cognito.signUpCognito(values).then(function(data){
           var cognitoUser = data.user;
           var destination = data.codeDeliveryDetails.Destination;
@@ -30,9 +38,14 @@ class TableNewUser extends PureComponent{
             subTitleResultSuccess: ``
           });
         });
-      }
+      } 
     });
   };
+  handleChange = (value) =>{
+    this.setState({
+      valueOption: value
+    });
+  }
 
     render(){
       const formItemLayout = {
@@ -80,6 +93,15 @@ class TableNewUser extends PureComponent{
                   { type: 'email', message: 'Formato invalido'}]})
                  (<Input defaultValue= "Correo electrónico"/>)}
                  </Form.Item>,
+                 
+                 <Form.Item>
+                   
+                 {getFieldDecorator('password', {
+                      rules: [{ validator: this.checkPassword }]
+                    })(<Input.Password size="large" type="password" 
+                        prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                    />,)}
+                 </Form.Item>,
 
                  <Form.Item label={"Teléfono"}>
                  {getFieldDecorator('phone_number', { 
@@ -87,9 +109,11 @@ class TableNewUser extends PureComponent{
                 { pattern: /^\d{10}$/, message: "Teléfono inválido"}],})
                 (<Input addonBefore={prefixSelector}/>)}
                 </Form.Item>
+
+                
                 <Button type="primary" htmlType="submit">
-                                               Crear Usuario
-                                            </Button>
+                  Crear Usuario
+                </Button>
            </Form>
          </span>
         );
