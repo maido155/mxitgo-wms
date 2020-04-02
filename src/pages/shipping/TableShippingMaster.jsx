@@ -3,6 +3,7 @@ import { _ } from 'lodash';
 import {isMobile} from 'react-device-detect';
 import { Table, Divider, Icon, Typography } from 'antd';
 import ModalDeleteComponent from '../generalComponents/ModalDeleteComponent';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import ModalProductTable from '../generalComponents/ModalProductTable';
 import Styles from './StylesShipping.css';
 
@@ -31,56 +32,88 @@ export default class TableShippingMaster extends PureComponent{
     render(){
       let columns = [
         {
-          title: 'ID/Centros',
+          title: formatMessage({ id: 'shipping.label.table-shipping.id' }),
           dataIndex: 'id',
           key: 'id',
-          width: 140,
+          width: isMobile ? 120 : 140,
           render: text => <a>{text}</a>
         },
         {
-          title: 'Envío',
+          title: formatMessage({ id: 'shipping.label.table-shipping.shipping' }),
           dataIndex: 'envio',
-          width: 100
+          width: isMobile ? 70 : 90,
         },
         {
-          title: 'Llegada',
+          title: formatMessage({ id: 'shipping.label.table-shipping.arrival' }),
           dataIndex: 'llegada',
-          width: 100
+          width: isMobile ? 70 : 90,
         },
         {
-          title: 'Entrada',
+          title: formatMessage({ id: 'shipping.label.table-shipping.entry' }),
           dataIndex: 'entrada',
-          width: 100
+          width: isMobile ? 70 : 90,
         },
         {
-          title: 'Premium (Plan/Conf)',
+          title: formatMessage({ id: 'shipping.label.table-shipping.premium' }),
           dataIndex: 'premium',
-          width: 100
+          width: isMobile ? 130 : 100,
         },
         {
-          title: 'Gold (Plan/Conf)',
+          title: formatMessage({ id: 'shipping.label.table-shipping.gold' }),
           dataIndex: 'gold',
-          width: 100
+          width: isMobile ? 110 : 100,
         },
         {
-          title: 'Segunda (Plan/Conf)',
+          title: formatMessage({ id: 'shipping.label.table-shipping.second' }),
           dataIndex: 'segunda',
-          width: 100
+          width: isMobile ? 130 : 100,
         },
         {
-          title: 'Mano (Plan/Conf)',
+          title: formatMessage({ id: 'shipping.label.table-shipping.hand' }),
           dataIndex: 'mano',
-          width: 100
+          width: isMobile ? 120 : 100,
         },
         {
-          title: 'Dedo (Plan/Conf)',
+          title: formatMessage({ id: 'shipping.label.table-shipping.finger' }),
           dataIndex: 'dedo',
-          width: 100
+          width: isMobile ? 120 : 100,
         },
         {
-          title: 'Estado',
+          title: formatMessage({ id: 'shipping.label.table-shipping.status' }),
           dataIndex: 'status',
-          width: 100
+          width: isMobile ? 90 : 100,
+        },
+        {
+          title: formatMessage({ id: 'shipping.label.table-shipping.actions' }),
+          key: 'action',
+          fixed: 'right',
+          width: isMobile ? 100 : 340,
+          render: () => (
+            <span>
+                <a onClick={this.props.clickFirstTable}>
+                  {isMobile 
+                    ?  <Icon type="edit"/>
+                    : <span><Icon type="edit" /><FormattedMessage id="shipping.label.table-shipping.edit"/></span>
+                  }
+                </a>
+              <Divider type="vertical"/>
+                <a onClick={this.props.clickthirdTable}>
+                  {isMobile 
+                    ? <Icon type="check"/>
+                    : <span><Icon type="check" /><FormattedMessage id="shipping.label.table-shipping.confirm"/></span>
+                  }
+                </a>
+              <Divider type="vertical"/>
+                <ModalDeleteComponent/>
+              <Divider type="vertical"/>
+              <a onClick={this.props.clickModal}>
+                {isMobile 
+                    ? <Icon type="form"/>
+                    : <span><Icon type="form"/><FormattedMessage id="shipping.label.table-shipping.entry"/></span>
+                }
+              </a>
+            </span>
+          ),
         }
       ];
 
@@ -92,7 +125,6 @@ export default class TableShippingMaster extends PureComponent{
           llegada: 'Martes',
           entrada: 'Miercoles',
           premium: <Text type="danger" onClick={this.showModal} className={Styles.producto}>1200/1150</Text>,
-          // premium:'1200/1150',
           gold:'39/39',
           segunda:'0/39',
           mano: '0/39',
@@ -127,56 +159,6 @@ export default class TableShippingMaster extends PureComponent{
         }
       ];
 
-      if(isMobile){
-        columns.push(
-          {
-            title: 'Acciones',
-            key: 'action',
-            fixed: 'right',
-            width: 130,
-            render: () => (
-              <span>
-                  <a onClick={this.props.clickFirstTable}>
-                    <Icon type="edit" />
-                  </a>
-                <Divider type="vertical" />
-                  <a onClick={this.props.clickthirdTable}>
-                    <Icon type="check" />
-                  </a>
-                <Divider type="vertical" />
-                  <ModalDeleteComponent/>
-                <Divider type="vertical" />
-                  <a onClick={this.props.clickModal}><Icon type="form" /></a>
-              </span>
-            ),
-          }
-        );
-      }else{
-        columns.push(
-          {
-            title: 'Acciones',
-            key: 'action',
-            fixed: 'right',
-            width: 340,
-            render: () => (
-              <span>
-                  <a onClick={this.props.clickFirstTable}>
-                    <Icon type="edit" /> Editar
-                  </a>
-                <Divider type="vertical" />
-                  <a onClick={this.props.clickthirdTable}>
-                    <Icon type="check" /> Confirmar
-                  </a>
-                <Divider type="vertical" />
-                  <ModalDeleteComponent/>
-                <Divider type="vertical" />
-                <a onClick={this.props.clickModal}><Icon type="form" /> Entrada</a>
-              </span>
-            ),
-          }
-        );
-      }
-
       const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
           console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -190,7 +172,7 @@ export default class TableShippingMaster extends PureComponent{
         return(
           <div>
             <Table size="small" rowSelection={rowSelection} columns={columns} dataSource={data} 
-              scroll={{ x: 1300, y: 300 }} pagination={false}
+              scroll={ isMobile ? {x: 1300} : { x: 1350}} pagination={false}
             />
             <ModalProductTable
             visipleModal ={this.state.visibleModalProduct}

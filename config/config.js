@@ -18,9 +18,9 @@ const plugins = [
         // default false
         enable: true,
         // default zh-CN
-        default: 'zh-CN',
+        default: 'es-ES',
         // default true, when it is true, will use `navigator.language` overwrite default
-        baseNavigator: true,
+        // baseNavigator: true,
       },
       dynamicImport: {
         loadingComponent: './components/PageLoading/index',
@@ -100,7 +100,7 @@ export default {
           routes: [
             {
               path: '/',
-              redirect: '/dashboard',
+              redirect: '/user/login',
             },
             {
               path: '/dashboard',
@@ -117,13 +117,13 @@ export default {
             {
               path: '/shippingMaster',
               name: 'Maestro de envíos',
-              icon: 'arrow-right',
+              icon: 'export',
               component: './shipping/ShippingMaster',
             },
             {
               path: '/outWard',
               name: 'Salidas',
-              icon: 'arrow-left',
+              icon: 'import',
               component: './outward/OutWard',
             },
             {

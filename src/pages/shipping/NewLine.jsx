@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
 import { Drawer, Button,Row, Col, InputNumber, Form } from 'antd';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import Styles from './StylesShipping.css';
 import TreeSelectComponent from '../generalComponents/TreeSelectComponent';
+import {isMobile} from 'react-device-detect';
 
 export default  class NewLine extends PureComponent{
     render(){
@@ -12,29 +14,29 @@ export default  class NewLine extends PureComponent{
         };
             return(
                 <Drawer
-                    title="Nueva Linea"
-                    width={"50%"}
+                    title={formatMessage({ id: 'shipping.newline.label.title' })}
+                    width={isMobile ? "100%" : "50%"}
                     closable={true}
                     onClose={this.props.closeDrawer}
                     visible={this.props.visibleDrawer}
                 >
                     <Form {...formItemLayout} className={Styles.formnweline}>
-                        <Form.Item label="Centro">
+                        <Form.Item label={formatMessage({ id: 'shipping.tablecomponent.label.center' })}>
                             <TreeSelectComponent/>
                         </Form.Item>
-                        <Form.Item label="Premium">
+                        <Form.Item label={formatMessage({ id: 'shipping.tablecomponent.label.premium' })}>
                             <InputNumber min={1} max={500} defaultValue={0} style={{ width: '100%'}}/>
                         </Form.Item>
-                        <Form.Item label="Gold">
+                        <Form.Item label={formatMessage({ id: 'shipping.tablecomponent.label.gold' })}>
                             <InputNumber min={1} max={500} defaultValue={0} style={{ width: '100%'}}/>
                         </Form.Item>
-                        <Form.Item label="Segunda">
+                        <Form.Item label={formatMessage({ id: 'shipping.tablecomponent.label.second' })}>
                             <InputNumber min={1} max={500} defaultValue={0} style={{ width: '100%'}}/>
                         </Form.Item>
-                        <Form.Item label="Mano">
+                        <Form.Item label={formatMessage({ id: 'shipping.tablecomponent.label.hand' })}>
                             <InputNumber min={1} max={500} defaultValue={0} style={{ width: '100%'}}/>
                         </Form.Item>
-                        <Form.Item label="Dedo">
+                        <Form.Item label={formatMessage({ id: 'shipping.tablecomponent.label.finger' })}>
                             <InputNumber min={1} max={500} defaultValue={0} style={{ width: '100%'}}/>
                         </Form.Item>
                         <div
@@ -50,10 +52,10 @@ export default  class NewLine extends PureComponent{
                             }}
                         >
                             <Button type="danger" onClick={this.props.closeDrawer} className={Styles.cancelarfooter}>
-                                Cancelar
+                                <FormattedMessage id="shipping.button.cancel"/>
                             </Button>
                             <Button type="primary" onClick={this.props.closeDrawer}>
-                                Programar
+                                <FormattedMessage id="shipping.button.program"/>
                             </Button>    
                         </div>
                     </Form>

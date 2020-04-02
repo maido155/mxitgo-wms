@@ -5,7 +5,9 @@ import Styles from './StylesShipping.css';
 import DatePicker from '../generalComponents/DatePickerComponent';
 import TextArea from '../generalComponents/TextAreaComponent';
 import TableComponent from '../generalComponents/TableComponent';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import NewLine from './NewLine';
+import {isMobile} from 'react-device-detect';
 
 export default class DrawerShippingPrograming extends PureComponent{
     render(){
@@ -16,31 +18,32 @@ export default class DrawerShippingPrograming extends PureComponent{
         return(
             <div>
                 <Drawer
-                    title="Programación de Envíos"
-                    width={"80%"}
+                    title={formatMessage({ id: 'shipping.drawershipping.label.title' })}
+                    width={isMobile ? "100%" : "80%"}
                     closable={true}
                     onClose={this.props.closeFirst}
-                    visible={this.props.visibleFirst}  
+                    visible={this.props.visibleFirst} 
+                    getContainer={false} 
                 >
                     <Form {...formItemLayout}>
                         <Row>
                             <Col lg={12} xl={12}>
-                                <Form.Item label="Fecha de salida:">
+                                <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-exit' })}>
                                     <DatePicker/>
                                 </Form.Item>
                             </Col>
                             <Col lg={12} xl={12}>
-                                <Form.Item label="Fecha de llegada:">
+                                <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-arrival' })}>
                                     <DatePicker/>
                                 </Form.Item>
                             </Col>
                             <Col lg={12} xl={12}>
-                                <Form.Item label="Fecha de entrada:">
+                                <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-entry' })}>
                                     <DatePicker/>
                                 </Form.Item>
                             </Col>
                             <Col lg={12} xl={12}>
-                                <Form.Item label="Comentarios:">
+                                <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-comments' })}>
                                     <TextArea/>
                                 </Form.Item>
                             </Col>
@@ -75,10 +78,10 @@ export default class DrawerShippingPrograming extends PureComponent{
                             }}
                         >
                             <Button type="danger" onClick={this.props.closeFirst} className={Styles.cancelarfooter}>
-                                Cancelar
+                                <FormattedMessage id="shipping.button.cancel"/>
                             </Button>
                             <Button type="primary" onClick={this.props.closeFirst}>
-                                Programar
+                                <FormattedMessage id="shipping.button.program"/>
                             </Button>    
                         </div>
                     </Form>
