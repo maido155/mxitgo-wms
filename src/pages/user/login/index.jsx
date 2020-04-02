@@ -27,6 +27,13 @@ class Login extends Component {
     userData: {},
     userAttributes: {}
   };
+
+  changeAutoLogin = e => {
+    this.setState({
+      autoLogin: e.target.checked,
+    });
+  };
+
   
 
   doLogin = async (_params) => {
@@ -43,11 +50,7 @@ class Login extends Component {
     }
   };
 
-  handleForgotPassword = e => {
-    this.setState({
-      visibleChangePassword : true,
-    });
-  };
+
 
   handleConfirmCode = () => {
    var self = this;
@@ -69,7 +72,7 @@ class Login extends Component {
     var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
     cognitoUser.confirmPassword(code, newPassword,  {
       onSuccess: function (result) {
-        message.success("Contrasea restaurada exitosamente!");
+        message.success("Contraseña restaurada exitosamente!");
       },
       onFailure: function(err) {
         if(err){
@@ -118,10 +121,7 @@ class Login extends Component {
           message.error(err.message);
         }
       },
-      mfaRequired: function(codeDeliveryDetails) {
-        var verificationCode = prompt('Please input verification code' ,'');
-        cognitoUser.sendMFACode(verificationCode, this);
-      },
+     
       newPasswordRequired: function(userAttributes, requiredAttributes) {
           // User was signed up by an admin and must provide new 
           // password and required attributes, if any, to complete 
@@ -191,8 +191,9 @@ class Login extends Component {
   };
 
   handleCancel = () => {
+    
     console.log('jj');
-    this.setState({
+     this.setState({
       visible: false
     });
   };
@@ -311,7 +312,7 @@ class Login extends Component {
               name="userName"
               placeholder={`${formatMessage({
                id: 'Correo electronico'
-              })}: e@gmail.com`}
+              })}`}
               rules={[
                 {
                   type: 'email', message: 'The input is not valid Email!',
@@ -326,7 +327,7 @@ class Login extends Component {
               name="userPassword"
               placeholder={`${formatMessage({
                 id: 'contraseña',
-              })}: James161210/`}
+              })}`}
               rules={[
                 {
                   required: true,
@@ -355,17 +356,16 @@ class Login extends Component {
               }}
               onClick={this.showModal}
             > 
-              <ModalChangePassword
+              <FormattedMessage id="olvidaste tu contraseña?" //"user-login.login.forgot-password"
+              /> 
+            </a> 
+            <ModalChangePassword
                 visible = {this.state.visible}
                 wrappedComponentRef = {this.saveFormRefDraw}
                 onCancel={this.handleCancel}
                 onChangePass={this.handleSubmitChangePassword}
                 onConfirmCode={this.handleConfirmCode}
               />
-              <FormattedMessage id="olvidaste tu contraseña?" //"user-login.login.forgot-password"
-              /> 
-            </a> 
-            
           </div>
           <Submit loading={submitting}>
             <FormattedMessage id= "iniciar sesión" //"user-login.login.login"

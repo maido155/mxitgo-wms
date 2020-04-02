@@ -58,7 +58,7 @@ const ModalChangePassword = Form.create()(
             super(props);
     
             this.state = {
-                visible2: false,
+                visibleHelp: false,
                 help: '',
                 confirmDirty: false,
                 visibleFormCode: false,
@@ -66,29 +66,16 @@ const ModalChangePassword = Form.create()(
             };
         }
         
-        validateToOldPassword = (rule, value, callback) => {
-            const form = this.props.form;
-            if (value && value == form.getFieldValue('newUserPassword')) {
-              callback('The password should different to the old password!');
-            } else {
-              callback();
-            }
-        }        
+             
         compareToFirstPassword = (rule, value, callback) => {
             const form = this.props.form;
             if (value && value !== form.getFieldValue('password')) {
-              callback('Two passwords that you enter is inconsistent!');
+              callback('Las contraseñas no coinciden');
             } else {
              callback();
             }
         }
-        validateToNextPassword = (rule, value, callback) => {
-            const form = this.props.form;
-            if (value && this.state.confirmDirty) {
-              form.validateFields(['userConfirmPassword'], { force: true });
-            }
-            callback();
-        }
+      
         handleConfirmBlur = (e) => {
             const value = e.target.value;
             this.setState({ confirmDirty: this.state.confirmDirty || !!value });
@@ -97,19 +84,32 @@ const ModalChangePassword = Form.create()(
             const value = e.target.value;
             this.setState({ confirmDirty: this.state.confirmDirty || !!value });
         }
-        onClickChangePassword = (e) => {
+        onSubmitChangePassword = (e) => {
+            e.preventDefault();
             const { onChangePass } = this.props;
-            this.setState({visibleFormCode:true, disabledBtnSendMail:true});
-            onChangePass();
+            this.props.form.validateFieldsAndScroll((err, values) => {
+                if (!err) {
+                   console.log("BIEN")
+                   this.setState({visibleFormCode:true, disabledBtnSendMail:true});
+                   onChangePass();
+                  }
+              });
         }
-        onClickConfirmCode = () => {
+        onSubmitConfirmCode = (e) => {
+            e.preventDefault();
             const { onConfirmCode } = this.props;
-            let code        = this.props.form.getFieldValue('code');
-            let newPassword = this.props.form.getFieldValue('newPassword');
-            let email       = this.props.form.getFieldValue('email');
-            if(code!=''&&newPassword!=''){
-                onConfirmCode(code,newPassword,email);
-            }
+            this.props.form.validateFields((err, values) => {
+                if (!err) {
+                   console.log("BIEN")
+                   this.setState({visibleHelp:false});
+                    let code        = this.props.form.getFieldValue('code');
+                    let newPassword = this.props.form.getFieldValue('newPassword');
+                    let email       = this.props.form.getFieldValue('email');
+                    if(code!=''&&newPassword!=''){
+                        onConfirmCode(code,newPassword,email);
+                    }
+                }
+             });
         }
 
         renderPasswordProgress = () => {
@@ -130,19 +130,19 @@ const ModalChangePassword = Form.create()(
           }
 
         checkPassword = (rule, value, callback) => {
-            const { visible2, confirmDirty } = this.state;
+            const { visibleHelp, confirmDirty } = this.state;
             if(!value){
               this.setState({
-                help: '¡Por favor, introduzca su contraseña!', visible2: !!value
+                help: '¡Por favor, introduzca su contraseña!', visibleHelp: !!value
               });
               callback('error');
             }else{
               this.setState({
                 help: ''
               });
-              if(!visible2){
+              if(!visibleHelp){
                 this.setState({
-                  visible2: !!value
+                  visibleHelp: !!value
                 });
               }
               if(value.length < 8){
@@ -203,7 +203,7 @@ const ModalChangePassword = Form.create()(
             const {  form } = this.props;
             const { getFieldDecorator } = form;
             
-            const { visibleFormCode,disabledBtnSendMail, visible2, help, visibleResultSuccess, titleResultSuccess, subTitleResultSuccess, dataresult } = this.state;
+            const { visibleFormCode,disabledBtnSendMail, visibleHelp, help} = this.state;
             const formItemLayout = {
                 labelCol: {xs: { span: 24 },sm: { span: 9 },md: { span: 9 },lg: { span: 9 },xl: { span: 8 }},
                 wrapperCol: {xs: { span: 24 },sm: { span: 15 },md: { span: 15 },lg: { span: 15 },xl: { span: 10  }}
@@ -228,12 +228,12 @@ const ModalChangePassword = Form.create()(
 
 
 
-                <Form   {...formItemLayout}>
+                <Form   {...formItemLayout} onSubmit={(this.onSubmitChangePassword)}>
                
                         <FormItem label="Email">
                         {getFieldDecorator('email', {
                             rules: [{
-                                type: 'email', required: true, message: 'Por favor ingresa tu correo!',
+                                type: 'email', required: true, message:"El email es requerido" ,
                         }],
                         })(
                             <Input type="email" onBlur={this.handleConfirmBlur}/>
@@ -243,7 +243,7 @@ const ModalChangePassword = Form.create()(
                             <Col xs={24}sm={9}md={9}lg={9}xl={8}></Col>
                             <Col>
                        <Form.Item>
-                    <Button type="primary" htmlType="submit" onClick={this.onClickChangePassword} disabled={disabledBtnSendMail}>
+                    <Button type="primary" htmlType="submit"  disabled={disabledBtnSendMail}>
                         Enviar correo
                     </Button>
                     </Form.Item>
@@ -252,7 +252,7 @@ const ModalChangePassword = Form.create()(
                     </Row>
                     </Form>
 
-                    <Form   {...formItemLayout}>
+                    <Form   {...formItemLayout} onSubmit={(this.onSubmitConfirmCode)}>
 
                     { visibleFormCode==true &&
                       <div>
@@ -266,7 +266,7 @@ const ModalChangePassword = Form.create()(
                                             <Input type="text" onBlur={this.handleConfirmBlur}/>
                                         )}
                                     </FormItem>
-                                    <FormItem help={help} label="Confirmar contraseña">
+                                    <FormItem help={help} label="Nueva contraseña">
                                         <Popover
                                           
                                             content={
@@ -280,7 +280,7 @@ const ModalChangePassword = Form.create()(
                                             }
                                             overlayStyle={{ width: 240}}
                                             placement = "right"
-                                            visible={visible2}
+                                            visible={visibleHelp}
                                         >
                                             {getFieldDecorator('password', {
                                             rules: [{required: true, message: 'Por favor ingresa tu nueva contraseña'},
@@ -309,7 +309,7 @@ const ModalChangePassword = Form.create()(
                             <Col>           
                           
                          <Form.Item>
-                            <Button type="primary" htmlType="submit" onClick={this.onClickConfirmCode}>
+                            <Button type="primary" htmlType="submit" >
                                 Cambiar contraseña
                             </Button>
                          </Form.Item>
