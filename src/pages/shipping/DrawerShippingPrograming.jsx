@@ -22,7 +22,8 @@ export default class DrawerShippingPrograming extends PureComponent{
                     width={isMobile ? "100%" : "80%"}
                     closable={true}
                     onClose={this.props.closeFirst}
-                    visible={this.props.visibleFirst}  
+                    visible={this.props.visibleFirst} 
+                    getContainer={false} 
                 >
                     <Form {...formItemLayout}>
                         <Row>

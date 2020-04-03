@@ -7,27 +7,32 @@ const columns = [
   {
     title: 'Semana',
     dataIndex: 'week',
-
+    width: isMobile ? 100 :100
   },
   {
     title: 'Tipo de producto',
     dataIndex: 'products',
+    width: isMobile ? 130 :100
   },
   {
     title: 'Cliente',
     dataIndex: 'client',
+    width: isMobile ? 90 :100
   },
   {
       title: 'Cajas',
       dataIndex: 'box',
+      width: isMobile ? 90 :100
     },
     {
       title: 'Pallets',
       dataIndex: 'pallets',
+      width: isMobile ? 90 :100
     },
     {
       title: 'Status',
       dataIndex: 'status',
+      width: isMobile ? 100 :100
     }
 ];
 
@@ -70,6 +75,7 @@ const data = [
         title: 'Acciones',
         key: 'action',
         fixed: 'right',
+        width: 120,
        
         render: () => (
           <span>
@@ -90,7 +96,7 @@ const data = [
         title: 'Acciones',
         key: 'action',
         fixed: 'right',
-       
+        width: 350,
         render: () => (
           <span>
             <a><Icon type="edit" theme="filled" /></a>
@@ -123,7 +129,7 @@ const rowSelection = {
 class TableGeneralProgramming extends PureComponent{
     render(){
         return(
-            <Table  style={{marginTop: "2%"}} size="small" rowSelection={rowSelection} columns={columns} dataSource={data}  />
+            <Table  style={{marginTop: "2%"}} size="small" rowSelection={rowSelection} columns={columns} dataSource={data} scroll={isMobile ? {x: 720} : {x: 950}}  />
         );
     }
 }

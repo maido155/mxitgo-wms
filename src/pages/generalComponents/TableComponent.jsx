@@ -11,32 +11,33 @@ export default class TableComponent extends PureComponent{
         {
             title: formatMessage({ id: 'shipping.tablecomponent.label.center' }),
             dataIndex: 'center',
-            width: isMobile ? 150 : 200,
+            key:'center',
+            width: isMobile ? 170 : 200,
         },
         {
             title: formatMessage({ id: 'shipping.tablecomponent.label.premium' }),
             dataIndex: 'premium',
-            width: 100
+            width: isMobile ? 90 : 100,
         },
         {
             title: formatMessage({ id: 'shipping.tablecomponent.label.gold' }),
             dataIndex: 'gold',
-            width: 100
+            width: isMobile ? 90 : 100,
         },
         {
             title: formatMessage({ id: 'shipping.tablecomponent.label.second' }),
             dataIndex: 'segunda',
-            width: 100
+            width: isMobile ? 90 : 100,
         },
         {
             title: formatMessage({ id: 'shipping.tablecomponent.label.hand' }),
             dataIndex: 'mano',
-            width: 100
+            width: isMobile ? 90 : 100,
         },
         {
             title: formatMessage({ id: 'shipping.tablecomponent.label.finger' }),
             dataIndex: 'dedo',
-            width: 100
+            width: isMobile ? 90 : 100,
         },
         {
           title: formatMessage({ id: 'shipping.tablecomponent.label.actions' }),
@@ -98,9 +99,8 @@ export default class TableComponent extends PureComponent{
         }),
       };
         return(
-            <Table 
-              rowSelection={rowSelection} columns={columns} dataSource={data} pagination={false} 
-              scroll={isMobile ? {x: 760} :{x: 1000}} size="small"
+            <Table rowSelection={rowSelection} columns={columns} dataSource={data} pagination={false} 
+              scroll={isMobile ? {x: 700} :{x: 1000}} size="small"
             />
         );
     }

@@ -4,28 +4,29 @@ import { Table, Divider, Button, Checkbox  } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import AssignmentOutWard from './AssignmentOutWard';
 import CompositionOutWard from './CompositionOutWard';
+import {isMobile} from 'react-device-detect';
 
 export default class TableOutWard extends PureComponent {
     state = { 
         visibleAssign: false,
         visibleCompo: false
     };
-    showOne = () => {
+    showDrawerAssig = () => {
         this.setState({
           visibleAssign: true,
         });
     };
-    showTwo = () => {
+    showDrawerCompo = () => {
         this.setState({
           visibleCompo: true,
         });
     };
-    onCloseOne = () => {
+    onCloseDrawerAssig = () => {
         this.setState({
           visibleAssign: false,
         });
     };
-    onCloseTwo = () => {
+    onCloseDrawerCompo = () => {
         this.setState({
           visibleCompo: false,
         });
@@ -35,46 +36,48 @@ export default class TableOutWard extends PureComponent {
             {
                 title: '',
                 dataIndex: 'date',
-                width: 100
+                width: isMobile ? 100 : 130
             },
             {
                 title: formatMessage({ id: 'outWard.label.table-pallets' }),
                 dataIndex: 'pallets',
-                width: 190
+                width: isMobile ? 200 : 190
             },
             {
                 title: formatMessage({ id: 'outWard.label.table-boxes' }),
                 dataIndex: 'cajas',
-                width: 180
+                width: isMobile ? 200 : 180
+            },
+            {
+                title: 'Estado',
+                dataIndex: 'status',
+                width: isMobile ? 100 : 130
             },
             {
                 title: '',
                 key: 'action',
-                width: 480,
+                width: isMobile ? 400 : 360,
                 render: () => (
                   <span>
-                        <Button type="primary" onClick={this.showOne}>
+                        <Button type="primary" onClick={this.showDrawerAssig}> 
                             <FormattedMessage id="outWard.button.assign"/>
                         </Button>
-                        <AssignmentOutWard 
-                            visibleOne={this.state.visibleAssign}
-                            closeOne={this.onCloseOne}
-                        />
-                    <Divider type="vertical" />
-                        <Button onClick={this.showTwo}>
+                        <Divider type="vertical" />
+                        <Button onClick={this.showDrawerCompo}>
                             <FormattedMessage id="outWard.button.composition"/>
                         </Button>
-                        <CompositionOutWard
-                            visibleTwo={this.state.visibleCompo}
-                            closeTwo={this.onCloseTwo}
-                            showOne={this.showOne}
-                            visibleOne={this.state.visibleAssign}
-                            closeOne={this.onCloseOne}
-                        />
-                    <Divider type="vertical" />
+                        <Divider type="vertical" />
                         <Checkbox>
                             <FormattedMessage id="outWard.button.confirm"/>
                         </Checkbox>      
+                        <AssignmentOutWard 
+                            visibleOne={this.state.visibleAssign}
+                            closeOne={this.onCloseDrawerAssig}
+                        />
+                        <CompositionOutWard
+                            visibleTwo={this.state.visibleCompo}
+                            closeTwo={this.onCloseDrawerCompo}
+                        />
                   </span>
                 ),
             }
@@ -84,23 +87,26 @@ export default class TableOutWard extends PureComponent {
                 key: '1',
                 date: 'Jue 8 Nov',
                 pallets: "12/30",
-                cajas: "360/900"
+                cajas: "360/900",
+                status: 'Pendiente'
             },
             {
                 key: '2',
                 date: 'Vie 9 Nov',
                 pallets: "12/30",
-                cajas: "360/900"
+                cajas: "360/900",
+                status: 'Completado'
             },
             {
                 key: '3',
                 date: 'Sab 10 Nov',
                 pallets: "12/30",
-                cajas: "360/900"
+                cajas: "360/900",
+                status: 'En proceso'
             }
         ];         
         return (
-            <Table columns={columns} dataSource={data} pagination={false} scroll={{ x: 970, y: 300 }} size="small"/>
+            <Table columns={columns} dataSource={data} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
         );            
     }
 }
