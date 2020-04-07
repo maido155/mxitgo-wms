@@ -105,4 +105,7 @@
     .producto {
         cursor: pointer;
     }
+    .titlemodal {
+        text-align: left;
+    }
 }
