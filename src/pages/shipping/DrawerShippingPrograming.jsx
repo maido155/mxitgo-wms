@@ -24,6 +24,9 @@ export default class DrawerShippingPrograming extends PureComponent{
                     onClose={this.props.closeFirst}
                     visible={this.props.visibleFirst} 
                     getContainer={false} 
+                    style={{
+                        textAlign: 'left'
+                    }}
                 >
                     <Form {...formItemLayout}>
                         <Row>
