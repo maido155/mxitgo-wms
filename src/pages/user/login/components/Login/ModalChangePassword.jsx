@@ -196,7 +196,14 @@ const ModalChangePassword = Form.create()(
           }
         
         
-        
+        resetModal = () => {
+          const {onCancel} = this.props;
+          this.setState({
+            visibleFormCode: false,
+            disabledBtnSendMail: false
+          });
+          onCancel();
+        }
         
         
         render() {
@@ -220,7 +227,7 @@ const ModalChangePassword = Form.create()(
                     title="Olvidaste tu contraseña?"
                     //okText="Change"
                     cancelText="Cancel"
-                    onCancel={this.props.onCancel}
+                    onCancel={this.resetModal}
                     okButtonProps={{ style: { display: 'none' } }}
                     // onOk={onChangePassword}
                   

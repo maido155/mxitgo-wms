@@ -73,6 +73,7 @@ class Login extends Component {
     cognitoUser.confirmPassword(code, newPassword,  {
       onSuccess: function (result) {
         message.success("Contraseña restaurada exitosamente!");
+        self.handleCancel();
       },
       onFailure: function(err) {
         if(err){
@@ -196,9 +197,18 @@ class Login extends Component {
      this.setState({
       visible: false
     });
+
+    this.onReset();
   };
   
-  
+  onReset = () => {
+    const form = this.formRefDraw.props.form;
+    form.resetFields();
+
+    console.log('jj');
+    console.log('jj');
+  };
+
  handleSubmitChangePassword= () => {
     const form = this.formRefDraw.props.form;
     let _self = this;
