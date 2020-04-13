@@ -112,7 +112,7 @@ export default {
               path: '/generalProgramming',
               name: 'Programación General',
               icon: 'setting',
-              component: './generalProgramming/generalProgramming'
+              component: './generalProgramming/generalProgramming',
             },
             {
               path: '/shippingMaster',
@@ -126,6 +126,22 @@ export default {
               icon: 'import',
               component: './outward/OutWard',
             },
+
+            
+            {
+              path: '/userSettings',
+              name: 'Configuración de usuarios',
+              icon: 'control',
+              routes: [
+               {
+                 path:'./UsersModule/UsersLayout',
+                 name:'Usuarios',
+                 icon:'user',
+                 component: './UsersModule/UsersLayout'
+               }
+             ]
+            },
+        
             {
               path: '/settings',
               component: './account/AccountSettings'

@@ -16,19 +16,21 @@ const signUpCognito = (data) => {
         var dataFamily = {Name: 'family_name',Value: data.family_name};
         var dataMiddle = {Name: 'middle_name',Value: data.middle_name};
         var dataPhone = {Name: 'phone_number',Value: data.phone_number};
+        var dataPassword ={Name: 'password' ,Value: data.password};
 
 
         var attributeName = new AmazonCognitoIdentity.CognitoUserAttribute(dataName);
         var attributeFamily = new AmazonCognitoIdentity.CognitoUserAttribute(dataFamily);
         var attributeMiddle= new AmazonCognitoIdentity.CognitoUserAttribute(dataMiddle);
         var attributePhone = new AmazonCognitoIdentity.CognitoUserAttribute(dataPhone);
+       // var attributePass = new  AmazonCognitoIdentity.CognitoUserAttribute(dataPassword);
 
 
         attributeList.push(attributeName);
         attributeList.push(attributeFamily);
         attributeList.push(attributeMiddle);
         attributeList.push(attributePhone);
-
+    //    attributeList.push(attributePass);
 
         userPool.signUp(data.email, data.password, attributeList, null, function(
             err,

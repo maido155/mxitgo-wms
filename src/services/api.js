@@ -2,6 +2,13 @@ import { stringify } from 'qs';
 import request from '@/utils/request';
 import { async } from 'q';
 
+
+export async function getUsers() { //your link to your lambda function.
+  return request(
+    `${ANT_DESIGN_PRO_TARGET}/user`
+    );
+}
+
 export async function generateComments(payload) {
   return request(`${ANT_DESIGN_PRO_TARGET}/generatecomment`, {
     method: 'POST',
