@@ -26,7 +26,7 @@ export default class DrawerAssignmentProduct extends PureComponent {
                     <Form.Item label={'Pallets disponibles'}>
                         <Text>3</Text>
                     </Form.Item>
-                    <Form.Item label={'Pallets disponibles'}>
+                    <Form.Item label={'Cajas disponibles'}>
                         <Text>150</Text> 
                     </Form.Item>
                     <Form.Item label={'Pallets'}>
