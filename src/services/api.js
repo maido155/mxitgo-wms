@@ -208,10 +208,7 @@ export async function getIndustries() {
   return request(`${ANT_DESIGN_PRO_TARGET}/catalogs/industries`);
 }
 
-export async function getUsers({ payload }) {
-  console.log(payload);
-  return request(`${ANT_DESIGN_PRO_TARGET}/dev/user/email?email=${payload.userId}`);
-}
+
 
 export async function getCompaniesByUsers({ payload }) {
   console.log(payload);
