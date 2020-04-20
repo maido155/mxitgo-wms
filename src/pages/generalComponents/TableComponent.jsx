@@ -99,7 +99,7 @@ export default class TableComponent extends PureComponent{
         }),
       };
         return(
-            <Table rowSelection={rowSelection} columns={columns} dataSource={data} pagination={false} 
+            <Table rowSelection={rowSelection} columns={columns} dataSource={this.props.datesWhNew} pagination={false} 
               scroll={isMobile ? {x: 700} :{x: 1000}} size="small"
             />
         );

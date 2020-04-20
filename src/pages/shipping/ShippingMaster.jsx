@@ -14,28 +14,21 @@ import { Card, Divider, Row, Col, Button, Icon, Form } from 'antd';
 export default class ShippingMaster extends PureComponent {
     state=
     {
-        visibleFirstDrawer: false,
-        visibleSecondDrawer: false,
-        visibleThirdDrawer: false,
+        visibleDrawerShipping: false,
+        visibleDrawerConfirmation: false,
         visibleModal: false,
         loadingModal: false
     }
 
-    showFirstDrawer = () =>{
+    showDrawerShipping = () =>{
         this.setState({
-            visibleFirstDrawer: true
+            visibleDrawerShipping: true
         });
     };
 
-    showSecondDrawer = () =>{
+    showDrawerConfirmation = () =>{
         this.setState({
-            visibleSecondDrawer: true
-        });
-    };
-
-    showThirdDrawer = () =>{
-        this.setState({
-            visibleThirdDrawer: true
+            visibleDrawerConfirmation: true
         });
     };
 
@@ -52,21 +45,15 @@ export default class ShippingMaster extends PureComponent {
         }, 3000);
     };
 
-    onCloseFirstDrawer = () =>{
+    onCloseDrawerShipping = () =>{
         this.setState({
-            visibleFirstDrawer: false
+            visibleDrawerShipping: false
         });
     };
 
-    onCloseSecondDrawer = () =>{
+    onCloseDrawerConfirmation = () =>{
         this.setState({
-            visibleSecondDrawer: false
-        });
-    };
-
-    onCloseThirdDrawer = () =>{
-        this.setState({
-            visibleThirdDrawer: false
+            visibleDrawerConfirmation: false
         });
     };
 
@@ -101,31 +88,25 @@ export default class ShippingMaster extends PureComponent {
                             <Divider/>
                             <Row>
                                 <Col span={22} className={Styles.addshippingmaster}>
-                                    <Button type="primary" shape="circle" size="large" onClick={this.showFirstDrawer}>
+                                    <Button type="primary" shape="circle" size="large" onClick={this.showDrawerShipping}>
                                         <Icon type="plus" />
                                     </Button>
                                     <DrawerShippingPrograming 
-                                        visibleFirst={this.state.visibleFirstDrawer} 
-                                        closeFirst={this.onCloseFirstDrawer}
-                                        showSecond={this.showSecondDrawer} 
-                                        visibleSecond={this.state.visibleSecondDrawer}
-                                        closeSecond={this.onCloseSecondDrawer}
+                                        visibleDrawerShipping={this.state.visibleDrawerShipping} 
+                                        onCloseDrawerShipping={this.onCloseDrawerShipping}
                                     />
                                 </Col>  
                             </Row>
                             <Row>
                                 <Col span={24}>
                                     <TableShippingMaster 
-                                        clickFirstTable={this.showFirstDrawer} 
-                                        clickthirdTable={this.showThirdDrawer}
+                                        clickFirstTable={this.showDrawerShipping} 
+                                        clickthirdTable={this.showDrawerConfirmation}
                                         clickModal={this.showModal}
                                     />
                                     <ConfirmationShipping
-                                        visibleThird={this.state.visibleThirdDrawer}
-                                        closeThirdDrawer={this.onCloseThirdDrawer}
-                                        showSecond={this.showSecondDrawer}
-                                        visibleSecond={this.state.visibleSecondDrawer}
-                                        closeSecond={this.onCloseSecondDrawer} 
+                                        visibleThird={this.state.visibleDrawerConfirmation}
+                                        closeThirdDrawer={this.onCloseDrawerConfirmation}
                                     />
                                     <DrawerEntry
                                         visibleModal={this.state.visibleModal}
