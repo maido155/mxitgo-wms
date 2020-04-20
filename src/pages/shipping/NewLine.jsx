@@ -11,7 +11,7 @@ class NewLine extends PureComponent{
     state = {
         value: [],
         e: [],
-        whNew: {},
+        whNew: [],
         treeData: [
             {
                 title: 'Chiapas',
@@ -97,17 +97,17 @@ class NewLine extends PureComponent{
         this.props.form.validateFieldsAndScroll((err, values) => {
             // var date = new Date();
             var dateWareHouse = this.state.e;
-            var whNew = {
+            var whNew = new Array();
+            whNew['center'] = dateWareHouse.props.fatherTitle + '-' + dateWareHouse.props.title;
+            whNew['calis'] = 'hola';
                 // createdBy: localStorage.getItem('userName'),
                 // date: date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear(),
-                center: dateWareHouse.props.fatherTitle + '-' + dateWareHouse.props.title,
                 // products: [
                 //     {
                 //         product: 'PRODUCT-1',
                 //         ammount: values.premium
                 //     }
                 // ], 
-            }
             this.setState({whNew});
         });
     };
@@ -119,7 +119,6 @@ class NewLine extends PureComponent{
         };
         const {form} = this.props;
         const { getFieldDecorator } = form;
-        var datos = 'Hola';
             return(
                 <Drawer
                     title={formatMessage({ id: 'shipping.newline.label.title' })}

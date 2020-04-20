@@ -7,7 +7,7 @@ import {isMobile} from 'react-device-detect';
 
 export default class TableComponent extends PureComponent{
   state = {
-    dates: this.props.datesWhNew
+    dates: {}
   }
     render(){
       const columns = [
@@ -62,35 +62,35 @@ export default class TableComponent extends PureComponent{
         }
       ];
 
-      // const data = [
-      //   {
-      //       key: '1',
-      //       center: 'Chiapas - La Escondida'
-      //       // premium: 1200,
-      //       // gold: 39,
-      //       // segunda: 39,
-      //       // mano: 39,
-      //       // dedo: 39,
-      //   },
-      //   // {
-      //   //     key: '2',
-      //   //     center: 'Chiapas - El Ejidal',
-      //   //     premium: 300,
-      //   //     gold: 220,
-      //   //     segunda: 220,
-      //   //     mano: 220,
-      //   //     dedo: 220,
-      //   // },
-      //   // {
-      //   //     key: '3',
-      //   //     center: 'Tabasco - El Muelle',
-      //   //     premium: 24,
-      //   //     gold: 43,
-      //   //     segunda: 43,
-      //   //     mano: 43,
-      //   //     dedo: 43,
-      //   // }
-      // ];
+      const data = [
+        {
+            key: '1',
+            center: 'Chiapas - La Escondida'
+            // premium: 1200,
+            // gold: 39,
+            // segunda: 39,
+            // mano: 39,
+            // dedo: 39,
+        },
+        // {
+        //     key: '2',
+        //     center: 'Chiapas - El Ejidal',
+        //     premium: 300,
+        //     gold: 220,
+        //     segunda: 220,
+        //     mano: 220,
+        //     dedo: 220,
+        // },
+        // {
+        //     key: '3',
+        //     center: 'Tabasco - El Muelle',
+        //     premium: 24,
+        //     gold: 43,
+        //     segunda: 43,
+        //     mano: 43,
+        //     dedo: 43,
+        // }
+      ];
       
       const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
@@ -102,14 +102,15 @@ export default class TableComponent extends PureComponent{
         }),
       };
       const {datesWhNew} = this.props;
+      this.setState({ dates: datesWhNew})
         return(
           <div>
             {
-              datesWhNew === {}
+              datesWhNew === undefined || datesWhNew.length === 0
               // ? <Table rowSelection={rowSelection} columns={columns} pagination={false} scroll={isMobile ? {x: 700} :{x: 1000}} size="small"/>
               // : <Table rowSelection={rowSelection} columns={columns} dataSource={this.props.datesWhNew} pagination={false} scroll={isMobile ? {x: 700} :{x: 1000}} size="small"/>
-              ? <Table rowSelection={rowSelection} columns={columns} dataSource={this.state.dates} pagination={false} scroll={isMobile ? {x: 700} :{x: 1000}} size="small"/>
-              : <Table rowSelection={rowSelection} columns={columns} pagination={false} scroll={isMobile ? {x: 700} :{x: 1000}} size="small"/>
+              ? <Table rowSelection={rowSelection} columns={columns} dataSource={data} pagination={false} scroll={isMobile ? {x: 700} :{x: 1000}} size="small"/>
+              : <Table rowSelection={rowSelection} columns={columns} dataSource={datesWhNew} pagination={false} scroll={isMobile ? {x: 700} :{x: 1000}} size="small"/>
             }
           </div>
         );
