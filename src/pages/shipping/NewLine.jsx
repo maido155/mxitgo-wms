@@ -95,19 +95,18 @@ class NewLine extends PureComponent{
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
-            var date = new Date();
+            // var date = new Date();
             var dateWareHouse = this.state.e;
             var whNew = {
-                createdBy: localStorage.getItem('userName'),
-                date: date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear(),
-                location: dateWareHouse.props.fatherTitle,
-                center: dateWareHouse.props.title,
-                products: [
-                    {
-                        product: 'PRODUCT-1',
-                        ammount: values.premium
-                    }
-                ], 
+                // createdBy: localStorage.getItem('userName'),
+                // date: date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear(),
+                center: dateWareHouse.props.fatherTitle + '-' + dateWareHouse.props.title,
+                // products: [
+                //     {
+                //         product: 'PRODUCT-1',
+                //         ammount: values.premium
+                //     }
+                // ], 
             }
             this.setState({whNew});
         });
