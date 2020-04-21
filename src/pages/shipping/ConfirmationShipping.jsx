@@ -12,22 +12,6 @@ import {isMobile} from 'react-device-detect';
 const { Text } = Typography;
 
 export default class ConfirmationShipping extends PureComponent{
-    state=
-    {
-        visibleNewLine: false,
-    }
-
-    showDrawerNewLine = () =>{
-        this.setState({
-            visibleNewLine: true
-        });
-    };
-
-    onCloseDrawerNewLine = () =>{
-        this.setState({
-            visibleNewLine: false
-        });
-    };
     render(){
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 6 },lg: { span: 8 },xl: { span: 6 }},
@@ -76,18 +60,18 @@ export default class ConfirmationShipping extends PureComponent{
                         <Divider/>
                         <Row type="flex" justify="center" >
                             <Col span={19} className={Styles.adddrawerone}>
-                                <Button type="primary" shape="circle" size="large" onClick={this.showDrawerNewLine}>
+                                <Button type="primary" shape="circle" size="large" onClick={this.props.showSecond}>
                                     <Icon type="plus" />
                                 </Button>
                                 <NewLine
-                                    visibleDrawer={this.state.visibleNewLine}
-                                    closeDrawer={this.onCloseDrawerNewLine}
+                                    visibleDrawer={this.props.visibleSecond}
+                                    closeDrawer={this.props.closeSecond}
                                 />  
                             </Col>
                         </Row>
                         <Row>
                             <Col span={24} className={Styles.tabledrawerone}>
-                                <TableComponent showDrawer={this.showDrawerNewLine}/>
+                                <TableComponent showDrawer={this.props.showSecond}/>
                             </Col>
                         </Row>
                         <Row className={Styles.lastcolumn}>

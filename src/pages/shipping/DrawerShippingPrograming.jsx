@@ -10,23 +10,6 @@ import NewLine from './NewLine';
 import {isMobile} from 'react-device-detect';
 
 export default class DrawerShippingPrograming extends PureComponent{
-    state=
-    {
-        visibleNewLine: false,
-    }
-
-    showDrawerNewLine = () =>{
-        this.setState({
-            visibleNewLine: true
-        });
-    };
-
-    onCloseDrawerNewLine = () =>{
-        this.setState({
-            visibleNewLine: false
-        });
-    };
-
     render(){
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 6 },lg: { span: 8 },xl: { span: 6 }},
@@ -38,17 +21,13 @@ export default class DrawerShippingPrograming extends PureComponent{
                     title={formatMessage({ id: 'shipping.drawershipping.label.title' })}
                     width={isMobile ? "100%" : "80%"}
                     closable={true}
-                    onClose={this.props.onCloseDrawerShipping}
-                    visible={this.props.visibleDrawerShipping} 
+                    onClose={this.props.closeFirst}
+                    visible={this.props.visibleFirst} 
                     getContainer={false} 
                     style={{
                         textAlign: 'left'
                     }}
                 >
-                    <NewLine
-                        visibleDrawer={this.state.visibleNewLine}
-                        closeDrawer={this.onCloseDrawerNewLine}
-                    /> 
                     <Form {...formItemLayout}>
                         <Row>
                             <Col lg={12} xl={12}>
@@ -75,14 +54,18 @@ export default class DrawerShippingPrograming extends PureComponent{
                         <Divider/>
                         <Row type="flex" justify="center" >
                             <Col span={19} className={Styles.adddrawerone}>
-                                <Button type="primary" shape="circle" size="large" onClick={this.showDrawerNewLine}>
+                                <Button type="primary" shape="circle" size="large" onClick={this.props.showSecond}>
                                     <Icon type="plus" />
                                 </Button>
+                                <NewLine
+                                    visibleDrawer={this.props.visibleSecond}
+                                    closeDrawer={this.props.closeSecond}
+                                /> 
                             </Col>
                         </Row>
                         <Row>
                             <Col span={24} className={Styles.tabledrawerone}>
-                                <TableComponent showDrawer={this.showDrawerNewLine}/>
+                                <TableComponent showDrawer={this.props.showSecond}/>
                             </Col>
                         </Row>
                         <div
@@ -97,10 +80,10 @@ export default class DrawerShippingPrograming extends PureComponent{
                             textAlign: 'right',
                             }}
                         >
-                            <Button type="danger" onClick={this.props.onCloseDrawerShipping} className={Styles.cancelarfooter}>
+                            <Button type="danger" onClick={this.props.closeFirst} className={Styles.cancelarfooter}>
                                 <FormattedMessage id="shipping.button.cancel"/>
                             </Button>
-                            <Button type="primary" onClick={this.props.onCloseDrawerShipping}>
+                            <Button type="primary" onClick={this.props.closeFirst}>
                                 <FormattedMessage id="shipping.button.program"/>
                             </Button>    
                         </div>

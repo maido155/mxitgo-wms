@@ -13,53 +13,53 @@ import { Card, Divider, Row, Col, Button, Icon, Form } from 'antd';
 
 export default class ShippingMaster extends PureComponent {
     state=
-    {
-        visibleDrawerShipping: false,
-        visibleDrawerConfirmation: false,
-        visibleModal: false,
-        loadingModal: false
+{
+        visibleDrawerShippingPrograming: false,
+        // visibleThirdDrawer: false,
+        // visibleModal: false,
+        // loadingModal: false
     }
 
-    showDrawerShipping = () =>{
+    showDrawerShippingPrograming = () =>{
         this.setState({
-            visibleDrawerShipping: true
+            visibleDrawerShippingPrograming: true
         });
     };
 
-    showDrawerConfirmation = () =>{
+    onCloseDrawerShippingPrograming = () =>{
         this.setState({
-            visibleDrawerConfirmation: true
+            visibleDrawerShippingPrograming: false
         });
     };
 
-    showModal = () => {
-        this.setState({
-          visibleModal: true
-        });
-    };
+    // showThirdDrawer = () =>{
+    //     this.setState({
+    //         visibleThirdDrawer: true
+    //     });
+    // };
 
-    handleOk = () => {
-        this.setState({ loadingModal: true });
-        setTimeout(() => {
-          this.setState({ loadingModal: false, visibleModal: false });
-        }, 3000);
-    };
+    // showModal = () => {
+    //     this.setState({
+    //       visibleModal: true
+    //     });
+    // };
 
-    onCloseDrawerShipping = () =>{
-        this.setState({
-            visibleDrawerShipping: false
-        });
-    };
+    // handleOk = () => {
+    //     this.setState({ loadingModal: true });
+    //     setTimeout(() => {
+    //       this.setState({ loadingModal: false, visibleModal: false });
+    //     }, 3000);
+    // };
 
-    onCloseDrawerConfirmation = () =>{
-        this.setState({
-            visibleDrawerConfirmation: false
-        });
-    };
+    // onCloseThirdDrawer = () =>{
+    //     this.setState({
+    //         visibleThirdDrawer: false
+    //     });
+    // };
 
-    handleCancel = () => {
-        this.setState({ visibleModal: false });
-    };
+    // handleCancel = () => {
+    //     this.setState({ visibleModal: false });
+    // };
 
     render() {
         const formItemLayout = {
@@ -88,32 +88,35 @@ export default class ShippingMaster extends PureComponent {
                             <Divider/>
                             <Row>
                                 <Col span={22} className={Styles.addshippingmaster}>
-                                    <Button type="primary" shape="circle" size="large" onClick={this.showDrawerShipping}>
+                                    <Button type="primary" shape="circle" size="large" onClick={this.showDrawerShippingPrograming}>
                                         <Icon type="plus" />
                                     </Button>
                                     <DrawerShippingPrograming 
-                                        visibleDrawerShipping={this.state.visibleDrawerShipping} 
-                                        onCloseDrawerShipping={this.onCloseDrawerShipping}
+                                        visibleDrawerShippingPrograming={this.state.visibleDrawerShippingPrograming} 
+                                        onCloseDrawerShippingPrograming={this.onCloseDrawerShippingPrograming}
                                     />
                                 </Col>  
                             </Row>
                             <Row>
                                 <Col span={24}>
                                     <TableShippingMaster 
-                                        clickFirstTable={this.showDrawerShipping} 
-                                        clickthirdTable={this.showDrawerConfirmation}
-                                        clickModal={this.showModal}
+                                        // showDrawerShippingPrograming={this.showDrawerShippingPrograming} 
+                                        // clickthirdTable={this.showThirdDrawer}
+                                        // clickModal={this.showModal}
                                     />
-                                    <ConfirmationShipping
-                                        visibleThird={this.state.visibleDrawerConfirmation}
-                                        closeThirdDrawer={this.onCloseDrawerConfirmation}
+                                    {/* <ConfirmationShipping
+                                        visibleThird={this.state.visibleThirdDrawer}
+                                        closeThirdDrawer={this.onCloseThirdDrawer}
+                                        showSecond={this.showSecondDrawer}
+                                        visibleSecond={this.state.visibleSecondDrawer}
+                                        closeSecond={this.onCloseSecondDrawer} 
                                     />
                                     <DrawerEntry
                                         visibleModal={this.state.visibleModal}
                                         successModal={this.handleOk}
                                         cancelModal={this.handleCancel}
                                         loadingModal={this.state.loadingModal}
-                                    />
+                                    /> */}
                                 </Col>
                             </Row>
                         </Card>
