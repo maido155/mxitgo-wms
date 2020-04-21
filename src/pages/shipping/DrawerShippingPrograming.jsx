@@ -32,7 +32,6 @@ export default class DrawerShippingPrograming extends PureComponent{
             labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 6 },lg: { span: 8 },xl: { span: 6 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 12 },md: { span: 14 },lg: { span: 14 },xl: { span: 14  }}
         };
-        const {datesWhNew} = this.props;
         return(
             <div>
                 <Drawer
@@ -83,7 +82,7 @@ export default class DrawerShippingPrograming extends PureComponent{
                         </Row>
                         <Row>
                             <Col span={24} className={Styles.tabledrawerone}>
-                                <TableComponent showDrawer={this.showDrawerNewLine} datesWhNew={datesWhNew}/>
+                                <TableComponent showDrawer={this.showDrawerNewLine}/>
                             </Col>
                         </Row>
                         <div
