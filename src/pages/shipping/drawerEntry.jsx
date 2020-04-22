@@ -62,10 +62,10 @@ class drawerEntry extends PureComponent {
             <Drawer
                 title="Nueva Entrada"
                 width={isMobile ? "100%" : "70%"}
-                onClose={this.props.cancelModal}
-                visible={this.props.visibleModal}
+                onClose={this.props.handleCancelEntry}
+                visible={this.props.visibleEntry}
                 bodyStyle={{ paddingBottom: 80 }}
-                getContainer={false} 
+                getContainer={isMobile ? false : true} 
             >
                 <TableModal/>
                 <Row type="flex" justify="center" style={{marginTop: "2rem"}}>
@@ -105,10 +105,10 @@ class drawerEntry extends PureComponent {
                     textAlign: 'right',
                     }}
                 >
-                    <Button onClick={this.props.cancelModal} style={{ marginRight: 8 }} type="danger">
+                    <Button onClick={this.props.handleCancelEntry} style={{ marginRight: 8 }} type="danger">
                         Cancelar
                     </Button>
-                    <Button onClick={this.props.cancelModal} type="primary">
+                    <Button onClick={this.props.handleCancelEntry} type="primary">
                         Aceptar
                     </Button>
                 </div>

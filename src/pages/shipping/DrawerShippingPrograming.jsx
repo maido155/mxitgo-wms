@@ -1,15 +1,31 @@
 import React, { PureComponent } from 'react';
-import { _ } from 'lodash';
-import { Drawer, Button, Row, Col, Icon, Form, Divider} from 'antd';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import Styles from './StylesShipping.css';
+import { Drawer, Button, Icon, Form, Row, Col, Divider } from 'antd';
 import DatePicker from '../generalComponents/DatePickerComponent';
 import TextArea from '../generalComponents/TextAreaComponent';
 import TableComponent from '../generalComponents/TableComponent';
-import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import NewLine from './NewLine';
 import {isMobile} from 'react-device-detect';
+import NewLine from './NewLine';
+import { _ } from 'lodash';
 
-export default class DrawerShippingPrograming extends PureComponent{
+class DrawerShippingPrograming extends PureComponent {
+    state={
+        visibleNewLine: false    
+    }
+
+    showNewLine = () =>{
+        this.setState({
+            visibleNewLine: true
+        });
+    };
+
+    onCloseNewLine = () =>{
+        this.setState({
+            visibleNewLine: false
+        });
+    };
+
     render(){
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 6 },lg: { span: 8 },xl: { span: 6 }},
@@ -17,13 +33,17 @@ export default class DrawerShippingPrograming extends PureComponent{
         };
         return(
             <div>
+                <NewLine
+                    visibleNewLine = {this.state.visibleNewLine}
+                    onCloseNewLine = {this.onCloseNewLine}
+                />
                 <Drawer
                     title={formatMessage({ id: 'shipping.drawershipping.label.title' })}
                     width={isMobile ? "100%" : "80%"}
                     closable={true}
-                    onClose={this.props.closeFirst}
-                    visible={this.props.visibleFirst} 
-                    getContainer={false} 
+                    onClose={this.props.onCloseShippingPrograming}
+                    visible={this.props.visibleShippingPrograming} 
+                    getContainer={isMobile ? false : true} 
                     style={{
                         textAlign: 'left'
                     }}
@@ -54,42 +74,42 @@ export default class DrawerShippingPrograming extends PureComponent{
                         <Divider/>
                         <Row type="flex" justify="center" >
                             <Col span={19} className={Styles.adddrawerone}>
-                                <Button type="primary" shape="circle" size="large" onClick={this.props.showSecond}>
-                                    <Icon type="plus" />
+                                <Button type="primary" shape="circle" size="large" onClick={this.showNewLine}>
+                                    <Icon type="plus"/>
                                 </Button>
-                                <NewLine
-                                    visibleDrawer={this.props.visibleSecond}
-                                    closeDrawer={this.props.closeSecond}
-                                /> 
                             </Col>
                         </Row>
                         <Row>
                             <Col span={24} className={Styles.tabledrawerone}>
-                                <TableComponent showDrawer={this.props.showSecond}/>
+                                <TableComponent 
+                                showNewLine={this.showNewLine}
+                                />
                             </Col>
                         </Row>
                         <div
                             style={{
-                            position: 'absolute',
-                            right: 0,
-                            bottom: 0,
-                            width: '100%',
-                            borderTop: '1px solid #e9e9e9',
-                            padding: '10px 16px',
-                            background: '#fff',
-                            textAlign: 'right',
+                                position: 'absolute',
+                                right: 0,
+                                bottom: 0,
+                                width: '100%',
+                                borderTop: '1px solid #e9e9e9',
+                                padding: '10px 16px',
+                                background: '#fff',
+                                textAlign: 'right',
                             }}
                         >
-                            <Button type="danger" onClick={this.props.closeFirst} className={Styles.cancelarfooter}>
+                            <Button type="danger" onClick={this.props.onCloseShippingPrograming} className={Styles.cancelarfooter}>
                                 <FormattedMessage id="shipping.button.cancel"/>
                             </Button>
-                            <Button type="primary" onClick={this.props.closeFirst}>
+                            <Button type="primary" onClick={this.props.onCloseShippingPrograming}>
                                 <FormattedMessage id="shipping.button.program"/>
-                            </Button>    
-                        </div>
+                            </Button>  
+                        </div>   
                     </Form>
                 </Drawer>
             </div>
         );
     }
 }
+
+export default DrawerShippingPrograming;
