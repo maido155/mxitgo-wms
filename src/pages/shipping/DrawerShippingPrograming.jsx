@@ -9,9 +9,11 @@ import {isMobile} from 'react-device-detect';
 import NewLine from './NewLine';
 import { _ } from 'lodash';
 
+var whNew = [];
 class DrawerShippingPrograming extends PureComponent {
     state={
-        visibleNewLine: false    
+        visibleNewLine: false, 
+        whNew: []
     }
 
     showNewLine = () =>{
@@ -26,6 +28,55 @@ class DrawerShippingPrograming extends PureComponent {
         });
     };
 
+    saveFormRefNewLine = (formRef) => {
+        this.formRefNewLine = formRef;
+    }
+
+    handleSubmit = (datesCenter) => {
+        const form = this.formRefNewLine.props.form;
+        let _self = this;
+        form.validateFields((err, values) => {
+            if(err){
+                return;
+            }
+            var datesNew = {
+                center: datesCenter.props.fatherTitle + '-' + datesCenter.props.title
+            }
+            whNew.push(datesNew);
+            // var fatherTitle = datesCenter.props.fatherTitle;
+            // var childTitle = datesCenter.props.title;
+            // var dates = new Centro(fatherTitle,childTitle);
+
+            // function Centro (fatherTitle, childTitle){
+            //     this.center = fatherTitle + '-' + childTitle;
+            // }
+            
+            // var whNew = [];
+            // whNew.push(dates);
+            // var whNew = [];
+            // var datesNew = {
+            //     center: datesCenter.props.fatherTitle + '-' + datesCenter.props.title
+            // }
+            // whNew.push(datesNew);
+            // var date = new Date();
+            // var whNew = [
+            //     {
+            //         center: datesCenter.props.fatherTitle + '-' + datesCenter.props.title,
+            //         date: date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear(),
+            //         createdBy: localStorage.getItem('userName'),
+            //         products: [{
+            //             product: 'PRODUCT-1',
+            //             ammount: values.premium
+            //         }]
+            //     }
+            // ]
+            // console.log(whNew);
+            this.setState({ whNew });
+            form.resetFields();
+            this.onCloseNewLine();
+        });
+    }
+
     render(){
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 6 },lg: { span: 8 },xl: { span: 6 }},
@@ -36,6 +87,8 @@ class DrawerShippingPrograming extends PureComponent {
                 <NewLine
                     visibleNewLine = {this.state.visibleNewLine}
                     onCloseNewLine = {this.onCloseNewLine}
+                    wrappedComponentRef = {this.saveFormRefNewLine}
+                    handleSubmit = {this.handleSubmit}
                 />
                 <Drawer
                     title={formatMessage({ id: 'shipping.drawershipping.label.title' })}
@@ -82,7 +135,8 @@ class DrawerShippingPrograming extends PureComponent {
                         <Row>
                             <Col span={24} className={Styles.tabledrawerone}>
                                 <TableComponent 
-                                showNewLine={this.showNewLine}
+                                    showNewLine = {this.showNewLine}
+                                    datesWhNew = {this.state.whNew}
                                 />
                             </Col>
                         </Row>
