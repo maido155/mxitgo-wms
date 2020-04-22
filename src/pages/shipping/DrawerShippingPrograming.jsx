@@ -12,8 +12,8 @@ import { _ } from 'lodash';
 var whNew = [];
 class DrawerShippingPrograming extends PureComponent {
     state={
-        visibleNewLine: false, 
-        whNew: []
+        visibleNewLine: false,
+        whNew: [] 
     }
 
     showNewLine = () =>{
@@ -39,39 +39,18 @@ class DrawerShippingPrograming extends PureComponent {
             if(err){
                 return;
             }
+            var date = new Date();
             var datesNew = {
-                center: datesCenter.props.fatherTitle + '-' + datesCenter.props.title
+                center: datesCenter.props.fatherTitle + '-' + datesCenter.props.title,
+                date: date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear(),
+                createdBy: localStorage.getItem('userName'),
+                products: [{
+                    product: 'PRODUCT-1',
+                    ammount: values.premium
+                }]
             }
             whNew.push(datesNew);
-            // var fatherTitle = datesCenter.props.fatherTitle;
-            // var childTitle = datesCenter.props.title;
-            // var dates = new Centro(fatherTitle,childTitle);
-
-            // function Centro (fatherTitle, childTitle){
-            //     this.center = fatherTitle + '-' + childTitle;
-            // }
-            
-            // var whNew = [];
-            // whNew.push(dates);
-            // var whNew = [];
-            // var datesNew = {
-            //     center: datesCenter.props.fatherTitle + '-' + datesCenter.props.title
-            // }
-            // whNew.push(datesNew);
-            // var date = new Date();
-            // var whNew = [
-            //     {
-            //         center: datesCenter.props.fatherTitle + '-' + datesCenter.props.title,
-            //         date: date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear(),
-            //         createdBy: localStorage.getItem('userName'),
-            //         products: [{
-            //             product: 'PRODUCT-1',
-            //             ammount: values.premium
-            //         }]
-            //     }
-            // ]
-            // console.log(whNew);
-            this.setState({ whNew });
+            this.setState({whNew});
             form.resetFields();
             this.onCloseNewLine();
         });
