@@ -14,11 +14,17 @@ class TableComponent extends PureComponent {
           key:'center',
           width: isMobile ? 170 : 200,
       },
-      // {
-      //     title: formatMessage({ id: 'shipping.tablecomponent.label.premium' }),
-      //     dataIndex: 'premium',
-      //     width: isMobile ? 90 : 100,
-      // },
+      {
+          title: formatMessage({ id: 'shipping.tablecomponent.label.premium' }),
+          dataIndex: 'amount',
+          key:'amount',
+          width: isMobile ? 90 : 100,
+          render: (text, record) => {
+            return(
+              <span>{record.products[0].amount}</span>
+            );
+          }
+      },
       // {
       //     title: formatMessage({ id: 'shipping.tablecomponent.label.gold' }),
       //     dataIndex: 'gold',

@@ -1,19 +1,28 @@
 import React, { PureComponent } from 'react';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import Styles from './StylesShipping.css';
-import { Drawer, Button, Icon, Form, Row, Col, Divider } from 'antd';
-import DatePicker from '../generalComponents/DatePickerComponent';
-import TextArea from '../generalComponents/TextAreaComponent';
+import { Drawer, Button, Icon, Form, Row, Col, Divider, DatePicker, Input } from 'antd';
 import TableComponent from '../generalComponents/TableComponent';
 import {isMobile} from 'react-device-detect';
 import NewLine from './NewLine';
 import { _ } from 'lodash';
+import { connect } from 'dva';
 
+const { TextArea } = Input;
 var whNew = [];
+
+@connect(({ user, loading }) => ({
+    user,
+    loading: loading.models.user,
+}))
+
 class DrawerShippingPrograming extends PureComponent {
     state={
         visibleNewLine: false,
-        whNew: [] 
+        whNew: [],
+        departureDate: '',
+        deliveryDate: '',
+        entryDate: ''
     }
 
     showNewLine = () =>{
@@ -46,7 +55,7 @@ class DrawerShippingPrograming extends PureComponent {
                 createdBy: localStorage.getItem('userName'),
                 products: [{
                     product: 'PRODUCT-1',
-                    ammount: values.premium
+                    amount: values.premium
                 }]
             }
             whNew.push(datesNew);
@@ -56,11 +65,62 @@ class DrawerShippingPrograming extends PureComponent {
         });
     }
 
+    handleSubmitShippingPrograming = e => {
+        e.preventDefault();
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            values["departureDate"] = this.state.departureDate;
+            values["deliveryDate"] = this.state.deliveryDate;
+            values["entryDate"] = this.state.entryDate;
+            values["datesWhNew"] = this.state.whNew;
+            // console.log(values);
+            this.saveShippingPrograming(values);
+        });
+    }
+
+    saveShippingPrograming = (values) => {
+        this.props.dispatch({
+            type: 'user/saveShipping',
+            payload: {
+                payload: {
+                    POST: {
+                        typeCondition: "New",
+                        isMasterModified: true,
+                        comment: values.comment,
+                        createdBy: values.datesWhNew[0].createdBy,
+                        date: values.datesWhNew[0].date,
+                        departureDate: values.departureDate,
+                        deliveryDate: values.deliveryDate,
+                        entryDate: values.entryDate,
+                        destinity: values.datesWhNew[0].center,
+                        skWh: "WH-1",
+                        dateNew: values.datesWhNew[0].date,
+                        createdByNew: values.datesWhNew[0].createdBy,
+                        productNew: values.datesWhNew[0].products[0].product,
+                        amountNew: values.datesWhNew[0].products[0].amount,
+                    }
+                }
+            }
+        })
+    }
+
+    onDepartureDate = (value, dateString) =>{
+        this.setState({departureDate: dateString})
+    }
+
+    onDeliveryDate = (value, dateString) =>{
+        this.setState({deliveryDate: dateString})
+    }
+
+    onEntryDate = (value, dateString) =>{
+        this.setState({entryDate: dateString})
+    }
+
     render(){
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 6 },lg: { span: 8 },xl: { span: 6 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 12 },md: { span: 14 },lg: { span: 14 },xl: { span: 14  }}
         };
+        const { getFieldDecorator } = this.props.form;
         return(
             <div>
                 <NewLine
@@ -80,26 +140,26 @@ class DrawerShippingPrograming extends PureComponent {
                         textAlign: 'left'
                     }}
                 >
-                    <Form {...formItemLayout}>
+                    <Form {...formItemLayout} onSubmit={this.handleSubmitShippingPrograming}>
                         <Row>
                             <Col lg={12} xl={12}>
                                 <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-exit' })}>
-                                    <DatePicker/>
+                                    {getFieldDecorator('departureDate')(<DatePicker style={{ width: '100%'}} onChange={this.onDepartureDate}/>)}
                                 </Form.Item>
                             </Col>
                             <Col lg={12} xl={12}>
                                 <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-arrival' })}>
-                                    <DatePicker/>
+                                    {getFieldDecorator('deliveryDate')(<DatePicker style={{ width: '100%'}} onChange={this.onDeliveryDate}/>)}
                                 </Form.Item>
                             </Col>
                             <Col lg={12} xl={12}>
                                 <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-entry' })}>
-                                    <DatePicker/>
+                                    {getFieldDecorator('entryDate')(<DatePicker style={{ width: '100%'}} onChange={this.onEntryDate}/>)}
                                 </Form.Item>
                             </Col>
                             <Col lg={12} xl={12}>
                                 <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-comments' })}>
-                                    <TextArea/>
+                                    {getFieldDecorator('comment')(<TextArea/>)}
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -134,7 +194,7 @@ class DrawerShippingPrograming extends PureComponent {
                             <Button type="danger" onClick={this.props.onCloseShippingPrograming} className={Styles.cancelarfooter}>
                                 <FormattedMessage id="shipping.button.cancel"/>
                             </Button>
-                            <Button type="primary" onClick={this.props.onCloseShippingPrograming}>
+                            <Button type="primary" htmlType="submit">
                                 <FormattedMessage id="shipping.button.program"/>
                             </Button>  
                         </div>   
@@ -144,5 +204,4 @@ class DrawerShippingPrograming extends PureComponent {
         );
     }
 }
-
-export default DrawerShippingPrograming;
+export default Form.create()(DrawerShippingPrograming);
