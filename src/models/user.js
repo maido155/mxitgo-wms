@@ -1,4 +1,4 @@
-import { queryCurrent, getDataUserByEmail, updateDataUser, saveAvatarUser, getAvatarUser, saveShipping, query as queryUsers } from '@/services/user';
+import { queryCurrent, getDataUserByEmail, updateDataUser, saveAvatarUser, getAvatarUser, query as queryUsers } from '@/services/user';
 
 const UserModel = {
     namespace: 'user',
@@ -70,16 +70,6 @@ const UserModel = {
                 payload: responseAvatarUser,
             });
         },
-
-        * saveShipping({ payload }, { call, put }) {
-            const response = yield call(saveShipping, payload);
-            console.log(response);
-            yield put({
-                // type: 'queryAvatarUser',
-                // payload: response,
-            });
-        },
-
         * updateValidationAvatar({ payload }, { call, put }) {
             console.log(payload);
             yield put({

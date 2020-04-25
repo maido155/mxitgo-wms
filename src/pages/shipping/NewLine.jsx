@@ -6,7 +6,6 @@ import {isMobile} from 'react-device-detect';
 import { _ } from 'lodash';
 
 const { TreeNode } = TreeSelect;
-
 const NewLine = Form.create()(
     class extends React.Component {
         state = {
@@ -100,7 +99,6 @@ const NewLine = Form.create()(
             };
             const { getFieldDecorator } = this.props.form;
             const { handleSubmit } = this.props;
-
             return(
                 <div>
                     <Drawer
@@ -112,8 +110,10 @@ const NewLine = Form.create()(
                     >
                         <Form {...formItemLayout} className={Styles.formnweline}>
                             <Form.Item label={formatMessage({ id: 'shipping.tablecomponent.label.center' })}>
-                                {getFieldDecorator('centro')(
-                                        <TreeSelect
+                                {getFieldDecorator('centro',
+                                    {rules: [{required: true, message: "Centro no seleccionado"}]})
+                                (
+                                    <TreeSelect
                                         showSearch
                                         style={{ width: '100%' }}
                                         value={this.state.value}
@@ -126,7 +126,7 @@ const NewLine = Form.create()(
                                         onSelect={this.onSelect}
                                         >
                                             {this.renderTreeNode(this.state.treeData)}
-                                        </TreeSelect>
+                                    </TreeSelect>
                                 )}
                             </Form.Item>
                             <Form.Item label={formatMessage({ id: 'shipping.tablecomponent.label.premium' })}>
@@ -164,7 +164,7 @@ const NewLine = Form.create()(
                                 <Button type="danger" onClick={this.props.onCloseNewLine} className={Styles.cancelarfooter}>
                                     <FormattedMessage id="shipping.button.cancel"/>
                                 </Button>
-                                <Button type="primary" onClick={() => {handleSubmit(this.state.e)}}>
+                                <Button type="primary" onClick={() => {handleSubmit(this.state.e)}}> 
                                     <FormattedMessage id="shipping.button.program"/>
                                 </Button>    
                             </div> 

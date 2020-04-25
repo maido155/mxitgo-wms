@@ -8,10 +8,18 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ShippingPrograming from './DrawerShippingPrograming';
 import { formatMessage } from 'umi-plugin-react/locale';
 import { _ } from 'lodash';
+import { connect } from 'dva';
+
+@connect(({ shipping, loading }) => ({
+    shipping,
+    loading: loading.models.shipping,
+    warehouse:shipping.warehouse,
+}))
 
 class ShippingMaster extends PureComponent {
     state={
-        visibleShippingPrograming: false
+        visibleShippingPrograming: false,
+        visibleNewLine: false
     }
     showShippingPrograming = () =>{
         this.setState({
@@ -23,17 +31,74 @@ class ShippingMaster extends PureComponent {
             visibleShippingPrograming: false
         });
     };
+    showNewLine = () =>{
+        this.setState({visibleNewLine: true});
+    };
+    onCloseNewLine = () =>{
+        this.setState({
+            visibleNewLine: false
+        });
+    };
+    insertWarehouse = (...datesWarehouse) => {
+        this.props.dispatch({
+            type: 'shipping/saveWarehouse',
+            payload: {
+                center: datesWarehouse[0],
+                product: 'PRODUCT-1',
+                premium: datesWarehouse[1],
+                finger: datesWarehouse[2],
+                gold: datesWarehouse[3],
+                hand: datesWarehouse[4],
+                second: datesWarehouse[5],
+                createdByNew: datesWarehouse[6],
+                dateCreated: datesWarehouse[7]
+            }
+        });
+    }
+    saveShipping= (datesShipping) => {
+        this.props.dispatch({
+            type: 'shipping/saveShipping',
+            payload: {
+                payload: {
+                    POST: {
+                        typeCondition: "New",
+                        isMasterModified: true,
+                        comment: datesShipping.comment,
+                        createdBy: datesShipping.createdBy,
+                        date: datesShipping.date,
+                        departureDate: datesShipping.departureDate,
+                        deliveryDate: datesShipping.deliveryDate,
+                        entryDate: datesShipping.entryDate,
+                        destinity: datesShipping.warehouse[0].center,
+                        skWh: "WH-1",
+                        dateNew: datesShipping.warehouse[0].dateCreated,
+                        createdByNew: datesShipping.warehouse[0].createdByNew,
+                        productNew: datesShipping.warehouse[0].product,
+                        amountNew: datesShipping.warehouse[0].premium,
+                    }
+                }
+            }
+        })
+    }
 
     render(){
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 7 },md: { span: 9 },lg: { span: 9 },xl: { span: 5 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 14 },md: { span: 15 },lg: { span: 15 },xl: { span: 15 }}
         };
+        const { loading, warehouse } = this.props;
         return(
             <div>
                 <ShippingPrograming
                     visibleShippingPrograming = {this.state.visibleShippingPrograming}
                     onCloseShippingPrograming = {this.onCloseShippingPrograming}
+                    visibleNewLine = {this.state.visibleNewLine}
+                    onCloseNewLine = {this.onCloseNewLine}
+                    showNewLine= {this.showNewLine}
+                    insertWarehouse = {this.insertWarehouse}
+                    warehouse = {warehouse}
+                    saveShipping = {this.saveShipping}
+                    loading = {loading}
                 />
                 <PageHeaderWrapper>
                     <Card>

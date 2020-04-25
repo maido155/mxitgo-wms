@@ -4,9 +4,11 @@ import {isMobile} from 'react-device-detect';
 import DeleteComponent from './ModalDeleteComponent';
 import { Table, Divider, Icon } from 'antd';
 import { _ } from 'lodash';
+import { connect } from 'dva';
 
 class TableComponent extends PureComponent {
   render(){
+    const { warehouse } = this.props;
     const columns = [
       {
           title: formatMessage({ id: 'shipping.tablecomponent.label.center' }),
@@ -16,35 +18,34 @@ class TableComponent extends PureComponent {
       },
       {
           title: formatMessage({ id: 'shipping.tablecomponent.label.premium' }),
-          dataIndex: 'amount',
-          key:'amount',
+          dataIndex: 'premium',
+          key:'premium',
           width: isMobile ? 90 : 100,
-          render: (text, record) => {
-            return(
-              <span>{record.products[0].amount}</span>
-            );
-          }
       },
-      // {
-      //     title: formatMessage({ id: 'shipping.tablecomponent.label.gold' }),
-      //     dataIndex: 'gold',
-      //     width: isMobile ? 90 : 100,
-      // },
-      // {
-      //     title: formatMessage({ id: 'shipping.tablecomponent.label.second' }),
-      //     dataIndex: 'segunda',
-      //     width: isMobile ? 90 : 100,
-      // },
-      // {
-      //     title: formatMessage({ id: 'shipping.tablecomponent.label.hand' }),
-      //     dataIndex: 'mano',
-      //     width: isMobile ? 90 : 100,
-      // },
-      // {
-      //     title: formatMessage({ id: 'shipping.tablecomponent.label.finger' }),
-      //     dataIndex: 'dedo',
-      //     width: isMobile ? 90 : 100,
-      // },
+      {
+          title: formatMessage({ id: 'shipping.tablecomponent.label.gold' }),
+          dataIndex: 'gold',
+          key:'gold',
+          width: isMobile ? 90 : 100,
+      },
+      {
+          title: formatMessage({ id: 'shipping.tablecomponent.label.second' }),
+          dataIndex: 'second',
+          key:'second',
+          width: isMobile ? 90 : 100,
+      },
+      {
+          title: formatMessage({ id: 'shipping.tablecomponent.label.hand' }),
+          dataIndex: 'hand',
+          key:'hand',
+          width: isMobile ? 90 : 100,
+      },
+      {
+          title: formatMessage({ id: 'shipping.tablecomponent.label.finger' }),
+          dataIndex: 'finger',
+          key:'finger',
+          width: isMobile ? 90 : 100,
+      },
       {
         title: formatMessage({ id: 'shipping.tablecomponent.label.actions' }),
         key: 'action',
@@ -74,9 +75,8 @@ class TableComponent extends PureComponent {
         name: record.name,
       }),
     };
-
     return(
-      <Table rowSelection={rowSelection} columns={columns} dataSource={this.props.datesWhNew} pagination={false} scroll={isMobile ? {x: 700} :{x: 1000}} size="small"/>
+      <Table rowSelection={rowSelection} columns={columns} dataSource={warehouse} pagination={false} scroll={isMobile ? {x: 700} :{x: 1000}} size="small"/>
     );
   }
 }
