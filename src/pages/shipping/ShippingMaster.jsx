@@ -19,7 +19,8 @@ import { connect } from 'dva';
 class ShippingMaster extends PureComponent {
     state={
         visibleShippingPrograming: false,
-        visibleNewLine: false
+        visibleNewLine: false,
+        loading: false
     }
     showShippingPrograming = () =>{
         this.setState({
@@ -41,7 +42,7 @@ class ShippingMaster extends PureComponent {
     };
     insertWarehouse = (...datesWarehouse) => {
         this.props.dispatch({
-            type: 'shipping/saveWarehouse',
+            type: 'shipping/fetchWarehouse',
             payload: {
                 center: datesWarehouse[0],
                 product: 'PRODUCT-1',
@@ -57,7 +58,7 @@ class ShippingMaster extends PureComponent {
     }
     saveShipping= (datesShipping) => {
         this.props.dispatch({
-            type: 'shipping/saveShipping',
+            type: 'shipping/fetchShipping',
             payload: {
                 payload: {
                     POST: {

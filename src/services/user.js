@@ -37,11 +37,3 @@ export async function saveAvatarUser({ payload }) {
         body: JSON.stringify(payload.POST),
     });
 }
-
-export async function saveShipping({ payload }) {
-    return request(`${ANT_DESIGN_PRO_TARGET}/shipping`, {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(payload.POST),
-    });
-}

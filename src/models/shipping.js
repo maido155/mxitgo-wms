@@ -1,38 +1,38 @@
-import { saveShipping } from '@/services/user';
+import { saveShipping } from '../services/api';
 
-const ShipModel = {
+export default {
     namespace: 'shipping',
     state: {
         warehouse: []
     },
     effects: {
-        * saveShipping({ payload }, { call, put }) {
+        * fetchShipping({ payload }, { call, put }) {
             const response = yield call(saveShipping, payload);
             yield put({
-                type: 'querySaveShipping',
+                type: 'queryShipping',
                 payload: response,
             });
         },
-        * saveWarehouse({ payload }, { call, put }) {
+        * fetchWarehouse({ payload }, { call, put }) {
             yield put({
-                type: 'querySaveWarehouse',
+                type: 'queryWarehouse',
                 payload: payload,
             });
         },
     },
+
     reducers: {
-        querySaveWarehouse(state, action) {
+        queryShipping(state, action) {
+            return {
+                ...state,
+            }
+        },
+        queryWarehouse(state, action) {
             const datesWarehouse = [...state.warehouse, action.payload];
             return {
                 ...state,
                 warehouse: datesWarehouse
             }
         },
-        querySaveShipping(state, action) {
-            return {
-                ...state,
-            }
-        },
-    }
-};
-export default ShipModel;
+    },
+}

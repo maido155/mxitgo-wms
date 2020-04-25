@@ -208,10 +208,10 @@ export async function getIndustries() {
     return request(`${ANT_DESIGN_PRO_TARGET}/catalogs/industries`);
 }
 
-export async function getUsers({ payload }) {
-    console.log(payload);
-    return request(`${ANT_DESIGN_PRO_TARGET}/dev/user/email?email=${payload.userId}`);
-}
+// export async function getUsers({ payload }) {
+//     console.log(payload);
+//     return request(`${ANT_DESIGN_PRO_TARGET}/dev/user/email?email=${payload.userId}`);
+// }
 
 export async function getCompaniesByUsers({ payload }) {
     console.log(payload);
@@ -313,7 +313,13 @@ export async function getInterviewStatus({ payload }) {
         `${ANT_DESIGN_PRO_TARGET}/user/getCandidateInterviewStatus?payload=${JSON.stringify(payload)}`,
     );
 }
-
+export async function saveShipping({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/shipping`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(payload.POST),
+    });
+}
 /* export async function getOrderDetail() {
   console.log(orderId);
   return request(`${ANT_DESIGN_PRO_TARGET}/orderDetails?orderId=1`);
