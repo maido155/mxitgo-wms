@@ -3,7 +3,8 @@ import { saveShipping } from '../services/api';
 export default {
     namespace: 'shipping',
     state: {
-        warehouse: []
+        warehouse: [],
+        shippingSuccess: false
     },
     effects: {
         * fetchShipping({ payload }, { call, put }) {
@@ -25,6 +26,7 @@ export default {
         queryShipping(state, action) {
             return {
                 ...state,
+                shippingSuccess: action.response
             }
         },
         queryWarehouse(state, action) {

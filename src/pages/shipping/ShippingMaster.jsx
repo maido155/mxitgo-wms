@@ -12,6 +12,7 @@ import { connect } from 'dva';
 
 @connect(({ shipping, loading }) => ({
     shipping,
+    shippingSuccess: shipping.shippingSuccess,
     loading: loading.models.shipping,
     warehouse:shipping.warehouse,
 }))
