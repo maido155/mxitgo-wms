@@ -16,12 +16,13 @@ class DrawerShippingPrograming extends PureComponent {
         deliveryDate: '',
         entryDate: '',
         datesGeneralNewLine: {},
-        products: []
+        products: [],
 
         // datesAmmount: [],
         // datesProducts: [],
         // products: [],
         // arrayProducts: []
+        currentLoader:false
     }
 
     saveFormRefNewLine = (formRef) => {
@@ -160,6 +161,10 @@ class DrawerShippingPrograming extends PureComponent {
             wrapperCol: {xs: { span: 24 },sm: { span: 12 },md: { span: 14 },lg: { span: 14 },xl: { span: 14  }}
         };
         const { getFieldDecorator } = this.props.form;
+
+        let currentLoader= this.props.loading === undefined ? false : this.props.loading;
+        this.setState({  currentLoader });
+
         return(
             <div>
                 <NewLine
@@ -179,7 +184,7 @@ class DrawerShippingPrograming extends PureComponent {
                         textAlign: 'left',
                     }}
                 >
-                    {/* <Spin spinning={this.props.loading}> */}
+                    <Spin spinning={this.state.currentLoader}>
                     <Form {...formItemLayout} onSubmit={this.handleSubmitShippingPrograming}>
                         <Row>
                             <Col lg={12} xl={12}>
@@ -242,7 +247,7 @@ class DrawerShippingPrograming extends PureComponent {
                             </Button>  
                         </div> 
                     </Form>
-                    {/* </Spin> */}
+                    </Spin>
                 </Drawer>
             </div>
         );
