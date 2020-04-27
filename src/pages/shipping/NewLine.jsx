@@ -9,7 +9,7 @@ const { TreeNode } = TreeSelect;
 const NewLine = Form.create()(
     class extends React.Component {
         state = {
-            value: [],
+            // value: [],
             e: [],
             whNew: [],
             treeData: [
@@ -21,7 +21,7 @@ const NewLine = Form.create()(
                         {
                             title: 'La Escondida',
                             value: 'La Escondida1',
-                            key: '0-0-0'
+                            key: 'WH-1'
                         }
                     ]
                 },
@@ -33,12 +33,12 @@ const NewLine = Form.create()(
                       {
                         title: 'El Muelle',
                         value: 'El Muelle1',
-                        key: '0-1-0',
+                        key: 'WH-2',
                       },
                       {
                         title: 'El Buscado',
                         value: 'El Buscado1',
-                        key: '0-1-1',
+                        key: 'WH-3',
                       },
                     ],
                 },
@@ -49,9 +49,9 @@ const NewLine = Form.create()(
             this.setState({ e });
         }
      
-        onChange = (value, label, extra) => {
-             this.setState({ value });
-        };
+        // onChange = (value, label, extra) => {
+        //      this.setState({ value });
+        // };
     
         renderTreeNode = (treeData) =>{
             let treeNode = [];
@@ -116,7 +116,7 @@ const NewLine = Form.create()(
                                     <TreeSelect
                                         showSearch
                                         style={{ width: '100%' }}
-                                        value={this.state.value}
+                                        // value={this.state.value}
                                         dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                                         placeholder={formatMessage({ id: 'shipping.treeselect.label.select' })}
                                         treeCheckable = {true}

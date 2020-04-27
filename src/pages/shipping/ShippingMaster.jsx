@@ -10,10 +10,10 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import { _ } from 'lodash';
 import { connect } from 'dva';
 
-@connect(({ shipping, loading }) => ({
+@connect(({ shipping, /*loading*/ }) => ({
     shipping,
-    shippingSuccess: shipping.shippingSuccess,
-    loading: loading.models.shipping,
+    // shippingSuccess: shipping.shippingSuccess,
+    // loading: loading.models.shipping,
     warehouse:shipping.warehouse,
 }))
 
@@ -21,7 +21,7 @@ class ShippingMaster extends PureComponent {
     state={
         visibleShippingPrograming: false,
         visibleNewLine: false,
-        loading: false
+        // loading: false
     }
     showShippingPrograming = () =>{
         this.setState({
@@ -46,14 +46,11 @@ class ShippingMaster extends PureComponent {
             type: 'shipping/fetchWarehouse',
             payload: {
                 center: datesWarehouse[0],
-                product: 'PRODUCT-1',
                 premium: datesWarehouse[1],
-                finger: datesWarehouse[2],
-                gold: datesWarehouse[3],
+                gold: datesWarehouse[2],
+                second: datesWarehouse[3],
                 hand: datesWarehouse[4],
-                second: datesWarehouse[5],
-                createdByNew: datesWarehouse[6],
-                dateCreated: datesWarehouse[7]
+                finger: datesWarehouse[5]
             }
         });
     }
@@ -71,7 +68,7 @@ class ShippingMaster extends PureComponent {
                         departureDate: datesShipping.departureDate,
                         deliveryDate: datesShipping.deliveryDate,
                         entryDate: datesShipping.entryDate,
-                        destinity: datesShipping.warehouse[0].center,
+                        destinity: "por saber",
                         skWh: "WH-1",
                         dateNew: datesShipping.warehouse[0].dateCreated,
                         createdByNew: datesShipping.warehouse[0].createdByNew,
@@ -88,7 +85,7 @@ class ShippingMaster extends PureComponent {
             labelCol: {xs: { span: 24 },sm: { span: 7 },md: { span: 9 },lg: { span: 9 },xl: { span: 5 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 14 },md: { span: 15 },lg: { span: 15 },xl: { span: 15 }}
         };
-        const { loading, warehouse } = this.props;
+        const { /*loading,*/ warehouse } = this.props;
         return(
             <div>
                 <ShippingPrograming
@@ -100,7 +97,7 @@ class ShippingMaster extends PureComponent {
                     insertWarehouse = {this.insertWarehouse}
                     warehouse = {warehouse}
                     saveShipping = {this.saveShipping}
-                    loading = {loading}
+                    // loading = {loading}
                 />
                 <PageHeaderWrapper>
                     <Card>

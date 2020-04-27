@@ -14,7 +14,14 @@ class DrawerShippingPrograming extends PureComponent {
     state={
         departureDate: '',
         deliveryDate: '',
-        entryDate: ''
+        entryDate: '',
+        datesGeneralNewLine: {},
+        products: []
+
+        // datesAmmount: [],
+        // datesProducts: [],
+        // products: [],
+        // arrayProducts: []
     }
 
     saveFormRefNewLine = (formRef) => {
@@ -27,16 +34,30 @@ class DrawerShippingPrograming extends PureComponent {
             if(err){
                 return;
             }
-            var date = new Date();
-            var dateCreated = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
             var warehouse = datesWarehouse.props.fatherTitle + '-' + datesWarehouse.props.title;
+            // var idWarehouse = datesWarehouse.props.eventKey; 
             var premium = values.premium;
             var finger = values.finger;
             var gold = values.gold;
             var hand = values.hand;
             var second = values.second;
-            var createdByNew = localStorage.getItem('userName');
-            this.props.insertWarehouse(warehouse, premium, finger, gold, hand, second, createdByNew, dateCreated);
+            var date = new Date();
+            this.state.datesGeneralNewLine = {
+                dateCreated: date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear(),
+                createdByNew: localStorage.getItem('userName'),
+            }
+            var nameProducts = ["premium","gold","second","hand","finger"];
+            var quantities = [premium,gold,second,hand,finger];
+            var products = [];
+            for(var i = 0; i < nameProducts.length; i++){
+                products.push({
+                    product: nameProducts[i],
+                    amount: quantities[i]
+                })
+            }
+            products = [...this.state.products,products];
+            this.state.products = products;
+            this.props.insertWarehouse(warehouse, premium, gold, second, hand, finger);
             form.resetFields();
             this.props.onCloseNewLine();
         });
@@ -50,18 +71,60 @@ class DrawerShippingPrograming extends PureComponent {
                 return;
             }
             var date = new Date();
-            values["date"] =  date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
-            values["departureDate"] = this.state.departureDate;
-            values["deliveryDate"] = this.state.deliveryDate;
-            values["entryDate"] = this.state.entryDate;
-            values["warehouse"] = this.props.warehouse;
             values["createdBy"] = localStorage.getItem('userName');
-            var warehouseDate = values.warehouse;
-            if(warehouseDate.length == 0){
-                message.warning('Agregar Nueva Línea');
-                return;
-            }
-            _self.props.saveShipping(values);
+            values["date"] =  date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+            values["deliveryDate"] = this.state.deliveryDate;
+            values["departureDate"] = this.state.departureDate;
+            values["entryDate"] = this.state.entryDate;
+            values["dateNew"] = this.state.datesGeneralNewLine.dateCreated;
+            values["createdByNew"] = this.state.datesGeneralNewLine.createdByNew;
+            var d = this.state.products;
+            console.log(d);
+            // for(var i = 0; i < this.state.datesProducts.length; i++){
+            //     this.state.products.push({
+            //         product: this.state.datesProducts[i],
+            //         ammount: this.state.datesAmmount[i]
+            //     })
+            // }
+            // const content = [...this.state.arrayProducts, this.state.products];
+            // this.state.arrayProducts = content;
+            // var chido = this.state.arrayProducts;
+
+            // console.log(chido);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/****************************************************************************************************** */
+            // var as = this.state.datesammount;
+            // console.log(as);
+
+            // values["destinity"] = this.props.warehouse[0]
+
+            // values["warehouse"] = this.props.warehouse;
+            // values["createdBy"] = localStorage.getItem('userName');
+            // var warehouseDate = values.warehouse;
+            // if(warehouseDate.length == 0){
+            //     message.warning('Agregar Nueva Línea');
+            //     return;
+            // }
+            // _self.props.saveShipping(values);
         });
     }
 
@@ -116,7 +179,7 @@ class DrawerShippingPrograming extends PureComponent {
                         textAlign: 'left',
                     }}
                 >
-                    <Spin spinning={this.props.loading}>
+                    {/* <Spin spinning={this.props.loading}> */}
                     <Form {...formItemLayout} onSubmit={this.handleSubmitShippingPrograming}>
                         <Row>
                             <Col lg={12} xl={12}>
@@ -179,7 +242,7 @@ class DrawerShippingPrograming extends PureComponent {
                             </Button>  
                         </div> 
                     </Form>
-                    </Spin>
+                    {/* </Spin> */}
                 </Drawer>
             </div>
         );
