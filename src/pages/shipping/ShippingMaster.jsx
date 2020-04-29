@@ -10,18 +10,18 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import { _ } from 'lodash';
 import { connect } from 'dva';
 
-@connect(({ shipping, /*loading*/ }) => ({
+@connect(({ shipping, loading }) => ({
     shipping,
-    // shippingSuccess: shipping.shippingSuccess,
-    // loading: loading.models.shipping,
+    loading: loading.models.shipping,
     warehouse:shipping.warehouse,
+    isSuccess: shipping.isSuccess,
+    close: shipping.close
 }))
 
 class ShippingMaster extends PureComponent {
     state={
         visibleShippingPrograming: false,
         visibleNewLine: false,
-        // loading: false
     }
     showShippingPrograming = () =>{
         this.setState({
@@ -43,7 +43,7 @@ class ShippingMaster extends PureComponent {
     };
     insertWarehouse = (...datesWarehouse) => {
         this.props.dispatch({
-            type: 'shipping/fetchWarehouse',
+            type: 'shipping/saveWarehouse',
             payload: {
                 center: datesWarehouse[0],
                 premium: datesWarehouse[1],
@@ -56,7 +56,7 @@ class ShippingMaster extends PureComponent {
     }
     saveShipping= (datesShipping) => {
         this.props.dispatch({
-            type: 'shipping/fetchShipping',
+            type: 'shipping/saveShipping',
             payload: {
                 payload: {
                     POST: {
@@ -68,24 +68,34 @@ class ShippingMaster extends PureComponent {
                         departureDate: datesShipping.departureDate,
                         deliveryDate: datesShipping.deliveryDate,
                         entryDate: datesShipping.entryDate,
-                        destinity: "por saber",
-                        skWh: "WH-1",
-                        dateNew: datesShipping.warehouse[0].dateCreated,
-                        createdByNew: datesShipping.warehouse[0].createdByNew,
-                        productNew: datesShipping.warehouse[0].product,
-                        amountNew: datesShipping.warehouse[0].premium,
+                        destinity: datesShipping.destinity,
+                        products: datesShipping.products,
+                        skWh: datesShipping.warehouse,
+                        dateNew: datesShipping.dateNew,
+                        createdByNew: datesShipping.createdByNew,
                     }
                 }
             }
         })
     }
-
+    changedSuccess = () => {
+        this.props.dispatch({
+            type: 'shipping/changedSuccess',
+            payload: {}
+        })
+    }
+    changedClose = () => {
+        this.props.dispatch({
+            type: 'shipping/changedClose',
+            payload: {}
+        })
+    }
     render(){
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 7 },md: { span: 9 },lg: { span: 9 },xl: { span: 5 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 14 },md: { span: 15 },lg: { span: 15 },xl: { span: 15 }}
         };
-        const { /*loading,*/ warehouse } = this.props;
+        const { loading, warehouse, isSuccess, close } = this.props;
         return(
             <div>
                 <ShippingPrograming
@@ -97,7 +107,11 @@ class ShippingMaster extends PureComponent {
                     insertWarehouse = {this.insertWarehouse}
                     warehouse = {warehouse}
                     saveShipping = {this.saveShipping}
-                    // loading = {loading}
+                    loading = {loading}
+                    isSuccess = {isSuccess}
+                    changedSuccess = {this.changedSuccess}
+                    close = {close}
+                    changedClose = {this.changedClose}
                 />
                 <PageHeaderWrapper>
                     <Card>

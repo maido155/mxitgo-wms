@@ -9,7 +9,6 @@ const { TreeNode } = TreeSelect;
 const NewLine = Form.create()(
     class extends React.Component {
         state = {
-            // value: [],
             e: [],
             whNew: [],
             treeData: [
@@ -48,10 +47,6 @@ const NewLine = Form.create()(
         onSelect = (selectedKeys, e) =>{
             this.setState({ e });
         }
-     
-        // onChange = (value, label, extra) => {
-        //      this.setState({ value });
-        // };
     
         renderTreeNode = (treeData) =>{
             let treeNode = [];
@@ -116,13 +111,10 @@ const NewLine = Form.create()(
                                     <TreeSelect
                                         showSearch
                                         style={{ width: '100%' }}
-                                        // value={this.state.value}
                                         dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                                         placeholder={formatMessage({ id: 'shipping.treeselect.label.select' })}
-                                        treeCheckable = {true}
                                         allowClear
                                         treeDefaultExpandAll
-                                        onChange={this.onChange}
                                         onSelect={this.onSelect}
                                         >
                                             {this.renderTreeNode(this.state.treeData)}

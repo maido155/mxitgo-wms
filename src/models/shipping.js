@@ -4,19 +4,32 @@ export default {
     namespace: 'shipping',
     state: {
         warehouse: [],
-        shippingSuccess: false
+        isSuccess: false,
+        close: false
     },
     effects: {
-        * fetchShipping({ payload }, { call, put }) {
+        * saveShipping({ payload }, { call, put }) {
             const response = yield call(saveShipping, payload);
             yield put({
                 type: 'queryShipping',
                 payload: response,
             });
         },
-        * fetchWarehouse({ payload }, { call, put }) {
+        * saveWarehouse({ payload }, { call, put }) {
             yield put({
                 type: 'queryWarehouse',
+                payload: payload,
+            });
+        },
+        * changedSuccess({ payload }, { call, put }) {
+            yield put({
+                type: 'queryChangedSuccess',
+                payload: payload,
+            });
+        },
+        * changedClose({ payload }, { call, put }) {
+            yield put({
+                type: 'queryChangedClose',
                 payload: payload,
             });
         },
@@ -26,7 +39,7 @@ export default {
         queryShipping(state, action) {
             return {
                 ...state,
-                shippingSuccess: action.response
+                isSuccess: true
             }
         },
         queryWarehouse(state, action) {
@@ -36,5 +49,17 @@ export default {
                 warehouse: datesWarehouse
             }
         },
+        queryChangedSuccess(state, action) {
+            return {
+                isSuccess: false,
+                warehouse: [],
+                close: true
+            }
+        },
+        queryChangedClose(state, action) {
+            return {
+                close: false
+            }
+        }
     },
 }
