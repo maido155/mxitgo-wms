@@ -111,7 +111,7 @@ class DrawerShippingPrograming extends PureComponent {
         this.setState({  currentLoader });
         if(this.props.isSuccess == true){
             this.props.changedSuccess();
-            message.success('Se agrego con exito');
+            message.success('Se agregó con éxito');
         }
         if(this.props.close == true){
             this.props.onCloseShippingPrograming();
