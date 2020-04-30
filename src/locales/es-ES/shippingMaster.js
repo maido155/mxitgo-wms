@@ -26,7 +26,7 @@ export default {
     'shipping.tablecomponent.label.hand': 'Mano',
     'shipping.tablecomponent.label.finger': 'Dedo',
     'shipping.tablecomponent.label.actions': 'Acciones',
-    'shipping.newline.label.title': 'Nueva Linea',
+    'shipping.newline.label.title': 'Nueva Línea',
     'shipping.treeselect.label.select': 'Selecciona',
     'shipping.button.program': 'Programar',
     'shipping.button.conf': 'Confirmar',

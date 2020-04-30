@@ -1,17 +1,32 @@
 import React, { PureComponent } from 'react';
-import { _ } from 'lodash';
-import { Drawer, Button, Row, Col, Icon, Form, Divider,Typography, Input  } from 'antd';
-import Styles from './StylesShipping.css';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import DatePicker from '../generalComponents/DatePickerComponent';
 import TextArea from '../generalComponents/TextAreaComponent';
-import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import TableComponent from '../generalComponents/TableComponent';
-import NewLine from './NewLine';
+import { Drawer, Form, Row, Col, Typography, Divider, Button, Icon, Input } from 'antd';
 import {isMobile} from 'react-device-detect';
+import Styles from './StylesShipping.css';
+import NewLine from './NewLine';
+import { _ } from 'lodash';
 
 const { Text } = Typography;
+class ConfirmationShipping extends PureComponent {
+    state={
+        visibleNewLine: false    
+    }
 
-export default class ConfirmationShipping extends PureComponent{
+    showNewLine = () =>{
+        this.setState({
+            visibleNewLine: true
+        });
+    };
+
+    onCloseNewLine = () =>{
+        this.setState({
+            visibleNewLine: false
+        });
+    };
+
     render(){
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 6 },lg: { span: 8 },xl: { span: 6 }},
@@ -19,13 +34,17 @@ export default class ConfirmationShipping extends PureComponent{
         };
         return(
             <div>
+                <NewLine
+                    visibleNewLine = {this.state.visibleNewLine}
+                    onCloseNewLine = {this.onCloseNewLine}
+                />
                 <Drawer
                     title={formatMessage({ id: 'shipping.shippingconfirmation.title' })}
                     width={isMobile ? "100%" : "80%"}
                     closable={true}
-                    onClose={this.props.closeThirdDrawer}
-                    visible={this.props.visibleThird} 
-                    getContainer={false}  
+                    onClose={this.props.onCloseConfirmationShipping}
+                    visible={this.props.visibleConfirmationShipping} 
+                    getContainer={isMobile ? false : true} 
                 >
                     <Form {...formItemLayout}>
                         <Row>
@@ -60,18 +79,14 @@ export default class ConfirmationShipping extends PureComponent{
                         <Divider/>
                         <Row type="flex" justify="center" >
                             <Col span={19} className={Styles.adddrawerone}>
-                                <Button type="primary" shape="circle" size="large" onClick={this.props.showSecond}>
-                                    <Icon type="plus" />
+                                <Button type="primary" shape="circle" size="large" onClick={this.showNewLine}>
+                                    <Icon type="plus"/>
                                 </Button>
-                                <NewLine
-                                    visibleDrawer={this.props.visibleSecond}
-                                    closeDrawer={this.props.closeSecond}
-                                />  
                             </Col>
                         </Row>
                         <Row>
                             <Col span={24} className={Styles.tabledrawerone}>
-                                <TableComponent showDrawer={this.props.showSecond}/>
+                                <TableComponent showNewLine={this.showNewLine}/>
                             </Col>
                         </Row>
                         <Row className={Styles.lastcolumn}>
@@ -98,10 +113,10 @@ export default class ConfirmationShipping extends PureComponent{
                             textAlign: 'right',
                             }}
                         >
-                            <Button type="danger" onClick={this.props.closeThirdDrawer} className={Styles.cancelarfooter}>
+                            <Button type="danger" onClick={this.props.onCloseConfirmationShipping} className={Styles.cancelarfooter}>
                                 <FormattedMessage id="shipping.button.cancel"/>
                             </Button>
-                            <Button type="primary" onClick={this.props.closeThirdDrawer}>
+                            <Button type="primary" onClick={this.props.onCloseConfirmationShipping}>
                                 <FormattedMessage id="shipping.button.conf"/>
                             </Button>    
                         </div>
@@ -111,3 +126,5 @@ export default class ConfirmationShipping extends PureComponent{
         );
     }
 }
+
+export default ConfirmationShipping;

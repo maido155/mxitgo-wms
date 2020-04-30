@@ -70,7 +70,6 @@ const UserModel = {
                 payload: responseAvatarUser,
             });
         },
-
         * updateValidationAvatar({ payload }, { call, put }) {
             console.log(payload);
             yield put({

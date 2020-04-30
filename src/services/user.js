@@ -16,24 +16,24 @@ export async function getDataUserByEmail({ email }) {
     );
 }
 
-export async function updateDataUser({ payload }){
-    return request(`${ANT_DESIGN_PRO_TARGET}/user`,{
+export async function updateDataUser({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/user`, {
         method: 'PUT',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(payload.PUT),
-      });
+    });
 }
 
 export async function getAvatarUser({ user }) {
     return request(
-      `${ANT_DESIGN_PRO_TARGET}/user/avatar?user=${user}`
-      );
+        `${ANT_DESIGN_PRO_TARGET}/user/avatar?user=${user}`
+    );
 }
 
 export async function saveAvatarUser({ payload }) {
-    return request(`${ANT_DESIGN_PRO_TARGET}/user/avatar`,{
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(payload.POST),
+    return request(`${ANT_DESIGN_PRO_TARGET}/user/avatar`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(payload.POST),
     });
-  }
+}
