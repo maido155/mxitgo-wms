@@ -14,29 +14,29 @@ const NewLine = Form.create()(
             treeData: [
                 {
                     title: 'Chiapas',
-                    value: 'Chiapas1',
+                    value: 'CHI',
                     key: '0-0',
                     childLevel1: [
                         {
                             title: 'La Escondida',
-                            value: 'La Escondida1',
+                            value: 'Escondida',
                             key: 'WH-1'
                         }
                     ]
                 },
                 {
                     title: 'Tabasco',
-                    value: 'Tabasco1',
+                    value: 'TAB',
                     key: '0-1',
                     childLevel1: [
                       {
                         title: 'El Muelle',
-                        value: 'El Muelle1',
+                        value: 'Muelle',
                         key: 'WH-2',
                       },
                       {
                         title: 'El Buscado',
-                        value: 'El Buscado1',
+                        value: 'Buscado',
                         key: 'WH-3',
                       },
                     ],
