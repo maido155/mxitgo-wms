@@ -7,6 +7,7 @@ import SelectLang from '@/components/SelectLang';
 import logo from '../assets/mxitgo.svg';
 import styles from './UserLayout.less';
 import { Divider } from 'antd';
+import { Link } from 'umi';
 
 const UserLayout = props => {
   const {
@@ -48,7 +49,16 @@ const UserLayout = props => {
             </div>
           {children}
         </div>
-        <DefaultFooter />
+        <DefaultFooter  
+        copyright="2020 MXITGO"
+        links={[
+          {
+            key: 'MXITGO',
+            title: 'MXITGO',
+            href: 'http://mxitgo.com/',
+            blankTarget: true,
+          }
+        ]} />
       </div>
     </>
   );

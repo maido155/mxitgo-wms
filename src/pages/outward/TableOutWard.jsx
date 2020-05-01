@@ -49,7 +49,7 @@ export default class TableOutWard extends PureComponent {
                 width: isMobile ? 200 : 180
             },
             {
-                title: 'Estado',
+                title: formatMessage({ id: 'outWard.label.table-status' }),
                 dataIndex: 'status',
                 width: isMobile ? 100 : 130
             },

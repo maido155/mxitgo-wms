@@ -1,27 +1,28 @@
 import React, { PureComponent } from 'react';
 import { List, Icon } from 'antd';
 import DrawerProducts from './drawerEntryProducts';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 
 const dataSource = [
     {
-        name: 'Premium',
+        name: <FormattedMessage id='shipping.tablecomponent.label.premium'/>,
         quantities: '1200'
 
-    },
+    }, 
     {
-        name: 'Gold',
+        name: <FormattedMessage id='shipping.tablecomponent.label.gold'/>,
         quantities: '38'
     },
     {
-        name: 'Segunda',
+        name: <FormattedMessage id='shipping.tablecomponent.label.second'/>,
         quantities: '39'
     },
     {
-        name: 'Mano',
+        name: <FormattedMessage id='shipping.tablecomponent.label.hand'/>,
         quantities: '79'
     },
     {
-        name: 'Dedo',
+        name: <FormattedMessage id='shipping.tablecomponent.label.finger'/>,
         quantities: '800'
     }
 ]

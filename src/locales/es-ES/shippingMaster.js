@@ -35,6 +35,16 @@ export default {
     'shipping.shippingconfirmation.id-order': 'Id Pedido',
     'shipping.shippingconfirmation.driver': 'Chofer',
     'shipping.shippingconfirmation.phone': 'Telefono',
-    'menu.Maestro de envíos': 'Maestro de envíos'
+    'menu.Maestro de envíos': 'Maestro de envíos',
+    'shipping.label.table-shipping.id': 'Id',
+    'shipping.label.table-shipping.ubication':'Ubicacion',
+    'shipping.label.table-shipping.output':'Salida',
+    'shipping.shippingconfirmation.title': 'Nueva entrada',
+    'shipping.shippingconfirmation.comments': 'Comentarios',
+    'shipping.shippingconfirmation.photo':'Foto',
+    'shipping.entryProducts.amounts': 'Cantidades',
+    'shipping.entryProducts.temperature':'Temperatura',
+    'shipping.entryProducts.photo':'Foto',
+    'shipping.entryProducts.title':'Detalle del producto'
 
 };

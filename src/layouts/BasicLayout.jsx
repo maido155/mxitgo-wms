@@ -9,7 +9,7 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { isAntDesignPro, getAuthorityFromRouter } from '@/utils/utils';
-import logo from '../assets/logo.svg';
+import logo from '../assets/MXITGO_LOGO.png';
 const noMatch = (
   <Result
     status="403"
@@ -36,6 +36,12 @@ const defaultFooterDom = (
   <DefaultFooter
     copyright="2020 MXITGO"
     links={[
+      {
+        key: 'MXITGO',
+        title: 'MXITGO',
+        href: 'http://mxitgo.com/',
+        blankTarget: true,
+      }
     ]}
   />
 );
@@ -113,7 +119,7 @@ const BasicLayout = props => {
         <ProLayout
           logo={logo}
           menuHeaderRender={(logoDom, titleDom) => (
-            <Link to="/">
+            <Link to="/dashboard">
               {logoDom}
               {titleDom}
             </Link>
@@ -128,7 +134,7 @@ const BasicLayout = props => {
           }}
           breadcrumbRender={(routers = []) => [
             {
-              path: '/',
+              path: '/dashboard',
               breadcrumbName: formatMessage({
                 id: 'menu.home',
                 defaultMessage: 'Home',

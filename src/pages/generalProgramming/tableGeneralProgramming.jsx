@@ -2,35 +2,36 @@ import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import {isMobile} from 'react-device-detect';
 import { Table, Divider, Icon } from 'antd';
+import { FormattedMessage} from 'umi-plugin-react/locale';
 
 const columns = [
   {
-    title: 'Semana',
+    title: <FormattedMessage id="general.table.week"/>,
     dataIndex: 'week',
     width: isMobile ? 100 :100
   },
   {
-    title: 'Tipo de producto',
+    title: <FormattedMessage id="general.table.products"/>,
     dataIndex: 'products',
     width: isMobile ? 130 :100
   },
   {
-    title: 'Cliente',
+    title: <FormattedMessage id="general.table.client"/>,
     dataIndex: 'client',
     width: isMobile ? 90 :100
   },
   {
-      title: 'Cajas',
+      title: <FormattedMessage id="general.table.boxes"/>,
       dataIndex: 'box',
       width: isMobile ? 90 :100
     },
     {
-      title: 'Pallets',
+      title: <FormattedMessage id="general.table.pallets"/>,
       dataIndex: 'pallets',
       width: isMobile ? 90 :100
     },
     {
-      title: 'Status',
+      title: <FormattedMessage id="general.table.status"/>,
       dataIndex: 'status',
       width: isMobile ? 100 :100
     }
@@ -72,7 +73,7 @@ const data = [
   if(isMobile){
     columns.push(
       {
-        title: 'Acciones',
+        title: <FormattedMessage id="general.table.actions-mobil"/>,
         key: 'action',
         fixed: 'right',
         width: 120,
@@ -93,7 +94,7 @@ const data = [
   }else{
     columns.push(
       {
-        title: 'Acciones',
+        title: <FormattedMessage id="general.table.actions"/>,
         key: 'action',
         fixed: 'right',
         width: 350,

@@ -121,7 +121,7 @@ export default {
               component: './shipping/ShippingMaster',
             },
             {
-              path: '/outWard',
+              path: '/outgoing',
               name: 'Salidas',
               icon: 'import',
               component: './outward/OutWard',

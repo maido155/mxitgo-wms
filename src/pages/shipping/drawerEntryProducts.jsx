@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
 import { Drawer, Button, Form, Input,Upload, Icon, message } from 'antd';
 import {isMobile} from 'react-device-detect';
+import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
+
 
 function getBase64(img, callback) {
     const reader = new FileReader();
@@ -55,20 +57,20 @@ class drawerEntryProducts extends PureComponent {
       return (
         <div>
             <Drawer
-                title="Detalle Del Producto"
+                title={formatMessage({ id: 'shipping.entryProducts.title' })}
                 width={isMobile ? "100%" : "50%"}
                 onClose={this.props.onCancel}
                 visible={this.props.visibleDrawer}
                 bodyStyle={{ paddingBottom: 80 }}
             >
                 <Form {...formItemLayout} style={{marginTop: "5rem"}}>
-                    <Form.Item label={'Cantidades'}>
+                    <Form.Item label={formatMessage({ id: 'shipping.entryProducts.amounts' })}>
                         <Input/>
                     </Form.Item>
-                    <Form.Item label={'Temperatura'}>
+                    <Form.Item label={formatMessage({ id: 'shipping.entryProducts.temperature' })}>
                         <Input/>
                     </Form.Item>
-                    <Form.Item label={'Foto'}>
+                    <Form.Item label={formatMessage({ id: 'shipping.entryProducts.photo' })}>
                         <Upload
                             name="avatar"
                             listType="picture-card"
