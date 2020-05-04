@@ -16,7 +16,8 @@ class DrawerShippingPrograming extends PureComponent {
         currentLoader:false,
         datesGeneralNewLine: {},
         products: [],
-        warehouseName: []
+        warehouseName: [],
+        idShipping : "",
     }
     saveFormRefNewLine = (formRef) => {
         this.formRefNewLine = formRef;
@@ -33,6 +34,7 @@ class DrawerShippingPrograming extends PureComponent {
             }
             var warehouse = datesWarehouse.props.fatherTitle + '-' + datesWarehouse.props.title;
             var idWarehouse = datesWarehouse.props.eventKey; 
+            var idShipping = datesWarehouse.props.fatherValue;
             var premium = values.premium;
             var finger = values.finger;
             var gold = values.gold;
@@ -46,6 +48,7 @@ class DrawerShippingPrograming extends PureComponent {
             var nameProducts = ["premium","gold","second","hand","finger"];
             var quantities = [premium,gold,second,hand,finger];
             this.state.warehouseName.push(idWarehouse);
+            this.setState({idShipping});
             var products = [];
             for(var i = 0; i < nameProducts.length; i++){
                 products.push({
@@ -78,6 +81,7 @@ class DrawerShippingPrograming extends PureComponent {
             values["destinity"] = "Central de abastos"
             values["products"] = this.state.products;
             values["warehouse"] = this.state.warehouseName;
+            values["idShipping"] = this.state.idShipping + date.getDate() + (date.getMonth() + 1) + date.getFullYear() + date.getHours() + date.getMinutes();
             var warehouseDate = values.warehouse;
             var warehouse = this.props.warehouse;
             if(warehouse.length == 0){
