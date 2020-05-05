@@ -316,7 +316,7 @@ export async function getInterviewStatus({ payload }) {
 export async function saveShipping({ payload }) {
     return request(`${ANT_DESIGN_PRO_TARGET}/shipping`, {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { 'content-type': 'application/json', 'Authorization': payload.POST.Authorization },
         body: JSON.stringify(payload.POST),
     });
 }
