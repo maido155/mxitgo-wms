@@ -320,6 +320,12 @@ export async function saveShipping({ payload }) {
         body: JSON.stringify(payload.POST),
     });
 }
+export async function fetchProgrammingAll({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/programming/all`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization },
+    });
+}
 /* export async function getOrderDetail() {
   console.log(orderId);
   return request(`${ANT_DESIGN_PRO_TARGET}/orderDetails?orderId=1`);

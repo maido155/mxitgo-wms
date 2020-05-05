@@ -23,7 +23,8 @@ class SecurityLayout extends React.Component {
         type: 'user/fetchUserByEmail',
         payload: {
             payload: {
-                email: localStorage.getItem('email')
+                email: localStorage.getItem('email'),
+                Authorization: sessionStorage.getItem('idToken')
             }
         },
       });
@@ -31,7 +32,8 @@ class SecurityLayout extends React.Component {
         type: 'user/fetchAvatarUser',
         payload: {
             payload: {
-                user: localStorage.getItem('email')
+                user: localStorage.getItem('email'),
+                Authorization: sessionStorage.getItem('idToken')
             }
         },
       });

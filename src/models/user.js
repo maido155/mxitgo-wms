@@ -26,7 +26,7 @@ const UserModel = {
         },
 
         * fetchUserByEmail({ payload }, { call, put }) {
-            let email = payload.payload.email;
+            let email = payload.payload;
             const response = yield call(getDataUserByEmail, { email });
             yield put({
                 type: 'queryUserByEmail',
@@ -35,7 +35,7 @@ const UserModel = {
         },
 
         * updateDataUser({ payload }, { call, put }) {
-            let email = payload.payload.GET.email;
+            let email = payload.payload.GET;
             const response = yield call(updateDataUser, payload);
             const responseDataUser = yield call(getDataUserByEmail, { email });
             yield put({
@@ -52,7 +52,7 @@ const UserModel = {
         },
 
         * fetchAvatarUser({ payload }, { call, put }) {
-            let user = payload.payload.user;
+            let user = payload.payload;
             const response = yield call(getAvatarUser, { user });
             console.log(response);
             yield put({
@@ -62,7 +62,7 @@ const UserModel = {
         },
 
         * saveAvatarUser({ payload }, { call, put }) {
-            let user = payload.payload.GET.user;
+            let user = payload.payload.GET;
             const response = yield call(saveAvatarUser, payload);
             const responseAvatarUser = yield call(getAvatarUser, { user });
             yield put({
