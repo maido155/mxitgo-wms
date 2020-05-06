@@ -7,6 +7,27 @@ import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
 
 class AvatarDropdown extends React.Component {
+  componentDidMount() {
+      this.props.dispatch({
+        type: 'user/fetchUserByEmail',
+        payload: {
+            payload: {
+                email: localStorage.getItem('email'),
+                Authorization: sessionStorage.getItem('idToken')
+            }
+        },
+      });
+      this.props.dispatch({
+        type: 'user/fetchAvatarUser',
+        payload: {
+            payload: {
+                user: localStorage.getItem('email'),
+                Authorization: sessionStorage.getItem('idToken')
+            }
+        },
+      });
+  };
+
   onMenuClick = event => {
     const { key } = event;
 

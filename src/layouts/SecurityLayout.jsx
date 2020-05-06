@@ -19,24 +19,6 @@ class SecurityLayout extends React.Component {
       dispatch({
         type: 'user/fetchCurrent',
       });
-      dispatch({
-        type: 'user/fetchUserByEmail',
-        payload: {
-            payload: {
-                email: localStorage.getItem('email'),
-                Authorization: sessionStorage.getItem('idToken')
-            }
-        },
-      });
-      dispatch({
-        type: 'user/fetchAvatarUser',
-        payload: {
-            payload: {
-                user: localStorage.getItem('email'),
-                Authorization: sessionStorage.getItem('idToken')
-            }
-        },
-      });
     }
   }
 
