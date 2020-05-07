@@ -316,8 +316,14 @@ export async function getInterviewStatus({ payload }) {
 export async function saveShipping({ payload }) {
     return request(`${ANT_DESIGN_PRO_TARGET}/shipping`, {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { 'content-type': 'application/json', 'Authorization': payload.POST.Authorization },
         body: JSON.stringify(payload.POST),
+    });
+}
+export async function fetchProgrammingAll({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/programming/all`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization },
     });
 }
 /* export async function getOrderDetail() {

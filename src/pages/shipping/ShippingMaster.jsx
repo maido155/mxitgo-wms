@@ -73,7 +73,8 @@ class ShippingMaster extends PureComponent {
                         skWh: datesShipping.warehouse,
                         dateNew: datesShipping.dateNew,
                         createdByNew: datesShipping.createdByNew,
-                        idShipping: datesShipping.idShipping
+                        idShipping: datesShipping.idShipping,
+                        Authorization: sessionStorage.getItem('idToken')
                     }
                 }
             }

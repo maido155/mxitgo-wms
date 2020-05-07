@@ -109,8 +109,9 @@ class Login extends Component {
         var accessToken = result.getAccessToken().getJwtToken();
         var idToken     = result.idToken.jwtToken;
         sessionStorage.setItem('accessToken',accessToken);
+        sessionStorage.setItem('idToken', idToken);
         let email = authenticationData.Username;
-        let params = { email: email}
+        let params = { email: email, Authorization: idToken}
         self.doLogin(params);
         
 
