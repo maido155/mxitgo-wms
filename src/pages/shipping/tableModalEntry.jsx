@@ -1,40 +1,44 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
 import { Table} from 'antd';
+import { formatMessage } from 'umi-plugin-react/locale';
 
 const columns = [
     {
-      title: 'Id',
+      title: formatMessage({ id: 'shipping.label.table-shipping.id' }),
       dataIndex: 'id',
       key: 'id',
       width: 110,
     },
     {
-      title: 'Ubicacion',
+      title: formatMessage({ id: 'shipping.label.table-shipping.ubication' }),
       dataIndex: 'ubicacion',
       key: 'ubicacion',
       width: 100,
     },
     {
-      title: 'Salida',
+      title: formatMessage({ id: 'shipping.label.table-shipping.output' }),
       dataIndex: 'salida',
       key: 'salida',
       width: 100,
     },
+    
     {
-      title: 'Llegada',
+      title: formatMessage({ id: 'shipping.label.table-shipping.arrival' }),
       dataIndex: 'llegada',
       key: 'llegada',
       width: 100,
     },
+    
     {
-      title: 'Entrada',
+      title: formatMessage({ id: 'shipping.label.table-shipping.entry' }),
       dataIndex: 'entrada',
       key: 'entrada',
       width: 100,
     },
+    
     {
-      title: 'Chofer',
+      title: formatMessage({ id: 'shipping.shippingconfirmation.driver' }),
       dataIndex: 'chofer',
       key: 'chofer',
       width: 100,

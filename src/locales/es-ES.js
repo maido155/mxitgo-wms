@@ -4,6 +4,9 @@ import register from './es-ES/register';
 import accountSettings from './es-ES/accountSettings';
 import outWard from './es-ES/outWard';
 import shippingMaster from './es-ES/shippingMaster';
+import dashboard from './es-ES/dashboard';
+import generalProgramming from './es-ES/generalProgramming';
+
 export default {
     'navBar.lang': 'Idiomas',
     'layout.user.link.help': 'Ayuda',
@@ -12,5 +15,7 @@ export default {
     ...register,
     ...accountSettings,
     ...outWard,
-    ...shippingMaster
+    ...shippingMaster,
+    ...dashboard,
+    ...generalProgramming
 };

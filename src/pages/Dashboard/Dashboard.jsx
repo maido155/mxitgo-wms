@@ -8,6 +8,7 @@ import RangePickerComponent from '../generalComponents/RangePickerComponent';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
 import { Row, Col,Card,Divider,Form} from 'antd';
 import {isMobile, isTablet} from "react-device-detect";
+import { formatMessage } from 'umi-plugin-react/locale';
 import 'moment/locale/en-au';
 import GridDashboard from './GridDashboard';
 
@@ -57,7 +58,7 @@ export default class Dashboard extends PureComponent {
             <div>
             <Row type="flex" justify="center">
                     <Col xs={24} sm={16} md={16} lg={16} xl={16}>
-                        <Form.Item label="Semana:">
+                        <Form.Item label={formatMessage({ id: 'outWard.label.week' })}>
                           <RangePickerComponent />
                       </Form.Item>
                       </Col>
