@@ -64,10 +64,10 @@ class drawerEntry extends PureComponent {
             <Drawer
                 title={formatMessage({ id: 'shipping.shippingconfirmation.title' })}
                 width={isMobile ? "100%" : "70%"}
-                onClose={this.props.cancelModal}
-                visible={this.props.visibleModal}
+                onClose={this.props.handleCancelEntry}
+                visible={this.props.visibleEntry}
                 bodyStyle={{ paddingBottom: 80 }}
-                getContainer={false} 
+                getContainer={isMobile ? false : true} 
             >
                 <TableModal/>
                 <Row type="flex" justify="center" style={{marginTop: "2rem"}}>

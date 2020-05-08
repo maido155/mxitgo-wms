@@ -30,7 +30,8 @@ class AccountSettings extends PureComponent{
            type: 'user/fetchUserByEmail',
            payload: {
                payload: {
-                   email: localStorage.getItem('email')
+                   email: localStorage.getItem('email'),
+                   Authorization: sessionStorage.getItem('idToken')
                }
            },
        });
@@ -38,7 +39,8 @@ class AccountSettings extends PureComponent{
             type: 'user/fetchAvatarUser',
             payload: {
                 payload: {
-                    user: localStorage.getItem('email')
+                    user: localStorage.getItem('email'),
+                    Authorization: sessionStorage.getItem('idToken')
                 }
             },
         });
@@ -70,7 +72,8 @@ class AccountSettings extends PureComponent{
             payload: {
                 payload: {
                     GET: {
-                        email: localStorage.getItem('email')
+                        email: localStorage.getItem('email'),
+                        Authorization: sessionStorage.getItem('idToken')
                     },
                     PUT: {
                         name: "name",
@@ -81,7 +84,8 @@ class AccountSettings extends PureComponent{
                         valueMiddle: values.middle_name,
                         phone: "phone_number",
                         valuePhone: values.phone_number,
-                        username: values.email
+                        username: values.email,
+                        Authorization: sessionStorage.getItem('idToken')
                     }
                 },
             },
@@ -94,11 +98,13 @@ class AccountSettings extends PureComponent{
             payload: {
                 payload: {
                     GET: {
-                        user: localStorage.getItem('email')
+                        user: localStorage.getItem('email'),
+                        Authorization: sessionStorage.getItem('idToken')
                     },
                     POST: {
                         urlImage: values.urlimage,
-                        user: localStorage.getItem('email')
+                        user: localStorage.getItem('email'),
+                        Authorization: sessionStorage.getItem('idToken')
                     }
                 },
             },
@@ -193,7 +199,7 @@ class AccountSettings extends PureComponent{
                                         <Form.Item label={formatMessage({ id: 'register.label.name' })}>
                                             {getFieldDecorator('name', { initialValue: userByEmail.name,
                                                 rules: [{ required: true, message: <FormattedMessage id="register.mode.message.name"/>}]})
-                                            (<Input  defaultValue="hola" />)}
+                                            (<Input/>)}
                                         </Form.Item>
                                     </Col>
                                     <Col lg={12} xl={12}>

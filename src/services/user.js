@@ -12,28 +12,32 @@ export async function queryNotices() {
 
 export async function getDataUserByEmail({ email }) {
     return request(
-        `${ANT_DESIGN_PRO_TARGET}/user/email?email=${email}`
-    );
+        `${ANT_DESIGN_PRO_TARGET}/user/email?email=${email.email}`, {
+            method: 'GET',
+            headers: { 'Authorization': email.Authorization },
+        });
 }
 
-export async function updateDataUser({ payload }){
-    return request(`${ANT_DESIGN_PRO_TARGET}/user`,{
+export async function updateDataUser({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/user`, {
         method: 'PUT',
-        headers: { 'content-type': 'application/json' },
+        headers: { 'content-type': 'application/json', 'Authorization': payload.PUT.Authorization },
         body: JSON.stringify(payload.PUT),
-      });
+    });
 }
 
 export async function getAvatarUser({ user }) {
     return request(
-      `${ANT_DESIGN_PRO_TARGET}/user/avatar?user=${user}`
-      );
+        `${ANT_DESIGN_PRO_TARGET}/user/avatar?user=${user.user}`, {
+            method: 'GET',
+            headers: { 'Authorization': user.Authorization },
+        });
 }
 
 export async function saveAvatarUser({ payload }) {
-    return request(`${ANT_DESIGN_PRO_TARGET}/user/avatar`,{
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(payload.POST),
+    return request(`${ANT_DESIGN_PRO_TARGET}/user/avatar`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'Authorization': payload.POST.Authorization },
+        body: JSON.stringify(payload.POST),
     });
-  }
+}

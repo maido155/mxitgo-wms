@@ -48,26 +48,6 @@ const data = [
     status: "Programado",
    
   },
-  {
-      key: '2',
-    week: '6-12',
-    products: "Premium",
-    client: 'Cuautitlán',
-    box:  "8200",
-    pallets: "530",
-    status: "220",
-   
-  },
-  {
-      key: '3',
-    week: '31-5',
-    products: "Gold",
-    client: 'Reparto',
-    box:  "7400",
-    pallets: "500",
-    status: "43",
-   
-  },
 ];
 
   if(isMobile){
