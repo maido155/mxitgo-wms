@@ -20,7 +20,7 @@ export default {
         queryProgrammingAll(state, action) {
             return {
                 ...state,
-                datesPrograming: action.payload.Items
+                datesPrograming: action.payload
             }
         },
     },

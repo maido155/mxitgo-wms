@@ -6,47 +6,40 @@ import { Table, Divider, Icon } from 'antd';
 const columns = [
   {
     title: 'Semana',
-    dataIndex: 'week',
+    dataIndex: 'Week',
+    key: 'Week',
     width: isMobile ? 100 :100
   },
   {
     title: 'Tipo de producto',
-    dataIndex: 'products',
+    dataIndex: 'Product',
+    key: 'Product',
     width: isMobile ? 130 :100
   },
   {
     title: 'Cliente',
-    dataIndex: 'client',
+    dataIndex: 'Client',
+    key: 'Client',
     width: isMobile ? 90 :100
   },
   {
       title: 'Cajas',
-      dataIndex: 'box',
+      dataIndex: 'Box',
+      key: 'Box',
       width: isMobile ? 90 :100
     },
     {
       title: 'Pallets',
-      dataIndex: 'pallets',
+      dataIndex: 'Pallets',
+      key: 'Pallets',
       width: isMobile ? 90 :100
     },
     {
       title: 'Status',
-      dataIndex: 'status',
+      dataIndex: 'Status',
+      key: 'Status',
       width: isMobile ? 100 :100
     }
-];
-
-const data = [
-  {
-    key: '1',
-    week: '10 - 12',
-    products: "Gold",
-    client: 'Vallejo',
-    box:  "7400",
-    pallets: "500",
-    status: "Programado",
-   
-  },
 ];
 
   if(isMobile){
@@ -108,8 +101,9 @@ const rowSelection = {
 
 class TableGeneralProgramming extends PureComponent{
     render(){
+      const { datesPrograming } = this.props;
         return(
-            <Table  style={{marginTop: "2%"}} size="small" rowSelection={rowSelection} columns={columns} dataSource={data} scroll={isMobile ? {x: 720} : {x: 950}}  />
+            <Table  style={{marginTop: "2%"}} size="small" rowSelection={rowSelection} columns={columns} dataSource={datesPrograming} scroll={isMobile ? {x: 720} : {x: 950}}  />
         );
     }
 }
