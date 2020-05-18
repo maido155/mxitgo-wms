@@ -6,48 +6,41 @@ import { FormattedMessage} from 'umi-plugin-react/locale';
 
 const columns = [
   {
-    title: <FormattedMessage id="general.table.week"/>,
-    dataIndex: 'week',
+    title: 'Semana',
+    dataIndex: 'Week',
+    key: 'Week',
     width: isMobile ? 100 :100
   },
   {
-    title: <FormattedMessage id="general.table.products"/>,
-    dataIndex: 'products',
+    title: 'Tipo de producto',
+    dataIndex: 'Product',
+    key: 'Product',
     width: isMobile ? 130 :100
   },
   {
-    title: <FormattedMessage id="general.table.client"/>,
-    dataIndex: 'client',
+    title: 'Cliente',
+    dataIndex: 'Client',
+    key: 'Client',
     width: isMobile ? 90 :100
   },
   {
-      title: <FormattedMessage id="general.table.boxes"/>,
-      dataIndex: 'box',
+      title: 'Cajas',
+      dataIndex: 'Box',
+      key: 'Box',
       width: isMobile ? 90 :100
     },
     {
-      title: <FormattedMessage id="general.table.pallets"/>,
-      dataIndex: 'pallets',
+      title: 'Pallets',
+      dataIndex: 'Pallets',
+      key: 'Pallets',
       width: isMobile ? 90 :100
     },
     {
-      title: <FormattedMessage id="general.table.status"/>,
-      dataIndex: 'status',
+      title: 'Status',
+      dataIndex: 'Status',
+      key: 'Status',
       width: isMobile ? 100 :100
     }
-];
-
-const data = [
-  {
-    key: '1',
-    week: '10 - 12',
-    products: "Gold",
-    client: 'Vallejo',
-    box:  "7400",
-    pallets: "500",
-    status: "Programado",
-   
-  },
 ];
 
   if(isMobile){
@@ -109,8 +102,9 @@ const rowSelection = {
 
 class TableGeneralProgramming extends PureComponent{
     render(){
+      const { datesPrograming } = this.props;
         return(
-            <Table  style={{marginTop: "2%"}} size="small" rowSelection={rowSelection} columns={columns} dataSource={data} scroll={isMobile ? {x: 720} : {x: 950}}  />
+            <Table  style={{marginTop: "2%"}} size="small" rowSelection={rowSelection} columns={columns} dataSource={datesPrograming} scroll={isMobile ? {x: 720} : {x: 950}}  />
         );
     }
 }

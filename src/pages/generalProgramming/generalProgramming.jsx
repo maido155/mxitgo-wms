@@ -26,6 +26,7 @@ export default class generalProgramming extends PureComponent{
     }
 
     render(){
+        const { datesPrograming } = this.props;
         return(
             <PageHeaderWrapper>
                 <Card>
@@ -33,7 +34,7 @@ export default class generalProgramming extends PureComponent{
                         <ModalGeneralProgramming/>
                     </div>
                     <div>
-                        <TableGeneralProgramming/>
+                        <TableGeneralProgramming datesPrograming = {datesPrograming}/>
                     </div>
                 </Card>
             </PageHeaderWrapper>
