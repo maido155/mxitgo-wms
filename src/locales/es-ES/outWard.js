@@ -28,5 +28,6 @@ export default {
     'outWard.button.composition-outward-ok': 'Aceptar',
     'outWard.button.composition-outward-pallets-ass': 'Pallets asignados',
     'outWard.button.composition-outward-boxes-ass': 'Cajas asignados',
+    'outWard.label.table-status': 'Estado',
     'menu.Salidas': 'Salidas'
 };

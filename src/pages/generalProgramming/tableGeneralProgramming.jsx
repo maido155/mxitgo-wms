@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import {isMobile} from 'react-device-detect';
 import { Table, Divider, Icon } from 'antd';
+import { FormattedMessage} from 'umi-plugin-react/locale';
 
 const columns = [
   {
@@ -45,7 +46,7 @@ const columns = [
   if(isMobile){
     columns.push(
       {
-        title: 'Acciones',
+        title: <FormattedMessage id="general.table.actions-mobil"/>,
         key: 'action',
         fixed: 'right',
         width: 120,
@@ -66,7 +67,7 @@ const columns = [
   }else{
     columns.push(
       {
-        title: 'Acciones',
+        title: <FormattedMessage id="general.table.actions"/>,
         key: 'action',
         fixed: 'right',
         width: 350,

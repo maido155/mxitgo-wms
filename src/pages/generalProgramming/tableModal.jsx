@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import {Table, Icon, Input, Row, Col, Form} from 'antd';
 
+import { FormattedMessage} from 'umi-plugin-react/locale';
+
 
   
 
@@ -17,9 +19,9 @@ class tableModal extends PureComponent{
             <Form {...formItemLayout}> 
            <Row>
             <Col xs={8} sm={9} md={9} lg={9} xl={9}></Col>
-            <Col xs={7} sm={7} md={7} lg={7} xl={7}> <label style={{ marginLeft:"10%"}}>Pallets</label></Col>
+            <Col xs={7} sm={7} md={7} lg={7} xl={7}> <label style={{ marginLeft:"10%"}}><FormattedMessage id="general.modal-label.pallets"/></label></Col>
             <Col xs={1} sm={1} md={1} lg={1} xl={1}></Col>
-            <Col xs={7} sm={7} md={7} lg={7} xl={7}> <label style={{ marginLeft:"10%"}}>Cajas</label></Col>
+            <Col xs={7} sm={7} md={7} lg={7} xl={7}> <label style={{ marginLeft:"10%"}}><FormattedMessage id="general.modal-label.boxes"/></label></Col>
            </Row>
           
            <Row>
