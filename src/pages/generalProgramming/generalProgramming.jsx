@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import {Card, Button} from 'antd';
+import {Card, Spin} from 'antd';
 import TableGeneralProgramming from './TableGeneralProgramming';
 import ModalGeneralProgramming from './ModalGeneralProgramming';
-import RightContent from '@/components/GlobalHeader/RightContent';
 import { connect } from 'dva';
 
 @connect(({ programming, loading }) => ({
@@ -14,6 +13,9 @@ import { connect } from 'dva';
 }))
 
 export default class generalProgramming extends PureComponent{
+    state = {
+        loading: false,
+    }
     componentDidMount() {
         this.props.dispatch({
            type: 'programming/fetchProgrammingAll',
@@ -26,16 +28,18 @@ export default class generalProgramming extends PureComponent{
     }
 
     render(){
-        const { datesPrograming } = this.props;
+        const { datesPrograming, loading } = this.props;
         return(
             <PageHeaderWrapper>
                 <Card>
-                    <div align="right">
-                        <ModalGeneralProgramming/>
-                    </div>
-                    <div>
-                        <TableGeneralProgramming datesPrograming = {datesPrograming}/>
-                    </div>
+                    <Spin tip={"Cargando..."} spinning={loading}>
+                        <div align="right">
+                            <ModalGeneralProgramming/>
+                        </div>
+                        <div>
+                            <TableGeneralProgramming datesPrograming = {datesPrograming}/>
+                        </div>
+                    </Spin>
                 </Card>
             </PageHeaderWrapper>
         );
