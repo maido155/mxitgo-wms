@@ -1,4 +1,4 @@
-import { queryCurrent, getDataUserByEmail, updateDataUser, saveAvatarUser, getAvatarUser, query as queryUsers } from '@/services/user';
+import { queryCurrent, getDataUserByEmail, updateDataUser, saveAvatarUser, getAvatarUser, getAllUser, query as queryUsers } from '@/services/user';
 
 const UserModel = {
     namespace: 'user',
@@ -6,7 +6,8 @@ const UserModel = {
         currentUser: {},
         userByEmail: [],
         isUpdated: false,
-        avatarUser: {}
+        avatarUser: {},
+        allUsers: []
     },
     effects: {
         * fetch(_, { call, put }) {
@@ -54,7 +55,6 @@ const UserModel = {
         * fetchAvatarUser({ payload }, { call, put }) {
             let user = payload.payload;
             const response = yield call(getAvatarUser, { user });
-            console.log(response);
             yield put({
                 type: 'queryAvatarUser',
                 payload: response,
@@ -76,6 +76,13 @@ const UserModel = {
                 type: 'queryAvatarUser',
                 payload: payload,
             });
+        },
+        * fetchAllUsers({ payload }, { call, put }) {
+            const response = yield call(getAllUser, { payload });
+            yield put({
+                type: 'queryAllUsers',
+                payload: response
+            })
         }
     },
     reducers: {
@@ -108,7 +115,12 @@ const UserModel = {
         saveCurrentUser(state, action) {
             return {...state, currentUser: action.payload || {} };
         },
-
+        queryAllUsers(state, action) {
+            return {
+                ...state,
+                allUsers: action.payload
+            }
+        },
         changeNotifyCount(
             state = {
                 currentUser: {},

@@ -1,14 +1,22 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
-import { Card, Table, Icon, Divider, Button} from 'antd';
+import { Card, Table, Icon, Divider, Button, Spin} from 'antd';
 import {isMobile} from 'react-device-detect';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { FormattedMessage } from 'umi-plugin-react/locale';
 import ModalNewUser from './ModalNewUser';
+import { connect } from 'dva';
+
+@connect(({ user, loading }) => ({
+    user,
+    loading: loading.models.user,
+    allUsers:user.allUsers,
+}))
 
 export default class UsersLayout extends PureComponent {
     state = { 
-        visible: false 
+        visible: false,
+        loading: false
     };
     showModal = () => {
         this.setState({
@@ -21,44 +29,55 @@ export default class UsersLayout extends PureComponent {
           visible: false,
         });
     };
+    componentDidMount() {
+        this.props.dispatch({
+           type: 'user/fetchAllUsers',
+           payload: {
+               payload: {
+                   Authorization: sessionStorage.getItem('idToken')
+               }
+           },
+       });
+    }
     render(){
+        const { allUsers, loading } = this.props;
         const columns = [
             {
               title: 'Nombre',
-              dataIndex: 'name',
-              key: 'name',
-              width: isMobile ? 120 : 150,
+              dataIndex: 'nameUser',
+              key: 'nameUser',
+              width: isMobile ? 130 : 140,
           
             },
             {
               title: 'Apellido paterno',
-              dataIndex: 'firstLast',
-              key: 'firstLast',
-              width: isMobile ? 120 : 150,
+              dataIndex: 'familyName',
+              key: 'familyName',
+              width: isMobile ? 130 : 130,
             },
             {
               title: 'Apellido materno', 
-              dataIndex: 'secondLast',
-              key: 'secondLast',
-              width: isMobile ? 120 : 150,
+              dataIndex: 'middleName',
+              key: 'middleName',
+              width: isMobile ? 130 : 130,
             },
             {
                 title: 'Correo electrónico',
                 dataIndex: 'mail', 
                 key: 'mail',
-                width: isMobile ? 170 : 170,
+                width: isMobile ? 300 : 270,
             }, 
             { 
                 title: 'Teléfono',
                 dataIndex: 'phone',
                 key: 'phone',
-                width: isMobile ? 120 : 150,
+                width: isMobile ? 150 : 130,
             },
             {
                 title: 'Acciones',
                 key: 'action',
                 fixed: 'right',
-                width: isMobile ? 60 : 150,
+                width: isMobile ? 70 : 150,
                 render: () => (
                     <span>
                         <a>
@@ -78,23 +97,16 @@ export default class UsersLayout extends PureComponent {
                 )
             }
         ];
-        const data = [
-            {
-              name: 'Héctor Ulises',
-              firstLast: 'Robledo',
-              secondLast: "Oropeza",
-              mail: 'hectoorn.n@gmail.com',
-              phone:  "4494681489",
-            }
-        ];
         return(
             <PageHeaderWrapper>
                 <Card>
-                    <ModalNewUser visible={this.state.visible} cancel={this.handleCancel}/>
-                    <div align="right">
-                        <Button type="primary" shape="circle" onClick={this.showModal}>+</Button>
-                    </div>
-                    <Table style={{marginTop: "1rem"}} size="small" columns={columns} dataSource={data} scroll={isMobile ? {x: 710} : {x: 900}} pagination={false}/>
+                    <Spin tip={"Cargando..."} spinning={loading}>
+                        <ModalNewUser visible={this.state.visible} cancel={this.handleCancel}/>
+                        <div align="right">
+                            <Button type="primary" shape="circle" onClick={this.showModal}>+</Button>
+                        </div>
+                        <Table style={{marginTop: "1rem"}} size="small" columns={columns} dataSource={allUsers} scroll={isMobile ? {x: 960, y: 400} : {x: 900 , y: 220}} pagination={false}/>
+                    </Spin>
                 </Card>
             </PageHeaderWrapper>
         );

@@ -41,3 +41,11 @@ export async function saveAvatarUser({ payload }) {
         body: JSON.stringify(payload.POST),
     });
 }
+
+export async function getAllUser({ payload }) {
+    return request(
+        `${ANT_DESIGN_PRO_TARGET}/user`, {
+            method: 'GET',
+            headers: { 'Authorization': payload.payload.Authorization },
+        });
+}
