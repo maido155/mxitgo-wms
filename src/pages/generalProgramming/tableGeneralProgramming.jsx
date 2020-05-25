@@ -40,55 +40,45 @@ const columns = [
       dataIndex: 'Status',
       key: 'Status',
       width: isMobile ? 100 :100
+    },
+    {
+      title: <FormattedMessage id="general.table.actions-mobil"/>,
+      key: 'action',
+      fixed: 'right',
+      width: isMobile ? 120 : 350,
+      render: () => (
+        <span>
+          <a>
+            {isMobile
+              ? <Icon type="edit"/>
+              : <span><Icon type="edit"/>Editar</span>
+            }
+          </a>
+          <Divider type="vertical" />
+          <a>
+            {isMobile
+              ? <Icon type="close-circle"/>
+              : <span><Icon type="close-circle"/>Cancelar</span>
+            }
+          </a>
+          <Divider type="vertical" />
+          <a>
+            {isMobile
+              ? <Icon type="arrows-alt"/>
+              : <span><Icon type="arrows-alt" />Pendiente</span>
+            }
+          </a>
+          <Divider type="vertical" />
+          <a>
+            {isMobile
+              ? <Icon type="eye"/>
+              : <span><Icon type="eye"/>Visualizar</span>
+            }
+          </a>
+        </span>
+      )
     }
 ];
-
-  if(isMobile){
-    columns.push(
-      {
-        title: <FormattedMessage id="general.table.actions-mobil"/>,
-        key: 'action',
-        fixed: 'right',
-        width: 120,
-       
-        render: () => (
-          <span>
-           <Icon type="edit" theme="filled" />
-            <Divider type="vertical" />
-            <Icon type="close-circle" theme="filled" />
-            <Divider type="vertical" />
-            <Icon type="arrows-alt" />
-            <Divider type="vertical" />
-            <Icon type="eye" theme="filled"  />
-          </span>
-        ),
-      }
-    );
-  }else{
-    columns.push(
-      {
-        title: <FormattedMessage id="general.table.actions"/>,
-        key: 'action',
-        fixed: 'right',
-        width: 350,
-        render: () => (
-          <span>
-            <a><Icon type="edit" theme="filled" /></a>
-            <a> Editar</a>
-            <Divider type="vertical" />
-            <a><Icon type="close-circle" theme="filled" /></a>
-            <a> Cancelar</a>
-            <Divider type="vertical" />
-            <a><Icon type="arrows-alt" /></a>
-            <a> Pendiente</a>
-            <Divider type="vertical" />
-            <a><Icon type="eye" theme="filled"  /></a>
-            <a> Visualizar</a>
-          </span>
-        ),
-      }
-    );
-  }
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
