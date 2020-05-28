@@ -11,9 +11,10 @@ const { Option } = Select;
 var numberPhone = "";
 var ladaPhone = "+521";
 
-@connect(({ user, loading }) => ({
+@connect(({ user,sales, loading }) => ({
     user,
-    loading: loading.models.user,
+    loadingUser: loading.models.user,
+    loadingSales: loading.models.sales,
     userByEmail:user.userByEmail,
     isUpdated:user.isUpdated,
     avatarUser:user.avatarUser
@@ -112,6 +113,7 @@ class AccountSettings extends PureComponent{
     }
 
     UpdateValidation = () => {
+        console.log("test")
         this.props.dispatch({
             type: 'user/updateValidation',
             payload: {},
