@@ -1,4 +1,4 @@
-import { queryCurrent, getDataUserByEmail, updateDataUser, saveAvatarUser, getAvatarUser, getAllUser, query as queryUsers } from '@/services/user';
+import { queryCurrent, getDataUserByEmail, updateDataUser, saveAvatarUser, getAvatarUser, getAllUser, saveNewUser, query as queryUsers } from '@/services/user';
 
 const UserModel = {
     namespace: 'user',
@@ -7,7 +7,9 @@ const UserModel = {
         userByEmail: [],
         isUpdated: false,
         avatarUser: {},
-        allUsers: []
+        allUsers: [],
+        saveUser: false,
+        closeUser: false
     },
     effects: {
         * fetch(_, { call, put }) {
@@ -83,6 +85,30 @@ const UserModel = {
                 type: 'queryAllUsers',
                 payload: response
             })
+        },
+        * saveNewUser({ payload }, { call, put }) {
+            const responsePost = yield call(saveNewUser, payload);
+            yield put({
+                type: 'queryAllUsersSuccess',
+                payload: response
+            })
+            const response = yield call(getAllUser, { payload });
+            yield put({
+                type: 'queryAllUsers',
+                payload: response
+            })
+        },
+        * changedSuccessUser({ payload }, { call, put }) {
+            yield put({
+                type: 'querychangedSuccessUser',
+                payload: {}
+            })
+        },
+        * changedClosedUser({ payload }, { call, put }) {
+            yield put({
+                type: 'querychangedClosedUser',
+                payload: {}
+            })
         }
     },
     reducers: {
@@ -118,7 +144,26 @@ const UserModel = {
         queryAllUsers(state, action) {
             return {
                 ...state,
-                allUsers: action.payload
+                allUsers: action.payload,
+            }
+        },
+        queryAllUsersSuccess(state, action) {
+            return {
+                ...state,
+                saveUser: true
+            }
+        },
+        querychangedSuccessUser(state, action) {
+            return {
+                ...state,
+                saveUser: false,
+                closeUser: true
+            }
+        },
+        querychangedClosedUser(state, action) {
+            return {
+                ...state,
+                closeUser: false
             }
         },
         changeNotifyCount(

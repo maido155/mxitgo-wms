@@ -46,6 +46,14 @@ export async function getAllUser({ payload }) {
     return request(
         `${ANT_DESIGN_PRO_TARGET}/user`, {
             method: 'GET',
-            headers: { 'Authorization': payload.payload.Authorization },
+            headers: { 'Authorization': payload.payload.GET.Authorization },
         });
+}
+
+export async function saveNewUser({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/user`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'Authorization': payload.POST.Authorization },
+        body: JSON.stringify(payload.POST),
+    });
 }
