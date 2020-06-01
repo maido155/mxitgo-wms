@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
-import { Card, Table, Icon, Divider, Button, Spin} from 'antd';
+import { Card, Table, Icon, Divider, Button, Spin, Modal} from 'antd';
 import {isMobile} from 'react-device-detect';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { FormattedMessage } from 'umi-plugin-react/locale';
 import ModalNewUser from './ModalNewUser';
-import DeleteModal from '../generalComponents/ModalDeleteComponent';
 import { connect } from 'dva';
 
+const { confirm } = Modal;
 @connect(({ user, loading }) => ({
     user,
     loading: loading.models.user,
@@ -17,7 +17,6 @@ import { connect } from 'dva';
     dataUser: user.dataUser,
     updateUser: user.updateUser
 }))
-
 export default class UsersLayout extends PureComponent {
     state = { 
         visible: false,
@@ -83,7 +82,6 @@ export default class UsersLayout extends PureComponent {
             payload: {
                 payload: {
                     GET: {
-                        email: localStorage.getItem('email'),
                         Authorization: sessionStorage.getItem('idToken')
                     },
                     PUT: {
@@ -127,6 +125,33 @@ export default class UsersLayout extends PureComponent {
         this.props.dispatch({
             type: 'user/changedClosedUser',
             payload: {},
+        });
+    }
+    deleteModal = (mail, name, familyName) => {
+        confirm({
+            title: '¿Estas seguro de eliminar a ' + name +' ' + familyName + ' ?',
+            okText: 'Si',
+            okType: 'danger',
+            cancelText: 'No',
+            onOk: () => {
+                this.props.dispatch({
+                    type: 'user/deleteNewUser',
+                    payload: {
+                        payload: {
+                            GET: {
+                                Authorization: sessionStorage.getItem('idToken')
+                            },
+                            DELETE: {
+                                userName: mail,
+                                Authorization: sessionStorage.getItem('idToken')
+                            }
+                        },
+                    },
+                });
+            },
+            onCancel() {
+              console.log('Cancel');
+            },
         });
     }
     render(){
@@ -177,8 +202,11 @@ export default class UsersLayout extends PureComponent {
                             }
                         </a>
                         <Divider type="vertical"/>
-                        <a>
-                            <DeleteModal/>
+                        <a onClick={() => this.deleteModal(record.mail, record.nameUser, record.familyName)}>
+                            {isMobile
+                                ? <Icon type="delete" />
+                                : <span><Icon type="delete" /><FormattedMessage id="shipping.label.table-shipping.delete"/></span>
+                            }
                         </a>
                     </span>
                 )

@@ -1,4 +1,4 @@
-import { queryCurrent, getDataUserByEmail, updateDataUser, saveAvatarUser, getAvatarUser, getAllUser, saveNewUser, getDataUser, query as queryUsers } from '@/services/user';
+import { queryCurrent, getDataUserByEmail, updateDataUser, saveAvatarUser, getAvatarUser, getAllUser, saveNewUser, getDataUser, deleteNewUser, query as queryUsers } from '@/services/user';
 
 const UserModel = {
     namespace: 'user',
@@ -130,6 +130,14 @@ const UserModel = {
             yield put({
                 type: 'querychangedClosedUser',
                 payload: {}
+            })
+        },
+        * deleteNewUser({ payload }, { call, put }) {
+            const responseDelete = yield call(deleteNewUser, payload);
+            const response = yield call(getAllUser, { payload });
+            yield put({
+                type: 'queryAllUsers',
+                payload: response
             })
         }
     },

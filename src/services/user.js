@@ -63,3 +63,11 @@ export async function saveNewUser({ payload }) {
         body: JSON.stringify(payload.POST),
     });
 }
+
+export async function deleteNewUser({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/user`, {
+        method: 'DELETE',
+        headers: { 'content-type': 'application/json', 'Authorization': payload.DELETE.Authorization },
+        body: JSON.stringify(payload.DELETE),
+    });
+}
