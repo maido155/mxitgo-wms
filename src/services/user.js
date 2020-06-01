@@ -17,7 +17,13 @@ export async function getDataUserByEmail({ email }) {
             headers: { 'Authorization': email.Authorization },
         });
 }
-
+export async function getDataUser({ email }) {
+    return request(
+        `${ANT_DESIGN_PRO_TARGET}/user/email?email=${email.email}`, {
+            method: 'GET',
+            headers: { 'Authorization': email.Authorization },
+        });
+}
 export async function updateDataUser({ payload }) {
     return request(`${ANT_DESIGN_PRO_TARGET}/user`, {
         method: 'PUT',

@@ -6,6 +6,7 @@ import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import Styles from './StyleUser.css';
 
 const { Option } = Select;
+var numberPhone = "";
 var ladaPhone = "+521";
 class ModalNewUser extends PureComponent{
   state = {
@@ -61,13 +62,19 @@ class ModalNewUser extends PureComponent{
       }
       var phone_number = values.prefix + values.phone_number;
       values.phone_number = phone_number;
-      _self.props.saveNewUser(values);
+      if(this.props.edit == false){
+        _self.props.saveNewUser(values);
+      }else{
+        _self.props.updateNewUser(values);
+      }
       this.props.form.resetFields();
     });
   };
   render(){
     const { getFieldDecorator } = this.props.form;
-    const { edit, loading, saveUser,closeUser } = this.props;
+    const { edit, loading, saveUser, closeUser, dataUser, updateUser } = this.props;
+    numberPhone = "";
+    const number = dataUser.phone_number;
     if(saveUser == true){
       this.props.changedSuccess();
       message.success('Se agregó con éxito');
@@ -75,6 +82,14 @@ class ModalNewUser extends PureComponent{
     if(closeUser == true){
       this.props.cancel();
       this.props.changedClosed();
+    }
+    if(updateUser == true){
+      this.props.changedSuccess();
+      message.success('Se modifico con éxito');
+    }
+    if(number != undefined){
+      numberPhone = number.substr(4);
+      ladaPhone = number.substr(-14,4);
     }
     const formItemLayout = {
       labelCol: {xs: { span: 24 },sm: { span: 24 },md: { span: 10 },lg: { span: 9 },xl: { span: 7 }},
@@ -101,38 +116,55 @@ class ModalNewUser extends PureComponent{
             <Row>
               <Col span={24}>
                 <Form.Item label={formatMessage({ id: 'register.label.name' })}>
-                  {getFieldDecorator('name', { rules: [{ required: true, message: <FormattedMessage id="register.mode.message.name"/>}]})
-                  (<Input/>)}
+                  { edit == false &&
+                    getFieldDecorator('name', {rules: [{ required: true, message: <FormattedMessage id="register.mode.message.name"/>}]})(<Input/>)
+                  }
+                  { edit == true &&
+                    getFieldDecorator('name', { initialValue: dataUser.name, rules: [{ required: true, message: <FormattedMessage id="register.mode.message.name"/>}]})(<Input/>)
+                  }
                 </Form.Item>
               </Col>
             </Row>
             <Row>
               <Col span={24}>
                 <Form.Item label={formatMessage({ id: 'register.label.lastfam' })}>
-                  {getFieldDecorator('family_name',{ rules: [{ required: true, message: <FormattedMessage id="register.mode.message.lastfam"/>}]})
-                  (<Input/>)}
+                  { edit == false &&
+                    getFieldDecorator('family_name',{ rules: [{ required: true, message: <FormattedMessage id="register.mode.message.lastfam"/>}]})(<Input/>)
+                  }
+                  { edit == true &&
+                    getFieldDecorator('family_name',{ initialValue: dataUser.family_name, rules: [{ required: true, message: <FormattedMessage id="register.mode.message.lastfam"/>}]})(<Input/>)
+                  }
                 </Form.Item>
               </Col>
             </Row>
             <Row>
               <Col span={24}>
                 <Form.Item label={formatMessage({ id: 'register.label.lastmid' })}>
-                  {getFieldDecorator('middle_name',{ rules: [{ required: true, message: <FormattedMessage id="register.mode.message.lastmid"/>}]})
-                  (<Input/>)}
+                  { edit == false &&
+                    getFieldDecorator('middle_name',{ rules: [{ required: true, message: <FormattedMessage id="register.mode.message.lastmid"/>}]})(<Input/>)
+                  }
+                  { edit == true &&
+                    getFieldDecorator('middle_name',{ initialValue: dataUser.middle_name, rules: [{ required: true, message: <FormattedMessage id="register.mode.message.lastmid"/>}]})(<Input/>)
+                  }
                 </Form.Item>
               </Col>
             </Row>
             <Row>
               <Col span={24}>
                 <Form.Item label={formatMessage({ id: 'register.label.email' })}>
-                  {getFieldDecorator('email',{ rules: [{ required: true, message: <FormattedMessage id="register.mode.message.email"/>},
-                    { type: 'email', message: <FormattedMessage id="register.mode.message.email-inv"/>}]})
-                  (<Input/>)}
+                  { edit == false &&
+                    getFieldDecorator('email',{ rules: [{ required: true, message: <FormattedMessage id="register.mode.message.email"/>},
+                    { type: 'email', message: <FormattedMessage id="register.mode.message.email-inv"/>}]})(<Input/>)
+                  }
+                  { edit == true &&
+                    getFieldDecorator('email',{ initialValue: dataUser.email, rules: [{ required: true, message: <FormattedMessage id="register.mode.message.email"/>},
+                    { type: 'email', message: <FormattedMessage id="register.mode.message.email-inv"/>}]})(<Input disabled/>)
+                  }
                 </Form.Item>
               </Col>
             </Row>
-            {/* { edit === false &&
-              <span> */}
+            { edit === false &&
+              <span>
                 <Row>
                   <Col span={24}>
                     <Form.Item label="Password">
@@ -151,14 +183,19 @@ class ModalNewUser extends PureComponent{
                   </Form.Item>
                   </Col>
                 </Row>
-              {/* </span>
-            } */}
+              </span>
+            }
             <Row>
               <Col span={24}>
                 <Form.Item label={formatMessage({ id: 'register.label.phone' })}>
-                  {getFieldDecorator('phone_number', { rules: [{ required: true, message: <FormattedMessage id="register.mode.message.phone"/> },
-                    { pattern: /^\d{10}$/, message: <FormattedMessage id="register.security.message.phone"/>}],})
-                  (<Input addonBefore={prefixSelector}/>)}
+                  { edit == false &&
+                    getFieldDecorator('phone_number', { rules: [{ required: true, message: <FormattedMessage id="register.mode.message.phone"/> },
+                    { pattern: /^\d{10}$/, message: <FormattedMessage id="register.security.message.phone"/>}],})(<Input addonBefore={prefixSelector}/>)
+                  }
+                  { edit == true &&
+                    getFieldDecorator('phone_number', { initialValue: numberPhone, rules: [{ required: true, message: <FormattedMessage id="register.mode.message.phone"/> },
+                    { pattern: /^\d{10}$/, message: <FormattedMessage id="register.security.message.phone"/>}],})(<Input addonBefore={prefixSelector}/>)
+                  }
                 </Form.Item>
               </Col>
             </Row>

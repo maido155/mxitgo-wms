@@ -5,6 +5,7 @@ import {isMobile} from 'react-device-detect';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { FormattedMessage } from 'umi-plugin-react/locale';
 import ModalNewUser from './ModalNewUser';
+import DeleteModal from '../generalComponents/ModalDeleteComponent';
 import { connect } from 'dva';
 
 @connect(({ user, loading }) => ({
@@ -12,15 +13,15 @@ import { connect } from 'dva';
     loading: loading.models.user,
     allUsers:user.allUsers,
     saveUser: user.saveUser,
-    closeUser: user.closeUser
+    closeUser: user.closeUser,
+    dataUser: user.dataUser,
+    updateUser: user.updateUser
 }))
 
 export default class UsersLayout extends PureComponent {
     state = { 
         visible: false,
-        // loading: false,
-        // edit: false,
-        // nameUser: ""
+        edit: false
     };
     showModal = () => {
         this.setState({
@@ -29,20 +30,21 @@ export default class UsersLayout extends PureComponent {
     };
     handleCancel = e => {
         this.setState({
-            // edit: false,
             visible: false
         });
-        // this.res();
+        this.res();
     };
-
-    // res = () => {
-    //     setTimeout(() => {
-    //         this.setState({
-    //             edit: false,
-    //         }); 
-    //     }, 1000);
-    // }
-
+    res = () => {
+        this.props.dispatch({
+            type: 'user/cleanUser',
+            payload: {},
+        });
+        setTimeout(() => {
+            this.setState({
+                edit: false,
+            }); 
+        }, 1000);
+    }
     componentDidMount() {
         this.props.dispatch({
            type: 'user/fetchAllUsers',
@@ -75,13 +77,46 @@ export default class UsersLayout extends PureComponent {
             },
         });
     }
-    // editModal = (mail) => {
-    //     this.showModal();
-    //     this.setState({
-    //         edit: true,
-    //         nameUser: mail
-    //     });
-    // }
+    updateNewUser = values => {
+        this.props.dispatch({
+            type: 'user/updateNewUser',
+            payload: {
+                payload: {
+                    GET: {
+                        email: localStorage.getItem('email'),
+                        Authorization: sessionStorage.getItem('idToken')
+                    },
+                    PUT: {
+                        name: "name",
+                        valueName: values.name,
+                        family: "family_name",
+                        valueFamiy: values.family_name,
+                        middle: "middle_name",
+                        valueMiddle: values.middle_name,
+                        phone: "phone_number",
+                        valuePhone: values.phone_number,
+                        username: values.email,
+                        Authorization: sessionStorage.getItem('idToken')
+                    }
+                },
+            },
+        });
+    }
+    editModal = (mail) => {
+        this.props.dispatch({
+            type: 'user/fetchUser',
+            payload: {
+                payload: {
+                    email: mail,
+                    Authorization: sessionStorage.getItem('idToken')
+                }
+            },
+        });
+        this.showModal();
+        this.setState({
+            edit: true,
+        });
+    }
     changedSuccess = () => {
         this.props.dispatch({
             type: 'user/changedSuccessUser',
@@ -95,7 +130,7 @@ export default class UsersLayout extends PureComponent {
         });
     }
     render(){
-        const { allUsers, loading, saveUser, closeUser } = this.props;
+        const { allUsers, loading, saveUser, closeUser, dataUser, updateUser } = this.props;
         const columns = [
             {
               title: 'Nombre',
@@ -135,7 +170,7 @@ export default class UsersLayout extends PureComponent {
                 width: isMobile ? 70 : 150,
                 render: (record) => (
                     <span>
-                        <a > {/* onClick={() => this.editModal(record.mail)} */}
+                        <a onClick={() => this.editModal(record.mail)}>
                             {isMobile
                                 ? <Icon type="edit"/>
                                 : <span><Icon type="edit"/><FormattedMessage id="shipping.label.table-shipping.edit"/></span>
@@ -143,10 +178,7 @@ export default class UsersLayout extends PureComponent {
                         </a>
                         <Divider type="vertical"/>
                         <a>
-                            {isMobile
-                                ? <Icon type="delete" />
-                                : <span><Icon type="delete" /><FormattedMessage id="shipping.label.table-shipping.delete"/></span>
-                            }
+                            <DeleteModal/>
                         </a>
                     </span>
                 )
@@ -165,13 +197,15 @@ export default class UsersLayout extends PureComponent {
                             closeUser={closeUser}
                             changedSuccess={this.changedSuccess}
                             changedClosed={this.changedClosed}
-                            // edit={this.state.edit} 
-                            // nameUser={this.state.nameUser} 
+                            edit={this.state.edit} 
+                            dataUser={dataUser} 
+                            updateNewUser={this.updateNewUser}
+                            updateUser={updateUser}
                         />
                         <div align="right">
                             <Button type="primary" shape="circle" onClick={this.showModal}>+</Button>
                         </div>
-                        <Table style={{marginTop: "1rem"}} size="small" columns={columns} dataSource={allUsers} scroll={isMobile ? {x: 960, y: 400} : {x: 900 , y: 220}} pagination={false}/>
+                        <Table style={{marginTop: "1rem"}} size="small" columns={columns} dataSource={allUsers} scroll={isMobile ? {x: 960, y: 400} : {x: 900 , y: 185}} pagination={false}/>
                     </Spin>
                 </Card>
             </PageHeaderWrapper>
