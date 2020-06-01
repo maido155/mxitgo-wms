@@ -10,6 +10,7 @@ import TableOutWard from './TableOutWard';
 
 export default class OutWard extends PureComponent {
     render() {
+        console.log("Test");
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 7 },md: { span: 9 },lg: { span: 9 },xl: { span: 5 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 14 },md: { span: 15 },lg: { span: 15 },xl: { span: 15 }}
