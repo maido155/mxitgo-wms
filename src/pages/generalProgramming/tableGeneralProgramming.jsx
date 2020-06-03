@@ -2,74 +2,54 @@ import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import {isMobile} from 'react-device-detect';
 import { Table, Divider, Icon } from 'antd';
+import { FormattedMessage} from 'umi-plugin-react/locale';
 
 const columns = [
   {
     title: 'Semana',
-    dataIndex: 'week',
-
+    dataIndex: 'Week',
+    key: 'Week',
+    width: isMobile ? 100 :100
   },
   {
     title: 'Tipo de producto',
-    dataIndex: 'products',
+    dataIndex: 'Product',
+    key: 'Product',
+    width: isMobile ? 130 :100
   },
   {
     title: 'Cliente',
-    dataIndex: 'client',
+    dataIndex: 'Client',
+    key: 'Client',
+    width: isMobile ? 90 :100
   },
   {
       title: 'Cajas',
-      dataIndex: 'box',
+      dataIndex: 'Box',
+      key: 'Box',
+      width: isMobile ? 90 :100
     },
     {
       title: 'Pallets',
-      dataIndex: 'pallets',
+      dataIndex: 'Pallets',
+      key: 'Pallets',
+      width: isMobile ? 90 :100
     },
     {
       title: 'Status',
-      dataIndex: 'status',
+      dataIndex: 'Status',
+      key: 'Status',
+      width: isMobile ? 100 :100
     }
-];
-
-const data = [
-  {
-    key: '1',
-    week: '10 - 12',
-    products: "Gold",
-    client: 'Vallejo',
-    box:  "7400",
-    pallets: "500",
-    status: "Programado",
-   
-  },
-  {
-      key: '2',
-    week: '6-12',
-    products: "Premium",
-    client: 'Cuautitlán',
-    box:  "8200",
-    pallets: "530",
-    status: "220",
-   
-  },
-  {
-      key: '3',
-    week: '31-5',
-    products: "Gold",
-    client: 'Reparto',
-    box:  "7400",
-    pallets: "500",
-    status: "43",
-   
-  },
 ];
 
   if(isMobile){
     columns.push(
       {
-        title: 'Acciones',
+        title: <FormattedMessage id="general.table.actions-mobil"/>,
         key: 'action',
         fixed: 'right',
+        width: 120,
        
         render: () => (
           <span>
@@ -87,10 +67,10 @@ const data = [
   }else{
     columns.push(
       {
-        title: 'Acciones',
+        title: <FormattedMessage id="general.table.actions"/>,
         key: 'action',
         fixed: 'right',
-       
+        width: 350,
         render: () => (
           <span>
             <a><Icon type="edit" theme="filled" /></a>
@@ -122,8 +102,9 @@ const rowSelection = {
 
 class TableGeneralProgramming extends PureComponent{
     render(){
+      const { datesPrograming } = this.props;
         return(
-            <Table  style={{marginTop: "2%"}} size="small" rowSelection={rowSelection} columns={columns} dataSource={data}  />
+            <Table  style={{marginTop: "2%"}} size="small" rowSelection={rowSelection} columns={columns} dataSource={datesPrograming} scroll={isMobile ? {x: 720} : {x: 950}}  />
         );
     }
 }

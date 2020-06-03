@@ -112,20 +112,36 @@ export default {
               path: '/generalProgramming',
               name: 'Programación General',
               icon: 'setting',
-              component: './generalProgramming/generalProgramming'
+              component: './generalProgramming/generalProgramming',
             },
             {
               path: '/shippingMaster',
               name: 'Maestro de envíos',
-              icon: 'arrow-right',
+              icon: 'export',
               component: './shipping/ShippingMaster',
             },
             {
-              path: '/outWard',
+              path: '/outgoing',
               name: 'Salidas',
-              icon: 'arrow-left',
+              icon: 'import',
               component: './outward/OutWard',
             },
+
+            
+            {
+              path: '/userSettings',
+              name: 'Configuración de usuarios',
+              icon: 'control',
+              routes: [
+               {
+                 path:'./UsersModule/UsersLayout',
+                 name:'Usuarios',
+                 icon:'user',
+                 component: './UsersModule/UsersLayout'
+               }
+             ]
+            },
+        
             {
               path: '/settings',
               component: './account/AccountSettings'

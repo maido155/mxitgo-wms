@@ -3,6 +3,8 @@ import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import { Row, Col, Button, Icon, label } from 'antd';
 
+import { FormattedMessage} from 'umi-plugin-react/locale';
+
 const { RangePicker} = DatePicker;
 
 
@@ -22,7 +24,7 @@ class ModalCalendar extends PureComponent {
             <Form {...formItemLayout}> 
             <Row type="flex" justify="center">
                 <Col xs={3} sm={3} md={3} lg={3} xl={3} style={{textAlign:"left"}}>
-                    <label>Semana: </label>
+                    <label><FormattedMessage id="general.calendar.week"/> </label>
                 </Col>
                 <Col  xs={18} sm={18} md={18} lg={18} xl={18}>
                     <RangePicker/>

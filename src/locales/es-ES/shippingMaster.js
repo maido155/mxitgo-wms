@@ -26,7 +26,7 @@ export default {
     'shipping.tablecomponent.label.hand': 'Mano',
     'shipping.tablecomponent.label.finger': 'Dedo',
     'shipping.tablecomponent.label.actions': 'Acciones',
-    'shipping.newline.label.title': 'Nueva Linea',
+    'shipping.newline.label.title': 'Nueva Línea',
     'shipping.treeselect.label.select': 'Selecciona',
     'shipping.button.program': 'Programar',
     'shipping.button.conf': 'Confirmar',
@@ -34,6 +34,17 @@ export default {
     'shipping.shippingconfirmation.title': 'Confirmacion de envíos',
     'shipping.shippingconfirmation.id-order': 'Id Pedido',
     'shipping.shippingconfirmation.driver': 'Chofer',
-    'shipping.shippingconfirmation.phone': 'Telefono'
+    'shipping.shippingconfirmation.phone': 'Telefono',
+    'menu.Maestro de envíos': 'Maestro de envíos',
+    'shipping.label.table-shipping.id': 'Id',
+    'shipping.label.table-shipping.ubication':'Ubicacion',
+    'shipping.label.table-shipping.output':'Salida',
+    'shipping.shippingconfirmation.title': 'Nueva entrada',
+    'shipping.shippingconfirmation.comments': 'Comentarios',
+    'shipping.shippingconfirmation.photo':'Foto',
+    'shipping.entryProducts.amounts': 'Cantidades',
+    'shipping.entryProducts.temperature':'Temperatura',
+    'shipping.entryProducts.photo':'Foto',
+    'shipping.entryProducts.title':'Detalle del producto'
 
 };

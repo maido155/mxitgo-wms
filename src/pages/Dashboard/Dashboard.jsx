@@ -8,6 +8,7 @@ import RangePickerComponent from '../generalComponents/RangePickerComponent';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
 import { Row, Col,Card,Divider,Form} from 'antd';
 import {isMobile, isTablet} from "react-device-detect";
+import { formatMessage } from 'umi-plugin-react/locale';
 import 'moment/locale/en-au';
 import GridDashboard from './GridDashboard';
 

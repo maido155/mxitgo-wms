@@ -1,21 +1,25 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
-import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import { Table, Divider, Tag } from 'antd';
+import { formatMessage } from 'umi-plugin-react/locale';
+import { Table} from 'antd';
+import {isMobile} from 'react-device-detect';
 
 const columns = [
     {
       title: formatMessage({ id: 'outWard.label.tableassignment-order' }),
       dataIndex: 'pedido',
+      width: isMobile ? 120 : 120,
       render: text => <a>{text}</a>,
     },
     {
       title: formatMessage({ id: 'outWard.button.composition-outward-pallets-ass' }),
-      dataIndex: 'pallets'
+      dataIndex: 'pallets',
+      width: isMobile ? 140 : 140,
     },
     {
       title: formatMessage({ id: 'outWard.button.composition-outward-boxes-ass' }),
-      dataIndex: 'cajas'
+      dataIndex: 'cajas',
+      width: isMobile ? 140 : 140
     }
 ];
 const data = [
@@ -47,7 +51,7 @@ const data = [
 export default class TableComposition extends PureComponent {
     render() {
         return (
-            <Table columns={columns} dataSource={data} pagination={false}/>
+            <Table columns={columns} dataSource={data} pagination={false} scroll={isMobile ? {x: 400} : {x: 400}}/>
         );            
     }
 }

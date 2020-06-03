@@ -5,6 +5,8 @@ import TableModal from './tableModalEntry';
 import GridModal from './gridModalEntry';
 import {isMobile} from 'react-device-detect';
 import Styles from './StylesShipping.css';
+import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
+
 
 const { TextArea } = Input;
 
@@ -60,11 +62,12 @@ class drawerEntry extends PureComponent {
       return (
         <div>
             <Drawer
-                title="Nueva Entrada"
+                title={formatMessage({ id: 'shipping.shippingconfirmation.title' })}
                 width={isMobile ? "100%" : "70%"}
-                onClose={this.props.cancelModal}
-                visible={this.props.visibleModal}
+                onClose={this.props.handleCancelEntry}
+                visible={this.props.visibleEntry}
                 bodyStyle={{ paddingBottom: 80 }}
+                getContainer={isMobile ? false : true} 
             >
                 <TableModal/>
                 <Row type="flex" justify="center" style={{marginTop: "2rem"}}>
@@ -73,10 +76,10 @@ class drawerEntry extends PureComponent {
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                         <Form {...formItemLayout} className={Styles.comments}>
-                            <Form.Item label={'Comentarios'}>
+                            <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.comments' })}>
                                 <TextArea/>
                             </Form.Item>
-                            <Form.Item label={'Foto'}>
+                            <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.photo' })}>
                                 <Upload
                                     name="avatar"
                                     listType="picture-card"
@@ -105,10 +108,10 @@ class drawerEntry extends PureComponent {
                     }}
                 >
                     <Button onClick={this.props.cancelModal} style={{ marginRight: 8 }} type="danger">
-                        Cancelar
+                        <FormattedMessage id="shipping.button.cancel"/>
                     </Button>
                     <Button onClick={this.props.cancelModal} type="primary">
-                        Aceptar
+                       <FormattedMessage id="shipping.button.conf"/>
                     </Button>
                 </div>
             </Drawer>
