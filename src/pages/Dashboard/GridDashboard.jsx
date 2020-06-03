@@ -168,7 +168,7 @@ class GridDashboard extends PureComponent {
               <p><FormattedMessage id="dashboard.text.total-necessity"/> </p>
              
                 
-                <p><Title level={dataFour}>1500</Title></p>
+                <p><Title level={dataFour}>1500 TEST</Title></p>
                 <Tooltip >
                    <Progress percent={60} successPercent={30} showInfo={false} strokeWidth={dataSeven} />
                </Tooltip>
