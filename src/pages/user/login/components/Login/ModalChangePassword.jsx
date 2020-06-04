@@ -52,8 +52,8 @@ const passwordStatusMap = {
   };
   
 
-const ModalChangePassword = Form.create()(
-    class extends React.Component {
+
+    class ModalChangePassword  extends React.Component {
         constructor(props) {
             super(props);
     
@@ -208,7 +208,7 @@ const ModalChangePassword = Form.create()(
         
         render() {
             const {  form } = this.props;
-            const { getFieldDecorator } = form;
+            //const { getFieldDecorator } = form;
             
             const { visibleFormCode,disabledBtnSendMail, visibleHelp, help} = this.state;
             const formItemLayout = {
@@ -235,16 +235,12 @@ const ModalChangePassword = Form.create()(
 
 
 
-                <Form   {...formItemLayout} onSubmit={(this.onSubmitChangePassword)}>
+                <Form   {...formItemLayout} onFinish={(this.onSubmitChangePassword)}>
                
-                        <FormItem label="Email">
-                        {getFieldDecorator('email', {
-                            rules: [{
-                                type: 'email', required: true, message:"El email es requerido" ,
-                        }],
-                        })(
+                        <FormItem  rules={[{ type: 'email', required: true, message:"El email es requerido" }]} label="Email">
+                       
                             <Input type="email" onBlur={this.handleConfirmBlur}/>
-                        )}
+                      
                     </FormItem> 
                     <Row>
                             <Col xs={24}sm={9}md={9}lg={9}xl={8}></Col>
@@ -261,7 +257,8 @@ const ModalChangePassword = Form.create()(
 
                     <Form   {...formItemLayout} onSubmit={(this.onSubmitConfirmCode)}>
 
-                    { visibleFormCode==true &&
+                    // eslint-disable-next-line eqeqeq
+                    { visibleFormCode===true &&
                       <div>
                             <Divider></Divider>
                                     <FormItem label="Código">
@@ -332,7 +329,6 @@ const ModalChangePassword = Form.create()(
             );
         }
     }
-);
 export default ModalChangePassword;
 
 

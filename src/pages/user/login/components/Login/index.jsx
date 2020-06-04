@@ -9,7 +9,9 @@ import styles from './index.less';
 
 class Login extends Component {
   static Tab = LoginTab;
+  // eslint-disable-next-line lines-between-class-members
   static Submit = LoginSubmit;
+
   static defaultProps = {
     className: '',
     defaultActiveKey: '',
@@ -48,6 +50,7 @@ class Login extends Component {
       },
     );
   };
+
   getContext = () => {
     const { form } = this.props;
     const { tabs = [] } = this.state;
@@ -80,25 +83,31 @@ class Login extends Component {
       },
     };
   };
-  handleSubmit = e => {
-    e.preventDefault();
+
+  onFinish = values => {
+
+    // eslint-disable-next-line no-console
+    console.log(values);
+   // e.preventDefault();
     const { active = {}, type = '' } = this.state;
     const { form, onSubmit } = this.props;
     const activeFields = active[type] || [];
+    onSubmit(values);
 
-    if (form) {
+    /* if (form) {
       form.validateFields(
         activeFields,
         {
           force: true,
         },
+        // eslint-disable-next-line no-shadow
         (err, values) => {
           if (onSubmit) {
             onSubmit(err, values);
           }
         },
       );
-    }
+    } */
   };
 
   render() {
@@ -106,7 +115,7 @@ class Login extends Component {
     const { type, tabs = [] } = this.state;
     const TabChildren = [];
     const otherChildren = [];
-    React.Children.forEach(children, child => {
+    /* React.Children.forEach(children, child => {
       if (!child) {
         return;
       }
@@ -116,11 +125,11 @@ class Login extends Component {
       } else {
         otherChildren.push(child);
       }
-    });
+    }); */
     return (
       <LoginContext.Provider value={this.getContext()}>
         <div className={classNames(className, styles.login)}>
-          <Form onSubmit={this.handleSubmit}>
+          <Form onFinish={this.onFinish}>
             {tabs.length ? (
               <React.Fragment>
                 <Tabs
@@ -146,4 +155,4 @@ class Login extends Component {
 Object.keys(LoginItem).forEach(item => {
   Login[item] = LoginItem[item];
 });
-export default Form.create()(Login);
+export default Login;

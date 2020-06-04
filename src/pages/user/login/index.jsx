@@ -1,3 +1,5 @@
+/* eslint-disable react/sort-comp */
+/* eslint-disable react/no-unused-state */
 import { Alert, Checkbox, Icon, message } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import React, { Component } from 'react';
@@ -6,12 +8,12 @@ import { connect } from 'dva';
 import LoginComponents from './components/Login';
 import ModalChangePassword from '../login/components/Login/ModalChangePassword'
 import styles from './style.less';
-//import router from 'umi/router';
-import { config as AWSConfig } from 'aws-sdk';
-var AWS = require('aws-sdk');
-const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginComponents;
+
+const AWS = require('aws-sdk');
+
+const {  UserName, Password, Submit } = LoginComponents;
 const AmazonCognitoIdentity  = require('amazon-cognito-identity-js');
-//const Cognito = require('./../../../utils/Cognito.js');
+// const Cognito = require('./../../../utils/Cognito.js');
 
 @connect(({ login, loading }) => ({
   userLogin: login,
@@ -20,6 +22,7 @@ const AmazonCognitoIdentity  = require('amazon-cognito-identity-js');
 
 class Login extends Component {
   loginForm = undefined;
+
   state = {
     type: 'account',
     autoLogin: true,
@@ -36,7 +39,7 @@ class Login extends Component {
 
   
 
-  doLogin = async (_params) => {
+  doLogin = async _params => {
     const { dispatch } = this.props;
     try {
       dispatch({
@@ -45,7 +48,9 @@ class Login extends Component {
       });
      
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log("*****Err");
+      // eslint-disable-next-line no-console
       console.log(error);
     }
   };
@@ -53,29 +58,32 @@ class Login extends Component {
 
 
   handleConfirmCode = () => {
-   var self = this;
-   let userName     = self.formRefDraw.props.form.getFieldValue('email');
-   let code         = self.formRefDraw.props.form.getFieldValue('code');
-   let newPassword  = self.formRefDraw.props.form.getFieldValue('newPassword');
+   const self = this;
+   const userName     = self.formRefDraw.props.form.getFieldValue('email');
+   const code         = self.formRefDraw.props.form.getFieldValue('code');
+   const newPassword  = self.formRefDraw.props.form.getFieldValue('newPassword');
+   // eslint-disable-next-line eqeqeq
    if(userName==undefined || code==undefined || newPassword==undefined){
     return; 
    }
-    var poolData = {
+    const poolData = {
+      // eslint-disable-next-line no-undef
       UserPoolId : ANT_DESIGN_PRO_USER_POOL_ID, // your user pool id here "us-east-1_3ANmKhLSt"
+      // eslint-disable-next-line no-undef
       ClientId : ANT_DESIGN_PRO_CLIENT_ID // your app client id here "25h6ahb7sda3lvk1qs8v5u0ol0"
     };
-    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-    var userData = {
+    const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    const userData = {
       Username : userName, // your username here
       Pool : userPool
     };
-    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
     cognitoUser.confirmPassword(code, newPassword,  {
-      onSuccess: function (result) {
+      onSuccess () {
         message.success("Contraseña restaurada exitosamente!");
         self.handleCancel();
       },
-      onFailure: function(err) {
+      onFailure(err) {
         if(err){
           message.error(err.message);
         }
@@ -84,34 +92,34 @@ class Login extends Component {
   }
 
   loginCognito(values){
-    var self = this;
+    const self = this;
 
-    var authenticationData = {
+    const authenticationData = {
       Username : values.userName, 
       Password : values.userPassword
     };
-    var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+    const authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
  
-    var poolData = {
+    const poolData = {
       UserPoolId : ANT_DESIGN_PRO_USER_POOL_ID,
       ClientId : ANT_DESIGN_PRO_CLIENT_ID
     };
     // Create the User Pool Object
-    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-    var userData = {
+    const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    const userData = {
       Username : values.userName, // your username here
       Pool : userPool
     };
-    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: function (result) {
         /* Use the idToken for Logins Map when Federating User Pools with identity pools or when passing through an Authorization Header to an API Gateway Authorizer*/
-        var accessToken = result.getAccessToken().getJwtToken();
-        var idToken     = result.idToken.jwtToken;
+        const accessToken = result.getAccessToken().getJwtToken();
+        const idToken     = result.idToken.jwtToken;
         sessionStorage.setItem('accessToken',accessToken);
         sessionStorage.setItem('idToken', idToken);
-        let email = authenticationData.Username;
-        let params = { email: email, Authorization: idToken}
+        const email = authenticationData.Username;
+        const params = { email: email, Authorization: idToken}
         self.doLogin(params);
         
 
@@ -124,7 +132,7 @@ class Login extends Component {
         }
       },
      
-      newPasswordRequired: function(userAttributes, requiredAttributes) {
+      newPasswordRequired: function(userAttributes) {
           // User was signed up by an admin and must provide new 
           // password and required attributes, if any, to complete 
           // authentication.
@@ -139,8 +147,8 @@ class Login extends Component {
           // attributesData: object with key as attribute name and value that the user has given.
           self.setState({
             visibleModal : true,
-            userData: userData,
-            userAttributes: userAttributes
+            userData,
+            userAttributes
           });
 
       }
@@ -149,14 +157,11 @@ class Login extends Component {
 
   }
 
-  handleSubmit = (err, values) => {
-    const { type } = this.state;
-    var self = this;
-    if (!err) {
-      const { dispatch } = this.props;
-      console.log(values);
+  handleSubmit = values => {
+    //const self = this;
+   
 
-       self.loginCognito(values);
+    this.loginCognito(values);
     
       //  Cognito.loginCognito(values,{
         
@@ -177,7 +182,7 @@ class Login extends Component {
 
 
 
-    }
+  
   };
 
   saveFormRefDraw = (formRef) => {
@@ -212,35 +217,32 @@ class Login extends Component {
 
  handleSubmitChangePassword= () => {
     const form = this.formRefDraw.props.form;
-    let _self = this;
     form.validateFields((err, values) => {
         if (err) {
             console.log(err);
             return;
         }
-        var authenticationData = {
+        const authenticationData = {
           Username : values.email, 
           Password : values.oldUserPassword
         };
-        var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
      
-        var poolData = {
+        const poolData = {
           UserPoolId : ANT_DESIGN_PRO_USER_POOL_ID,
           ClientId : ANT_DESIGN_PRO_CLIENT_ID,
         };
-        var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-        var userData = {
+        const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+        const userData = {
           Username : values.email, // your username here
           Pool : userPool
         };
-        var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
   
         AWS.config.update({ region: 'us-east-1', accessKeyId: 'AKIAWDTBANJH3M5N4UES', secretAccessKey: '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' });
-        var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
+        const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 
 
 
-        var params = {
+        const params = {
         ClientId:  ANT_DESIGN_PRO_CLIENT_ID, // required 
         Username: values.email, // required 
         };
