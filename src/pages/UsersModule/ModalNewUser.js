@@ -15,7 +15,7 @@ class ModalNewUser extends PureComponent{
   compareToFirstPassword = (rule, value, callback) => {
     const { form } = this.props;
     if (value && value !== form.getFieldValue('password')) {
-      callback(formatMessage({ id: 'register.security.message.password-again' }));
+      callback(formatMessage({ id: 'usersModule.modal.message_confpass' }));
     } else {
       callback();
     }
@@ -34,19 +34,19 @@ class ModalNewUser extends PureComponent{
       return;
     }
     if(upperCase == false){
-      callback('Debe tener una letra mayúscula')
+      callback(formatMessage({ id: 'usersModule.modal.password_uppercase' }))
     }
     if(lowerCase == false){
-      callback('Debe tener una minuscula')
+      callback(formatMessage({ id: 'usersModule.modal.password_lowercase' }))
     }
     if(number == false){
-      callback('Debe tener un numero')
+      callback(formatMessage({ id: 'usersModule.modal.password_number' }))
     }
     if(character == false){
-      callback('Debe tener un character')
+      callback(formatMessage({ id: 'usersModule.modal.password_character' }))
     }
     if(value.length < 8){
-      callback('Ingrese al menos 8 caracteres')
+      callback(formatMessage({ id: 'usersModule.modal.password_length' }))
     }
     callback();
   };
@@ -77,7 +77,7 @@ class ModalNewUser extends PureComponent{
     const number = dataUser.phone_number;
     if(saveUser == true){
       this.props.changedSuccess();
-      message.success('Se agregó con éxito');
+      message.success(formatMessage({ id: 'usersModule.notification.success' }));
     }
     if(closeUser == true){
       this.props.cancel();
@@ -85,7 +85,7 @@ class ModalNewUser extends PureComponent{
     }
     if(updateUser == true){
       this.props.changedSuccess();
-      message.success('Se modifico con éxito');
+      message.success(formatMessage({ id: 'usersModule.notification.edit' }));
     }
     if(number != undefined){
       numberPhone = number.substr(4);
@@ -99,13 +99,13 @@ class ModalNewUser extends PureComponent{
       initialValue: ladaPhone,
     })(
       <Select>
-        <Option value="+521"><FormattedMessage id="accountSettings.label.prefix-one"/></Option>
-        <Option value="+522"><FormattedMessage id="accountSettings.label.prefix-two"/></Option>
+        <Option value="+521"><FormattedMessage id="usersModule.modal.select_one"/></Option>
+        <Option value="+522"><FormattedMessage id="usersModule.modal.select_two"/></Option>
       </Select>,
     );
     return(
       <Drawer
-        title= {edit === false ? "Nuevo Usuario" : "Editar Usuario"}
+        title= {edit === false ? formatMessage({ id: 'usersModule.modal.modal_name' }) : formatMessage({ id: 'usersModule.modal.modal_name_edit' })}
         width={isMobile ? "100%" : "50%"}
         onClose={this.props.cancel}
         visible={this.props.visible}
@@ -115,50 +115,50 @@ class ModalNewUser extends PureComponent{
           <Spin spinning={loading}>
             <Row>
               <Col span={24}>
-                <Form.Item label={formatMessage({ id: 'register.label.name' })}>
+                <Form.Item label={formatMessage({ id: 'usersModule.modal.name' })}>
                   { edit == false &&
-                    getFieldDecorator('name', {rules: [{ required: true, message: <FormattedMessage id="register.mode.message.name"/>}]})(<Input/>)
+                    getFieldDecorator('name', {rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_name"/>}]})(<Input/>)
                   }
                   { edit == true &&
-                    getFieldDecorator('name', { initialValue: dataUser.name, rules: [{ required: true, message: <FormattedMessage id="register.mode.message.name"/>}]})(<Input/>)
+                    getFieldDecorator('name', { initialValue: dataUser.name, rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_name"/>}]})(<Input/>)
                   }
                 </Form.Item>
               </Col>
             </Row>
             <Row>
               <Col span={24}>
-                <Form.Item label={formatMessage({ id: 'register.label.lastfam' })}>
+                <Form.Item label={formatMessage({ id: 'usersModule.modal.family_name' })}>
                   { edit == false &&
-                    getFieldDecorator('family_name',{ rules: [{ required: true, message: <FormattedMessage id="register.mode.message.lastfam"/>}]})(<Input/>)
+                    getFieldDecorator('family_name',{ rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_family"/>}]})(<Input/>)
                   }
                   { edit == true &&
-                    getFieldDecorator('family_name',{ initialValue: dataUser.family_name, rules: [{ required: true, message: <FormattedMessage id="register.mode.message.lastfam"/>}]})(<Input/>)
+                    getFieldDecorator('family_name',{ initialValue: dataUser.family_name, rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_family"/>}]})(<Input/>)
                   }
                 </Form.Item>
               </Col>
             </Row>
             <Row>
               <Col span={24}>
-                <Form.Item label={formatMessage({ id: 'register.label.lastmid' })}>
+                <Form.Item label={formatMessage({ id: 'usersModule.modal.middle_name' })}>
                   { edit == false &&
-                    getFieldDecorator('middle_name',{ rules: [{ required: true, message: <FormattedMessage id="register.mode.message.lastmid"/>}]})(<Input/>)
+                    getFieldDecorator('middle_name',{ rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_middle"/>}]})(<Input/>)
                   }
                   { edit == true &&
-                    getFieldDecorator('middle_name',{ initialValue: dataUser.middle_name, rules: [{ required: true, message: <FormattedMessage id="register.mode.message.lastmid"/>}]})(<Input/>)
+                    getFieldDecorator('middle_name',{ initialValue: dataUser.middle_name, rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_middle"/>}]})(<Input/>)
                   }
                 </Form.Item>
               </Col>
             </Row>
             <Row>
               <Col span={24}>
-                <Form.Item label={formatMessage({ id: 'register.label.email' })}>
+                <Form.Item label={formatMessage({ id: 'usersModule.modal.email' })}>
                   { edit == false &&
-                    getFieldDecorator('email',{ rules: [{ required: true, message: <FormattedMessage id="register.mode.message.email"/>},
-                    { type: 'email', message: <FormattedMessage id="register.mode.message.email-inv"/>}]})(<Input/>)
+                    getFieldDecorator('email',{ rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_email"/>},
+                    { type: 'email', message: <FormattedMessage id="usersModule.modal.message_email_err"/>}]})(<Input/>)
                   }
                   { edit == true &&
-                    getFieldDecorator('email',{ initialValue: dataUser.email, rules: [{ required: true, message: <FormattedMessage id="register.mode.message.email"/>},
-                    { type: 'email', message: <FormattedMessage id="register.mode.message.email-inv"/>}]})(<Input disabled/>)
+                    getFieldDecorator('email',{ initialValue: dataUser.email, rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_email"/>},
+                    { type: 'email', message: <FormattedMessage id="usersModule.modal.message_email_err"/>}]})(<Input disabled/>)
                   }
                 </Form.Item>
               </Col>
@@ -167,18 +167,18 @@ class ModalNewUser extends PureComponent{
               <span>
                 <Row>
                   <Col span={24}>
-                    <Form.Item label="Password">
+                    <Form.Item label={formatMessage({ id: 'usersModule.modal.password' })}>
                       {getFieldDecorator('password', {
-                        rules: [{required: true,message: '¡Por favor, introduzca su contraseña!'},{validator: this.validateToNextPassword,}]})
+                        rules: [{required: true,message: <FormattedMessage id="usersModule.modal.message_pass"/>},{validator: this.validateToNextPassword,}]})
                       (<Input.Password />)}
                     </Form.Item>
                   </Col>
                 </Row>
                 <Row>
                   <Col span={24}>
-                    <Form.Item label="Confirm Password">
+                    <Form.Item label={formatMessage({ id: 'usersModule.modal.conf_password' })}>
                       {getFieldDecorator('confirm', {
-                        rules: [{required: true,message: <FormattedMessage id="register.label.message.password"/>},{validator: this.compareToFirstPassword,}]})
+                        rules: [{required: true,message: <FormattedMessage id="usersModule.modal.message_pass"/>},{validator: this.compareToFirstPassword,}]})
                       (<Input.Password />)}
                   </Form.Item>
                   </Col>
@@ -187,14 +187,14 @@ class ModalNewUser extends PureComponent{
             }
             <Row>
               <Col span={24}>
-                <Form.Item label={formatMessage({ id: 'register.label.phone' })}>
+                <Form.Item label={formatMessage({ id: 'usersModule.modal.phone' })}>
                   { edit == false &&
-                    getFieldDecorator('phone_number', { rules: [{ required: true, message: <FormattedMessage id="register.mode.message.phone"/> },
-                    { pattern: /^\d{10}$/, message: <FormattedMessage id="register.security.message.phone"/>}],})(<Input addonBefore={prefixSelector}/>)
+                    getFieldDecorator('phone_number', { rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_phone"/> },
+                    { pattern: /^\d{10}$/, message: <FormattedMessage id="usersModule.modal.message_phone_err"/>}],})(<Input addonBefore={prefixSelector}/>)
                   }
                   { edit == true &&
-                    getFieldDecorator('phone_number', { initialValue: numberPhone, rules: [{ required: true, message: <FormattedMessage id="register.mode.message.phone"/> },
-                    { pattern: /^\d{10}$/, message: <FormattedMessage id="register.security.message.phone"/>}],})(<Input addonBefore={prefixSelector}/>)
+                    getFieldDecorator('phone_number', { initialValue: numberPhone, rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_phone"/> },
+                    { pattern: /^\d{10}$/, message: <FormattedMessage id="usersModule.modal.message_phone_err"/>}],})(<Input addonBefore={prefixSelector}/>)
                   }
                 </Form.Item>
               </Col>
@@ -213,11 +213,11 @@ class ModalNewUser extends PureComponent{
             }}
           >
             <Button onClick={this.props.cancel} type="danger" className={Styles.cancelarfooter}>
-              Cancelar
+              <FormattedMessage id="usersModule.modal.cancel"/>
             </Button>
             <Button type="primary" htmlType="submit">
-              Guardar
-            </Button>
+            <FormattedMessage id="usersModule.modal.save"/>
+              </Button>
           </div>
         </Form>
       </Drawer>

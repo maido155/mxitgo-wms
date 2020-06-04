@@ -3,7 +3,7 @@ import { _ } from 'lodash';
 import { Card, Table, Icon, Divider, Button, Spin, Modal} from 'antd';
 import {isMobile} from 'react-device-detect';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { FormattedMessage } from 'umi-plugin-react/locale';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import ModalNewUser from './ModalNewUser';
 import { connect } from 'dva';
 
@@ -129,10 +129,10 @@ export default class UsersLayout extends PureComponent {
     }
     deleteModal = (mail, name, familyName) => {
         confirm({
-            title: '¿Estas seguro de eliminar a ' + name +' ' + familyName + ' ?',
-            okText: 'Si',
+            title: formatMessage({ id: 'usersModule.modal_deleted.message' }) + ' ' + name +' ' + familyName + ' ?',
+            okText: formatMessage({ id: 'usersModule.modal_deleted.yes' }),
             okType: 'danger',
-            cancelText: 'No',
+            cancelText: formatMessage({ id: 'usersModule.modal_deleted.no' }),
             onOk: () => {
                 this.props.dispatch({
                     type: 'user/deleteNewUser',
@@ -158,38 +158,38 @@ export default class UsersLayout extends PureComponent {
         const { allUsers, loading, saveUser, closeUser, dataUser, updateUser } = this.props;
         const columns = [
             {
-              title: 'Nombre',
+              title: formatMessage({ id: 'usersModule.table.name' }),
               dataIndex: 'nameUser',
               key: 'nameUser',
               width: isMobile ? 130 : 140,
           
             },
             {
-              title: 'Apellido paterno',
+              title: formatMessage({ id: 'usersModule.table.family_name' }),
               dataIndex: 'familyName',
               key: 'familyName',
               width: isMobile ? 130 : 130,
             },
             {
-              title: 'Apellido materno', 
+              title: formatMessage({ id: 'usersModule.table.middle_name' }), 
               dataIndex: 'middleName',
               key: 'middleName',
               width: isMobile ? 130 : 130,
             },
             {
-                title: 'Correo electrónico',
+                title: formatMessage({ id: 'usersModule.table.email' }),
                 dataIndex: 'mail', 
                 key: 'mail',
                 width: isMobile ? 300 : 270,
             }, 
             { 
-                title: 'Teléfono',
+                title: formatMessage({ id: 'usersModule.table.phone' }),
                 dataIndex: 'phone',
                 key: 'phone',
                 width: isMobile ? 150 : 130,
             },
             {
-                title: 'Acciones',
+                title: formatMessage({ id: 'usersModule.table.accions' }),
                 key: 'action',
                 fixed: 'right',
                 width: isMobile ? 70 : 150,

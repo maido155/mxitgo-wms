@@ -6,6 +6,7 @@ import outWard from './es-ES/outWard';
 import shippingMaster from './es-ES/shippingMaster';
 import dashboard from './es-ES/dashboard';
 import generalProgramming from './es-ES/generalProgramming';
+import usersModule from './es-ES/usersModule';
 
 export default {
     'navBar.lang': 'Idiomas',
@@ -17,5 +18,6 @@ export default {
     ...outWard,
     ...shippingMaster,
     ...dashboard,
-    ...generalProgramming
+    ...generalProgramming,
+    ...usersModule
 };
