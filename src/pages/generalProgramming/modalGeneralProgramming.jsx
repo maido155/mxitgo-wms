@@ -32,6 +32,11 @@ class ModalGeneralProgramming extends PureComponent {
     });
   };
 
+  handleTable = () => {
+    
+  
+  };
+
   render() {
     return (
       <div>
@@ -58,7 +63,7 @@ class ModalGeneralProgramming extends PureComponent {
          <ButtonProduct/>
          <ButtonCenter/>
          <Divider type="horizontal"></Divider>
-         <TableModal/>
+         <TableModal handlleTbl={this.handleTable} />
         </Modal>
       </div>
     );
