@@ -2,11 +2,11 @@ import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import { Table, Divider, Button, Checkbox  } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import AssignmentOutWard from './AssignmentOutWard';
-import CompositionOutWard from './CompositionOutWard';
+import AssignmentOutComming from './AssignmentOutComming';
+import CompositionOutComming from './CompositionOutComming';
 import {isMobile} from 'react-device-detect';
 
-export default class TableOutWard extends PureComponent {
+export default class TableOutComming extends PureComponent {
     state = { 
         visibleAssign: false,
         visibleCompo: false
@@ -39,17 +39,17 @@ export default class TableOutWard extends PureComponent {
                 width: isMobile ? 100 : 130
             },
             {
-                title: formatMessage({ id: 'outWard.label.table-pallets' }),
+                title: formatMessage({ id: 'outComming.label.table-pallets' }),
                 dataIndex: 'pallets',
                 width: isMobile ? 200 : 190
             },
             {
-                title: formatMessage({ id: 'outWard.label.table-boxes' }),
+                title: formatMessage({ id: 'outComming.label.table-boxes' }),
                 dataIndex: 'cajas',
                 width: isMobile ? 200 : 180
             },
             {
-                title: formatMessage({ id: 'outWard.label.table-status' }),
+                title: formatMessage({ id: 'outComming.label.table-status' }),
                 dataIndex: 'status',
                 width: isMobile ? 100 : 130
             },
@@ -57,24 +57,25 @@ export default class TableOutWard extends PureComponent {
                 title: '',
                 key: 'action',
                 width: isMobile ? 400 : 360,
-                render: () => (
+                render: (record) => (
                   <span>
                         <Button type="primary" onClick={this.showDrawerAssig}> 
-                            <FormattedMessage id="outWard.button.assign"/>
+                            <FormattedMessage id="outComming.button.assign"/>
                         </Button>
                         <Divider type="vertical" />
                         <Button onClick={this.showDrawerCompo}>
-                            <FormattedMessage id="outWard.button.composition"/>
+                            <FormattedMessage id="outComming.button.composition"/>
                         </Button>
                         <Divider type="vertical" />
-                        <Checkbox>
-                            <FormattedMessage id="outWard.button.confirm"/>
+                        <Checkbox onChange={()=>{this.props.onConfirm(record.key)}}>
+                            
+                            <FormattedMessage id="outComming.button.confirm"/>
                         </Checkbox>      
-                        <AssignmentOutWard 
+                        <AssignmentOutComming 
                             visibleOne={this.state.visibleAssign}
                             closeOne={this.onCloseDrawerAssig}
                         />
-                        <CompositionOutWard
+                        <CompositionOutComming
                             visibleTwo={this.state.visibleCompo}
                             closeTwo={this.onCloseDrawerCompo}
                         />

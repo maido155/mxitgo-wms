@@ -7,8 +7,8 @@ export default class RadioGroupComponent extends PureComponent{
     render(){
         return(
             <Radio.Group defaultValue="a">
-                <Radio.Button value="a"><FormattedMessage id="outWard.label.radio-group-gold"/></Radio.Button>
-                <Radio.Button value="b"><FormattedMessage id="outWard.label.radio-group-premium"/></Radio.Button>
+                <Radio.Button value="a"><FormattedMessage id="outComming.label.radio-group-gold"/></Radio.Button>
+                <Radio.Button value="b"><FormattedMessage id="outComming.label.radio-group-premium"/></Radio.Button>
             </Radio.Group>
         );
     }

@@ -326,9 +326,19 @@ export async function fetchProgrammingAll({ payload }) {
         headers: { 'Authorization': payload.Authorization },
     });
 }
-/* export async function getOrderDetail() {
-  console.log(orderId);
-  return request(`${ANT_DESIGN_PRO_TARGET}/orderDetails?orderId=1`);
 
+export async function updateProgrammingStatus(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/programming`, {
+        method: 'PUT',
+        headers: { 'Authorization': payload.Authorization },
+        body: JSON.stringify(payload)
+    });
 }
- */
+
+export async function confirmOutcomming(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/outcomming`, {
+        method: 'PUT',
+        headers: { 'Authorization': payload.Authorization },
+        body: JSON.stringify(payload)
+    });
+}

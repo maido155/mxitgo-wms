@@ -24,38 +24,38 @@ export default class TableAssignment extends PureComponent {
     render() {
       const columns = [
         {
-          title: formatMessage({ id: 'outWard.label.tableassignment-order' }),
+          title: formatMessage({ id: 'outComming.label.tableassignment-order' }),
           dataIndex: 'pedido',
           width: isMobile ? 120 : 120,
           render: text => <a>{text}</a>,
         },
         {
-          title: formatMessage({ id: 'outWard.label.tableassignment-pallets-re' }),
+          title: formatMessage({ id: 'outComming.label.tableassignment-pallets-re' }),
           dataIndex: 'palletsto',
           width: isMobile ? 160 : 160,
         },
         {
-          title: formatMessage({ id: 'outWard.label.tableassignment-boxes-re' }),
+          title: formatMessage({ id: 'outComming.label.tableassignment-boxes-re' }),
           dataIndex: 'cajasto',
           width: isMobile ? 160 : 160,
         },
         {
-          title: formatMessage({ id: 'outWard.label.tableassignment-pallets-di' }),
+          title: formatMessage({ id: 'outComming.label.tableassignment-pallets-di' }),
           dataIndex: 'palletsde',
           width: isMobile ? 160 : 150,
         },
         {
-          title: formatMessage({ id: 'outWard.label.tableassignment-boxes-di' }),
+          title: formatMessage({ id: 'outComming.label.tableassignment-boxes-di' }),
           dataIndex: 'cajasde',
           width: isMobile ? 160 : 150,
         },
         {
-            title: formatMessage({ id: 'outWard.label.tableassignment-assign' }),
+            title: formatMessage({ id: 'outComming.label.tableassignment-assign' }),
             key: 'action',
             width: isMobile ? 100 : 100,
             render: () => (
               <span>
-                  <a onClick={this.showDrawerAssigProduct}><FormattedMessage id="outWard.label.tableassignment-assign"/></a>
+                  <a onClick={this.showDrawerAssigProduct}><FormattedMessage id="outComming.label.tableassignment-assign"/></a>
                   <DrawerAssignment visible={this.state.visibleAssignProduct} onClose={this.onDrawerAssigProduct}/>     
               </span>
             )
