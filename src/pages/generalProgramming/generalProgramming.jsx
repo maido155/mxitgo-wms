@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import {Card, Spin} from 'antd';
+import {Card, Spin, Modal} from 'antd';
 import TableGeneralProgramming from './TableGeneralProgramming';
 import ModalGeneralProgramming from './ModalGeneralProgramming';
 import { connect } from 'dva';
+const { confirm } = Modal;
 
 @connect(({ programming, loading }) => ({
     programming,
@@ -27,6 +28,31 @@ export default class generalProgramming extends PureComponent{
        });
     }
 
+    cancelProgramming = (idProgramming) => {
+        
+        let _self = this;
+
+        confirm({
+            title: 'Are you sure you want to cancel this task?',
+            content: 'Some descriptions',
+            okText: 'Yes',
+            okType: 'danger',
+            cancelText: 'No',
+            onOk(){
+                _self.props.dispatch({
+                    type: 'programming/updateProgrammingStatus',
+                    payload: { SK: idProgramming, operation: "UPDATE_STATUS", status: "CANCELLED"}
+                })
+            }, 
+            onCancel() {
+              console.log('Cancel');
+            },
+          });
+    
+        
+
+    }
+
     render(){
         const { datesPrograming, loading } = this.props;
         return(
@@ -37,7 +63,7 @@ export default class generalProgramming extends PureComponent{
                             <ModalGeneralProgramming/>
                         </div>
                         <div>
-                            <TableGeneralProgramming datesPrograming = {datesPrograming}/>
+                            <TableGeneralProgramming datesPrograming = {datesPrograming} cancelProgramming={this.cancelProgramming}/>
                         </div>
                     </Spin>
                 </Card>

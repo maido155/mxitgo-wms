@@ -120,14 +120,14 @@ class ShippingMaster extends PureComponent {
                         <Form {...formItemLayout}>
                             <Row type="flex" justify="center">
                                 <Col xs={24} sm={23} md={17} lg={16} xl={16}>
-                                    <Form.Item label={formatMessage({ id: 'outWard.label.week' })}>
+                                    <Form.Item label={formatMessage({ id: 'outComming.label.week' })}>
                                         <RangePickerComponent/>
                                     </Form.Item>
                                 </Col>
                             </Row>
                             <Row type="flex" justify="center">
                                 <Col xs={24} sm={23} md={17} lg={16} xl={8}>
-                                    <Form.Item label={formatMessage({ id: 'outWard.label.product' })}>
+                                    <Form.Item label={formatMessage({ id: 'outComming.label.product' })}>
                                         <RadioGroupComponent/>
                                     </Form.Item>
                                 </Col>

@@ -1,4 +1,4 @@
-import { fetchProgrammingAll } from '../services/api';
+import { fetchProgrammingAll, updateProgrammingStatus } from '../services/api';
 
 export default {
     namespace: 'programming',
@@ -14,6 +14,15 @@ export default {
                 payload: response,
             });
         },
+
+        * updateProgrammingStatus({ payload }, { call, put }) {
+            const response = yield call(updateProgrammingStatus, payload);
+            console.log(response);
+            yield put({
+                type: 'updateProgrammingStatusReducer',
+                payload: response,
+            });
+        }
     },
 
     reducers: {
@@ -23,5 +32,10 @@ export default {
                 datesPrograming: action.payload
             }
         },
-    },
+        updateProgrammingStatusReducer(state, action) {
+            return {
+                ...state
+            }
+        }
+    }
 }

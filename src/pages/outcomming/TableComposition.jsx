@@ -6,18 +6,18 @@ import {isMobile} from 'react-device-detect';
 
 const columns = [
     {
-      title: formatMessage({ id: 'outWard.label.tableassignment-order' }),
+      title: formatMessage({ id: 'outComming.label.tableassignment-order' }),
       dataIndex: 'pedido',
       width: isMobile ? 120 : 120,
       render: text => <a>{text}</a>,
     },
     {
-      title: formatMessage({ id: 'outWard.button.composition-outward-pallets-ass' }),
+      title: formatMessage({ id: 'outComming.button.composition-outcomming-pallets-ass' }),
       dataIndex: 'pallets',
       width: isMobile ? 140 : 140,
     },
     {
-      title: formatMessage({ id: 'outWard.button.composition-outward-boxes-ass' }),
+      title: formatMessage({ id: 'outComming.button.composition-outcomming-boxes-ass' }),
       dataIndex: 'cajas',
       width: isMobile ? 140 : 140
     }

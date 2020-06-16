@@ -5,11 +5,11 @@ import { _ } from 'lodash';
 import { Drawer,Row, Col, Button, Icon, Divider } from 'antd';
 import {isMobile} from 'react-device-detect';
 
-export default class AssignmentOutWard extends PureComponent {;
+export default class AssignmentOutComming extends PureComponent {;
     render() {
         return (
             <Drawer
-                title={formatMessage({ id: 'outWard.label.assignment-outward' })}
+                title={formatMessage({ id: 'outComming.label.assignment-outcomming' })}
                 placement="right"
                 width={isMobile ? "100%" : "70%"}
                 closable={true}
@@ -22,10 +22,10 @@ export default class AssignmentOutWard extends PureComponent {;
                         <Icon type="shopping-cart" />
                     </Col>
                     <Col xs={24} sm={12} md={9} lg={7} xl={5} style={{textAlign: "center"}}>
-                        <FormattedMessage id="outWard.label.products-assignment-outward"/>
+                        <FormattedMessage id="outComming.label.products-assignment-outcomming"/>
                     </Col>
                     <Col xs={24} sm={8} md={8} lg={6} xl={3} style={{textAlign: "center"}}>
-                        <Button type="danger"><FormattedMessage id="outWard.button.assignment-outward"/></Button>
+                        <Button type="danger"><FormattedMessage id="outComming.button.assignment-outcomming"/></Button>
                     </Col>
                 </Row>
                 <Divider/>
@@ -48,10 +48,10 @@ export default class AssignmentOutWard extends PureComponent {;
                     }}
                 >
                     <Button style={{marginRight: 8,}} onClick={this.props.closeOne}>
-                        <FormattedMessage id="outWard.button.cancel-assignment-outward"/>
+                        <FormattedMessage id="outComming.button.cancel-assignment-outcomming"/>
                     </Button>
                     <Button onClick={this.props.closeOne} type="primary">
-                        <FormattedMessage id="outWard.button.ok-assignment-outward"/>
+                        <FormattedMessage id="outComming.button.ok-assignment-outcomming"/>
                     </Button>
                 </div>
             </Drawer>

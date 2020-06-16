@@ -4,7 +4,7 @@ import menu from './en-US/menu';
 import pwa from './en-US/pwa';
 import settingDrawer from './en-US/settingDrawer';
 import settings from './en-US/settings';
-import outWard from './en-US/outWard';
+import outComming from './en-US/outComming';
 import shippingMaster from './en-US/shippingMaster';
 import dashboard from './en-US/dashboard';
 import generalProgramming from './en-US/generalProgramming'
@@ -23,7 +23,7 @@ export default {
     ...settings,
     ...pwa,
     ...component,
-    ...outWard,
+    ...outComming,
     ...shippingMaster,
     ...dashboard,
     ...generalProgramming,
