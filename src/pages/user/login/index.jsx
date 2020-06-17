@@ -170,29 +170,31 @@ class Login extends Component {
     this.formRefDraw = formRef;
   }
   showModal = () => {
+    this.onResetLogin();
+
     this.setState({
       visible: true
     });
   };
-  showModalNew = () => {
-    this.setState({
-      visibleNew: true
-    });
-  };
-  handleCancel = () => {
+  handleCancel = () => {    
+    console.log('jj');
      this.setState({
       visible: false
     });
-    this.onReset();
+
+    this.onResetModal();
   };
-  handleCancelNew = () => {
-    this.setState({
-     visibleNew: false
-   });
-  };
-  onReset = () => {
+  
+  onResetModal = () => {
     const form = this.formRefDraw.props.form;
     form.resetFields();
+  };
+  onResetLogin = () => {
+    const form = this.loginForm;
+    form.resetFields();
+
+    console.log('jj');
+    console.log('jj');
   };
 
   handleNewPassword = (pass) => {
