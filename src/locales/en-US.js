@@ -23,7 +23,7 @@ export default {
   ...settings,
   ...pwa,
   ...component,
-  ...outWard,
+  ...outComming,
   ...shippingMaster,
   ...dashboard,
   ...generalProgramming,
