@@ -15,7 +15,6 @@ class tableModal extends PureComponent{
     this.state = {
       sumTotalPallets: 0,
       sumTotalCajas: 0,
- 
     };
 
   }
@@ -43,6 +42,7 @@ class tableModal extends PureComponent{
       total +=(mie_14_cajas.value!="")?parseInt(mie_14_cajas.value):0;
       this.setState({sumTotalCajas : total});
     }
+
 
     render(){
        

@@ -20,10 +20,41 @@ class ModalGeneralProgramming extends PureComponent {
 
   handleOk = e => {
     console.log(e);
+    const formTable    = this.formRefTable.props.form;
+    const formCalendar = this.formRefCalendar.props.form;
+    let _self = this;
+    debugger;
+    formCalendar.validateFields((err, values) => {
+      if (err) {
+          return;
+      }
+      console.log('Received values of formCalendar: ', values);
+      formCalendar.resetFields();
+     // this.setState({ visibleEditUser: false });
+     });    
+    formTable.validateFields((err, values) => {
+      if (err) {
+          return;
+      }
+      console.log('Received values of formTable: ', values);
+      formTable.resetFields();
+     // this.setState({ visibleEditUser: false });
+    });    
+
+
+
     this.setState({
       visible: false,
     });
   };
+
+  saveFormCalendar = (formRefCalendar) => {
+    this.formRefCalendar = formRefCalendar;
+  }
+
+  saveFormRefDraw = (formRef) => {
+    this.formRefTable = formRef;
+  }
 
   handleCancel = e => {
     console.log(e);
@@ -38,6 +69,7 @@ class ModalGeneralProgramming extends PureComponent {
   };
 
   render() {
+    const {  handleTbl } = this.props;
     return (
       <div>
         <Button type="primary" shape="circle" icon="plus" onClick={this.showModal}>
@@ -46,7 +78,6 @@ class ModalGeneralProgramming extends PureComponent {
           title={<FormattedMessage id="general.modal-title.title"/>}
           visible={this.state.visible}
           onOk={this.handleOk}
-          onCancel={this.handleCancel}
           
           footer={[
             <Button key="Limpiar" onClick={this.handleCancel}>
@@ -58,12 +89,12 @@ class ModalGeneralProgramming extends PureComponent {
           ]}
         >
           
-         <ModalCalendar/>
+         <ModalCalendar  wrappedComponentRef={this.saveFormCalendar} />
          <Divider type="horizontal"></Divider>
          <ButtonProduct/>
          <ButtonCenter/>
          <Divider type="horizontal"></Divider>
-         <TableModal handlleTbl={this.handleTable} />
+         <TableModal wrappedComponentRef={this.saveFormRefDraw} />
         </Modal>
       </div>
     );

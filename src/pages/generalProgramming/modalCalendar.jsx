@@ -40,4 +40,5 @@ class ModalCalendar extends PureComponent {
 }
 }
 
-export default ModalCalendar;
+//export default ModalCalendar;
+export default Form.create()(ModalCalendar);
