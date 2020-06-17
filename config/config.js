@@ -129,9 +129,9 @@ export default {
 
             
             {
-              path: '/userSettings',
-              name: 'Configuración de usuarios',
-              icon: 'control',
+              path: '/SettingsUser',
+              name: 'Configuración',
+              icon: 'setting',
               routes: [
                {
                  path:'./UsersModule/UsersLayout',

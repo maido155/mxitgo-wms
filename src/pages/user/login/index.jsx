@@ -187,23 +187,31 @@ class Login extends Component {
  
 
   showModal = () => {
+    this.onResetLogin();
+
     this.setState({
       visible: true
     });
   };
 
-  handleCancel = () => {
-    
+  handleCancel = () => {    
     console.log('jj');
      this.setState({
       visible: false
     });
 
-    this.onReset();
+    this.onResetModal();
   };
   
-  onReset = () => {
+  onResetModal = () => {
     const form = this.formRefDraw.props.form;
+    form.resetFields();
+
+    console.log('jj');
+    console.log('jj');
+  };
+  onResetLogin = () => {
+    const form = this.loginForm;
     form.resetFields();
 
     console.log('jj');

@@ -8,6 +8,7 @@ import outWard from './en-US/outWard';
 import shippingMaster from './en-US/shippingMaster';
 import dashboard from './en-US/dashboard';
 import generalProgramming from './en-US/generalProgramming'
+import accountSettings from './en-US/accountSettings'
 export default {
   'navBar.lang': 'Languages',
   'layout.user.link.help': 'Help',
@@ -25,5 +26,6 @@ export default {
   ...outWard,
   ...shippingMaster,
   ...dashboard,
-  ...generalProgramming
+  ...generalProgramming,
+  ...accountSettings
 };

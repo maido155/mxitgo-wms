@@ -9,7 +9,7 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { isAntDesignPro, getAuthorityFromRouter } from '@/utils/utils';
-import logo from '../assets/MXITGO_LOGO.png';
+import logo from '../assets/MXITGO_LOGO2.png';
 const noMatch = (
   <Result
     status="403"
@@ -119,10 +119,12 @@ const BasicLayout = props => {
         <ProLayout
           logo={logo}
           menuHeaderRender={(logoDom, titleDom) => (
+            
             <Link to="/dashboard">
               {logoDom}
               {titleDom}
             </Link>
+           
           )}
           onCollapse={handleMenuCollapse}
           menuItemRender={(menuItemProps, defaultDom) => {
