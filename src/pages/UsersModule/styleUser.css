@@ -1,0 +1,29 @@
+@media screen and (max-width: 576px) {
+    .cancelarfooter {
+        margin-right: 0.7rem;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .cancelarfooter {
+        margin-right: 1rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .cancelarfooter {
+        margin-right: 1rem;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .cancelarfooter {
+        margin-right: 1rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .cancelarfooter {
+        margin-right: 1rem;
+    }
+}

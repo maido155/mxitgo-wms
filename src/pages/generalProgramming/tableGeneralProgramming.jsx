@@ -3,99 +3,9 @@ import { _ } from 'lodash';
 import {isMobile} from 'react-device-detect';
 import { Table, Divider, Icon } from 'antd';
 import { FormattedMessage} from 'umi-plugin-react/locale';
+import ModalCancelComponent from '../generalComponents/ModalCancelComponent';
 
-const columns = [
-  {
-    title: <FormattedMessage id="general.table.week"/>,
-    dataIndex: 'week',
-    width: isMobile ? 100 :100
-  },
-  {
-    title: <FormattedMessage id="general.table.products"/>,
-    dataIndex: 'products',
-    width: isMobile ? 130 :100
-  },
-  {
-    title: <FormattedMessage id="general.table.client"/>,
-    dataIndex: 'client',
-    width: isMobile ? 90 :100
-  },
-  {
-      title: <FormattedMessage id="general.table.boxes"/>,
-      dataIndex: 'box',
-      width: isMobile ? 90 :100
-    },
-    {
-      title: <FormattedMessage id="general.table.pallets"/>,
-      dataIndex: 'pallets',
-      width: isMobile ? 90 :100
-    },
-    {
-      title: <FormattedMessage id="general.table.status"/>,
-      dataIndex: 'status',
-      width: isMobile ? 100 :100
-    }
-];
 
-const data = [
-  {
-    key: '1',
-    week: '10 - 12',
-    products: "Gold",
-    client: 'Vallejo',
-    box:  "7400",
-    pallets: "500",
-    status: "Programado",
-   
-  },
-];
-
-  if(isMobile){
-    columns.push(
-      {
-        title: <FormattedMessage id="general.table.actions-mobil"/>,
-        key: 'action',
-        fixed: 'right',
-        width: 120,
-       
-        render: () => (
-          <span>
-           <Icon type="edit" theme="filled" />
-            <Divider type="vertical" />
-            <Icon type="close-circle" theme="filled" />
-            <Divider type="vertical" />
-            <Icon type="arrows-alt" />
-            <Divider type="vertical" />
-            <Icon type="eye" theme="filled"  />
-          </span>
-        ),
-      }
-    );
-  }else{
-    columns.push(
-      {
-        title: <FormattedMessage id="general.table.actions"/>,
-        key: 'action',
-        fixed: 'right',
-        width: 350,
-        render: () => (
-          <span>
-            <a><Icon type="edit" theme="filled" /></a>
-            <a> Editar</a>
-            <Divider type="vertical" />
-            <a><Icon type="close-circle" theme="filled" /></a>
-            <a> Cancelar</a>
-            <Divider type="vertical" />
-            <a><Icon type="arrows-alt" /></a>
-            <a> Pendiente</a>
-            <Divider type="vertical" />
-            <a><Icon type="eye" theme="filled"  /></a>
-            <a> Visualizar</a>
-          </span>
-        ),
-      }
-    );
-  }
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -109,8 +19,90 @@ const rowSelection = {
 
 class TableGeneralProgramming extends PureComponent{
     render(){
+
+      const { datesPrograming, cancelProgramming } = this.props;
+
+      const columns = [
+        {
+          title: 'Semana',
+          dataIndex: 'Week',
+          key: 'Week',
+          width: isMobile ? 100 :100
+        },
+        {
+          title: 'Tipo de producto',
+          dataIndex: 'Product',
+          key: 'Product',
+          width: isMobile ? 130 :100
+        },
+        {
+          title: 'Cliente',
+          dataIndex: 'Client',
+          key: 'Client',
+          width: isMobile ? 90 :100
+        },
+        {
+            title: 'Cajas',
+            dataIndex: 'Box',
+            key: 'Box',
+            width: isMobile ? 90 :100
+          },
+          {
+            title: 'Pallets',
+            dataIndex: 'Pallets',
+            key: 'Pallets',
+            width: isMobile ? 90 :100
+          },
+          {
+            title: 'Status',
+            dataIndex: 'Status',
+            key: 'Status',
+            width: isMobile ? 100 :100
+          },
+          {
+            title: <FormattedMessage id="general.table.actions-mobil"/>,
+            key: 'action',
+            fixed: 'right',
+            width: isMobile ? 120 : 350,
+            render: (record) => (
+              <span>
+                <a>
+                  {isMobile
+                    ? <Icon type="edit"/>
+                    : <span><Icon type="edit"/>Editar</span>
+                  }
+                </a >
+                <Divider type="vertical" />
+                <a onClick={()=>{cancelProgramming(record.Sk)}}>
+                  {isMobile
+                    ? <Icon type="edit"/>
+                    : <span><Icon type="edit"/>Eliminar</span>
+                  }
+                </a >
+               
+                <Divider type="vertical" />
+                <a>
+                  {isMobile
+                    ? <Icon type="arrows-alt"/>
+                    : <span><Icon type="arrows-alt" />Pendiente</span>
+                  }
+                </a>
+                <Divider type="vertical" />
+                <a>
+                  {isMobile
+                    ? <Icon type="eye"/>
+                    : <span><Icon type="eye"/>Visualizar</span>
+                  }
+                </a>
+              </span>
+            )
+          }
+      ];
+
+
+      
         return(
-            <Table  style={{marginTop: "2%"}} size="small" rowSelection={rowSelection} columns={columns} dataSource={data} scroll={isMobile ? {x: 720} : {x: 950}}  />
+            <Table  style={{marginTop: "2%"}} size="small" rowSelection={rowSelection} columns={columns} dataSource={datesPrograming} scroll={isMobile ? {x: 720} : {x: 950}}  />
         );
     }
 }

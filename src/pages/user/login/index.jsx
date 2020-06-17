@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 import { Link } from 'umi';
 import { connect } from 'dva';
 import LoginComponents from './components/Login';
-import ModalChangePassword from '../login/components/Login/ModalChangePassword'
+import ModalChangePassword from '../login/components/Login/ModalChangePassword';
+import ModalNewPassword from '../login/components/Login/ModalNewPassword';
 import styles from './style.less';
 //import router from 'umi/router';
 import { config as AWSConfig } from 'aws-sdk';
@@ -24,7 +25,8 @@ class Login extends Component {
     type: 'account',
     autoLogin: true,
     visible: false,
-    userData: {},
+    visibleNew: false,
+    user: {},
     userAttributes: {}
   };
 
@@ -125,30 +127,14 @@ class Login extends Component {
       },
      
       newPasswordRequired: function(userAttributes, requiredAttributes) {
-          // User was signed up by an admin and must provide new 
-          // password and required attributes, if any, to complete 
-          // authentication.
-
-          // userAttributes: object, which is the user's current profile. It will list all attributes that are associated with the user. 
-          // Required attributes according to schema, which don’t have any values yet, will have blank values.
-          // requiredAttributes: list of attributes that must be set by the user along with new password to complete the sign-in.
-
-
-          // Get these details and call 
-          // newPassword: password that user has given
-          // attributesData: object with key as attribute name and value that the user has given.
-          self.setState({
-            visibleModal : true,
-            userData: userData,
-            userAttributes: userAttributes
-          });
-
+        self.setState({
+          visibleNew: true,
+          userAttributes: userAttributes,
+          user: cognitoUser
+        });
       }
     });
-    
-
   }
-
   handleSubmit = (err, values) => {
     const { type } = this.state;
     var self = this;
@@ -183,9 +169,6 @@ class Login extends Component {
   saveFormRefDraw = (formRef) => {
     this.formRefDraw = formRef;
   }
-
- 
-
   showModal = () => {
     this.onResetLogin();
 
@@ -193,7 +176,6 @@ class Login extends Component {
       visible: true
     });
   };
-
   handleCancel = () => {    
     console.log('jj');
      this.setState({
@@ -206,9 +188,6 @@ class Login extends Component {
   onResetModal = () => {
     const form = this.formRefDraw.props.form;
     form.resetFields();
-
-    console.log('jj');
-    console.log('jj');
   };
   onResetLogin = () => {
     const form = this.loginForm;
@@ -218,7 +197,24 @@ class Login extends Component {
     console.log('jj');
   };
 
- handleSubmitChangePassword= () => {
+  handleNewPassword = (pass) => {
+    var self = this;
+    let cognitoUserNew = this.state.user;
+    let userAttributesNew = this.state.userAttributes;
+    delete userAttributesNew.email_verified;
+    delete userAttributesNew.phone_number_verified;
+    cognitoUserNew.completeNewPasswordChallenge(pass, userAttributesNew, {
+      onSuccess: function(result) {
+        message.success("Contraseña cambiada exitosamente!");
+        self.handleCancelNew();
+      },
+      onFailure: function(err) {
+        message.error(err.message);
+      },
+    });
+  }
+
+  handleSubmitChangePassword= () => {
     const form = this.formRefDraw.props.form;
     let _self = this;
     form.validateFields((err, values) => {
@@ -288,9 +284,6 @@ class Login extends Component {
 
     });
 }
-
- 
- 
   renderMessage = content => (
     <Alert
       style={{
@@ -301,8 +294,6 @@ class Login extends Component {
       showIcon
     />
   );
-
-
   render() {
     const { userLogin = {}, submitting } = this.props;
     const { status, type: loginType } = userLogin;
@@ -317,7 +308,12 @@ class Login extends Component {
             this.loginForm = form;
           }}
         >
-          
+          <ModalNewPassword 
+            visible = {this.state.visibleNew}
+            wrappedComponentRef = {this.saveFormRefDraw}
+            onCancel={this.handleCancelNew}
+            onNewPassword={this.handleNewPassword}
+          />
           
             {status === 'error' &&
               loginType === 'account' &&

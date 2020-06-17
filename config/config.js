@@ -124,7 +124,7 @@ export default {
               path: '/outgoing',
               name: 'Salidas',
               icon: 'import',
-              component: './outward/OutWard',
+              component: './outcomming/OutComming',
             },
 
             

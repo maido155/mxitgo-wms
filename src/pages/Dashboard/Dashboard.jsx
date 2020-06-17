@@ -27,17 +27,17 @@ export default class Dashboard extends PureComponent {
                 <Col span={24} >
                     <RangePickerComponent />
                 </Col>
-      </Row>
+          </Row>
             </div>
             <Divider/>
-            <div>
-             <Row type="flex" justify="right">
-                <Col span={5} style={{textAlign: "center"}}>
-                </Col>
-                <Col span={15} style={{textAlign: "center", margin:"1rem"}}>
-                   <RadioGroupComponent/>
-                </Col>
-             </Row>
+        <div>
+          <Row type="flex" justify="right">
+            <Col span={5} style={{textAlign: "center"}}>
+            </Col>
+            <Col span={15} style={{textAlign: "center", margin:"1rem"}}>
+                <RadioGroupComponent/>
+            </Col>
+          </Row>
         </div>
         <Divider/>
         <div>
@@ -54,31 +54,28 @@ export default class Dashboard extends PureComponent {
        return (
           <PageHeaderWrapper>
           <Card>
-          <Form {...formItemLayout}>
-            <div>
-            <Row type="flex" justify="center">
-                    <Col xs={24} sm={16} md={16} lg={16} xl={16}>
-                        <Form.Item label={formatMessage({ id: 'outWard.label.week' })}>
-                          <RangePickerComponent />
-                      </Form.Item>
-                      </Col>
-            </Row>
-            </div>
-            <Divider/>
-            <div>
-            <Row type="flex" justify="center">
-                <Col xs={24} sm={12} md={12} lg={12} xl={6}>
-                   <Form.Item label="">
-                       <RadioGroupComponent/>
-                   </Form.Item>
-               </Col>
-             </Row>
+            <Form {...formItemLayout}>
+              <div>
+                <Row type="flex" justify="space-between">
+                  <Col xs={24} sm={16} md={16} lg={16} xl={16}>
+                    <Form.Item label="Semana:">
+                      <RangePickerComponent />
+                    </Form.Item>
+                  </Col>
+                  <Col xs={24} sm={12} md={12} lg={12} xl={6}>
+                    <Form.Item label="">
+                        <RadioGroupComponent/>
+                    </Form.Item>
+                  </Col>
+                </Row>
               </div>
-              </Form>
+              <Divider/>
+              
+            </Form>
               <div>
                 <GridDashboard xs={24} sm={12} md={8} lg={6} xl={3} txs={15} tsm={10} tmd={8} tlg={7} txl={6} dataTwo={3} dataThree={4} dataFour={2} dataFive={150} dataSix={200}/>
               </div>
-              </Card>
+          </Card>
           </PageHeaderWrapper>
         );
       }

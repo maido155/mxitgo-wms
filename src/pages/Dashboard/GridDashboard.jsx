@@ -15,7 +15,40 @@ class GridDashboard extends PureComponent {
       
         return (
         <div>
-            
+
+          <Row type="flex" justify="space-around">
+              <Col span={6}></Col>
+              <Col span={12}><Title level={4}>Totales</Title></Col>
+          </Row>
+          
+          <Row type="flex" justify="center" align-content="center">
+              <Col xs={txs} sm={tsm} md={tmd} lg={tlg} xl={txl} style={{textAlign: "center"}}>
+                <Card style={{ width: dataSix }} size='medium '>
+                <p>Necesidad Gold: </p>
+                <p><Title level={dataFour}>1500</Title></p>
+                </Card>
+              </Col>
+              
+              <Col xs={txs} sm={tsm} md={tmd} lg={tlg} xl={txl} style={{textAlign: "center"}}>
+                <Card style={{ width: dataSix }} size='medium'>
+                <p>Necesidad Premium: </p>
+                <p><Title level={dataFour} >1500</Title></p>
+                </Card>
+              </Col>
+
+              <Col xs={txs} sm={tsm} md={tmd} lg={tlg} xl={txl} style={{textAlign: "center"}}>
+                <Card style={{ width: dataSix }} size='small'>
+                  <p>Total Necesidades: </p>
+                  <p><Title level={dataFour}>1500</Title></p>
+                  <Tooltip >
+                    <Progress percent={60} successPercent={30} showInfo={false} strokeWidth={dataSeven} />
+                  </Tooltip>
+                </Card>
+              </Col>
+          </Row>
+          
+          
+          <Divider/>
           <Row type="flex" justify="space-around">
          
               <Col xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
