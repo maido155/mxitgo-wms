@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import { Drawer, Button } from 'antd';
-import Table from './TableComposition';
+import TableCompostion from './TableComposition';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import Assignment from './AssignmentOutComming';
 import {isMobile} from 'react-device-detect';
@@ -11,6 +11,8 @@ export default class CompositionOutComming extends PureComponent {
         visibleAssign: false,
     }
     showDrawerAssig = () => {
+
+
         this.setState({
           visibleAssign: true,
         });
@@ -32,7 +34,7 @@ export default class CompositionOutComming extends PureComponent {
                     visible={this.props.visibleTwo}
                     getContainer={false} 
                 >
-                    <Table/>
+                    <TableCompostion loading = {this.props.loading} compositionData ={this.props.compositionData}/>
                     
                     <div
                         style={{

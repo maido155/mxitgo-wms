@@ -1,8 +1,9 @@
-import {confirmOutcomming} from '../services/api';
+import {confirmOutcomming, getComposition} from '../services/api';
 
 export default {
     namespace: 'outcomming',
     state: {
+        compositionData: []
     },
     effects: {
         * confirmOutcomming({ payload }, { call, put }) {
@@ -10,6 +11,14 @@ export default {
             console.log(response);
             yield put({
                 type: 'confirmOutcommingReducer',
+                payload: response,
+            });
+        },
+        * getComposition({ payload }, { call, put }) {
+            const response = yield call(getComposition, payload);
+            console.log(response);
+            yield put({
+                type: 'getCompositionReducer',
                 payload: response,
             });
         }
@@ -20,7 +29,14 @@ export default {
             return {
                 ...state
             }
+        },
+        getCompositionReducer(state, action) {
+            return {
+                ...state,
+                compositionData: action.payload
+            }
         }
+
     }
 }
 

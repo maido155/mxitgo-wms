@@ -16,7 +16,10 @@ export default class TableOutComming extends PureComponent {
           visibleAssign: true,
         });
     };
-    showDrawerCompo = () => {
+    showDrawerCompo = (id) => {
+
+        this.props.onShowCompositionData(id);
+
         this.setState({
           visibleCompo: true,
         });
@@ -63,7 +66,7 @@ export default class TableOutComming extends PureComponent {
                             <FormattedMessage id="outComming.button.assign"/>
                         </Button>
                         <Divider type="vertical" />
-                        <Button onClick={this.showDrawerCompo}>
+                        <Button onClick={()=>{this.showDrawerCompo(record.key)}}>
                             <FormattedMessage id="outComming.button.composition"/>
                         </Button>
                         <Divider type="vertical" />
@@ -76,6 +79,8 @@ export default class TableOutComming extends PureComponent {
                             closeOne={this.onCloseDrawerAssig}
                         />
                         <CompositionOutComming
+                            loading = {this.props.loading}
+                            compositionData = {this.props.compositionData}
                             visibleTwo={this.state.visibleCompo}
                             closeTwo={this.onCloseDrawerCompo}
                         />
@@ -85,21 +90,21 @@ export default class TableOutComming extends PureComponent {
         ];
           const data = [
             {
-                key: '1',
+                key: 'WMS-OC-875a08d0-4cd2-4452-88f4-3fc7edd02bf5',
                 date: 'Jue 8 Nov',
                 pallets: "12/30",
                 cajas: "360/900",
                 status: 'Pendiente'
             },
             {
-                key: '2',
+                key: 'WMS-OC-875a08d0-4cd2-4452-88f4-3fc7edd02bf5',
                 date: 'Vie 9 Nov',
                 pallets: "12/30",
                 cajas: "360/900",
                 status: 'Completado'
             },
             {
-                key: '3',
+                key: 'WMS-OC-875a08d0-4cd2-4452-88f4-3fc7edd02bf5',
                 date: 'Sab 10 Nov',
                 pallets: "12/30",
                 cajas: "360/900",

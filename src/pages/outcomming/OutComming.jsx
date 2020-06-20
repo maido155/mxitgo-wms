@@ -23,10 +23,19 @@ export default class OutComming extends PureComponent {
         })
 
     };
+
+    onShowCompositionData = (id) => {
+         
+        this.props.dispatch({  
+            type: 'outcomming/getComposition',  
+            payload: {PK: id}
+        }); 
+
+    };
     
     render() {
 
-        this.name = "hola";
+        let {compositionData} = this.props.outcomming;
 
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 7 },md: { span: 9 },lg: { span: 9 },xl: { span: 5 }},
@@ -59,7 +68,7 @@ export default class OutComming extends PureComponent {
                             </Row>
                             <Row type="flex" justify="center">
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                                    <TableOutComming onConfirm = {this.onConfirm}/>
+                                    <TableOutComming onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
                                 </Col>
                             </Row>
                         </Form>

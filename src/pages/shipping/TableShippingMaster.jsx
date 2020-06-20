@@ -5,28 +5,28 @@ import ConfirmationShipping from './ConfirmationShipping';
 import DrawerEntry from './drawerEntry';
 import ModalDeleteComponent from '../generalComponents/ModalDeleteComponent';
 import ModalProductTable from '../generalComponents/ModalProductTable';
-import {isMobile} from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 import Styles from './StylesShipping.css';
-import { _ } from 'lodash'; 
+import { _ } from 'lodash';
 
 const { Text } = Typography;
 class TableShippingMaster extends PureComponent {
-  state={
-      visibleConfirmationShipping: false,
-      visibleModalProduct: false,
-      visibleEntry: false,
-      loadingModal: false
+  state = {
+    visibleConfirmationShipping: false,
+    visibleModalProduct: false,
+    visibleEntry: false,
+    loadingModal: false
   }
 
-  showConfirmationShipping = () =>{
+  showConfirmationShipping = () => {
     this.setState({
-        visibleConfirmationShipping: true
+      visibleConfirmationShipping: true
     });
   };
 
-  onCloseConfirmationShipping = () =>{
+  onCloseConfirmationShipping = () => {
     this.setState({
-        visibleConfirmationShipping: false
+      visibleConfirmationShipping: false
     });
   };
 
@@ -65,7 +65,17 @@ class TableShippingMaster extends PureComponent {
     });
   };
 
-  render(){
+  editProgramming = () => {
+
+    this.props.showShippingProgramingEdit();
+
+
+
+  };
+
+
+
+  render(record) {
     let columns = [
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.id' }),
@@ -124,28 +134,28 @@ class TableShippingMaster extends PureComponent {
         key: 'action',
         fixed: 'right',
         width: isMobile ? 100 : 340,
-        render: () => (
+        render: (record) => (
           <span>
-              <a onClick={this.props.showShippingPrograming}>
-                {isMobile 
-                  ?  <Icon type="edit"/>
-                  : <span><Icon type="edit" /><FormattedMessage id="shipping.label.table-shipping.edit"/></span>
-                }
-              </a>
-            <Divider type="vertical"/>
-              <a onClick={this.showConfirmationShipping}>
-                {isMobile 
-                  ? <Icon type="check"/>
-                  : <span><Icon type="check" /><FormattedMessage id="shipping.label.table-shipping.confirm"/></span>
-                }
-              </a>
-            <Divider type="vertical"/>
-              <ModalDeleteComponent/>
-            <Divider type="vertical"/>
+            <a onClick={() => { this.props.showShippingProgramingEdit(record) }}>
+              {isMobile
+                ? <Icon type="edit" />
+                : <span><Icon type="edit" /><FormattedMessage id="shipping.label.table-shipping.edit" /></span>
+              }
+            </a>
+            <Divider type="vertical" />
+            <a onClick={this.showConfirmationShipping}>
+              {isMobile
+                ? <Icon type="check" />
+                : <span><Icon type="check" /><FormattedMessage id="shipping.label.table-shipping.confirm" /></span>
+              }
+            </a>
+            <Divider type="vertical" />
+            <ModalDeleteComponent />
+            <Divider type="vertical" />
             <a onClick={this.showEntry}>
-              {isMobile 
-                  ? <Icon type="form"/>
-                  : <span><Icon type="form"/><FormattedMessage id="shipping.label.table-shipping.entry"/></span>
+              {isMobile
+                ? <Icon type="form" />
+                : <span><Icon type="form" /><FormattedMessage id="shipping.label.table-shipping.entry" /></span>
               }
             </a>
           </span>
@@ -156,26 +166,54 @@ class TableShippingMaster extends PureComponent {
     const data = [
       {
         key: '1',
-        id: 'TE0101023912231',
+        id: 'TAB20620201722',
         envio: 'Lunes',
         llegada: 'Martes',
         entrada: 'Miercoles',
         premium: <Text type="danger" onClick={this.showModal} className={Styles.producto}>1200/1150</Text>,
-        gold:'39/39',
-        segunda:'0/39',
+        gold: '39/39',
+        segunda: '0/39',
         mano: '0/39',
         dedo: '0/39',
-        status: 'Pendiente'
+        status: 'Pendiente',
+
+        // innerData:
+        // {
+        //   uikey: "0-1", // where is this one?
+        //   center: "Chiapas-La Escondida", // where is this one?
+        //   TypeCondition: "New", // where is this one?
+        //   isMasterModified: true, // where is this one?
+        //   comment: "Comentarios, really?", // Needs processing
+        //   createdBy: "undefined", // where is this one?
+        //   date: "16-6-2020",  // OK
+        //   departureDate: "2020-06-17", // OK
+        //   deliveryDate: "2020-06-18", // OK
+        //   entryDate: "2020-06-15", // OK
+        //   destinity: "Central de abastos",
+        //   products: [ /// Needs processing
+        //   [{ "product": "premium", "amount": 200 },
+        //   { "product": "gold", "amount": 100 },
+        //   { "product": "second", "amount": 500 },
+        //   { "product": "hand", "amount": 99 },
+        //   { "product": "finger", "amount": 500 }]],
+        //   skWh: ["WH-1"],  /// Needs processing
+        //   dateNew: "13-6-2020", // where is this one?
+        //   createdByNew: "undefined", // where is this one?
+        //   idShipping: "CHI13620201729", // OK
+        // }
+
       },
+
+
       {
         key: '2',
         id: 'TE0101023912232',
         envio: 'Martes',
         llegada: 'Miercoles',
         entrada: 'Jueves',
-        premium:'300/-',
-        gold:'220/-',
-        segunda:'220/-',
+        premium: '300/-',
+        gold: '220/-',
+        segunda: '220/-',
         mano: '220/-',
         dedo: '220/-',
         status: 'Terminado'
@@ -186,9 +224,9 @@ class TableShippingMaster extends PureComponent {
         envio: 'Miercoles',
         llegada: 'Jueves',
         entrada: 'Viernes',
-        premium:'24/-',
-        gold:'43/-',
-        segunda:'43/-',
+        premium: '24/-',
+        gold: '43/-',
+        segunda: '43/-',
         mano: '43/-',
         dedo: '43/-',
         status: 'Proceso'
@@ -204,16 +242,16 @@ class TableShippingMaster extends PureComponent {
         name: record.name,
       }),
     };
-    return(
+    return (
       <div>
         <ConfirmationShipping
           visibleConfirmationShipping={this.state.visibleConfirmationShipping}
           onCloseConfirmationShipping={this.onCloseConfirmationShipping}
         />
         <ModalProductTable
-          visipleModal ={this.state.visibleModalProduct}
-          ok = {this.handleOk}
-          cancel = {this.handleCancel} 
+          visipleModal={this.state.visibleModalProduct}
+          ok={this.handleOk}
+          cancel={this.handleCancel}
         />
         <DrawerEntry
           visibleEntry={this.state.visibleEntry}
@@ -221,7 +259,7 @@ class TableShippingMaster extends PureComponent {
           handleCancelEntry={this.handleCancelEntry}
           loadingModal={this.state.loadingModal}
         />
-        <Table size="small" rowSelection={rowSelection} columns={columns} dataSource={data} scroll={ isMobile ? {x: 1300} : { x: 1350}} pagination={false}/>
+        <Table size="small" rowSelection={rowSelection} columns={columns} dataSource={data} scroll={isMobile ? { x: 1300 } : { x: 1350 }} pagination={false} />
       </div>
     );
   }
