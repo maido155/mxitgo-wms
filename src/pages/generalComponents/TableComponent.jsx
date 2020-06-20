@@ -8,6 +8,8 @@ import { connect } from 'dva';
 
 class TableComponent extends PureComponent {
   render(){
+
+
     const { warehouse } = this.props;
     const columns = [
       {
@@ -51,9 +53,9 @@ class TableComponent extends PureComponent {
         key: 'action',
         fixed: 'right',
         width: isMobile ? 80 : 155,
-        render: () => (
+        render: (record) => (
           <span>
-            <a onClick={this.props.showNewLine}>
+            <a onClick={()=>{this.props.showNewLine("EDIT" , record)}}>
               { isMobile
                 ?<Icon type="edit" />
                 : <span><Icon type="edit" /><FormattedMessage id="shipping.label.table-shipping.edit"/></span>
