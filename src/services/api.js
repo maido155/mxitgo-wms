@@ -342,3 +342,42 @@ export async function confirmOutcomming(payload) {
         body: JSON.stringify(payload)
     });
 }
+
+export async function getComposition(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/outcommings/composition?payload=${JSON.stringify(payload)}`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization }
+    });
+}
+
+export async function customerGet(payload) {  
+    return request(`${ANT_DESIGN_PRO_TARGET}/customer?payload=${JSON.stringify(payload)}`, {  
+        method: 'GET',  
+        headers: { 'Authorization': payload.Authorization }  
+
+    });  
+}       
+
+export async function updateShipping(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/shipping`, {
+        method: 'PUT',
+        headers: { 'Authorization': payload.Authorization },
+        body: JSON.stringify(payload)
+    });
+}
+
+export async function getShipping(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/shipping?payload=${JSON.stringify(payload)}`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization }
+
+    });
+}
+
+export async function getLocations(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/location/all?payload=${JSON.stringify(payload)}`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization }
+
+    });
+}
