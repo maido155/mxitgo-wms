@@ -6,26 +6,26 @@ import TableProgramming from './tableGeneralProgramming';
 import { connect } from 'dva';
 const { confirm } = Modal;
 
-// @connect(({ programming, loading }) => ({
-//     programming,
-//     loading: loading.models.programming,
-//     datesPrograming:programming.datesPrograming,
-// }))
+@connect(({ programming, loading }) => ({
+    programming,
+    loading: loading.models.programming,
+    datesPrograming:programming.datesPrograming,
+}))
 
 class GeneralProgramming extends PureComponent {
     state = { 
         visibleNewDrawer: false 
     };
-    // componentDidMount() {
-    //     this.props.dispatch({
-    //        type: 'programming/fetchProgrammingAll',
-    //        payload: {
-    //            payload: {
-    //             Authorization: sessionStorage.getItem('idToken')
-    //            }
-    //         },
-    //    });
-    // }
+    componentDidMount() {
+        this.props.dispatch({
+           type: 'programming/fetchProgrammingAll',
+           payload: {
+               payload: {
+                Authorization: sessionStorage.getItem('idToken')
+               }
+            },
+       });
+    }
     cancelProgramming = (idProgramming) => {
         let _self = this;
         confirm({
@@ -65,14 +65,14 @@ class GeneralProgramming extends PureComponent {
                 />
                 <PageHeaderWrapper>
                     <Card>
-                        {/* <Spin tip={"Cargando..."} spinning={loading}> */}
+                        <Spin tip={"Cargando..."} spinning={loading}>
                             <div align="right">
                                 <Button type="primary" shape="circle" size="large" onClick={this.showNewDrawer}>
                                     <Icon type="plus"/>
                                 </Button>
-                                {/* <TableProgramming datesPrograming={datesPrograming} cancelProgramming={this.cancelProgramming} showNewDrawer={this.showNewDrawer} visibleNewDrawer={this.state.visibleNewDrawer} onCloseNewDrawer={this.onCloseNewDrawer}/> */}
+                                <TableProgramming datesPrograming={datesPrograming} cancelProgramming={this.cancelProgramming} showNewDrawer={this.showNewDrawer} visibleNewDrawer={this.state.visibleNewDrawer} onCloseNewDrawer={this.onCloseNewDrawer}/>
                             </div>
-                        {/* </Spin> */}
+                        </Spin>
                     </Card>
                 </PageHeaderWrapper>
             </div>
