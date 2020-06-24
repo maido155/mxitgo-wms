@@ -2,6 +2,8 @@ import component from './en-US/component';
 import globalHeader from './en-US/globalHeader';
 import menu from './en-US/menu';
 import pwa from './en-US/pwa';
+import register from './en-US/register';
+import accountSettings from './en-US/accountSettings';
 import settingDrawer from './en-US/settingDrawer';
 import settings from './en-US/settings';
 import outComming from './en-US/outComming';
@@ -23,6 +25,8 @@ export default {
     ...settings,
     ...pwa,
     ...component,
+    ...register,
+    ...accountSettings,
     ...outComming,
     ...shippingMaster,
     ...dashboard,
