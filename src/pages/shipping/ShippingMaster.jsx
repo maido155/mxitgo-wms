@@ -36,7 +36,9 @@ class ShippingMaster extends PureComponent {
 
         this.props.dispatch({
             type: 'shipping/getLocations',
-            payload: {}
+            payload: {
+                Authorization: sessionStorage.getItem('idToken')
+            }
         });
 
 
