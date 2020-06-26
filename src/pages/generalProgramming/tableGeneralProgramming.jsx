@@ -17,7 +17,7 @@ const rowSelection = {
 
 class TableGeneralProgramming extends PureComponent{
     render(){
-        const { datesPrograming, cancelProgramming, visibleNewDrawer, onCloseNewDrawer } = this.props;
+        const { datesPrograming, cancelProgramming, visibleNewDrawer, onCloseNewDrawer, showEditDrawer } = this.props;
         const columns = [{
             title: 'Semana',
             dataIndex: 'Week',
@@ -61,7 +61,7 @@ class TableGeneralProgramming extends PureComponent{
             width: isMobile ? 120 : 350,
             render: (record) => (
                 <span>
-                    <a onClick={this.props.showNewDrawer}>
+                    <a onClick={() => {showEditDrawer(record.Sk)}}>
                         {isMobile
                             ? <Icon type="edit"/>
                             : <span><Icon type="edit"/>Editar</span>
@@ -93,7 +93,6 @@ class TableGeneralProgramming extends PureComponent{
         }];
         return(
             <div>
-                <DrawerNew visibleNewDrawer={visibleNewDrawer} onCloseNewDrawer={onCloseNewDrawer}/>
                 <Table  style={{marginTop: "2%"}} size="small" rowSelection={rowSelection} columns={columns} dataSource={datesPrograming} scroll={isMobile ? {x: 720} : {x: 950}}/>
             </div>
         );

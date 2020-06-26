@@ -342,3 +342,11 @@ export async function confirmOutcomming(payload) {
         body: JSON.stringify(payload)
     });
 }
+
+export async function getProgramming({ payload }) {
+    return request(
+        `${ANT_DESIGN_PRO_TARGET}/programming?idProgramming=${payload.idProgramming}`, {
+            method: 'GET',
+            headers: { 'Authorization': payload.Authorization },
+        });
+}

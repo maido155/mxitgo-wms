@@ -10,11 +10,13 @@ const { confirm } = Modal;
     programming,
     loading: loading.models.programming,
     datesPrograming:programming.datesPrograming,
+    datesGetProgramming: programming.datesGetProgramming
 }))
 
 class GeneralProgramming extends PureComponent {
     state = { 
-        visibleNewDrawer: false 
+        visibleNewDrawer: false,
+        edit: false
     };
     componentDidMount() {
         this.props.dispatch({
@@ -47,21 +49,40 @@ class GeneralProgramming extends PureComponent {
     }
     showNewDrawer = () => {
         this.setState({
-            visibleNewDrawer: true,
+            visibleNewDrawer: true
         });
     };
     onCloseNewDrawer = () => {
         this.setState({
             visibleNewDrawer: false,
+            edit: false
         });
     };
+    showEditDrawer = (skEdit) => {
+        this.showNewDrawer();
+        this.setState({
+            edit: true
+        })
+        this.props.dispatch({
+            type: 'programming/getProgramming',
+            payload: {
+                payload: {
+                    Authorization: sessionStorage.getItem('idToken'),
+                    idProgramming: skEdit
+                }
+             },
+        });
+    }
     render(){
-        const { datesPrograming, loading } = this.props;
+        const { datesPrograming, loading, datesGetProgramming } = this.props;
         return(
             <div>
                 <DrawerGeneralProgramming
                     visibleNewDrawer={this.state.visibleNewDrawer}
                     onCloseNewDrawer={this.onCloseNewDrawer}
+                    edit={this.state.edit}
+                    datesGetProgramming={datesGetProgramming}
+                    loading={loading}
                 />
                 <PageHeaderWrapper>
                     <Card>
@@ -70,7 +91,7 @@ class GeneralProgramming extends PureComponent {
                                 <Button type="primary" shape="circle" size="large" onClick={this.showNewDrawer}>
                                     <Icon type="plus"/>
                                 </Button>
-                                <TableProgramming datesPrograming={datesPrograming} cancelProgramming={this.cancelProgramming} showNewDrawer={this.showNewDrawer} visibleNewDrawer={this.state.visibleNewDrawer} onCloseNewDrawer={this.onCloseNewDrawer}/>
+                                <TableProgramming datesPrograming={datesPrograming} cancelProgramming={this.cancelProgramming} showEditDrawer={this.showEditDrawer}/>
                             </div>
                         </Spin>
                     </Card>
