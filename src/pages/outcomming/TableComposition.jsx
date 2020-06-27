@@ -51,7 +51,7 @@ const data = [
 export default class TableComposition extends PureComponent {
     render() {
         return (
-            <Table columns={columns} loading = {this.props.loading} dataSource={this.props.compositionData} pagination={false} scroll={isMobile ? {x: 400} : {x: 400}}/>
+            <Table columns={columns} loading = {this.props.loading} dataSource={this.props.compositionData} pagination={false} scroll={isMobile ? {x: 720} : {x: 950}}/>
         );            
     }
 }

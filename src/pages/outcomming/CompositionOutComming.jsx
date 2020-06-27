@@ -28,7 +28,7 @@ export default class CompositionOutComming extends PureComponent {
                 <Drawer
                     title={formatMessage({ id: 'outComming.label.composition-outcomming' })}
                     placement="right"
-                    width={isMobile ? "100%" : "70%"}
+                    width={isMobile ? "100%" : "80%"}
                     closable={true}
                     onClose={this.props.closeTwo}
                     visible={this.props.visibleTwo}
