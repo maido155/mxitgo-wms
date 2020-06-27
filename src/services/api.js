@@ -350,3 +350,17 @@ export async function getProgramming({ payload }) {
             headers: { 'Authorization': payload.Authorization },
         });
 }
+
+export async function fetchProductAll({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/product/all`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization },
+    });
+}
+
+export async function fetchCustomerAll({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/customerAll`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization },
+    });
+}

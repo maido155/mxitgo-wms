@@ -10,7 +10,9 @@ const { confirm } = Modal;
     programming,
     loading: loading.models.programming,
     datesPrograming:programming.datesPrograming,
-    datesGetProgramming: programming.datesGetProgramming
+    datesGetProgramming: programming.datesGetProgramming,
+    datesCustomerAll: programming.datesCustomerAll,
+    datesProductAll: programming.datesProductAll
 }))
 
 class GeneralProgramming extends PureComponent {
@@ -26,7 +28,23 @@ class GeneralProgramming extends PureComponent {
                 Authorization: sessionStorage.getItem('idToken')
                }
             },
-       });
+        });
+        this.props.dispatch({
+            type: 'programming/fetchCustomerAll',
+            payload: {
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken')
+                }
+             },
+        });
+        this.props.dispatch({
+            type: 'programming/fetchProductAll',
+            payload: {
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken')
+                }
+             },
+        });
     }
     cancelProgramming = (idProgramming) => {
         let _self = this;
@@ -74,7 +92,7 @@ class GeneralProgramming extends PureComponent {
         });
     }
     render(){
-        const { datesPrograming, loading, datesGetProgramming } = this.props;
+        const { datesPrograming, loading, datesGetProgramming, datesCustomerAll, datesProductAll } = this.props;
         return(
             <div>
                 <DrawerGeneralProgramming
@@ -83,6 +101,8 @@ class GeneralProgramming extends PureComponent {
                     edit={this.state.edit}
                     datesGetProgramming={datesGetProgramming}
                     loading={loading}
+                    datesCustomerAll={datesCustomerAll}
+                    datesProductAll={datesProductAll}
                 />
                 <PageHeaderWrapper>
                     <Card>

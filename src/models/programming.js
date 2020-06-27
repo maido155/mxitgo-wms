@@ -1,11 +1,13 @@
-import { fetchProgrammingAll, updateProgrammingStatus, getProgramming } from '../services/api';
+import { fetchProgrammingAll, updateProgrammingStatus, getProgramming, fetchCustomerAll, fetchProductAll } from '../services/api';
 import moment from 'moment';
 
 export default {
     namespace: 'programming',
     state: {
         datesPrograming: [],
-        datesGetProgramming: []
+        datesGetProgramming: [],
+        datesCustomerAll: [],
+        datesProductAll: []
     },
     effects: {
         * fetchProgrammingAll({ payload }, { call, put }) {
@@ -32,7 +34,27 @@ export default {
                 type: 'queryGetProgramming',
                 payload: response,
             });
-        }
+        },
+
+        * fetchCustomerAll({ payload }, { call, put }) {
+            const response = yield call(fetchCustomerAll, payload);
+            console.log(response);
+            console.log(response);
+            yield put({
+                type: 'queryCustomerAll',
+                payload: response,
+            });
+        },
+
+        * fetchProductAll({ payload }, { call, put }) {
+            const response = yield call(fetchProductAll, payload);
+            console.log(response);
+            console.log(response);
+            yield put({
+                type: 'queryProductAll',
+                payload: response,
+            });
+        },
     },
 
     reducers: {
@@ -64,12 +86,26 @@ export default {
                 endDate: action.payload[0].endDate,
                 productName: action.payload[0].productName,
                 startDate: action.payload[0].startDate,
-                dates: dates
+                dates: dates,
+                skProduct: action.payload[0].skProduct,
+                skCustomer: action.payload[0].skCustomer
             })
             return {
                 ...state,
                 datesGetProgramming: datesGeneral
             }
-        }
+        },
+        queryCustomerAll(state, action) {
+            return {
+                ...state,
+                datesCustomerAll: action.payload.Items
+            }
+        },
+        queryProductAll(state, action) {
+            return {
+                ...state,
+                datesProductAll: action.payload.Items
+            }
+        },
     }
 }
