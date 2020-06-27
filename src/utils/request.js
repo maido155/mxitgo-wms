@@ -6,27 +6,28 @@ import { extend } from 'umi-request';
 import { notification } from 'antd';
 import { FormattedMessage} from 'umi-plugin-react/locale';
 
+
 const codeMessage = {
-  200: <FormattedMessage id="utils.request.200"/>,
-  201: <FormattedMessage id="utils.request.201"/>,
-  202: <FormattedMessage id="utils.request.202"/>,
-  204: <FormattedMessage id="utils.request.204"/>,
-  400: <FormattedMessage id="utils.request.400"/>,
-  401: <FormattedMessage id="utils.request.401"/>,
-  403: <FormattedMessage id="utils.request.403"/>,
-  404: <FormattedMessage id="utils.request.404"/>,
-  406: <FormattedMessage id="utils.request.406"/>,
-  410: <FormattedMessage id="utils.request.410"/>,
-  422: <FormattedMessage id="utils.request.422"/>,
-  500: <FormattedMessage id="utils.request.500"/>,
-  502: <FormattedMessage id="utils.request.502"/>,
-  503: <FormattedMessage id="utils.request.503"/>,
-  504: <FormattedMessage id="utils.request.504"/>,
+  200:'The server successfully returned the requested data.',
+  201:'New or modified data is successful.',
+  202:'A request has been queued in the background (asynchronous task).',
+  204:'The data was deleted successfully.',
+  400:'There was an error in the request issued, and the server did not create or modify data.',
+  401:'The user does not have permission (token, user name, wrong password).',
+  403:'The user is authorized, but access is prohibited.',
+  404:'The request issued was for a non-existent record, and the server did not operate.',
+  406:'The requested format is not available.',
+  410:'The requested resource is permanently deleted and will no longer be available.',
+  422:'When creating an object, a validation error occurred.',
+  500:'An error occurred on the server, please check the server.',
+  502:'Gateway error.',
+  503:'The service is unavailable, the server is temporarily overloaded or maintained.',
+  504:'Gateway timeout.'
 };
 /**
  * 异常处理程序
  */
-
+ 
 const errorHandler = error => {
   const { response } = error;
 

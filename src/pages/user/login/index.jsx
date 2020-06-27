@@ -169,7 +169,7 @@ class Login extends Component {
   saveFormRefDraw = (formRef) => {
     this.formRefDraw = formRef;
   }
-  showModal = () => {
+   showModal = () => {
     this.onResetLogin();
 
     this.setState({
@@ -196,7 +196,7 @@ class Login extends Component {
     console.log('jj');
     console.log('jj');
   };
-
+  
   handleNewPassword = (pass) => {
     var self = this;
     let cognitoUserNew = this.state.user;
