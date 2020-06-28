@@ -5,7 +5,7 @@ import RangePickerComponent from './RangePickerOutcomming';
 import RadioGroupComponent from './RadioGroupOutcomming';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import TabsOutComming from './TabsOutComming';
-import { Card, Form, Row, Col } from 'antd';
+import { Card, Form, Row, Col, Spin } from 'antd';
 import TableOutComming from './TableOutComming';
 import { connect } from 'dva';
 import RangePickerOutcomming from './RangePickerOutcomming';
@@ -14,13 +14,16 @@ import RadioGroupOutcomming from './RadioGroupOutcomming';
 @connect(({ outcomming, loading }) => ({
     outcomming,
     loading: loading.models.outcomming,
+    datesOutcomming:outcomming.datesOutcomming,
 }))
 export default class OutComming extends PureComponent {
-    
-    onShowOutcomming = (id) => {
+    state = {
+        loading: false,
+    }
+    componentDidMount() {
 
         this.props.dispatch({
-            type: 'outcomming/outcommingGet',
+            type: 'outcomming/getOutcomming',
             payload: { Product: "PRODUCT-1",Customer: "CUSTOMER-2", DateFrom: "2020-06-25T00:00:00.000Z", DateTo: "2020-06-30T00:00:00.000Z"}
         })
         
@@ -45,7 +48,7 @@ export default class OutComming extends PureComponent {
     };
     
     render() {
-
+        let {loading} = this.props;
         let {compositionData, datesOutcomming} = this.props.outcomming;
 
         const formItemLayout = {

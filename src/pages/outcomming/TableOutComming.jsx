@@ -35,6 +35,8 @@ export default class TableOutComming extends PureComponent {
         });
     };
     render() {
+        const { datesOutcomming } = this.props;
+
         const columns = [
             {
                 title: '',
@@ -48,7 +50,7 @@ export default class TableOutComming extends PureComponent {
             },
             {
                 title: formatMessage({ id: 'outComming.label.table-boxes' }),
-                dataIndex: 'cajas',
+                dataIndex: 'boxs',
                 width: isMobile ? 200 : 180
             },
             {
@@ -88,31 +90,9 @@ export default class TableOutComming extends PureComponent {
                 ),
             }
         ];
-          const data = [
-            {
-                key: 'WMS-OC-875a08d0-4cd2-4452-88f4-3fc7edd02bf5',
-                date: 'Jue 8 Nov',
-                pallets: "12/30",
-                cajas: "360/900",
-                status: 'Pendiente'
-            },
-            {
-                key: 'WMS-OC-875a08d0-4cd2-4452-88f4-3fc7edd02bf5',
-                date: 'Vie 9 Nov',
-                pallets: "12/30",
-                cajas: "360/900",
-                status: 'Completado'
-            },
-            {
-                key: 'WMS-OC-875a08d0-4cd2-4452-88f4-3fc7edd02bf5',
-                date: 'Sab 10 Nov',
-                pallets: "12/30",
-                cajas: "360/900",
-                status: 'En proceso'
-            }
-        ];         
+                   
         return (
-            <Table columns={columns} dataSource={data} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
+            <Table columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
         );            
     }
 }
