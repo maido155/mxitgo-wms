@@ -381,3 +381,11 @@ export async function getLocations(payload) {
 
     });
 }
+
+export async function getOutcomming(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/outcomming?payload=${JSON.stringify(payload)}`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization }
+
+    });
+}
