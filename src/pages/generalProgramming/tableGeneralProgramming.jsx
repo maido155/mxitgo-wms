@@ -37,15 +37,15 @@ class TableGeneralProgramming extends PureComponent{
             width: isMobile ? 90 :100
         },
         {
-            title: 'Cajas',
-            dataIndex: 'Box',
-            key: 'Box',
-            width: isMobile ? 90 :100
-        },
-        {
             title: 'Pallets',
             dataIndex: 'Pallets',
             key: 'Pallets',
+            width: isMobile ? 90 :100
+        },
+        {
+            title: 'Cajas',
+            dataIndex: 'Box',
+            key: 'Box',
             width: isMobile ? 90 :100
         },
         {

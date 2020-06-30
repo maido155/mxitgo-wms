@@ -26,7 +26,11 @@ class GeneralProgramming extends PureComponent {
         rangePicker: false,
         pk: "",
         rangeEdit: false,
-        showEdit: true
+        showEdit: true,
+        sumPallets: 0,
+        sumBoxes: 0,
+        sumPalletsEdit: 0,
+        sumBoxesEdit: 0
     };
     componentDidMount() {
         this.props.dispatch({
@@ -112,6 +116,39 @@ class GeneralProgramming extends PureComponent {
     rangeEdit = () => {
         this.setState({
             rangeEdit: true
+        })
+    }
+    sumInputs = () => {
+        const form = this.formRefNewLine.props.form;
+        let data = form.getFieldsValue();
+        let palletOne = data.palletOneNew;
+        let palletTwo = data.palletTwoNew;
+        let palletThree = data.palletThreeNew;
+        let palletFour = data.palletFourNew;
+        let palletFive = data.palletFiveNew;
+        let BoxOne = data.boxOneNew;
+        let BoxTwo = data.boxTwoNew;
+        let BoxThree = data.boxThreeNew;
+        let BoxFour = data.boxFourNew;
+        let BoxFive = data.boxFiveNew;
+        this.setState({
+            sumPallets: palletOne + palletTwo + palletThree + palletFour + palletFive,
+            sumBoxes: BoxOne + BoxTwo + BoxThree + BoxFour + BoxFive
+        })
+        //************************************/
+        let palletOneEdit = data.palletOneEdit;
+        let palletTwoEdit = data.palleTwoEdit;
+        let palletThreeEdit = data.palleThreeEdit;
+        let palletFourEdit = data.palleFourEdit;
+        let palletFiveEdit = data.palleFiveEdit;
+        let BoxOneEdit = data.boxOneEdit;
+        let BoxTwoEdit = data.boxTwoEdit;
+        let BoxThreeEdit = data.boxThreeEdit;
+        let BoxFourEdit = data.boxFourEdit;
+        let BoxFiveEdit = data.boxFiveEdit;
+        this.setState({
+            sumPalletsEdit: palletOneEdit + palletTwoEdit + palletThreeEdit + palletFourEdit + palletFiveEdit,
+            sumBoxesEdit: BoxOneEdit + BoxTwoEdit + BoxThreeEdit + BoxFourEdit + BoxFiveEdit
         })
     }
     handleSubmit = (data) => {
@@ -226,6 +263,11 @@ class GeneralProgramming extends PureComponent {
                     dataInputShow = {this.dataInputShow}
                     rangeEdit = {this.state.rangeEdit}
                     mRangeEdit= {this.rangeEdit}
+                    sumInputs={this.sumInputs}
+                    sumPallets = {this.state.sumPallets}
+                    sumBoxes = {this.state.sumBoxes}
+                    sumPalletsEdit = {this.state.sumPalletsEdit}
+                    sumBoxesEdit = {this.state.sumBoxesEdit}
                 />
                 <PageHeaderWrapper>
                     <Card>
