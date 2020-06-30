@@ -79,24 +79,24 @@ class TableShippingMaster extends PureComponent {
     let columns = [
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.id' }),
-        dataIndex: 'id',
+        dataIndex: 'WMS-1-SK',
         key: 'id',
         width: isMobile ? 120 : 140,
         render: text => <a>{text}</a>
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.shipping' }),
-        dataIndex: 'envio',
+        dataIndex: 'departureDate',
         width: isMobile ? 70 : 90,
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.arrival' }),
-        dataIndex: 'llegada',
+        dataIndex: 'deliveryDate',
         width: isMobile ? 70 : 90,
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.entry' }),
-        dataIndex: 'entrada',
+        dataIndex: 'entryDate',
         width: isMobile ? 70 : 90,
       },
       {
@@ -111,17 +111,17 @@ class TableShippingMaster extends PureComponent {
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.second' }),
-        dataIndex: 'segunda',
+        dataIndex: 'second',
         width: isMobile ? 130 : 100,
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.hand' }),
-        dataIndex: 'mano',
+        dataIndex: 'hand',
         width: isMobile ? 120 : 100,
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.finger' }),
-        dataIndex: 'dedo',
+        dataIndex: 'finger',
         width: isMobile ? 120 : 100,
       },
       {

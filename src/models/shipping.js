@@ -1,4 +1,4 @@
-import { saveShipping, updateShipping, getShipping, getLocations } from '../services/api';
+import { saveShipping, updateShipping, getShipping, getLocations,fetchShippingAll } from '../services/api';
 import moment from 'moment';
 
 export default {
@@ -10,9 +10,22 @@ export default {
         close: false,
         oShippingItem: { products: [], id: "" },
         products: [],
-        locationTreeData: []
+        locationTreeData: [],
+        datesShipping: [],
     },
     effects: {
+
+        * getShippingAll({ payload }, { call, put }) {
+            const response = yield call(fetchShippingAll, payload);
+            console.log(response);
+            console.log(response);
+            console.log(response);
+            yield put({
+                type: 'queryGetShippingAll',
+                payload: response,
+            });
+        },
+
         * saveShipping({ payload }, { call, put }) {
             const response = yield call(saveShipping, payload);
             yield put({
@@ -99,7 +112,13 @@ export default {
 
     reducers: {
 
-
+        queryGetShippingAll(state, action) {
+            const allDates = [...state.datesShipping, action.payload];
+            return {
+                ...state,
+                datesShipping: allDates
+            }
+        },
         resetValuesReducer(state, action) {
             console.log("Reset values reducer called");
             return {
