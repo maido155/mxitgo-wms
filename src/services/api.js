@@ -350,13 +350,13 @@ export async function getComposition(payload) {
     });
 }
 
-export async function customerGet(payload) {  
-    return request(`${ANT_DESIGN_PRO_TARGET}/customer?payload=${JSON.stringify(payload)}`, {  
-        method: 'GET',  
-        headers: { 'Authorization': payload.Authorization }  
+export async function customerGet(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/customer?payload=${JSON.stringify(payload)}`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization }
 
-    });  
-}       
+    });
+}
 
 export async function updateShipping(payload) {
     return request(`${ANT_DESIGN_PRO_TARGET}/shipping`, {
@@ -387,5 +387,35 @@ export async function getOutcomming(payload) {
         method: 'GET',
         headers: { 'Authorization': payload.Authorization }
 
+    });
+}
+
+export async function getProgramming({ payload }) {
+    return request(
+        `${ANT_DESIGN_PRO_TARGET}/programming?idProgramming=${payload.idProgramming}`, {
+            method: 'GET',
+            headers: { 'Authorization': payload.Authorization },
+        });
+}
+
+export async function fetchProductAll({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/product/all`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization },
+    });
+}
+
+export async function fetchCustomerAll({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/customerAll`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization },
+    });
+}
+
+export async function updateProgramming({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/programming`, {
+        method: 'PUT',
+        headers: { 'Authorization': payload.Authorization },
+        body: JSON.stringify(payload)
     });
 }
