@@ -17,9 +17,7 @@ import RadioGroupOutcomming from './RadioGroupOutcomming';
     datesOutcomming:outcomming.datesOutcomming,
 }))
 export default class OutComming extends PureComponent {
-    state = {
-        loading: false,
-    }
+    
     componentDidMount() {
 
         this.props.dispatch({
@@ -48,7 +46,6 @@ export default class OutComming extends PureComponent {
     };
     
     render() {
-        let {loading} = this.props;
         let {compositionData, datesOutcomming} = this.props.outcomming;
 
         const formItemLayout = {
