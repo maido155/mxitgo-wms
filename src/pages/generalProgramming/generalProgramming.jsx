@@ -16,7 +16,8 @@ const { confirm } = Modal;
     datesGetProgramming: programming.datesGetProgramming,
     datesCustomerAll: programming.datesCustomerAll,
     datesProductAll: programming.datesProductAll,
-    editSuccess: programming.editSuccess
+    editSuccess: programming.editSuccess,
+    postSuccess: programming.postSuccess
 }))
 
 class GeneralProgramming extends PureComponent {
@@ -27,6 +28,7 @@ class GeneralProgramming extends PureComponent {
         pk: "",
         rangeEdit: false,
         showEdit: true,
+        showNew: true,
         sumPallets: 0,
         sumBoxes: 0,
         sumPalletsEdit: 0,
@@ -153,73 +155,141 @@ class GeneralProgramming extends PureComponent {
     }
     handleSubmit = (data) => {
         const form = this.formRefNewLine.props.form;
-        form.validateFields((err, values) => {
-            if(err){
-                return;
-            }
-            let payload = {
-                operation: "UPDATE_DATA", 
-                status: "NEW",
-                startDate: values.weekEdit[0],
-                endDate:  values.weekEdit[1],
-                idSkEdit: values.productEdit + "|" + values.customerEdit,
-                idSk: this.props.datesGetProgramming[0].skProduct + "|" + this.props.datesGetProgramming[0].skCustomer,
-                idPk: this.state.pk,
-                dates: [
-                    {
-                        caja: values.boxOneEdit,
-                        pallet: values.palletOneEdit
-                    },
-                    {
-                        caja: values.boxTwoEdit,
-                        pallet: values.palleTwoEdit
-                    },
-                    {
-                        caja: values.boxThreeEdit,
-                        pallet: values.palleThreeEdit
-                    },
-                    {
-                        caja: values.boxFourEdit,
-                        pallet: values.palleFourEdit
-                    },
-                    {
-                        caja: values.boxFiveEdit,
-                        pallet: values.palleFiveEdit
+        if(this.state.edit == true){
+            form.validateFields((err, values) => {
+                if(err){
+                    return;
+                }
+                let payload = {
+                    operation: "UPDATE_DATA", 
+                    status: "NEW",
+                    startDate: values.weekEdit[0],
+                    endDate:  values.weekEdit[1],
+                    idSkEdit: values.productEdit + "|" + values.customerEdit,
+                    idSk: this.props.datesGetProgramming[0].skProduct + "|" + this.props.datesGetProgramming[0].skCustomer,
+                    idPk: this.state.pk,
+                    dates: [
+                        {
+                            caja: values.boxOneEdit,
+                            pallet: values.palletOneEdit
+                        },
+                        {
+                            caja: values.boxTwoEdit,
+                            pallet: values.palleTwoEdit
+                        },
+                        {
+                            caja: values.boxThreeEdit,
+                            pallet: values.palleThreeEdit
+                        },
+                        {
+                            caja: values.boxFourEdit,
+                            pallet: values.palleFourEdit
+                        },
+                        {
+                            caja: values.boxFiveEdit,
+                            pallet: values.palleFiveEdit
+                        }
+                    ]
+                };
+                if(this.state.rangeEdit == false){
+                    var dataSim = this.props.datesGetProgramming[0].dateIso;
+                    var dataIso = [];
+                    for(var i = 0; i < dataSim.length; i++){
+                        var oData = moment(dataSim[i].date).format();
+                        dataIso.push(oData)
                     }
-                ]
-            };
-            if(this.state.rangeEdit == false){
-                var dataSim = this.props.datesGetProgramming[0].dateIso;
-                var dataIso = [];
-                for(var i = 0; i < dataSim.length; i++){
-                    var oData = moment(dataSim[i].date).format();
-                    dataIso.push(oData)
+                    for(var k = 0; k < payload.dates.length; k++){
+                        payload.dates[k]["data"] = dataIso[k]
+                    }
+                }else{
+                    for(var j = 0; j < payload.dates.length; j++){
+                        payload.dates[j]["data"] = data[j]
+                    }
                 }
-                for(var k = 0; k < payload.dates.length; k++){
-                    payload.dates[k]["data"] = dataIso[k]
-                }
-            }else{
-                for(var j = 0; j < payload.dates.length; j++){
-                    payload.dates[j]["data"] = data[j]
-                }
-            }
-            this.props.dispatch({
-                type: 'programming/updateProgramming',
-                payload: {
+                this.props.dispatch({
+                    type: 'programming/updateProgramming',
                     payload: {
-                        Authorization: sessionStorage.getItem('idToken'),
-                        operation: payload.operation, 
-                        status: payload.status,
-                        startDate:  payload.startDate,
-                        endDate:  payload.endDate,
-                        idSkEdit: payload.idSkEdit,
-                        idSk: payload.idSk,
-                        idPk: payload.idPk,
-                        dates: payload.dates
+                        payload: {
+                            Authorization: sessionStorage.getItem('idToken'),
+                            operation: payload.operation, 
+                            status: payload.status,
+                            startDate:  payload.startDate,
+                            endDate:  payload.endDate,
+                            idSkEdit: payload.idSkEdit,
+                            idSk: payload.idSk,
+                            idPk: payload.idPk,
+                            dates: payload.dates
+                        }
+                     },
+                });
+            })
+        }else{
+            form.validateFields((err, values) => {
+                if(err){
+                    return;
+                }
+                let payload = {
+                    operation: "NEW_DATA", 
+                    status: "NEW",
+                    startDate: values.weekNew[0],
+                    endDate:  values.weekNew[1],
+                    idSk: values.productNew + "|" + values.customerNew,
+                    idPk: moment(values.weekNew[0]).format("DDMMYY") + moment(values.weekNew[1]).format("DDMMYY"),
+                    dates: [
+                        {
+                            caja: values.boxOneNew,
+                            pallet: values.palletOneNew
+                        },
+                        {
+                            caja: values.boxTwoNew,
+                            pallet: values.palletTwoNew
+                        },
+                        {
+                            caja: values.boxThreeNew,
+                            pallet: values.palletThreeNew
+                        },
+                        {
+                            caja: values.boxFourNew,
+                            pallet: values.palletFourNew
+                        },
+                        {
+                            caja: values.boxFiveNew,
+                            pallet: values.palletFiveNew
+                        }
+                    ]
+                };
+                if(this.state.rangeEdit == false){
+                    var dataSim = this.props.datesGetProgramming[0].dateIso;
+                    var dataIso = [];
+                    for(var i = 0; i < dataSim.length; i++){
+                        var oData = moment(dataSim[i].date).format();
+                        dataIso.push(oData)
                     }
-                 },
-            });
-        })
+                    for(var k = 0; k < payload.dates.length; k++){
+                        payload.dates[k]["data"] = dataIso[k]
+                    }
+                }else{
+                    for(var j = 0; j < payload.dates.length; j++){
+                        payload.dates[j]["data"] = data[j]
+                    }
+                }
+                this.props.dispatch({
+                    type: 'programming/postProgramming',
+                    payload: {
+                        payload: {
+                            Authorization: sessionStorage.getItem('idToken'),
+                            operation: payload.operation, 
+                            status: payload.status,
+                            startDate:  payload.startDate,
+                            endDate:  payload.endDate,
+                            idPk: payload.idPk,
+                            idSk: payload.idSk,
+                            dates: payload.dates
+                        }
+                     },
+                });
+            }); 
+        }
     }
     saveFormRefNewLine = (formRef) => {
         this.formRefNewLine = formRef;
@@ -230,8 +300,14 @@ class GeneralProgramming extends PureComponent {
             payload: {},
         });
     }
+    UpdateValidationNew = () => {
+        this.props.dispatch({
+            type: 'programming/updateValidationNew',
+            payload: {},
+        });
+    }
     render(){
-        const { datesPrograming, loading, datesGetProgramming, datesCustomerAll, datesProductAll, editSuccess, showEdit } = this.props;
+        const { datesPrograming, loading, datesGetProgramming, datesCustomerAll, datesProductAll, editSuccess, postSuccess } = this.props;
         if(editSuccess){
             this.UpdateValidation();
             this.onCloseNewDrawer();
@@ -244,6 +320,20 @@ class GeneralProgramming extends PureComponent {
         }else{
             this.setState({
                 showEdit: true
+            })
+        }
+        if(postSuccess){
+            this.UpdateValidationNew();
+            this.onCloseNewDrawer();
+            if(this.state.showNew){
+                message.success("Guardado");
+                this.setState({
+                    showNew: false
+                })
+            }
+        }else{
+            this.setState({
+                showNew: true
             })
         }
         return(

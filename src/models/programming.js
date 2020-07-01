@@ -1,4 +1,4 @@
-import { fetchProgrammingAll, updateProgrammingStatus, getProgramming, fetchCustomerAll, fetchProductAll, updateProgramming } from '../services/api';
+import { fetchProgrammingAll, updateProgrammingStatus, getProgramming, fetchCustomerAll, fetchProductAll, updateProgramming, postProgramming } from '../services/api';
 import moment from 'moment';
 moment.locale('es');
 
@@ -10,7 +10,9 @@ export default {
         datesCustomerAll: [],
         datesProductAll: [],
         editSuccess: false,
-        showEdit: false
+        showEdit: false,
+        showNew: false,
+        postSuccess: false
     },
     effects: {
         * fetchProgrammingAll({ payload }, { call, put }) {
@@ -71,7 +73,15 @@ export default {
                 type: 'queryValidation',
                 payload: {},
             });
-        }
+        },
+        * postProgramming({ payload }, { call, put }) {
+            const response = yield call(postProgramming, payload);
+            const responseGetAll = yield call(fetchProgrammingAll, payload);
+            yield put({
+                type: 'queryProgrammingAllPost',
+                payload: responseGetAll,
+            });
+        },
     },
 
     reducers: {
@@ -86,6 +96,13 @@ export default {
                 ...state,
                 datesPrograming: action.payload,
                 editSuccess: true
+            }
+        },
+        queryProgrammingAllPost(state, action) {
+            return {
+                ...state,
+                datesPrograming: action.payload,
+                postSuccess: true
             }
         },
         updateProgrammingStatusReducer(state, action) {
@@ -137,6 +154,13 @@ export default {
                 ...state,
                 editSuccess: false,
                 showEdit: true
+            }
+        },
+        queryValidationNew(state, action) {
+            return {
+                ...state,
+                postSuccess: false,
+                showNew: true
             }
         }
     }
