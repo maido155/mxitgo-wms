@@ -22,7 +22,7 @@ export default class Dashboard extends PureComponent {
           <div>
           <Row type="flex" justify="center">
                 <Col span={24} style={{textAlign: "center"}}>
-                    <h3>Semana:</h3>
+                    <h3>Semana: oscarin</h3>
                 </Col>
                 <Col span={24} >
                     <RangePickerComponent />
