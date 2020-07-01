@@ -99,7 +99,7 @@ const DrawerGeneralProgramming  = Form.create()(
             const { getFieldDecorator } = this.props.form;
             return(
                 <Drawer
-                    title={edit == false ? <FormattedMessage id="general.modal-title.title"/> : "Editar Programación"}
+                    title={edit == false ? <FormattedMessage id="general.modal-title.title"/> : <FormattedMessage id="general.modal-title.Edit"/>}
                     width={isMobile ? "100%" : 550}
                     closable={true}
                     onClose={this.props.onCloseNewDrawer}
@@ -252,7 +252,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                             <Row>
                                                 <Col xs={0} sm={3} md={3} lg={3} xl={3}></Col>
                                                 <Col xs={16} sm={18} md={18} lg={18} xl={18}>
-                                                    <Form.Item label={"Total"}>
+                                                    <Form.Item label={formatMessage({id: "general.modal-title.absolute"})}>
                                                         <Row>
                                                             <Col span={12} style={{textAlign: "center"}}>
                                                                 <label>{sumPallets == 0 ? 0 : sumPallets}</label>
@@ -416,7 +416,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                             <Row>
                                                 <Col xs={0} sm={3} md={3} lg={3} xl={3}></Col>
                                                 <Col xs={16} sm={18} md={18} lg={18} xl={18}>
-                                                    <Form.Item label={"Total"}>
+                                                    <Form.Item label={formatMessage({id: "general.modal-title.absolute"})}>
                                                         <Row>
                                                             <Col span={12} style={{textAlign: "center"}}>
                                                                 <label>{sumPalletsEdit}</label>
@@ -450,7 +450,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                 <FormattedMessage id="shipping.button.cancel"/>
                             </Button>
                             <Button type="primary" onClick={() => {handleSubmit(this.state.dateIso)}}>
-                                <FormattedMessage id="usersModule.modal.save"/>
+                                <FormattedMessage id="general.modal.accept"/>
                             </Button>
                         </div>
                     </Form>

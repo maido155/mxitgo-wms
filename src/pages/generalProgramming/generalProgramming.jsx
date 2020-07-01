@@ -312,7 +312,7 @@ class GeneralProgramming extends PureComponent {
             this.UpdateValidation();
             this.onCloseNewDrawer();
             if(this.state.showEdit){
-                message.success(formatMessage({ id: 'accountSettings.mode.message.save' }));
+                message.success(formatMessage({ id: 'general.table.editS' }));
                 this.setState({
                     showEdit: false
                 })
@@ -326,7 +326,7 @@ class GeneralProgramming extends PureComponent {
             this.UpdateValidationNew();
             this.onCloseNewDrawer();
             if(this.state.showNew){
-                message.success("Guardado");
+                message.success(formatMessage({ id: 'general.table.save' }));
                 this.setState({
                     showNew: false
                 })
