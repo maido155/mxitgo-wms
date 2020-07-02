@@ -20,9 +20,7 @@ import RadioGroupOutcomming from './RadioGroupOutcomming';
     datesOutcomming:outcomming.datesOutcomming,
 }))
 export default class OutComming extends PureComponent {
-    state = {
-        loading: false,
-    }
+    
     componentDidMount() {
 
         this.props.dispatch({
@@ -55,7 +53,6 @@ onShowCompositionData = (id) => {
             console.log('click', e);
           };
     render() {
-        let {loading} = this.props;
         let {compositionData, datesOutcomming} = this.props.outcomming;
 
         const formItemLayout = {

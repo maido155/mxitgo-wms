@@ -92,7 +92,7 @@ export default class TableOutComming extends PureComponent {
         ];
                    
         return (
-            <Table columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
+            <Table loading = {this.props.loading} columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
         );            
     }
 }
