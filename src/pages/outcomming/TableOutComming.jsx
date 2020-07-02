@@ -16,7 +16,10 @@ export default class TableOutComming extends PureComponent {
           visibleAssign: true,
         });
     };
-    showDrawerCompo = () => {
+    showDrawerCompo = (id) => {
+
+        this.props.onShowCompositionData(id);
+
         this.setState({
           visibleCompo: true,
         });
@@ -32,6 +35,8 @@ export default class TableOutComming extends PureComponent {
         });
     };
     render() {
+        const { datesOutcomming } = this.props;
+
         const columns = [
             {
                 title: '',
@@ -45,7 +50,7 @@ export default class TableOutComming extends PureComponent {
             },
             {
                 title: formatMessage({ id: 'outComming.label.table-boxes' }),
-                dataIndex: 'cajas',
+                dataIndex: 'boxs',
                 width: isMobile ? 200 : 180
             },
             {
@@ -63,7 +68,7 @@ export default class TableOutComming extends PureComponent {
                             <FormattedMessage id="outComming.button.assign"/>
                         </Button>
                         <Divider type="vertical" />
-                        <Button onClick={this.showDrawerCompo}>
+                        <Button onClick={()=>{this.showDrawerCompo(record.key)}}>
                             <FormattedMessage id="outComming.button.composition"/>
                         </Button>
                         <Divider type="vertical" />
@@ -76,6 +81,8 @@ export default class TableOutComming extends PureComponent {
                             closeOne={this.onCloseDrawerAssig}
                         />
                         <CompositionOutComming
+                            loading = {this.props.loading}
+                            compositionData = {this.props.compositionData}
                             visibleTwo={this.state.visibleCompo}
                             closeTwo={this.onCloseDrawerCompo}
                         />
@@ -83,31 +90,9 @@ export default class TableOutComming extends PureComponent {
                 ),
             }
         ];
-          const data = [
-            {
-                key: '1',
-                date: 'Jue 8 Nov',
-                pallets: "12/30",
-                cajas: "360/900",
-                status: 'Pendiente'
-            },
-            {
-                key: '2',
-                date: 'Vie 9 Nov',
-                pallets: "12/30",
-                cajas: "360/900",
-                status: 'Completado'
-            },
-            {
-                key: '3',
-                date: 'Sab 10 Nov',
-                pallets: "12/30",
-                cajas: "360/900",
-                status: 'En proceso'
-            }
-        ];         
+                   
         return (
-            <Table columns={columns} dataSource={data} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
+            <Table columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
         );            
     }
 }
