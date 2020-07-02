@@ -1,9 +1,13 @@
-import { fetchProgrammingAll, updateProgrammingStatus } from '../services/api';
+import { fetchProgrammingAll, updateProgrammingStatus, getProgramming, fetchCustomerAll, fetchProductAll } from '../services/api';
+import moment from 'moment';
 
 export default {
     namespace: 'programming',
     state: {
-        datesPrograming: []
+        datesPrograming: [],
+        datesGetProgramming: [],
+        datesCustomerAll: [],
+        datesProductAll: []
     },
     effects: {
         * fetchProgrammingAll({ payload }, { call, put }) {
@@ -22,7 +26,35 @@ export default {
                 type: 'updateProgrammingStatusReducer',
                 payload: response,
             });
-        }
+        },
+
+        * getProgramming({ payload }, { call, put }) {
+            const response = yield call(getProgramming, payload);
+            yield put({
+                type: 'queryGetProgramming',
+                payload: response,
+            });
+        },
+
+        * fetchCustomerAll({ payload }, { call, put }) {
+            const response = yield call(fetchCustomerAll, payload);
+            console.log(response);
+            console.log(response);
+            yield put({
+                type: 'queryCustomerAll',
+                payload: response,
+            });
+        },
+
+        * fetchProductAll({ payload }, { call, put }) {
+            const response = yield call(fetchProductAll, payload);
+            console.log(response);
+            console.log(response);
+            yield put({
+                type: 'queryProductAll',
+                payload: response,
+            });
+        },
     },
 
     reducers: {
@@ -36,6 +68,44 @@ export default {
             return {
                 ...state
             }
-        }
+        },
+        queryGetProgramming(state, action) {
+            let dates = [];
+            let datesGeneral = [];
+            for (var i = 0; i < action.payload[0].date.length; i++) {
+                let dateConvert = action.payload[0].date[i].date;
+                let nameDate = moment(dateConvert).format('dddd DD MMMM')
+                dates.push({
+                    date: nameDate,
+                    caja: action.payload[0].date[i].caja,
+                    pallet: action.payload[0].date[i].pallet,
+                })
+            }
+            datesGeneral.push({
+                customerName: action.payload[0].customerName,
+                endDate: action.payload[0].endDate,
+                productName: action.payload[0].productName,
+                startDate: action.payload[0].startDate,
+                dates: dates,
+                skProduct: action.payload[0].skProduct,
+                skCustomer: action.payload[0].skCustomer
+            })
+            return {
+                ...state,
+                datesGetProgramming: datesGeneral
+            }
+        },
+        queryCustomerAll(state, action) {
+            return {
+                ...state,
+                datesCustomerAll: action.payload.Items
+            }
+        },
+        queryProductAll(state, action) {
+            return {
+                ...state,
+                datesProductAll: action.payload.Items
+            }
+        },
     }
 }

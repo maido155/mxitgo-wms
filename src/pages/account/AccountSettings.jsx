@@ -130,12 +130,10 @@ class AccountSettings extends PureComponent{
             this.props.dispatch({
                 type: 'user/updateValidationAvatar',
                 payload: {
-                    body:{
-                        Items:{
-                            [0]:{
-                                urlImage: imageUrl,
-                                user: localStorage.getItem('email')
-                            }
+                    Items:{
+                        [0]:{
+                            urlImage: imageUrl,
+                            user: localStorage.getItem('email')
                         }
                     }
                 },
