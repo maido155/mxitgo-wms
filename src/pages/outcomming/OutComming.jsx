@@ -39,6 +39,11 @@ export default class OutComming extends PureComponent {
 
     };
 
+    handleMenuClick= (e)=> {
+        message.info('Click on menu item.');
+        console.log('click', e);
+      };
+
 onShowCompositionData = (id) => {
          
         this.props.dispatch({  
@@ -48,10 +53,7 @@ onShowCompositionData = (id) => {
 
     };
 
- handleMenuClick= (e)=> {
-            message.info('Click on menu item.');
-            console.log('click', e);
-          };
+
     render() {
         let {compositionData, datesOutcomming} = this.props.outcomming;
 
@@ -61,7 +63,7 @@ onShowCompositionData = (id) => {
         };
 
         const menuProduct = (
-            <Menu onClick={handleMenuClick}>
+            <Menu onClick={this.handleMenuClick}>
               <Menu.Item key="1" icon={<UserOutlined />}>
                 Gold
               </Menu.Item>
@@ -72,7 +74,7 @@ onShowCompositionData = (id) => {
           );
 
           const menuClient = (
-            <Menu onClick={handleMenuClick}>
+            <Menu onClick={this.handleMenuClick}>
               <Menu.Item key="1" icon={<UserOutlined />}>
                 Vallejo
               </Menu.Item>

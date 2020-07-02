@@ -344,27 +344,10 @@ export async function confirmOutcomming(payload) {
 }
 
 
-export async function getProgramming({ payload }) {
-    return request(
-        `${ANT_DESIGN_PRO_TARGET}/programming?idProgramming=${payload.idProgramming}`, {
-            method: 'GET',
-            headers: { 'Authorization': payload.Authorization },
-        });
-}
 
-export async function fetchProductAll({ payload }) {
-    return request(`${ANT_DESIGN_PRO_TARGET}/product/all`, {
-        method: 'GET',
-        headers: { 'Authorization': payload.Authorization },
-    });
-}
 
-export async function fetchCustomerAll({ payload }) {
-    return request(`${ANT_DESIGN_PRO_TARGET}/customerAll`, {
-        method: 'GET',
-        headers: { 'Authorization': payload.Authorization },
-    });
-}
+
+
 
 export async function getComposition(payload) {
     return request(`${ANT_DESIGN_PRO_TARGET}/outcommings/composition?payload=${JSON.stringify(payload)}`, {
