@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import DrawerGeneralProgramming from './drawerGeneralProgramming'; 
+
 import { Card, Button, Icon, Modal, Spin, message } from 'antd'; 
 import TableProgramming from './tableGeneralProgramming';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
@@ -17,6 +18,7 @@ const { confirm } = Modal;
     datesCustomerAll: programming.datesCustomerAll,
     datesProductAll: programming.datesProductAll,
     editSuccess: programming.editSuccess
+
 }))
 
 class GeneralProgramming extends PureComponent {
@@ -90,6 +92,7 @@ class GeneralProgramming extends PureComponent {
             edit: false,
             rangePicker: false,
             rangeEdit: false
+
         });
     };
     showEditDrawer = (skEdit) => {
@@ -268,6 +271,7 @@ class GeneralProgramming extends PureComponent {
                     sumBoxes = {this.state.sumBoxes}
                     sumPalletsEdit = {this.state.sumPalletsEdit}
                     sumBoxesEdit = {this.state.sumBoxesEdit}
+
                 />
                 <PageHeaderWrapper>
                     <Card>
@@ -285,4 +289,5 @@ class GeneralProgramming extends PureComponent {
         )
     }
 }
+
 export default GeneralProgramming;
