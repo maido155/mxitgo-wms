@@ -441,3 +441,11 @@ export async function updateProgramming({ payload }) {
         body: JSON.stringify(payload)
     });
 }
+
+export async function postProgramming({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/programming`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'Authorization': payload.Authorization },
+        body: JSON.stringify(payload),
+    });
+}
