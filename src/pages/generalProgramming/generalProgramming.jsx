@@ -43,22 +43,6 @@ class GeneralProgramming extends PureComponent {
                }
             },
         });
-        this.props.dispatch({
-            type: 'programming/fetchCustomerAll',
-            payload: {
-                payload: {
-                 Authorization: sessionStorage.getItem('idToken')
-                }
-             },
-        });
-        this.props.dispatch({
-            type: 'programming/fetchProductAll',
-            payload: {
-                payload: {
-                 Authorization: sessionStorage.getItem('idToken')
-                }
-             },
-        });
     }
     cancelProgramming = (idProgramming) => {
         let _self = this;
@@ -83,6 +67,22 @@ class GeneralProgramming extends PureComponent {
         this.setState({
             visibleNewDrawer: true
         });
+        this.props.dispatch({
+            type: 'programming/fetchCustomerAll',
+            payload: {
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken')
+                }
+             },
+        });
+        this.props.dispatch({
+            type: 'programming/fetchProductAll',
+            payload: {
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken')
+                }
+             },
+        });
     };
     onCloseNewDrawer = () => {
         const form = this.formRefNewLine.props.form;
@@ -106,6 +106,22 @@ class GeneralProgramming extends PureComponent {
                 payload: {
                     Authorization: sessionStorage.getItem('idToken'),
                     idProgramming: skEdit
+                }
+             },
+        });
+        this.props.dispatch({
+            type: 'programming/fetchCustomerAll',
+            payload: {
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken')
+                }
+             },
+        });
+        this.props.dispatch({
+            type: 'programming/fetchProductAll',
+            payload: {
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken')
                 }
              },
         });
