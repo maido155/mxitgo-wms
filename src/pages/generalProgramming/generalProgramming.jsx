@@ -1,9 +1,13 @@
 import React, { PureComponent } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import DrawerGeneralProgramming from './drawerGeneralProgramming'; 
-import { Card, Button, Icon, Modal, Spin } from 'antd'; 
+
+import { Card, Button, Icon, Modal, Spin, message } from 'antd'; 
 import TableProgramming from './tableGeneralProgramming';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { connect } from 'dva';
+import moment from 'moment';
+moment.locale('es');
 const { confirm } = Modal;
 
 @connect(({ programming, loading }) => ({
@@ -12,13 +16,23 @@ const { confirm } = Modal;
     datesPrograming:programming.datesPrograming,
     datesGetProgramming: programming.datesGetProgramming,
     datesCustomerAll: programming.datesCustomerAll,
-    datesProductAll: programming.datesProductAll
+    datesProductAll: programming.datesProductAll,
+    editSuccess: programming.editSuccess
+
 }))
 
 class GeneralProgramming extends PureComponent {
     state = { 
         visibleNewDrawer: false,
-        edit: false
+        edit: false,
+        rangePicker: false,
+        pk: "",
+        rangeEdit: false,
+        showEdit: true,
+        sumPallets: 0,
+        sumBoxes: 0,
+        sumPalletsEdit: 0,
+        sumBoxesEdit: 0
     };
     componentDidMount() {
         this.props.dispatch({
@@ -71,15 +85,21 @@ class GeneralProgramming extends PureComponent {
         });
     };
     onCloseNewDrawer = () => {
+        const form = this.formRefNewLine.props.form;
+        form.resetFields();
         this.setState({
             visibleNewDrawer: false,
-            edit: false
+            edit: false,
+            rangePicker: false,
+            rangeEdit: false
+
         });
     };
     showEditDrawer = (skEdit) => {
         this.showNewDrawer();
         this.setState({
-            edit: true
+            edit: true,
+            pk: skEdit
         })
         this.props.dispatch({
             type: 'programming/getProgramming',
@@ -91,8 +111,144 @@ class GeneralProgramming extends PureComponent {
              },
         });
     }
+    dataInputShow = () => {
+        this.setState({
+            rangePicker: true
+        })
+    }
+    rangeEdit = () => {
+        this.setState({
+            rangeEdit: true
+        })
+    }
+    sumInputs = () => {
+        const form = this.formRefNewLine.props.form;
+        let data = form.getFieldsValue();
+        let palletOne = data.palletOneNew;
+        let palletTwo = data.palletTwoNew;
+        let palletThree = data.palletThreeNew;
+        let palletFour = data.palletFourNew;
+        let palletFive = data.palletFiveNew;
+        let BoxOne = data.boxOneNew;
+        let BoxTwo = data.boxTwoNew;
+        let BoxThree = data.boxThreeNew;
+        let BoxFour = data.boxFourNew;
+        let BoxFive = data.boxFiveNew;
+        this.setState({
+            sumPallets: palletOne + palletTwo + palletThree + palletFour + palletFive,
+            sumBoxes: BoxOne + BoxTwo + BoxThree + BoxFour + BoxFive
+        })
+        //************************************/
+        let palletOneEdit = data.palletOneEdit;
+        let palletTwoEdit = data.palleTwoEdit;
+        let palletThreeEdit = data.palleThreeEdit;
+        let palletFourEdit = data.palleFourEdit;
+        let palletFiveEdit = data.palleFiveEdit;
+        let BoxOneEdit = data.boxOneEdit;
+        let BoxTwoEdit = data.boxTwoEdit;
+        let BoxThreeEdit = data.boxThreeEdit;
+        let BoxFourEdit = data.boxFourEdit;
+        let BoxFiveEdit = data.boxFiveEdit;
+        this.setState({
+            sumPalletsEdit: palletOneEdit + palletTwoEdit + palletThreeEdit + palletFourEdit + palletFiveEdit,
+            sumBoxesEdit: BoxOneEdit + BoxTwoEdit + BoxThreeEdit + BoxFourEdit + BoxFiveEdit
+        })
+    }
+    handleSubmit = (data) => {
+        const form = this.formRefNewLine.props.form;
+        form.validateFields((err, values) => {
+            if(err){
+                return;
+            }
+            let payload = {
+                operation: "UPDATE_DATA", 
+                status: "NEW",
+                startDate: values.weekEdit[0],
+                endDate:  values.weekEdit[1],
+                idSkEdit: values.productEdit + "|" + values.customerEdit,
+                idSk: this.props.datesGetProgramming[0].skProduct + "|" + this.props.datesGetProgramming[0].skCustomer,
+                idPk: this.state.pk,
+                dates: [
+                    {
+                        caja: values.boxOneEdit,
+                        pallet: values.palletOneEdit
+                    },
+                    {
+                        caja: values.boxTwoEdit,
+                        pallet: values.palleTwoEdit
+                    },
+                    {
+                        caja: values.boxThreeEdit,
+                        pallet: values.palleThreeEdit
+                    },
+                    {
+                        caja: values.boxFourEdit,
+                        pallet: values.palleFourEdit
+                    },
+                    {
+                        caja: values.boxFiveEdit,
+                        pallet: values.palleFiveEdit
+                    }
+                ]
+            };
+            if(this.state.rangeEdit == false){
+                var dataSim = this.props.datesGetProgramming[0].dateIso;
+                var dataIso = [];
+                for(var i = 0; i < dataSim.length; i++){
+                    var oData = moment(dataSim[i].date).format();
+                    dataIso.push(oData)
+                }
+                for(var k = 0; k < payload.dates.length; k++){
+                    payload.dates[k]["data"] = dataIso[k]
+                }
+            }else{
+                for(var j = 0; j < payload.dates.length; j++){
+                    payload.dates[j]["data"] = data[j]
+                }
+            }
+            this.props.dispatch({
+                type: 'programming/updateProgramming',
+                payload: {
+                    payload: {
+                        Authorization: sessionStorage.getItem('idToken'),
+                        operation: payload.operation, 
+                        status: payload.status,
+                        startDate:  payload.startDate,
+                        endDate:  payload.endDate,
+                        idSkEdit: payload.idSkEdit,
+                        idSk: payload.idSk,
+                        idPk: payload.idPk,
+                        dates: payload.dates
+                    }
+                 },
+            });
+        })
+    }
+    saveFormRefNewLine = (formRef) => {
+        this.formRefNewLine = formRef;
+    }
+    UpdateValidation = () => {
+        this.props.dispatch({
+            type: 'programming/updateValidation',
+            payload: {},
+        });
+    }
     render(){
-        const { datesPrograming, loading, datesGetProgramming, datesCustomerAll, datesProductAll } = this.props;
+        const { datesPrograming, loading, datesGetProgramming, datesCustomerAll, datesProductAll, editSuccess, showEdit } = this.props;
+        if(editSuccess){
+            this.UpdateValidation();
+            this.onCloseNewDrawer();
+            if(this.state.showEdit){
+                message.success(formatMessage({ id: 'accountSettings.mode.message.save' }));
+                this.setState({
+                    showEdit: false
+                })
+            }
+        }else{
+            this.setState({
+                showEdit: true
+            })
+        }
         return(
             <div>
                 <DrawerGeneralProgramming
@@ -103,6 +259,19 @@ class GeneralProgramming extends PureComponent {
                     loading={loading}
                     datesCustomerAll={datesCustomerAll}
                     datesProductAll={datesProductAll}
+                    insertData = {this.insertData}
+                    handleSubmit={this.handleSubmit}
+                    wrappedComponentRef={this.saveFormRefNewLine}
+                    rangePicker = {this.state.rangePicker}
+                    dataInputShow = {this.dataInputShow}
+                    rangeEdit = {this.state.rangeEdit}
+                    mRangeEdit= {this.rangeEdit}
+                    sumInputs={this.sumInputs}
+                    sumPallets = {this.state.sumPallets}
+                    sumBoxes = {this.state.sumBoxes}
+                    sumPalletsEdit = {this.state.sumPalletsEdit}
+                    sumBoxesEdit = {this.state.sumBoxesEdit}
+
                 />
                 <PageHeaderWrapper>
                     <Card>

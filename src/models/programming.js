@@ -1,5 +1,7 @@
-import { fetchProgrammingAll, updateProgrammingStatus, getProgramming, fetchCustomerAll, fetchProductAll } from '../services/api';
+
+import { fetchProgrammingAll, updateProgrammingStatus, getProgramming, fetchCustomerAll, fetchProductAll, updateProgramming } from '../services/api';
 import moment from 'moment';
+moment.locale('es');
 
 export default {
     namespace: 'programming',
@@ -7,7 +9,9 @@ export default {
         datesPrograming: [],
         datesGetProgramming: [],
         datesCustomerAll: [],
-        datesProductAll: []
+        datesProductAll: [],
+        editSuccess: false,
+        showEdit: false
     },
     effects: {
         * fetchProgrammingAll({ payload }, { call, put }) {
@@ -27,7 +31,6 @@ export default {
                 payload: response,
             });
         },
-
         * getProgramming({ payload }, { call, put }) {
             const response = yield call(getProgramming, payload);
             yield put({
@@ -55,6 +58,22 @@ export default {
                 payload: response,
             });
         },
+        * updateProgramming({ payload }, { call, put }) {
+            const response = yield call(updateProgramming, payload);
+            const responseGetAll = yield call(fetchProgrammingAll, payload);
+            console.log(response);
+            yield put({
+                type: 'queryProgrammingAllEdit',
+                payload: responseGetAll,
+            });
+        },
+        * updateValidation({ payload }, { call, put }) {
+            yield put({
+                type: 'queryValidation',
+                payload: {},
+            });
+        }
+
     },
 
     reducers: {
@@ -62,6 +81,13 @@ export default {
             return {
                 ...state,
                 datesPrograming: action.payload
+            }
+        },
+        queryProgrammingAllEdit(state, action) {
+            return {
+                ...state,
+                datesPrograming: action.payload,
+                editSuccess: true
             }
         },
         updateProgrammingStatusReducer(state, action) {
@@ -88,7 +114,9 @@ export default {
                 startDate: action.payload[0].startDate,
                 dates: dates,
                 skProduct: action.payload[0].skProduct,
-                skCustomer: action.payload[0].skCustomer
+                skCustomer: action.payload[0].skCustomer,
+                dateIso: action.payload[0].date
+
             })
             return {
                 ...state,
@@ -107,5 +135,13 @@ export default {
                 datesProductAll: action.payload.Items
             }
         },
+        queryValidation(state, action) {
+            return {
+                ...state,
+                editSuccess: false,
+                showEdit: true
+            }
+        }
+
     }
 }

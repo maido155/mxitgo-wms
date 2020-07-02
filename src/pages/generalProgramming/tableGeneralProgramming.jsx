@@ -37,15 +37,15 @@ class TableGeneralProgramming extends PureComponent{
             width: isMobile ? 90 :100
         },
         {
-            title: 'Cajas',
-            dataIndex: 'Box',
-            key: 'Box',
-            width: isMobile ? 90 :100
-        },
-        {
             title: 'Pallets',
             dataIndex: 'Pallets',
             key: 'Pallets',
+            width: isMobile ? 90 :100
+        },
+        {
+            title: 'Cajas',
+            dataIndex: 'Box',
+            key: 'Box',
             width: isMobile ? 90 :100
         },
         {
@@ -70,8 +70,9 @@ class TableGeneralProgramming extends PureComponent{
                     <Divider type="vertical" />
                     <a onClick={()=>{cancelProgramming(record.Sk)}}>
                         {isMobile
-                            ? <Icon type="edit"/>
-                            : <span><Icon type="edit"/>Eliminar</span>
+                            ? <Icon type="delete"/>
+                            : <span><Icon type="delete"/>Eliminar</span>
+
                         }
                     </a >
                     <Divider type="vertical" />
