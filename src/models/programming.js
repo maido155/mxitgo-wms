@@ -1,4 +1,6 @@
+
 import { fetchProgrammingAll, updateProgrammingStatus, getProgramming, fetchCustomerAll, fetchProductAll, updateProgramming, postProgramming } from '../services/api';
+
 import moment from 'moment';
 moment.locale('es');
 
@@ -82,6 +84,7 @@ export default {
                 payload: responseGetAll,
             });
         },
+
     },
 
     reducers: {
@@ -131,6 +134,7 @@ export default {
                 skProduct: action.payload[0].skProduct,
                 skCustomer: action.payload[0].skCustomer,
                 dateIso: action.payload[0].date
+
             })
             return {
                 ...state,
@@ -163,5 +167,6 @@ export default {
                 showNew: true
             }
         }
+
     }
 }

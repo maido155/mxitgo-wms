@@ -177,7 +177,7 @@ const UserModel = {
         queryAvatarUser(state, action) {
             return {
                 ...state,
-                avatarUser: action.payload.body.Items[0]
+                avatarUser: action.payload.Items[0]
             }
         },
         saveCurrentUser(state, action) {

@@ -71,6 +71,7 @@ class TableGeneralProgramming extends PureComponent{
                         {isMobile
                             ? <Icon type="delete"/>
                             : <span><Icon type="delete"/><FormattedMessage id="general.table.delete"/></span>
+
                         }
                     </a >
                     <Divider type="vertical" />
