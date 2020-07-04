@@ -20,7 +20,8 @@ import RadioGroupOutcomming from './RadioGroupOutcomming';
     programming,
     loading: loading.models.outcomming,
     datesOutcomming:outcomming.datesOutcomming,
-    datesProductAll: programming.datesProductAll
+    datesProductAll: programming.datesProductAll,
+    datesCustomerAll: programming.datesCustomerAll
 }))
 export default class OutComming extends PureComponent {
     state = {
@@ -29,6 +30,16 @@ export default class OutComming extends PureComponent {
     }
     
     componentDidMount() {
+
+        this.props.dispatch({
+            type: 'programming/fetchCustomerAll',
+            payload: {
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken')
+                }
+             },
+        });
+
         this.props.dispatch({
             type: 'programming/fetchProductAll',
             payload: {
@@ -84,7 +95,7 @@ onShowCompositionData = (id) => {
 
     render() {
         console.log(this.props);
-        let { datesProductAll} = this.props;
+        let { datesProductAll, datesCustomerAll} = this.props;
         let {compositionData, datesOutcomming} = this.props.outcomming;
 
         const formItemLayout = {
@@ -95,22 +106,16 @@ onShowCompositionData = (id) => {
         const menuProduct = (
             <Menu onClick={this.handleMenuClick}>
 
-{datesProductAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.productName}</Menu.Item>))}
+            {datesProductAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.productName}</Menu.Item>))}
               
             </Menu>
           );
 
           const menuClient = (
             <Menu onClick={this.handleMenuClick}>
-              <Menu.Item key="1" icon={<UserOutlined />}>
-                Vallejo
-              </Menu.Item>
-              <Menu.Item key="2" icon={<UserOutlined />}>
-                Cuauhtitlan
-              </Menu.Item>
-              <Menu.Item key="2" icon={<UserOutlined />}>
-                Reparto
-              </Menu.Item>
+
+             {datesCustomerAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.clientName}</Menu.Item>))}
+
             </Menu>
           );
 
