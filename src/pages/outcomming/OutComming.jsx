@@ -5,6 +5,7 @@ import RangePickerComponent from './RangePickerOutcomming';
 import RadioGroupComponent from './RadioGroupOutcomming';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import TabsOutComming from './TabsOutComming';
+import moment from 'moment';
 
 import { Card, Form, Row, Col, Menu, Dropdown, Button, message, Tooltip, Divider,  Spin } from 'antd';
 import TableOutComming from './TableOutComming';
@@ -14,20 +15,47 @@ import RangePickerOutcomming from './RangePickerOutcomming';
 import RadioGroupOutcomming from './RadioGroupOutcomming';
 
 
-@connect(({ outcomming, loading }) => ({
+@connect(({ outcomming, programming, loading }) => ({
     outcomming,
+    programming,
     loading: loading.models.outcomming,
     datesOutcomming:outcomming.datesOutcomming,
+    datesProductAll: programming.datesProductAll
 }))
 export default class OutComming extends PureComponent {
+    state = {
+        product : "PRODUCT-1",
+        customer: "CUSTOMER-2"
+    }
     
     componentDidMount() {
+        this.props.dispatch({
+            type: 'programming/fetchProductAll',
+            payload: {
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken')
+                }
+             },
+        });
 
         this.props.dispatch({
             type: 'outcomming/getOutcomming',
             payload: { Product: "PRODUCT-1",Customer: "CUSTOMER-2", DateFrom: "2020-06-25T00:00:00.000Z", DateTo: "2020-06-30T00:00:00.000Z"}
         })
         
+    };
+
+    onChangeWeek=(date,dateString)=>{
+
+        let dateFrom= `${date[0].format("YYYY-MM-DD")}T00:00:00.000Z`; //date[0].toISOString();
+        let dateTo= `${date[1].format("YYYY-MM-DD")}T00:00:00.000Z`;
+        
+
+        this.props.dispatch({
+            type: 'outcomming/getOutcomming',
+            payload: { Product: this.state.product,Customer: this.state.customer, DateFrom: dateFrom, DateTo: dateTo}
+        });
+
     };
 
     onConfirm = (id) => {
@@ -55,6 +83,8 @@ onShowCompositionData = (id) => {
 
 
     render() {
+        console.log(this.props);
+        let { datesProductAll} = this.props;
         let {compositionData, datesOutcomming} = this.props.outcomming;
 
         const formItemLayout = {
@@ -64,12 +94,9 @@ onShowCompositionData = (id) => {
 
         const menuProduct = (
             <Menu onClick={this.handleMenuClick}>
-              <Menu.Item key="1" icon={<UserOutlined />}>
-                Gold
-              </Menu.Item>
-              <Menu.Item key="2" icon={<UserOutlined />}>
-                Premium
-              </Menu.Item>
+
+{datesProductAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.productName}</Menu.Item>))}
+              
             </Menu>
           );
 
@@ -94,7 +121,7 @@ onShowCompositionData = (id) => {
                             <Row type="flex" justify="center"> 
                                 <Col xs={24} sm={23} md={17} lg={16} xl={16}>
                                     <Form.Item label={formatMessage({ id: 'outComming.label.week' })}>
-                                        <RangePickerOutcomming/>
+                                        <RangePickerOutcomming onChange={this.onChangeWeek}/>
                                     </Form.Item>
                                 </Col>
                             </Row>

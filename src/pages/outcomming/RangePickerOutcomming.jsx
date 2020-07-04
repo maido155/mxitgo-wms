@@ -7,7 +7,7 @@ const { RangePicker} = DatePicker;
 export default class RangePickerOutcomming extends PureComponent{
     render(){
         return(
-            <RangePicker style={{width: "100%"}}/>
+            <RangePicker onChange={this.props.onChange}  style={{width: "100%"}}/>
         );
     }
 }
