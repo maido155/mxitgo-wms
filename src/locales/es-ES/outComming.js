@@ -17,6 +17,7 @@ export default {
     'outComming.button.assignment-outcomming': 'Empezar de nuevo',
     'outComming.button.cancel-assignment-outcomming': 'Cancelar',
     'outComming.button.ok-assignment-outcomming': 'Aceptar',
+    'outComming.button.close-assignment-outcomming': 'Cerrar',
     'outComming.label.tableassignment-order': 'Envíos',
     'outComming.label.tableassignment-pallets-re': 'Pallets recibidos (Total)',
     'outComming.label.tableassignment-boxes-re': 'Cajas recibidos (Total)',
