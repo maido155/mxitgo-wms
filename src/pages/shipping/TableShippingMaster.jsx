@@ -76,11 +76,12 @@ class TableShippingMaster extends PureComponent {
 
 
   render(record) {
+    const { datesTableShipping } = this.props;
     let columns = [
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.id' }),
-        dataIndex: 'WMS-1-SK',
-        key: 'id',
+        dataIndex: 'WMS-1-PK',
+        key: 'WMS-1-PK',
         width: isMobile ? 120 : 140,
         render: text => <a>{text}</a>
       },
@@ -163,7 +164,7 @@ class TableShippingMaster extends PureComponent {
       }
     ];
 
-    const data = [
+    /*const data = [
       {
         key: '1',
         id: 'TAB20620201722',
@@ -231,7 +232,7 @@ class TableShippingMaster extends PureComponent {
         dedo: '43/-',
         status: 'Proceso'
       }
-    ];
+    ];*/
 
     const rowSelection = {
       onChange: (selectedRowKeys, selectedRows) => {
@@ -243,6 +244,7 @@ class TableShippingMaster extends PureComponent {
       }),
     };
     return (
+      
       <div>
         <ConfirmationShipping
           visibleConfirmationShipping={this.state.visibleConfirmationShipping}
@@ -259,7 +261,7 @@ class TableShippingMaster extends PureComponent {
           handleCancelEntry={this.handleCancelEntry}
           loadingModal={this.state.loadingModal}
         />
-        <Table size="small" rowSelection={rowSelection} columns={columns} dataSource={data} scroll={isMobile ? { x: 1300 } : { x: 1350 }} pagination={false} />
+        <Table size="small" rowSelection={rowSelection} columns={columns} dataSource={datesTableShipping} scroll={isMobile ? { x: 1300 } : { x: 1350 }} pagination={false} />
       </div>
     );
   }

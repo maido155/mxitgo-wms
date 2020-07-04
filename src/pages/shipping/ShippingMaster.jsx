@@ -34,6 +34,14 @@ class ShippingMaster extends PureComponent {
 
     componentDidMount() {
 
+        this.props.dispatch({
+            type: 'shipping/getLocations',
+            payload: {
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken')
+                }
+            },
+        }); 
 
         this.props.dispatch({
             type: 'shipping/getShippingAll',
@@ -42,7 +50,7 @@ class ShippingMaster extends PureComponent {
                  Authorization: sessionStorage.getItem('idToken')
                 }
             },
-        })
+        });
 
 
     }

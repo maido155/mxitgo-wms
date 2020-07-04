@@ -114,9 +114,13 @@ export default {
 
         queryGetShippingAll(state, action) {
             const allDates = [...state.datesShipping, action.payload];
+            const newDates =[];
+            for(let i = 0; i<allDates[0].length; i++){
+                newDates.push(allDates[0][i])
+            }
             return {
                 ...state,
-                datesShipping: allDates
+                datesShipping : newDates
             }
         },
         resetValuesReducer(state, action) {
