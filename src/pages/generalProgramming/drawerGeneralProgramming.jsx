@@ -94,7 +94,7 @@ const DrawerGeneralProgramming  = Form.create()(
             const tailFormItemLayout = { 
                 wrapperCol: {xs: {span: 0,offset: 0,}, sm: {span: 13,offset: 11,}, md: {span: 13,offset: 11,}, lg: {span: 13,offset: 11,}, xl: {span: 13,offset: 11,}},
             };
-            const { edit, datesGetProgramming, loading, datesCustomerAll, datesProductAll, handleSubmit, rangePicker, rangeEdit, sumInputs, sumPallets, sumBoxes, sumPalletsEdit, sumBoxesEdit } = this.props;
+            const { edit, datesGetProgramming, loading, datesCustomerAll, datesProductAll, handleSubmit, rangePicker, rangeEdit, sumInputs, sumPallets, sumBoxes, sumPalletsEdit, sumBoxesEdit, multBoxes } = this.props;
             const { dateRanger } = this.state;
             const { getFieldDecorator } = this.props.form;
             return(
@@ -178,7 +178,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                                                 {getFieldDecorator('palletOneNew',{initialValue: 0})(<InputNumber min={0} onChange={sumInputs()}/>)}                                                           
                                                             </Col>
                                                             <Col span={12}>
-                                                                {getFieldDecorator('boxOneNew',{initialValue: 0})(<InputNumber min={0} onChange={sumInputs()}/>)}
+                                                                {getFieldDecorator('boxOneNew',{initialValue: 0})(<InputNumber min={0} onChange={sumInputs()} defaultValue={multBoxes.one == 0 ? 0 : multBoxes.one}/>)}
                                                             </Col>
                                                         </Row>
                                                     </Form.Item>

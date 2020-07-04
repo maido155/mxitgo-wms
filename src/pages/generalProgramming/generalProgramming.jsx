@@ -19,7 +19,6 @@ const { confirm } = Modal;
     datesProductAll: programming.datesProductAll,
     editSuccess: programming.editSuccess,
     postSuccess: programming.postSuccess
-
 }))
 
 class GeneralProgramming extends PureComponent {
@@ -34,7 +33,9 @@ class GeneralProgramming extends PureComponent {
         sumPallets: 0,
         sumBoxes: 0,
         sumPalletsEdit: 0,
-        sumBoxesEdit: 0
+        sumBoxesEdit: 0,
+        quantityBoxes: 0,
+        multBoxes: { one: 0, two: 0,three: 0, four: 0, five: 0}
     };
     componentDidMount() {
         this.props.dispatch({
@@ -69,22 +70,7 @@ class GeneralProgramming extends PureComponent {
         this.setState({
             visibleNewDrawer: true
         });
-        this.props.dispatch({
-            type: 'programming/fetchCustomerAll',
-            payload: {
-                payload: {
-                 Authorization: sessionStorage.getItem('idToken')
-                }
-             },
-        });
-        this.props.dispatch({
-            type: 'programming/fetchProductAll',
-            payload: {
-                payload: {
-                 Authorization: sessionStorage.getItem('idToken')
-                }
-             },
-        });
+        this.dispatchCustomerProduct();
     };
     onCloseNewDrawer = () => {
         const form = this.formRefNewLine.props.form;
@@ -103,6 +89,7 @@ class GeneralProgramming extends PureComponent {
             edit: true,
             pk: skEdit
         })
+        this.dispatchCustomerProduct();
         this.props.dispatch({
             type: 'programming/getProgramming',
             payload: {
@@ -112,6 +99,8 @@ class GeneralProgramming extends PureComponent {
                 }
              },
         });
+    }
+    dispatchCustomerProduct = () => {
         this.props.dispatch({
             type: 'programming/fetchCustomerAll',
             payload: {
@@ -140,6 +129,7 @@ class GeneralProgramming extends PureComponent {
         })
     }
     sumInputs = () => {
+        let palletvsBoxes = this.props.datesProductAll;
         const form = this.formRefNewLine.props.form;
         let data = form.getFieldsValue();
         let palletOne = data.palletOneNew;
@@ -152,9 +142,20 @@ class GeneralProgramming extends PureComponent {
         let BoxThree = data.boxThreeNew;
         let BoxFour = data.boxFourNew;
         let BoxFive = data.boxFiveNew;
+        for(var i = 0; i < palletvsBoxes.length; i++){
+            let productName = palletvsBoxes[i]["WMS-1-SK"];
+            if(productName == data.productNew){
+                this.setState({
+                    quantityBoxes: palletvsBoxes[i].quantityBoxes
+                })
+            }
+        }
+        let multiOne = palletOne * this.state.quantityBoxes;
         this.setState({
             sumPallets: palletOne + palletTwo + palletThree + palletFour + palletFive,
-            sumBoxes: BoxOne + BoxTwo + BoxThree + BoxFour + BoxFive
+            sumBoxes: BoxOne + BoxTwo + BoxThree + BoxFour + BoxFive,
+            multBoxes: { one: multiOne}
+            // two: palletTwo * this.state.quantityBoxes,three: palletThree * this.state.quantityBoxes, four: palletFour * this.state.quantityBoxes, five: palletFive * this.state.quantityBoxes
         })
         //************************************/
         let palletOneEdit = data.palletOneEdit;
@@ -377,7 +378,7 @@ class GeneralProgramming extends PureComponent {
                     sumBoxes = {this.state.sumBoxes}
                     sumPalletsEdit = {this.state.sumPalletsEdit}
                     sumBoxesEdit = {this.state.sumBoxesEdit}
-
+                    multBoxes = {this.state.multBoxes}
                 />
                 <PageHeaderWrapper>
                     <Card>
