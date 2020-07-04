@@ -26,7 +26,9 @@ import RadioGroupOutcomming from './RadioGroupOutcomming';
 export default class OutComming extends PureComponent {
     state = {
         product : "PRODUCT-1",
-        customer: "CUSTOMER-2"
+        customer: "CUSTOMER-2",
+        dateFrom:"2020-06-25T00:00:00.000Z",
+        dateTo:"2020-06-30T00:00:00.000Z"
     }
     
     componentDidMount() {
@@ -56,12 +58,19 @@ export default class OutComming extends PureComponent {
         
     };
 
+    onChangeProd=(value)=>{
+        console.log(value);
+
+    }
+
     onChangeWeek=(date,dateString)=>{
 
         let dateFrom= `${date[0].format("YYYY-MM-DD")}T00:00:00.000Z`; //date[0].toISOString();
         let dateTo= `${date[1].format("YYYY-MM-DD")}T00:00:00.000Z`;
         
-
+        this.setState({
+            dateFrom,dateTo
+        })
         this.props.dispatch({
             type: 'outcomming/getOutcomming',
             payload: { Product: this.state.product,Customer: this.state.customer, DateFrom: dateFrom, DateTo: dateTo}
@@ -78,9 +87,30 @@ export default class OutComming extends PureComponent {
 
     };
 
-    handleMenuClick= (e)=> {
-        message.info('Click on menu item.');
-        console.log('click', e);
+    handleProduct= (e)=> {
+        //message.info('Click on menu item.');
+        //console.log('click', e);
+        console.log(e);
+        this.setState({
+            product:e.key
+        })
+
+        this.props.dispatch({
+            type: 'outcomming/getOutcomming',
+            payload: { Product: e.key,Customer: this.state.customer, DateFrom: this.state.dateFrom, DateTo: this.state.dateTo}
+        });
+
+      };
+      handleClient= (e)=> {
+        console.log(e);
+        this.setState({
+            customer:e.key
+        })
+
+        this.props.dispatch({
+            type: 'outcomming/getOutcomming',
+            payload: { Product: this.state.product,Customer: e.key, DateFrom: this.state.dateFrom, DateTo: this.state.dateTo}
+        });
       };
 
 onShowCompositionData = (id) => {
@@ -104,7 +134,7 @@ onShowCompositionData = (id) => {
         };
 
         const menuProduct = (
-            <Menu onClick={this.handleMenuClick}>
+            <Menu onClick={this.handleProduct}>
 
             {datesProductAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.productName}</Menu.Item>))}
               
@@ -112,7 +142,7 @@ onShowCompositionData = (id) => {
           );
 
           const menuClient = (
-            <Menu onClick={this.handleMenuClick}>
+            <Menu onClick={this.handleClient}>
 
              {datesCustomerAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.clientName}</Menu.Item>))}
 
@@ -135,7 +165,7 @@ onShowCompositionData = (id) => {
                             <Row type="flex" justify="center">
                                <Col xs={24} sm={23} md={2} lg={2} xl={2}  >
                                     <Form.Item>
-                                        <Dropdown overlay={menuProduct}>
+                                        <Dropdown onChange={this.onChangeProd} overlay={menuProduct}>
                                             <Button>
                                                 Product <DownOutlined />
                                             </Button>
