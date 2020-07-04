@@ -13,15 +13,19 @@ export default class DrawerAssignmentProduct extends PureComponent {
         box: 10
     }
 
-    onChangeQuantity = () => {
-        let remaingQtyBox = this.state.box - 1,
-            remaingQtyPallet = this.state.pallets - 1;
+    onChangeQuantityPallet = () => {
+        let remaingQtyPallet = this.state.pallets - 1;
         this.setState({
-          pallets: remaingQtyPallet,
-          box: remaingQtyBox
+          pallets: remaingQtyPallet
         });
     };
     
+    onChangeQuantityBox = () => {
+        let remaingQtyBox = this.state.box - 1;
+        this.setState({
+          box: remaingQtyBox
+        });
+    }
     render() {
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 8 },lg: { span: 8 },xl: { span: 6 }},
@@ -44,10 +48,10 @@ export default class DrawerAssignmentProduct extends PureComponent {
                         <Text>{this.state.box}</Text> 
                     </Form.Item>
                     <Form.Item label={'Pallets'}>
-                        <Input onChange={this.onChangeQuantity}/>
+                        <Input onChange={this.onChangeQuantityPallet}/>
                     </Form.Item>
                     <Form.Item label={'Cajas'}>
-                        <Input onChange={this.onChangeQuantity}/>
+                        <Input onChange={this.onChangeQuantityBox}/>
                     </Form.Item>
                     <div
                         style={{
