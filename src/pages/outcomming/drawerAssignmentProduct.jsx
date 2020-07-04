@@ -14,8 +14,8 @@ export default class DrawerAssignmentProduct extends PureComponent {
     }
 
     onChangeQuantity = () => {
-        let remaingQtyBox = 4-1,
-            remaingQtyPallet = 10 - 1;
+        let remaingQtyBox = this.state.Box-1,
+            remaingQtyPallet = this.state.pallets - 1;
         this.setState({
           pallets: remaingQtyPallet,
           box: remaingQtyBox
