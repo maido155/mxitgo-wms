@@ -47,11 +47,8 @@ export default class AssignmentOutComming extends PureComponent {;
                         borderRadius: '0 0 4px 4px',
                     }}
                 >
-                    <Button style={{marginRight: 8,}} onClick={this.props.closeOne}>
-                        <FormattedMessage id="outComming.button.cancel-assignment-outcomming"/>
-                    </Button>
-                    <Button onClick={this.props.closeOne} type="primary">
-                        <FormattedMessage id="outComming.button.ok-assignment-outcomming"/>
+                    <Button onClick={this.props.closeOne}>
+                        <FormattedMessage id="outComming.button.close-assignment-outcomming"/>
                     </Button>
                 </div>
             </Drawer>

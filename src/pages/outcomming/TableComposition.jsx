@@ -8,18 +8,18 @@ const columns = [
     {
       title: formatMessage({ id: 'outComming.label.tableassignment-order' }),
       dataIndex: 'shipment',
-      width: isMobile ? 120 : 120,
+      width: isMobile ? 120 : 300,
       render: text => <a>{text}</a>,
     },
     {
       title: formatMessage({ id: 'outComming.button.composition-outcomming-pallets-ass' }),
       dataIndex: 'pallets',
-      width: isMobile ? 140 : 140,
+      width: isMobile ? 140 : 100,
     },
     {
       title: formatMessage({ id: 'outComming.button.composition-outcomming-boxes-ass' }),
       dataIndex: 'boxes',
-      width: isMobile ? 140 : 140
+      width: isMobile ? 140 : 100
     }
 ];
 const data = [
@@ -51,7 +51,7 @@ const data = [
 export default class TableComposition extends PureComponent {
     render() {
         return (
-            <Table columns={columns} loading = {this.props.loading} dataSource={this.props.compositionData} pagination={false} scroll={isMobile ? {x: 400} : {x: 400}}/>
+            <Table columns={columns} loading = {this.props.loading} dataSource={this.props.compositionData} pagination={false} scroll={isMobile ? {x: 400} : {x: 800}}/>
         );            
     }
 }
