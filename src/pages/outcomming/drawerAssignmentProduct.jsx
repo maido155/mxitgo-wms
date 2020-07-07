@@ -8,6 +8,24 @@ import { Typography } from 'antd';
 const { Text } = Typography;
 
 export default class DrawerAssignmentProduct extends PureComponent {
+    state = {
+        pallets: 4,
+        box: 10
+    }
+
+    onChangeQuantityPallet = () => {
+        let remaingQtyPallet = this.state.pallets - 1;
+        this.setState({
+          pallets: remaingQtyPallet
+        });
+    };
+    
+    onChangeQuantityBox = () => {
+        let remaingQtyBox = this.state.box - 1;
+        this.setState({
+          box: remaingQtyBox
+        });
+    }
     render() {
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 8 },lg: { span: 8 },xl: { span: 6 }},
@@ -24,16 +42,16 @@ export default class DrawerAssignmentProduct extends PureComponent {
             >
                 <Form {...formItemLayout} style={{marginTop: "5rem"}}>
                     <Form.Item label={'Pallets disponibles'}>
-                        <Text>3</Text>
+                        <Text>{this.state.pallets}</Text>
                     </Form.Item>
                     <Form.Item label={'Cajas disponibles'}>
-                        <Text>150</Text> 
+                        <Text>{this.state.box}</Text> 
                     </Form.Item>
                     <Form.Item label={'Pallets'}>
-                        <Input/>
+                        <Input onChange={this.onChangeQuantityPallet}/>
                     </Form.Item>
                     <Form.Item label={'Cajas'}>
-                        <Input/>
+                        <Input onChange={this.onChangeQuantityBox}/>
                     </Form.Item>
                     <div
                         style={{
