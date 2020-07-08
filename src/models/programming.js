@@ -40,25 +40,18 @@ export default {
                 payload: response,
             });
         },
-
-        * fetchCustomerAll({ payload }, { call, put }) {
-            const response = yield call(fetchCustomerAll, payload);
-            console.log(response);
-            console.log(response);
-            yield put({
-                type: 'queryCustomerAll',
-                payload: response,
-            });
-        },
-
         * fetchProductAll({ payload }, { call, put }) {
             const response = yield call(fetchProductAll, payload);
-            console.log(response);
-            console.log(response);
             yield put({
                 type: 'queryProductAll',
                 payload: response,
             });
+            const responseCus = yield call(fetchCustomerAll, payload);
+            yield put({
+                type: 'queryCustomerAll',
+                payload: responseCus,
+            });
+
         },
         * updateProgramming({ payload }, { call, put }) {
             const response = yield call(updateProgramming, payload);
