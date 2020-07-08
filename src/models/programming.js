@@ -75,6 +75,12 @@ export default {
                 payload: {},
             });
         },
+        * updateValidationNew({ payload }, { call, put }) {
+            yield put({
+                type: 'queryValidationNew',
+                payload: {},
+            });
+        },
         * postProgramming({ payload }, { call, put }) {
             const response = yield call(postProgramming, payload);
             const responseGetAll = yield call(fetchProgrammingAll, payload);
@@ -178,7 +184,6 @@ export default {
             return {
                 ...state,
                 postSuccess: false,
-                showNew: true
             }
         }
 

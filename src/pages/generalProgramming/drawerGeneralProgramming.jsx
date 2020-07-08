@@ -132,7 +132,7 @@ const DrawerGeneralProgramming  = Form.create()(
         }
         onChangeProd = value => {
             console.log(`selected ${value}`);
-            this.setState({multiBoxes: {one: 0, two: 0, three: 0, four: 0, five: 0}, sumPallets: 0})
+            this.setState({multiBoxes: {one: 0, two: 0, three: 0, four: 0, five: 0}, sumPallets: 0, sumBoxes: 0})
             const form = this.props.form;
             form.resetFields("palletOneNew");
             form.resetFields("palletTwoNew");

@@ -59,15 +59,14 @@ class GeneralProgramming extends PureComponent {
         this.setState({
             visibleNewDrawer: true
         });
-        // this.dispatchCustomerProduct();
     };
     onCloseNewDrawer = () => {
-        // const form = this.formRefNewLine.props.form;
-        // form.resetFields();
+        const form = this.formRefNewLine.props.form;
+        form.resetFields();
         this.setState({
             visibleNewDrawer: false,
             edit: false,
-            // rangePicker: false,
+            rangePicker: false,
             // rangeEdit: false,
             // editSumPallet: false
         });
@@ -88,24 +87,6 @@ class GeneralProgramming extends PureComponent {
         //      },
         // });
     }
-    // dispatchCustomerProduct = () => {
-    //     this.props.dispatch({
-    //         type: 'programming/fetchCustomerAll',
-    //         payload: {
-    //             payload: {
-    //              Authorization: sessionStorage.getItem('idToken')
-    //             }
-    //          },
-    //     });
-    //     this.props.dispatch({
-    //         type: 'programming/fetchProductAll',
-    //         payload: {
-    //             payload: {
-    //              Authorization: sessionStorage.getItem('idToken')
-    //             }
-    //          },
-    //     });
-    // }
     dataInputShow = () => {
         this.setState({
             rangePicker: true
@@ -197,7 +178,7 @@ class GeneralProgramming extends PureComponent {
                 let payload = {
                     operation: "NEW_DATA", 
                     status: "NEW",
-                    startDate: values.weekNew,
+                    startDate: moment(values.weekNew).format(),
                     endDate:  weekUntil,
                     idSk: values.productNew + "|" + values.customerNew,
                     idPk: moment(values.weekNew).format("DDMMYY") + moment(weekUntil).format("DDMMYY"),
@@ -263,12 +244,12 @@ class GeneralProgramming extends PureComponent {
     //         payload: {},
     //     });
     // }
-    // UpdateValidationNew = () => {
-    //     this.props.dispatch({
-    //         type: 'programming/updateValidationNew',
-    //         payload: {},
-    //     });
-    // }
+    UpdateValidationNew = () => {
+        this.props.dispatch({
+            type: 'programming/updateValidationNew',
+            payload: {},
+        });
+    }
     cancelProgramming = (idProgramming) => {
         let _self = this;
         confirm({
@@ -292,7 +273,7 @@ class GeneralProgramming extends PureComponent {
         const { datesPrograming, loading, datesGetProgramming, datesCustomerAll, datesProductAll, editSuccess, postSuccess } = this.props;
         // if(editSuccess){
         //     this.UpdateValidation();
-        //     // this.onCloseNewDrawer();
+        //     this.onCloseNewDrawer();
         //     if(this.state.showEdit){
         //         message.success(formatMessage({ id: 'general.table.editS' }));
         //         this.setState({
@@ -304,20 +285,20 @@ class GeneralProgramming extends PureComponent {
         //         showEdit: true
         //     })
         // }
-        // if(postSuccess){
-        //     this.UpdateValidationNew();
-        //     // this.onCloseNewDrawer();
-        //     if(this.state.showNew){
-        //         message.success(formatMessage({ id: 'general.table.save' }));
-        //         this.setState({
-        //             showNew: false
-        //         })
-        //     }
-        // }else{
-        //     this.setState({
-        //         showNew: true
-        //     })
-        // }
+        if(postSuccess){
+            this.UpdateValidationNew();
+            this.onCloseNewDrawer();
+            if(this.state.showNew){
+                message.success(formatMessage({ id: 'general.table.save' }));
+                this.setState({
+                    showNew: false
+                })
+            }
+        }else{
+            this.setState({
+                showNew: true
+            })
+        }
         return(
             <div>
                 <DrawerGeneralProgramming
