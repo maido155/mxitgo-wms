@@ -1,4 +1,3 @@
-
 import { fetchProgrammingAll, updateProgrammingStatus, getProgramming, fetchCustomerAll, fetchProductAll, updateProgramming, postProgramming } from '../services/api';
 
 import moment from 'moment';
@@ -41,25 +40,18 @@ export default {
                 payload: response,
             });
         },
-
-        * fetchCustomerAll({ payload }, { call, put }) {
-            const response = yield call(fetchCustomerAll, payload);
-            console.log(response);
-            console.log(response);
-            yield put({
-                type: 'queryCustomerAll',
-                payload: response,
-            });
-        },
-
         * fetchProductAll({ payload }, { call, put }) {
             const response = yield call(fetchProductAll, payload);
-            console.log(response);
-            console.log(response);
             yield put({
                 type: 'queryProductAll',
                 payload: response,
             });
+            const responseCus = yield call(fetchCustomerAll, payload);
+            yield put({
+                type: 'queryCustomerAll',
+                payload: responseCus,
+            });
+
         },
         * updateProgramming({ payload }, { call, put }) {
             const response = yield call(updateProgramming, payload);
@@ -73,6 +65,12 @@ export default {
         * updateValidation({ payload }, { call, put }) {
             yield put({
                 type: 'queryValidation',
+                payload: {},
+            });
+        },
+        * updateValidationNew({ payload }, { call, put }) {
+            yield put({
+                type: 'queryValidationNew',
                 payload: {},
             });
         },
@@ -125,6 +123,20 @@ export default {
                     pallet: action.payload[0].date[i].pallet,
                 })
             }
+            var pallet = [];
+            var boxes = [];
+            var sumPallet = 0;
+            var sumBoxes = 0;
+            for (var k = 0; k < action.payload[0].date.length; k++) {
+                pallet.push(action.payload[0].date[k].pallet);
+                boxes.push(action.payload[0].date[k].caja);
+            }
+            pallet.forEach(function(numero) {
+                sumPallet += numero;
+            });
+            boxes.forEach(function(numero) {
+                sumBoxes += numero;
+            });
             datesGeneral.push({
                 customerName: action.payload[0].customerName,
                 endDate: action.payload[0].endDate,
@@ -133,8 +145,9 @@ export default {
                 dates: dates,
                 skProduct: action.payload[0].skProduct,
                 skCustomer: action.payload[0].skCustomer,
-                dateIso: action.payload[0].date
-
+                dateIso: action.payload[0].date,
+                boxes: sumBoxes,
+                pallets: sumPallet
             })
             return {
                 ...state,
@@ -164,7 +177,6 @@ export default {
             return {
                 ...state,
                 postSuccess: false,
-                showNew: true
             }
         }
 

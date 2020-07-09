@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import DrawerGeneralProgramming from './drawerGeneralProgramming'; 
-
 import { Card, Button, Icon, Modal, Spin, message } from 'antd'; 
 import TableProgramming from './tableGeneralProgramming';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
@@ -19,23 +18,19 @@ const { confirm } = Modal;
     datesProductAll: programming.datesProductAll,
     editSuccess: programming.editSuccess,
     postSuccess: programming.postSuccess
-
 }))
-
 class GeneralProgramming extends PureComponent {
     state = { 
         visibleNewDrawer: false,
         edit: false,
         rangePicker: false,
-        pk: "",
         rangeEdit: false,
+        pk: "",
         showEdit: true,
         showNew: true,
-        sumPallets: 0,
-        sumBoxes: 0,
-        sumPalletsEdit: 0,
-        sumBoxesEdit: 0
-    };
+        editSumPallet: false,
+        editSumBoxes: false
+    }
     componentDidMount() {
         this.props.dispatch({
            type: 'programming/fetchProgrammingAll',
@@ -45,38 +40,6 @@ class GeneralProgramming extends PureComponent {
                }
             },
         });
-    }
-    cancelProgramming = (idProgramming) => {
-        let _self = this;
-        confirm({
-            title: 'Are you sure you want to cancel this task?',
-            content: 'Some descriptions',
-            okText: 'Yes',
-            okType: 'danger',
-            cancelText: 'No',
-            onOk(){
-                _self.props.dispatch({
-                    type: 'programming/updateProgrammingStatus',
-                    payload: { SK: idProgramming, operation: "UPDATE_STATUS", status: "CANCELLED"}
-                })
-            }, 
-            onCancel() {
-              console.log('Cancel');
-            },
-        });
-    }
-    showNewDrawer = () => {
-        this.setState({
-            visibleNewDrawer: true
-        });
-        this.props.dispatch({
-            type: 'programming/fetchCustomerAll',
-            payload: {
-                payload: {
-                 Authorization: sessionStorage.getItem('idToken')
-                }
-             },
-        });
         this.props.dispatch({
             type: 'programming/fetchProductAll',
             payload: {
@@ -84,6 +47,11 @@ class GeneralProgramming extends PureComponent {
                  Authorization: sessionStorage.getItem('idToken')
                 }
              },
+        });
+    }
+    showNewDrawer = () => {
+        this.setState({
+            visibleNewDrawer: true
         });
     };
     onCloseNewDrawer = () => {
@@ -93,8 +61,9 @@ class GeneralProgramming extends PureComponent {
             visibleNewDrawer: false,
             edit: false,
             rangePicker: false,
-            rangeEdit: false
-
+            rangeEdit: false,
+            editSumPallet: false,
+            editSumBoxes: false
         });
     };
     showEditDrawer = (skEdit) => {
@@ -112,22 +81,6 @@ class GeneralProgramming extends PureComponent {
                 }
              },
         });
-        this.props.dispatch({
-            type: 'programming/fetchCustomerAll',
-            payload: {
-                payload: {
-                 Authorization: sessionStorage.getItem('idToken')
-                }
-             },
-        });
-        this.props.dispatch({
-            type: 'programming/fetchProductAll',
-            payload: {
-                payload: {
-                 Authorization: sessionStorage.getItem('idToken')
-                }
-             },
-        });
     }
     dataInputShow = () => {
         this.setState({
@@ -139,51 +92,43 @@ class GeneralProgramming extends PureComponent {
             rangeEdit: true
         })
     }
-    sumInputs = () => {
-        const form = this.formRefNewLine.props.form;
-        let data = form.getFieldsValue();
-        let palletOne = data.palletOneNew;
-        let palletTwo = data.palletTwoNew;
-        let palletThree = data.palletThreeNew;
-        let palletFour = data.palletFourNew;
-        let palletFive = data.palletFiveNew;
-        let BoxOne = data.boxOneNew;
-        let BoxTwo = data.boxTwoNew;
-        let BoxThree = data.boxThreeNew;
-        let BoxFour = data.boxFourNew;
-        let BoxFive = data.boxFiveNew;
-        this.setState({
-            sumPallets: palletOne + palletTwo + palletThree + palletFour + palletFive,
-            sumBoxes: BoxOne + BoxTwo + BoxThree + BoxFour + BoxFive
-        })
-        //************************************/
-        let palletOneEdit = data.palletOneEdit;
-        let palletTwoEdit = data.palleTwoEdit;
-        let palletThreeEdit = data.palleThreeEdit;
-        let palletFourEdit = data.palleFourEdit;
-        let palletFiveEdit = data.palleFiveEdit;
-        let BoxOneEdit = data.boxOneEdit;
-        let BoxTwoEdit = data.boxTwoEdit;
-        let BoxThreeEdit = data.boxThreeEdit;
-        let BoxFourEdit = data.boxFourEdit;
-        let BoxFiveEdit = data.boxFiveEdit;
-        this.setState({
-            sumPalletsEdit: palletOneEdit + palletTwoEdit + palletThreeEdit + palletFourEdit + palletFiveEdit,
-            sumBoxesEdit: BoxOneEdit + BoxTwoEdit + BoxThreeEdit + BoxFourEdit + BoxFiveEdit
-        })
+    saveFormRefNewLine = (formRef) => {
+        this.formRefNewLine = formRef;
     }
-    handleSubmit = (data) => {
+    betweenDateEdit = (since, until) => {
+        var sincesForm = moment(since).format();
+        var untilForm = moment(until).format();
+        var currentDay = sincesForm;
+        var dateName = [];
+        while (moment(currentDay).isSameOrBefore(untilForm)) {
+            dateName.push(moment(currentDay).format());
+            currentDay = moment(currentDay).add(1, 'd');
+        }
+        return dateName
+    }
+    handleSubmit = (data, weekUntil) => {
         const form = this.formRefNewLine.props.form;
         if(this.state.edit == true){
             form.validateFields((err, values) => {
                 if(err){
                     return;
                 }
+                let startDate = this.props.datesGetProgramming[0].startDate;
+                let endDate = this.props.datesGetProgramming[0].endDate;
+                let dataWeek = 0;
+                let dataAllWeek = 0;
+                if(weekUntil == 0){
+                    dataWeek = endDate;
+                    dataAllWeek = this.betweenDateEdit(startDate, endDate);
+                }else{
+                    dataWeek = weekUntil;
+                    dataAllWeek = data;
+                }
                 let payload = {
                     operation: "UPDATE_DATA", 
                     status: "NEW",
-                    startDate: values.weekEdit[0],
-                    endDate:  values.weekEdit[1],
+                    startDate: moment(values.weekEdit).format(),
+                    endDate:  moment(dataWeek).format(),
                     idSkEdit: values.productEdit + "|" + values.customerEdit,
                     idSk: this.props.datesGetProgramming[0].skProduct + "|" + this.props.datesGetProgramming[0].skCustomer,
                     idPk: this.state.pk,
@@ -210,6 +155,8 @@ class GeneralProgramming extends PureComponent {
                         }
                     ]
                 };
+                let pos = 3;
+                let dateWeek = dataAllWeek.splice(pos,2)
                 if(this.state.rangeEdit == false){
                     var dataSim = this.props.datesGetProgramming[0].dateIso;
                     var dataIso = [];
@@ -222,7 +169,7 @@ class GeneralProgramming extends PureComponent {
                     }
                 }else{
                     for(var j = 0; j < payload.dates.length; j++){
-                        payload.dates[j]["data"] = data[j]
+                        payload.dates[j]["data"] = dataAllWeek[j]
                     }
                 }
                 this.props.dispatch({
@@ -247,13 +194,15 @@ class GeneralProgramming extends PureComponent {
                 if(err){
                     return;
                 }
+                let pos = 3;
+                let dateWeek = data.splice(pos,2)
                 let payload = {
                     operation: "NEW_DATA", 
                     status: "NEW",
-                    startDate: values.weekNew[0],
-                    endDate:  values.weekNew[1],
+                    startDate: moment(values.weekNew).format(),
+                    endDate:  weekUntil,
                     idSk: values.productNew + "|" + values.customerNew,
-                    idPk: moment(values.weekNew[0]).format("DDMMYY") + moment(values.weekNew[1]).format("DDMMYY"),
+                    idPk: moment(values.weekNew).format("DDMMYY") + moment(weekUntil).format("DDMMYY"),
                     dates: [
                         {
                             caja: values.boxOneNew,
@@ -310,9 +259,6 @@ class GeneralProgramming extends PureComponent {
             }); 
         }
     }
-    saveFormRefNewLine = (formRef) => {
-        this.formRefNewLine = formRef;
-    }
     UpdateValidation = () => {
         this.props.dispatch({
             type: 'programming/updateValidation',
@@ -324,6 +270,31 @@ class GeneralProgramming extends PureComponent {
             type: 'programming/updateValidationNew',
             payload: {},
         });
+    }
+    cancelProgramming = (idProgramming) => {
+        let _self = this;
+        confirm({
+            title: 'Are you sure you want to cancel this task?',
+            content: 'Some descriptions',
+            okText: 'Yes',
+            okType: 'danger',
+            cancelText: 'No',
+            onOk(){
+                _self.props.dispatch({
+                    type: 'programming/updateProgrammingStatus',
+                    payload: { SK: idProgramming, operation: "UPDATE_STATUS", status: "CANCELLED"}
+                })
+            }, 
+            onCancel() {
+              console.log('Cancel');
+            },
+        });
+    }
+    showeditSumPallet = () => {
+        this.setState({ editSumPallet: true })
+    }
+    showeditSumBoxes = () => {
+        this.setState({ editSumBoxes: true })
     }
     render(){
         const { datesPrograming, loading, datesGetProgramming, datesCustomerAll, datesProductAll, editSuccess, postSuccess } = this.props;
@@ -358,26 +329,23 @@ class GeneralProgramming extends PureComponent {
         return(
             <div>
                 <DrawerGeneralProgramming
-                    visibleNewDrawer={this.state.visibleNewDrawer}
-                    onCloseNewDrawer={this.onCloseNewDrawer}
-                    edit={this.state.edit}
-                    datesGetProgramming={datesGetProgramming}
-                    loading={loading}
-                    datesCustomerAll={datesCustomerAll}
-                    datesProductAll={datesProductAll}
-                    insertData = {this.insertData}
-                    handleSubmit={this.handleSubmit}
-                    wrappedComponentRef={this.saveFormRefNewLine}
-                    rangePicker = {this.state.rangePicker}
-                    dataInputShow = {this.dataInputShow}
-                    rangeEdit = {this.state.rangeEdit}
-                    mRangeEdit= {this.rangeEdit}
-                    sumInputs={this.sumInputs}
-                    sumPallets = {this.state.sumPallets}
-                    sumBoxes = {this.state.sumBoxes}
-                    sumPalletsEdit = {this.state.sumPalletsEdit}
-                    sumBoxesEdit = {this.state.sumBoxesEdit}
-
+                   visibleNewDrawer = {this.state.visibleNewDrawer}
+                   onCloseNewDrawer = {this.onCloseNewDrawer}
+                   edit = {this.state.edit}
+                   loading = {loading}
+                   datesProductAll = {datesProductAll}
+                   datesCustomerAll = {datesCustomerAll}
+                   rangePicker = {this.state.rangePicker}
+                   dataInputShow = {this.dataInputShow}
+                   mRangeEdit = {this.rangeEdit}
+                   rangeEdit = {this.state.rangeEdit}
+                   wrappedComponentRef = {this.saveFormRefNewLine}
+                   handleSubmit = {this.handleSubmit}
+                   datesGetProgramming = {datesGetProgramming}
+                   editSumPallet = {this.state.editSumPallet}
+                   showeditSumPallet = {this.showeditSumPallet}
+                   editSumBoxes = {this.state.editSumBoxes}
+                   showeditSumBoxes = {this.showeditSumBoxes}
                 />
                 <PageHeaderWrapper>
                     <Card>
@@ -395,5 +363,4 @@ class GeneralProgramming extends PureComponent {
         )
     }
 }
-
 export default GeneralProgramming;
