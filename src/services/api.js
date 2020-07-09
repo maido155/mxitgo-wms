@@ -327,7 +327,7 @@ export async function fetchProgrammingAll({ payload }) {
     });
 }
 
-export async function updateProgrammingStatus(payload) {
+export async function updateProgrammingStatus({ payload }) {
     return request(`${ANT_DESIGN_PRO_TARGET}/programming`, {
         method: 'PUT',
         headers: { 'Authorization': payload.Authorization },

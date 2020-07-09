@@ -80,6 +80,12 @@ const DrawerGeneralProgramming  = Form.create()(
                 sumBoxes: 0,
                 multiBoxes: {one: 0, two: 0, three: 0, four: 0, five: 0}
             });
+            const form = this.props.form;
+            form.resetFields("palletOneNew");
+            form.resetFields("palletTwoNew");
+            form.resetFields("palletThreeNew");
+            form.resetFields("palletFourNew");
+            form.resetFields("palletFiveNew");
             this.resetInputs();
         }
         betweenDate = (since, until) => {
@@ -271,7 +277,7 @@ const DrawerGeneralProgramming  = Form.create()(
             const form = this.props.form;
             let data = form.getFieldsValue(); 
             if(data.productNew == undefined){
-                message.warning("Selecciona un producto"); ///****************** */
+                message.warning(formatMessage({ id: 'general.modal-product' }));
             }
         }
         handleChangePalletEdit = (value, name) => {
@@ -523,7 +529,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                         <Col xs={0} sm={1} md={1} lg={1} xl={1}></Col>
                                         <Col xs={24} sm={18} md={18} lg={18} xl={18}>
                                             <Form.Item label={formatMessage({id: "general.calendar.week"})}>
-                                                {getFieldDecorator('weekNew',{rules: [{ required: true, message: "Fecha no seleccionada" }]})
+                                                {getFieldDecorator('weekNew',{rules: [{ required: true, message: formatMessage({id: "general.modal-date"}) }]})
                                                     (<DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onChange}/>)
                                                 }
                                             </Form.Item>
@@ -534,7 +540,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                         <Col xs={0} sm={1} md={1} lg={1} xl={1}></Col>
                                         <Col xs={24} sm={18} md={18} lg={18} xl={18}>
                                             <Form.Item label={formatMessage({id: "general.buttoon-product.product"})}>
-                                                {getFieldDecorator('productNew',{rules: [{ required: true, message: "Producto no seleccionado" }]})
+                                                {getFieldDecorator('productNew',{rules: [{ required: true, message: formatMessage({id: "general.modal-product"}) }]})
                                                     (<Select showSearch style={{ width: 200 }} placeholder="Select product" optionFilterProp="children" onChange={this.onChangeProd} style={{ width: '100%' }}
                                                         onFocus={this.onFocusProd} onBlur={this.onBlurProd} onSearch={this.onSearchProd}filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                                     >
@@ -549,7 +555,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                         <Col xs={0} sm={1} md={1} lg={1} xl={1}></Col>
                                         <Col xs={24} sm={18} md={18} lg={18} xl={18}>
                                             <Form.Item label={formatMessage({id: "general.buttoon-center.center"})}>
-                                                {getFieldDecorator('customerNew',{rules: [{ required: true, message: "Customer no seleccionado" }] })
+                                                {getFieldDecorator('customerNew',{rules: [{ required: true, message: formatMessage({id: "general.modal-customer"}) }] })
                                                     (<Select showSearch style={{ width: 200 }} placeholder="Select center" optionFilterProp="children" onChange={this.onChangeCent} style={{ width: '100%' }}
                                                         onFocus={this.onFocusCent} onBlur={this.onBlurCent} onSearch={this.onSearchCent} filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                                     >
@@ -687,7 +693,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                                 <Col xs={0} sm={1} md={1} lg={1} xl={1}></Col>
                                                 <Col xs={24} sm={18} md={18} lg={18} xl={18}>
                                                     <Form.Item label={formatMessage({id: "general.calendar.week"})}>
-                                                        {getFieldDecorator('weekEdit',{initialValue: moment(datesGetProgramming[0].startDate, "YYYY-MM-DD"), rules: [{ required: true, message: "Fecha no seleccionada" }]})
+                                                        {getFieldDecorator('weekEdit',{initialValue: moment(datesGetProgramming[0].startDate, "YYYY-MM-DD"), rules: [{ required: true, message: formatMessage({id: "general.modal-date"}) }]})
                                                             (<DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} disabledDate={disabledDate} format="YYYY-MM-DD" onChange={this.onChange}/>)
                                                         }
                                                     </Form.Item>
@@ -698,7 +704,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                                 <Col xs={0} sm={1} md={1} lg={1} xl={1}></Col>
                                                 <Col xs={24} sm={18} md={18} lg={18} xl={18}>
                                                     <Form.Item label={formatMessage({id: "general.buttoon-product.product"})}>
-                                                        {getFieldDecorator('productEdit',{initialValue: datesGetProgramming[0].skProduct, rules: [{ required: true, message: "Producto no seleccionado" }]})
+                                                        {getFieldDecorator('productEdit',{initialValue: datesGetProgramming[0].skProduct, rules: [{ required: true, message: formatMessage({id: "general.modal-product"}) }]})
                                                             (<Select showSearch style={{ width: 200 }} placeholder="Select product" optionFilterProp="children" onChange={this.onChangeProd} style={{ width: '100%' }}
                                                                 onFocus={this.onFocusProd} onBlur={this.onBlurProd} onSearch={this.onSearchProd}filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                                             >
@@ -713,7 +719,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                                 <Col xs={0} sm={1} md={1} lg={1} xl={1}></Col>
                                                 <Col xs={24} sm={18} md={18} lg={18} xl={18}>
                                                     <Form.Item label={formatMessage({id: "general.buttoon-center.center"})}>
-                                                        {getFieldDecorator('customerEdit',{initialValue: datesGetProgramming[0].skCustomer, rules: [{ required: true, message: "Customer no seleccionado" }]})
+                                                        {getFieldDecorator('customerEdit',{initialValue: datesGetProgramming[0].skCustomer, rules: [{ required: true, message: formatMessage({id: "general.modal-customer"}) }]})
                                                             (<Select showSearch style={{ width: 200 }} placeholder="Select center" optionFilterProp="children" onChange={this.onChangeCent} style={{ width: '100%' }}
                                                                 onFocus={this.onFocusCent} onBlur={this.onBlurCent} onSearch={this.onSearchCent} filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                                             >

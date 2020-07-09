@@ -28,9 +28,17 @@ export default {
         * updateProgrammingStatus({ payload }, { call, put }) {
             const response = yield call(updateProgrammingStatus, payload);
             console.log(response);
+            console.log(response);
+            console.log(response);
+            console.log(response);
+            const responseGetAllCancell = yield call(fetchProgrammingAll, payload);
+            console.log(responseGetAllCancell);
+            console.log(responseGetAllCancell);
+            console.log(responseGetAllCancell);
+            console.log(responseGetAllCancell);
             yield put({
-                type: 'updateProgrammingStatusReducer',
-                payload: response,
+                type: 'queryProgrammingAll',
+                payload: responseGetAllCancell,
             });
         },
         * getProgramming({ payload }, { call, put }) {
@@ -104,11 +112,6 @@ export default {
                 ...state,
                 datesPrograming: action.payload,
                 postSuccess: true
-            }
-        },
-        updateProgrammingStatusReducer(state, action) {
-            return {
-                ...state
             }
         },
         queryGetProgramming(state, action) {
