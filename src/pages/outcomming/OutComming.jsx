@@ -117,19 +117,26 @@ export default class OutComming extends PureComponent {
     onChangeWeek=(date,dateString)=>{
 
         var since = moment(dateString);
-        var until = moment(dateString)
+        var until = moment(dateString);
         until.add(6, 'days');
+        let dateFrom = "";
+        let dateTo = "";
 
-        let dateFrom= `${since.format("YYYY-MM-DD")}T00:00:00.000Z`; //date[0].toISOString();
-        let dateTo= `${until.format("YYYY-MM-DD")}T00:00:00.000Z`;
+        if (date !== null) {
+            dateFrom= `${since.format("YYYY-MM-DD")}T00:00:00.000Z`; //date[0].toISOString();
+            dateTo= `${until.format("YYYY-MM-DD")}T00:00:00.000Z`;
+        } else {
+            dateFrom = '';
+            dateTo = '';
+        }
+        
 
+        this.setState({
+            dateFrom,dateTo
+        })
 
-        if( !this.isEmpty(dateFrom) && !this.isEmpty(dateFrom))
-        {
-
-            this.setState({
-                dateFrom,dateTo
-            })
+        if( !this.isEmpty(dateFrom) && !this.isEmpty(dateFrom) && !this.isEmpty(this.state.product) && !this.isEmpty(this.state.customer)){
+            
             this.props.dispatch({
                 type: 'outcomming/getOutcomming',
                 payload: { Product: this.state.product,Customer: this.state.customer, DateFrom: dateFrom, DateTo: dateTo}
@@ -150,28 +157,25 @@ export default class OutComming extends PureComponent {
     handleProduct= (e)=> {
         //message.info('Click on menu item.');
         //console.log('click', e);
-        
+        this.setState({
+            product:e.key
+        })
         console.log(e);
-        if( !this.isEmpty(e))
-        {
-            this.setState({
-                product:e.key
-            })
+        if( !this.isEmpty(e) && !this.isEmpty(this.state.customer) && !this.isEmpty(this.state.dateTo) && !this.isEmpty(this.state.dateFrom)){
 
             this.props.dispatch({
                 type: 'outcomming/getOutcomming',
                 payload: { Product: e.key,Customer: this.state.customer, DateFrom: this.state.dateFrom, DateTo: this.state.dateTo}
             });
         }
-
       };
+
       handleClient= (e)=> {
         console.log(e);
-        if( !this.isEmpty(e))
-        {
-            this.setState({
-                customer:e.key
-            })
+        this.setState({
+            customer:e.key
+        })
+        if( !this.isEmpty(e) && !this.isEmpty(this.state.product) && !this.isEmpty(this.state.dateTo) && !this.isEmpty(this.state.dateFrom)){
 
             this.props.dispatch({
                 type: 'outcomming/getOutcomming',
