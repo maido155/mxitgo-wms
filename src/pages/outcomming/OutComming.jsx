@@ -74,7 +74,9 @@ var sumInputs = {
 export default class OutComming extends PureComponent {
     state = {
         product : "",
+        productDesc: "Product",
         customer: "",
+        customerDesc: "Customer",
         dateFrom:"",
         dateTo:""
     }
@@ -157,8 +159,10 @@ export default class OutComming extends PureComponent {
     handleProduct= (e)=> {
         //message.info('Click on menu item.');
         //console.log('click', e);
+        // let productName = e.key;
         this.setState({
-            product:e.key
+            product:e.key,
+            productDesc: e.item.props.children
         })
         console.log(e);
         if( !this.isEmpty(e) && !this.isEmpty(this.state.customer) && !this.isEmpty(this.state.dateTo) && !this.isEmpty(this.state.dateFrom)){
@@ -173,7 +177,8 @@ export default class OutComming extends PureComponent {
       handleClient= (e)=> {
         console.log(e);
         this.setState({
-            customer:e.key
+            customer:e.key,
+            customerDesc: e.item.props.children
         })
         if( !this.isEmpty(e) && !this.isEmpty(this.state.product) && !this.isEmpty(this.state.dateTo) && !this.isEmpty(this.state.dateFrom)){
 
@@ -196,8 +201,7 @@ onShowCompositionData = (id) => {
 
     render() {
         console.log('Context--->', this);  
-        console.log(this.props);    
-        // let { getFieldDecorator } = this.props.form;
+        console.log(this.props);
         let { datesProductAll, datesCustomerAll} = this.props;
         let {compositionData, datesOutcomming} = this.props.outcomming;
 
@@ -206,19 +210,18 @@ onShowCompositionData = (id) => {
             wrapperCol: {xs: { span: 24 },sm: { span: 14 },md: { span: 15 },lg: { span: 15 },xl: { span: 15 }}
         };
 
+        
         const menuProduct = (
             <Menu onClick={(e)=>{this.handleProduct(e,this)}}>
 
-            {datesProductAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.productName}</Menu.Item>))}
-              
+                {datesProductAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.productName}</Menu.Item>))}
+
             </Menu>
           );
 
           const menuClient = (
-            <Menu onClick={(e)=>{this.handleClient(e,this)}}>
-
-             {datesCustomerAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.clientName}</Menu.Item>))}
-
+            <Menu onClick={(e)=>{this.handleClient(e,this)}} >
+                {datesCustomerAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.clientName}</Menu.Item>))}
             </Menu>
           );
 
@@ -244,7 +247,7 @@ onShowCompositionData = (id) => {
                                     <Form.Item>
                                         <Dropdown onChange={this.onChangeProd} overlay={menuProduct}>
                                             <Button>
-                                                Product <DownOutlined />
+                                                {this.state.productDesc} <DownOutlined />
                                             </Button>
                                         </Dropdown>
                                     </Form.Item>
@@ -256,7 +259,7 @@ onShowCompositionData = (id) => {
                                             <Form.Item>
                                                 <Dropdown overlay={menuClient}>
                                                     <Button>
-                                                        Client <DownOutlined />
+                                                    {this.state.customerDesc} <DownOutlined />
                                                     </Button>
                                                 </Dropdown>
                                             
