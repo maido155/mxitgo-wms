@@ -432,3 +432,20 @@ export async function postProgramming({ payload }) {
         body: JSON.stringify(payload),
     });
 }
+
+
+export async function getWeekProgrammingTotals(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/dashboard/weekFigures?payload=${JSON.stringify(payload)}`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization }
+
+    });
+}
+
+export async function dashboardGetMasterTotal(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/dashboard/total?payload=${JSON.stringify(payload)}`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization }
+
+    });
+}

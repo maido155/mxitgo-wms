@@ -25,23 +25,23 @@ class GridDashboard extends PureComponent {
               <Col xs={txs} sm={tsm} md={tmd} lg={tlg} xl={txl} style={{textAlign: "center"}}>
                 <Card style={{ width: dataSix }} size='medium '>
                 <p>Necesidad Gold: </p>
-                <p><Title level={dataFour}>1500</Title></p>
+                <p><Title level={dataFour}>{this.props.programmingTotalPRODUCT1}</Title></p>
                 </Card>
               </Col>
               
               <Col xs={txs} sm={tsm} md={tmd} lg={tlg} xl={txl} style={{textAlign: "center"}}>
                 <Card style={{ width: dataSix }} size='medium'>
                 <p>Necesidad Premium: </p>
-                <p><Title level={dataFour} >1500</Title></p>
+                <p><Title level={dataFour} >{this.props.programmingTotalPRODUCT2}</Title></p>
                 </Card>
               </Col>
 
               <Col xs={txs} sm={tsm} md={tmd} lg={tlg} xl={txl} style={{textAlign: "center"}}>
                 <Card style={{ width: dataSix }} size='small'>
                   <p>Total Necesidades: </p>
-                  <p><Title level={dataFour}>1500</Title></p>
+                  <p><Title level={dataFour}>{this.props.programmingTotal.programmingTotal}</Title></p>
                   <Tooltip >
-                    <Progress percent={60} successPercent={30} showInfo={false} strokeWidth={dataSeven} />
+                    <Progress percent={this.props.programmingTotal.new} successPercent={this.props.programmingTotal.confirmed} showInfo={false} strokeWidth={dataSeven} />
                   </Tooltip>
                 </Card>
               </Col>
