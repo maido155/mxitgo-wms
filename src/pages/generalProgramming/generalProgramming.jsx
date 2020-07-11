@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import DrawerGeneralProgramming from './drawerGeneralProgramming'; 
-import { Card, Button, Icon, Modal, Spin, message } from 'antd'; 
+import { Card, Button, Icon, Modal, Spin, message, notification } from 'antd'; 
 import TableProgramming from './tableGeneralProgramming';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { connect } from 'dva';
@@ -108,6 +108,8 @@ class GeneralProgramming extends PureComponent {
     }
     handleSubmit = (data, weekUntil) => {
         const form = this.formRefNewLine.props.form;
+        var allProgramming = this.props.datesPrograming;
+        var getProgramming = this.props.datesGetProgramming;
         if(this.state.edit == true){
             form.validateFields((err, values) => {
                 if(err){
@@ -131,7 +133,8 @@ class GeneralProgramming extends PureComponent {
                     endDate:  moment(dataWeek).format(),
                     idSkEdit: values.productEdit + "|" + values.customerEdit,
                     idSk: this.props.datesGetProgramming[0].skProduct + "|" + this.props.datesGetProgramming[0].skCustomer,
-                    idPk: this.state.pk,
+                    idPk: "PR-" + moment(values.weekEdit).format("DDMMYY") + moment(dataAllWeek[6]).format("DDMMYY"),
+                    idPkOri: this.state.pk,
                     dates: [
                         {
                             caja: values.boxOneEdit,
@@ -157,6 +160,15 @@ class GeneralProgramming extends PureComponent {
                 };
                 let pos = 3;
                 let dateWeek = dataAllWeek.splice(pos,2)
+                let getProgrammingFormat = "PR-" + moment(getProgramming[0].startDate).format("DDMMYY") + moment(getProgramming[0].endDate).format("DDMMYY");
+                for(var i = 0; i < allProgramming.length; i++){
+                    if(getProgrammingFormat != payload.idPk){
+                        if(payload.idPk == allProgramming[i].Sk){
+                            this.openNotificationWithIcon('warning');
+                            return;    
+                        }
+                    }
+                }
                 if(this.state.rangeEdit == false){
                     var dataSim = this.props.datesGetProgramming[0].dateIso;
                     var dataIso = [];
@@ -184,7 +196,8 @@ class GeneralProgramming extends PureComponent {
                             idSkEdit: payload.idSkEdit,
                             idSk: payload.idSk,
                             idPk: payload.idPk,
-                            dates: payload.dates
+                            dates: payload.dates,
+                            idPkOri: payload.idPkOri
                         }
                      },
                 });
@@ -195,7 +208,7 @@ class GeneralProgramming extends PureComponent {
                     return;
                 }
                 let pos = 3;
-                let dateWeek = data.splice(pos,2)
+                let dateWeek = data.splice(pos,2);
                 let payload = {
                     operation: "NEW_DATA", 
                     status: "NEW",
@@ -226,6 +239,13 @@ class GeneralProgramming extends PureComponent {
                         }
                     ]
                 };
+                let pkPayload = "PR-" + payload.idPk;
+                for(var i = 0; i < allProgramming.length; i++){
+                    if(allProgramming[i].Sk == pkPayload){
+                        this.openNotificationWithIcon('warning');
+                        return;
+                    }
+                }
                 if(this.state.rangeEdit == false){
                     var dataSim = this.props.datesGetProgramming[0].dateIso;
                     var dataIso = [];
@@ -259,6 +279,12 @@ class GeneralProgramming extends PureComponent {
             }); 
         }
     }
+    openNotificationWithIcon = type => {
+        notification[type]({
+            message: formatMessage({ id: 'general.modal-verify-programming-message' }),
+            description: formatMessage({ id: 'general.modal-verify-programming-description' }),
+        });
+    }
     UpdateValidation = () => {
         this.props.dispatch({
             type: 'programming/updateValidation',
@@ -274,15 +300,19 @@ class GeneralProgramming extends PureComponent {
     cancelProgramming = (idProgramming) => {
         let _self = this;
         confirm({
-            title: 'Are you sure you want to cancel this task?',
-            content: 'Some descriptions',
-            okText: 'Yes',
+            title: formatMessage({ id: 'general.modal-cancell' }),
+            // content: 'Some descriptions',
+            okText: formatMessage({ id: 'general.modal-cancell-yes' }),
             okType: 'danger',
-            cancelText: 'No',
+            cancelText: formatMessage({ id: 'general.modal-cancell-no' }),
             onOk(){
                 _self.props.dispatch({
                     type: 'programming/updateProgrammingStatus',
-                    payload: { SK: idProgramming, operation: "UPDATE_STATUS", status: "CANCELLED"}
+                    payload: {
+                        payload: {
+                            SK: idProgramming, operation: "UPDATE_STATUS", status: "CANCELLED",Authorization: sessionStorage.getItem('idToken')
+                        }
+                    }
                 })
             }, 
             onCancel() {

@@ -22,5 +22,13 @@ export default {
     'general.table.edit': 'Edit',
     'general.table.delete': 'Delete',
     'general.table.save': 'Saved successfully',
-    'general.table.editS': 'Edit successfully'
+    'general.table.editS': 'Edit successfully',
+    'general.modal-product': 'Product not selected',
+    'general.modal-date': 'Date not selected',
+    'general.modal-customer': 'Center not selected',
+    'general.modal-cancell': 'Are you sure you want to cancel this programming?',
+    'general.modal-cancell-yes': 'Yes',
+    'general.modal-cancell-no': 'No',
+    'general.modal-verify-programming-message': 'Existing programming',
+    'general.modal-verify-programming-description': 'We have found a schedule on the same date. Please try again'
 }
