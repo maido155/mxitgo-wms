@@ -394,6 +394,22 @@ export async function getOutcomming(payload) {
         headers: { 'Authorization': payload.Authorization }
     });
 }
+export async function getAllDashboardDatesPerDay(payload) {
+    let dates=[
+        {
+            "percent":60,
+            "success":30,
+            "total":100
+        }
+    ]
+    console.log(dates);
+    console.log(dates);
+    return dates
+}
+/*request(`${ANT_DESIGN_PRO_TARGET}/dashboard?payload=${JSON.stringify(payload)}`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization }
+    });*/
 
 export async function getProgramming({ payload }) {
     return request(

@@ -73,6 +73,10 @@ class TableShippingMaster extends PureComponent {
 
   };
 
+  percentageSucces=(confirmed,total)=>{
+    let percentage=(confirmed*100)/total
+    return percentage
+}
 
 
   render(record) {
@@ -171,7 +175,7 @@ class TableShippingMaster extends PureComponent {
         llegada: 'Martes',
         entrada: 'Miercoles',
         premium: <Text type="danger" onClick={this.showModal} className={Styles.producto}>1200/1150</Text>,
-        gold: '39/39',
+        gold: this.percentageSucces(30,60),
         segunda: '0/39',
         mano: '0/39',
         dedo: '0/39',

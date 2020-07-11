@@ -9,36 +9,44 @@ import { FormattedMessage} from 'umi-plugin-react/locale';
 const { Text, Title } = Typography;
 
 class GridDashboard extends PureComponent {
-  
+  percentageSuccess=(confirmed,total)=>{
+      let percentage=(confirmed*100)/total;
+      return percentage
+  }
+  percentageTotal=(planned,total)=>{
+    let percent=(planned*100)/total;
+    return percent
+  }
   render() {
     const {xs,sm,md,lg,xl,txs,tsm,tmd,tlg,txl, dataThree, dataFour,dataFive, dataSix, dataSeven} = this.props
+    const {dates}=this.props
       
         return (
         <div>
 
           <Row type="flex" justify="space-around">
               <Col span={6}></Col>
-              <Col span={12}><Title level={4}>Totales</Title></Col>
+              <Col span={12}><Title level={4}><FormattedMessage id="dashboard.text.totals"/></Title></Col>
           </Row>
           
           <Row type="flex" justify="center" align-content="center">
               <Col xs={txs} sm={tsm} md={tmd} lg={tlg} xl={txl} style={{textAlign: "center"}}>
                 <Card style={{ width: dataSix }} size='medium '>
-                <p>Necesidad Gold: </p>
+                <p><FormattedMessage id="dashboard.text.gold-necessity"/> </p>
                 <p><Title level={dataFour}>1500</Title></p>
                 </Card>
               </Col>
               
               <Col xs={txs} sm={tsm} md={tmd} lg={tlg} xl={txl} style={{textAlign: "center"}}>
                 <Card style={{ width: dataSix }} size='medium'>
-                <p>Necesidad Premium: </p>
+                <p><FormattedMessage id="dashboard.text.premium-necessity"/> </p>
                 <p><Title level={dataFour} >1500</Title></p>
                 </Card>
               </Col>
 
               <Col xs={txs} sm={tsm} md={tmd} lg={tlg} xl={txl} style={{textAlign: "center"}}>
                 <Card style={{ width: dataSix }} size='small'>
-                  <p>Total Necesidades: </p>
+                  <p><FormattedMessage id="dashboard.text.total-necessity"/>  </p>
                   <p><Title level={dataFour}>1500</Title></p>
                   <Tooltip >
                     <Progress percent={60} successPercent={30} showInfo={false} strokeWidth={dataSeven} />
@@ -50,14 +58,14 @@ class GridDashboard extends PureComponent {
           
           <Divider/>
           <Row type="flex" justify="space-around">
-         
               <Col xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <Title level={dataThree}><FormattedMessage id="dashboard.title.wednesday"/></Title>
               <Card style={{ width: dataFive, height: "10rem" }} size='small'>
                
                 <Title type="danger" level={dataFour}>1500</Title>
+                
                 <Tooltip >
-                   <Progress percent={60} successPercent={30} showInfo={false} strokeWidth={dataSeven} />
+                  <Progress percent={this.percentageTotal(dates[0],dates[0])} successPercent={this.percentageSuccess(dates[0],dates[0])} showInfo={false} strokeWidth={dataSeven} />
                </Tooltip>
                 <Text><FormattedMessage id="dashboard.text.planned"/> </Text>
                 <Text><FormattedMessage id="dashboard.text.confirmed"/> </Text>
@@ -81,7 +89,7 @@ class GridDashboard extends PureComponent {
               <Card style={{ width: dataFive, height: "10rem" }} size='small'>
               <Title level={dataFour}>1500</Title>
                 <Tooltip >
-                   <Progress percent={60} successPercent={30} showInfo={false} strokeWidth={dataSeven} />
+                   <Progress percent={100} successPercent={30} showInfo={false} strokeWidth={dataSeven} />
                </Tooltip>
                <Text><FormattedMessage id="dashboard.text.planned"/> </Text>
                 <Text><FormattedMessage id="dashboard.text.confirmed"/> </Text>
@@ -135,44 +143,6 @@ class GridDashboard extends PureComponent {
                 <Text><FormattedMessage id="dashboard.text.confirmed"/> </Text>
                 
               </Card>
-              </Col>
-          </Row>
-          <Divider/>
-          <Row type="flex" justify="space-around">
-              <Col span={6}></Col>
-              <Col span={12}><Title level={4}><FormattedMessage id="dashboard.text.totals"/> </Title></Col>
-          </Row>
-          <Row type="flex" justify="center">
-              
-              <Col xs={txs} sm={tsm} md={tmd} lg={tlg} xl={txl}>
-              <Card style={{ width: dataSix }} size='small'>
-              <p><FormattedMessage id="dashboard.text.gold-necessity"/> </p>
-              
-               
-              <p><Title level={dataFour}>1500</Title></p>
-                </Card>
-              </Col>
-              
-              <Col xs={txs} sm={tsm} md={tmd} lg={tlg} xl={txl}>
-              <Card style={{ width: dataSix }} size='small'>
-              <p><FormattedMessage id="dashboard.text.premium-necessity"/> </p>
-                
-              <p><Title level={dataFour}>1500</Title></p>
-                </Card>
-              </Col>
-          </Row>
-          <Row type="flex" justify="center">
-              
-              <Col xs={txs} sm={tsm} md={tmd} lg={tlg} xl={txl} style={{textAlign: "center", margin:"1rem"}}>
-              <Card style={{ width: dataSix }} size='small'>
-              <p><FormattedMessage id="dashboard.text.total-necessity"/> </p>
-             
-                
-                <p><Title level={dataFour}>1500</Title></p>
-                <Tooltip >
-                   <Progress percent={60} successPercent={30} showInfo={false} strokeWidth={dataSeven} />
-               </Tooltip>
-                </Card>
               </Col>
           </Row>
         </div>
