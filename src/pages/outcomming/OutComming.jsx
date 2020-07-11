@@ -25,10 +25,10 @@ import RadioGroupOutcomming from './RadioGroupOutcomming';
 }))
 export default class OutComming extends PureComponent {
     state = {
-        product : "PRODUCT-1",
-        customer: "CUSTOMER-2",
-        dateFrom:"2020-06-25T00:00:00.000Z",
-        dateTo:"2020-06-30T00:00:00.000Z"
+        product : "",
+        customer: "",
+        dateFrom:"",
+        dateTo:""
     }
     
     componentDidMount() {
@@ -63,18 +63,25 @@ export default class OutComming extends PureComponent {
 
     }
 
+    isEmpty=(str)=>{
+        return (!str || 0 === str.length); 
+    }
     onChangeWeek=(date,dateString)=>{
 
         let dateFrom= `${date[0].format("YYYY-MM-DD")}T00:00:00.000Z`; //date[0].toISOString();
         let dateTo= `${date[1].format("YYYY-MM-DD")}T00:00:00.000Z`;
         
-        this.setState({
-            dateFrom,dateTo
-        })
-        this.props.dispatch({
-            type: 'outcomming/getOutcomming',
-            payload: { Product: this.state.product,Customer: this.state.customer, DateFrom: dateFrom, DateTo: dateTo}
-        });
+        if( !this.isEmpty(dateFrom) && !this.isEmpty(dateFrom))
+        {
+
+            this.setState({
+                dateFrom,dateTo
+            })
+            this.props.dispatch({
+                type: 'outcomming/getOutcomming',
+                payload: { Product: this.state.product,Customer: this.state.customer, DateFrom: dateFrom, DateTo: dateTo}
+            });
+        }
 
     };
 
@@ -90,27 +97,34 @@ export default class OutComming extends PureComponent {
     handleProduct= (e)=> {
         //message.info('Click on menu item.');
         //console.log('click', e);
+        
         console.log(e);
-        this.setState({
-            product:e.key
-        })
+        if( !this.isEmpty(e))
+        {
+            this.setState({
+                product:e.key
+            })
 
-        this.props.dispatch({
-            type: 'outcomming/getOutcomming',
-            payload: { Product: e.key,Customer: this.state.customer, DateFrom: this.state.dateFrom, DateTo: this.state.dateTo}
-        });
+            this.props.dispatch({
+                type: 'outcomming/getOutcomming',
+                payload: { Product: e.key,Customer: this.state.customer, DateFrom: this.state.dateFrom, DateTo: this.state.dateTo}
+            });
+        }
 
       };
       handleClient= (e)=> {
         console.log(e);
-        this.setState({
-            customer:e.key
-        })
+        if( !this.isEmpty(e))
+        {
+            this.setState({
+                customer:e.key
+            })
 
-        this.props.dispatch({
-            type: 'outcomming/getOutcomming',
-            payload: { Product: this.state.product,Customer: e.key, DateFrom: this.state.dateFrom, DateTo: this.state.dateTo}
-        });
+            this.props.dispatch({
+                type: 'outcomming/getOutcomming',
+                payload: { Product: this.state.product,Customer: e.key, DateFrom: this.state.dateFrom, DateTo: this.state.dateTo}
+            });
+        }
       };
 
 onShowCompositionData = (id) => {
@@ -134,7 +148,7 @@ onShowCompositionData = (id) => {
         };
 
         const menuProduct = (
-            <Menu onClick={this.handleProduct}>
+            <Menu onClick={(e)=>{this.handleProduct(e,this)}}>
 
             {datesProductAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.productName}</Menu.Item>))}
               
@@ -142,7 +156,7 @@ onShowCompositionData = (id) => {
           );
 
           const menuClient = (
-            <Menu onClick={this.handleClient}>
+            <Menu onClick={(e)=>{this.handleClient(e,this)}}>
 
              {datesCustomerAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.clientName}</Menu.Item>))}
 
@@ -156,7 +170,7 @@ onShowCompositionData = (id) => {
                             <Row type="flex" justify="center"> 
                                 <Col xs={24} sm={23} md={17} lg={16} xl={16}>
                                     <Form.Item label={formatMessage({ id: 'outComming.label.week' })}>
-                                        <RangePickerOutcomming onChange={this.onChangeWeek}/>
+                                        <RangePickerOutcomming onChange={(date,dateString)=>{this.onChangeWeek(date,dateString,this)}}/>
                                     </Form.Item>
                                 </Col>
                             </Row>
