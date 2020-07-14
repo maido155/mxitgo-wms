@@ -49,8 +49,8 @@ class TableGeneralProgramming extends PureComponent{
         },
         {
             title: formatMessage({id: "general.table.status"}),
-            dataIndex: 'Status',
-            key: 'Status',
+            dataIndex: 'status',
+            key: 'status',
             width: isMobile ? 100 :100
         },
         {

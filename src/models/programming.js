@@ -27,15 +27,7 @@ export default {
 
         * updateProgrammingStatus({ payload }, { call, put }) {
             const response = yield call(updateProgrammingStatus, payload);
-            console.log(response);
-            console.log(response);
-            console.log(response);
-            console.log(response);
             const responseGetAllCancell = yield call(fetchProgrammingAll, payload);
-            console.log(responseGetAllCancell);
-            console.log(responseGetAllCancell);
-            console.log(responseGetAllCancell);
-            console.log(responseGetAllCancell);
             yield put({
                 type: 'queryProgrammingAll',
                 payload: responseGetAllCancell,

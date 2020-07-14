@@ -11,14 +11,18 @@ function disabledDate(current) {
         palletTwo: 0,
         palletThree: 0,
         palletFour: 0,
-        palletFive: 0
+        palletFive: 0,
+        palletSix: 0,
+        palletSeven: 0
     }
     sumInputs = {
         boxOne: 0,
         boxTwo: 0,
         boxThree: 0,
         boxFour: 0,
-        boxFive: 0
+        boxFive: 0,
+        boxSix: 0,
+        boxSeven: 0
     }
     let dateMonday = moment(current).isoWeekday(1);
     let dateThursday = moment(current).isoWeekday(2);
@@ -42,20 +46,24 @@ var mulInputs = {
     palletTwo: 0,
     palletThree: 0,
     palletFour: 0,
-    palletFive: 0
+    palletFive: 0,
+    palletSix: 0,
+    palletSeven: 0
 }
 var sumInputs = {
     boxOne: 0,
     boxTwo: 0,
     boxThree: 0,
     boxFour: 0,
-    boxFive: 0
+    boxFive: 0,
+    boxSix: 0,
+    boxSeven: 0
 }
 const DrawerGeneralProgramming  = Form.create()(
     class extends React.Component {
         state = {
             dateRanger : [],
-            multiBoxes: {one: 0, two: 0, three: 0, four: 0, five: 0},
+            multiBoxes: {one: 0, two: 0, three: 0, four: 0, five: 0, six: 0, seven: 0},
             sumPallets: 0,
             sumBoxes: 0,
             weekNewUntil: 0,
@@ -78,7 +86,7 @@ const DrawerGeneralProgramming  = Form.create()(
                 dateRanger: dateShow,
                 sumPallets: 0,
                 sumBoxes: 0,
-                multiBoxes: {one: 0, two: 0, three: 0, four: 0, five: 0}
+                multiBoxes: {one: 0, two: 0, three: 0, four: 0, five: 0, six: 0, seven: 0}
             });
             const form = this.props.form;
             form.resetFields("palletOneNew");
@@ -86,6 +94,8 @@ const DrawerGeneralProgramming  = Form.create()(
             form.resetFields("palletThreeNew");
             form.resetFields("palletFourNew");
             form.resetFields("palletFiveNew");
+            form.resetFields("palletSixNew");
+            form.resetFields("palletSevenNew");
             this.resetInputs();
         }
         betweenDate = (since, until) => {
@@ -108,14 +118,18 @@ const DrawerGeneralProgramming  = Form.create()(
                 palletTwo: 0,
                 palletThree: 0,
                 palletFour: 0,
-                palletFive: 0
+                palletFive: 0,
+                palletSix: 0,
+                palletSeven: 0
             }
             sumInputs = {
                 boxOne: 0,
                 boxTwo: 0,
                 boxThree: 0,
                 boxFour: 0,
-                boxFive: 0
+                boxFive: 0,
+                boxSix: 0,
+                boxSeven: 0
             }
         }
         onBlurProd() {
@@ -141,7 +155,7 @@ const DrawerGeneralProgramming  = Form.create()(
         }
         onChangeProd = value => {
             console.log(`selected ${value}`);
-            this.setState({multiBoxes: {one: 0, two: 0, three: 0, four: 0, five: 0}, sumPallets: 0, sumBoxes: 0})
+            this.setState({multiBoxes: {one: 0, two: 0, three: 0, four: 0, five: 0, six: 0, seven: 0}, sumPallets: 0, sumBoxes: 0})
             const form = this.props.form;
             this.resetInputs();
             form.resetFields("palletOneNew");
@@ -149,6 +163,8 @@ const DrawerGeneralProgramming  = Form.create()(
             form.resetFields("palletThreeNew");
             form.resetFields("palletFourNew");
             form.resetFields("palletFiveNew");
+            form.resetFields("palletSixNew");
+            form.resetFields("palletSevenNew");
         } 
         handleChangePallet = (value, name) => {
             this.validationProduct();
@@ -170,7 +186,9 @@ const DrawerGeneralProgramming  = Form.create()(
                     sumInputs.boxThree = data.boxThreeNew;
                     sumInputs.boxFour = data.boxFourNew;
                     sumInputs.boxFive = data.boxFiveNew;
-                    sumBoxes = (mulInputs.palletOne * quantityBoxes) + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxFive;                    
+                    sumInputs.boxSix = data.boxSixNew;
+                    sumInputs.boxSeven = data.boxSevenNew;
+                    sumBoxes = (mulInputs.palletOne * quantityBoxes) + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxFive + sumInputs.boxSix + sumInputs.boxSeven;                 
                     form.resetFields("boxOneNew");
                     break;
                 case "palletTwo":
@@ -179,7 +197,9 @@ const DrawerGeneralProgramming  = Form.create()(
                     sumInputs.boxThree = data.boxThreeNew;
                     sumInputs.boxFour = data.boxFourNew;
                     sumInputs.boxFive = data.boxFiveNew;
-                    sumBoxes = (mulInputs.palletTwo * quantityBoxes) + sumInputs.boxOne + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxFive;
+                    sumInputs.boxSix = data.boxSixNew;
+                    sumInputs.boxSeven = data.boxSevenNew;
+                    sumBoxes = (mulInputs.palletTwo * quantityBoxes) + sumInputs.boxOne + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxFive + sumInputs.boxSix + sumInputs.boxSeven;
                     form.resetFields("boxTwoNew");
                     break;
                 case "palletThree":
@@ -188,7 +208,9 @@ const DrawerGeneralProgramming  = Form.create()(
                     sumInputs.boxTwo = data.boxTwoNew;
                     sumInputs.boxFour = data.boxFourNew;
                     sumInputs.boxFive = data.boxFiveNew;
-                    sumBoxes = (mulInputs.palletThree * quantityBoxes) + sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxFour + sumInputs.boxFive;
+                    sumInputs.boxSix = data.boxSixNew;
+                    sumInputs.boxSeven = data.boxSevenNew;
+                    sumBoxes = (mulInputs.palletThree * quantityBoxes) + sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxFour + sumInputs.boxFive + sumInputs.boxSix + sumInputs.boxSeven;
                     form.resetFields("boxThreeNew");
                     break;
                 case "palletFour":
@@ -197,7 +219,9 @@ const DrawerGeneralProgramming  = Form.create()(
                     sumInputs.boxTwo = data.boxTwoNew;
                     sumInputs.boxThree = data.boxThreeNew;
                     sumInputs.boxFive = data.boxFiveNew;
-                    sumBoxes = (mulInputs.palletFour * quantityBoxes) + sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFive;
+                    sumInputs.boxSix = data.boxSixNew;
+                    sumInputs.boxSeven = data.boxSevenNew;
+                    sumBoxes = (mulInputs.palletFour * quantityBoxes) + sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFive + sumInputs.boxSix + sumInputs.boxSeven;
                     form.resetFields("boxFourNew");
                     break;
                 case "palletFive":
@@ -206,13 +230,37 @@ const DrawerGeneralProgramming  = Form.create()(
                     sumInputs.boxTwo = data.boxTwoNew;
                     sumInputs.boxThree = data.boxThreeNew;
                     sumInputs.boxFour = data.boxFourNew;
-                    sumBoxes = (mulInputs.palletFive * quantityBoxes) + sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFour;
+                    sumInputs.boxSix = data.boxSixNew;
+                    sumInputs.boxSeven = data.boxSevenNew;
+                    sumBoxes = (mulInputs.palletFive * quantityBoxes) + sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxSix + sumInputs.boxSeven;
                     form.resetFields("boxFiveNew");
+                    break;
+                case "palletSix":
+                    mulInputs.palletSix = value;
+                    sumInputs.boxOne = data.boxOneNew;
+                    sumInputs.boxTwo = data.boxTwoNew;
+                    sumInputs.boxThree = data.boxThreeNew;
+                    sumInputs.boxFour = data.boxFourNew;
+                    sumInputs.boxFive = data.boxFiveNew;
+                    sumInputs.boxSeven = data.boxSevenNew;
+                    sumBoxes = (mulInputs.palletSix * quantityBoxes) + sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxFive + sumInputs.boxSeven;
+                    form.resetFields("boxSixNew");
+                    break;
+                case "palletSeven":
+                    mulInputs.palletSeven = value;
+                    sumInputs.boxOne = data.boxOneNew;
+                    sumInputs.boxTwo = data.boxTwoNew;
+                    sumInputs.boxThree = data.boxThreeNew;
+                    sumInputs.boxFour = data.boxFourNew;
+                    sumInputs.boxFive = data.boxFiveNew;
+                    sumInputs.boxSix = data.boxSixNew;
+                    sumBoxes = (mulInputs.palletSeven * quantityBoxes) + sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxFive + sumInputs.boxSix;
+                    form.resetFields("boxSevenNew");
                     break;
                 default:
                     break;
             }
-            var sumPallets = mulInputs.palletOne + mulInputs.palletTwo + mulInputs.palletThree + mulInputs.palletFour + mulInputs.palletFive;
+            var sumPallets = mulInputs.palletOne + mulInputs.palletTwo + mulInputs.palletThree + mulInputs.palletFour + mulInputs.palletFive + mulInputs.palletSix + mulInputs.palletSeven;
             this.setState({
                 sumPallets: sumPallets,
                 multiBoxes: { 
@@ -220,7 +268,9 @@ const DrawerGeneralProgramming  = Form.create()(
                     two: mulInputs.palletTwo * quantityBoxes,
                     three: mulInputs.palletThree * quantityBoxes,
                     four: mulInputs.palletFour * quantityBoxes,
-                    five: mulInputs.palletFive * quantityBoxes
+                    five: mulInputs.palletFive * quantityBoxes,
+                    six: mulInputs.palletSix * quantityBoxes,
+                    seven: mulInputs.palletSeven * quantityBoxes
                 },
                 sumBoxes: sumBoxes,
             })
@@ -236,6 +286,8 @@ const DrawerGeneralProgramming  = Form.create()(
                     sumInputs.boxThree = data.boxThreeNew;
                     sumInputs.boxFour = data.boxFourNew;
                     sumInputs.boxFive = data.boxFiveNew;
+                    sumInputs.boxSix = data.boxSixNew;
+                    sumInputs.boxSeven = data.boxSevenNew;
                     break;
                 case "boxTwo":
                     sumInputs.boxTwo = value;
@@ -243,6 +295,8 @@ const DrawerGeneralProgramming  = Form.create()(
                     sumInputs.boxThree = data.boxThreeNew;
                     sumInputs.boxFour = data.boxFourNew;
                     sumInputs.boxFive = data.boxFiveNew;
+                    sumInputs.boxSix = data.boxSixNew;
+                    sumInputs.boxSeven = data.boxSevenNew;
                     break;
                 case "boxThree":
                     sumInputs.boxThree = value;
@@ -250,6 +304,8 @@ const DrawerGeneralProgramming  = Form.create()(
                     sumInputs.boxTwo = data.boxTwoNew;
                     sumInputs.boxFour = data.boxFourNew;
                     sumInputs.boxFive = data.boxFiveNew;
+                    sumInputs.boxSix = data.boxSixNew;
+                    sumInputs.boxSeven = data.boxSevenNew;
                     break;
                 case "boxFour":
                     sumInputs.boxFour = value;
@@ -257,6 +313,8 @@ const DrawerGeneralProgramming  = Form.create()(
                     sumInputs.boxTwo = data.boxTwoNew;
                     sumInputs.boxThree = data.boxThreeNew;
                     sumInputs.boxFive = data.boxFiveNew;
+                    sumInputs.boxSix = data.boxSixNew;
+                    sumInputs.boxSeven = data.boxSevenNew;
                     break;
                 case "boxFive":
                     sumInputs.boxFive = value;
@@ -264,11 +322,31 @@ const DrawerGeneralProgramming  = Form.create()(
                     sumInputs.boxTwo = data.boxTwoNew;
                     sumInputs.boxThree = data.boxThreeNew;
                     sumInputs.boxFour = data.boxFourNew;
+                    sumInputs.boxSix = data.boxSixNew;
+                    sumInputs.boxSeven = data.boxSevenNew;
+                    break;
+                case "boxSix":
+                    sumInputs.boxSix = value;
+                    sumInputs.boxOne = data.boxOneNew;
+                    sumInputs.boxTwo = data.boxTwoNew;
+                    sumInputs.boxThree = data.boxThreeNew;
+                    sumInputs.boxFour = data.boxFourNew;
+                    sumInputs.boxFive = data.boxFiveNew;
+                    sumInputs.boxSeven = data.boxSevenNew;
+                    break;
+                case "boxSeven":
+                    sumInputs.boxSeven = value;
+                    sumInputs.boxOne = data.boxOneNew;
+                    sumInputs.boxTwo = data.boxTwoNew;
+                    sumInputs.boxThree = data.boxThreeNew;
+                    sumInputs.boxFour = data.boxFourNew;
+                    sumInputs.boxFive = data.boxFiveNew;
+                    sumInputs.boxSix = data.boxSixNew;
                     break;
                 default:
                     break;
             }
-            var sumBoxes = sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxFive;
+            var sumBoxes = sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxFive + sumInputs.boxSix + sumInputs.boxSeven;
             this.setState({
                 sumBoxes: sumBoxes,
             })
@@ -280,6 +358,11 @@ const DrawerGeneralProgramming  = Form.create()(
                 message.warning(formatMessage({ id: 'general.modal-product' }));
             }
         }
+
+
+
+
+    // ********************************************************
         handleChangePalletEdit = (value, name) => {
             this.props.showeditSumPallet();
             this.props.showeditSumBoxes();
@@ -297,7 +380,9 @@ const DrawerGeneralProgramming  = Form.create()(
                 two: 0,
                 three: 0,
                 four: 0,
-                five: 0
+                five: 0,
+                six: 0,
+                seven: 0
             }
             for(var i = 0; i < palletvsBoxes.length; i++){
                 if(palletvsBoxes[i]["WMS-1-SK"] == productName){
@@ -311,24 +396,32 @@ const DrawerGeneralProgramming  = Form.create()(
                     mulInputs.palletThree = data.palleThreeEdit;
                     mulInputs.palletFour = data.palleFourEdit;
                     mulInputs.palletFive = data.palleFiveEdit;
+                    mulInputs.palletSix = data.palleSixEdit;
+                    mulInputs.palletSeven = data.palleSevenEdit;
                     sumInputs.boxTwo = data.boxTwoEdit;
                     sumInputs.boxThree = data.boxThreeEdit;
                     sumInputs.boxFour = data.boxFourEdit;
                     sumInputs.boxFive = data.boxFiveEdit;
-                    if((mulInputs.palletTwo * quantityBoxes) == data.boxTwoEdit || (mulInputs.palletThree * quantityBoxes) == data.boxThreeEdit || (mulInputs.palletFour * quantityBoxes) == data.boxFourEdit || (mulInputs.palletFive * quantityBoxes) == data.boxFiveNew){
+                    sumInputs.boxSix = data.boxSixEdit;
+                    sumInputs.boxSeven = data.boxSevenEdit;
+                    if((mulInputs.palletTwo * quantityBoxes) == data.boxTwoEdit || (mulInputs.palletThree * quantityBoxes) == data.boxThreeEdit || (mulInputs.palletFour * quantityBoxes) == data.boxFourEdit || (mulInputs.palletFive * quantityBoxes) == data.boxFiveEdit || (mulInputs.palletSix * quantityBoxes) == data.boxSixEdit || (mulInputs.palletSeven * quantityBoxes) == data.boxSevenEdit){
                         multBoxes.one = mulInputs.palletOne * quantityBoxes;
                         multBoxes.two = mulInputs.palletTwo * quantityBoxes;
                         multBoxes.three = mulInputs.palletThree * quantityBoxes;
                         multBoxes.four = mulInputs.palletFour * quantityBoxes;
                         multBoxes.five = mulInputs.palletFive * quantityBoxes;
+                        multBoxes.six = mulInputs.palletSix * quantityBoxes;
+                        multBoxes.seven = mulInputs.palletSeven * quantityBoxes;
                     }else{
                         multBoxes.one = mulInputs.palletOne * quantityBoxes;
                         multBoxes.two = data.boxTwoEdit;
                         multBoxes.three = data.boxThreeEdit;
                         multBoxes.four = data.boxFourEdit;
                         multBoxes.five = data.boxFiveEdit;
+                        multBoxes.six = data.boxSixEdit;
+                        multBoxes.seven = data.boxSevenEdit;
                     }
-                    sumBoxes = (mulInputs.palletOne * quantityBoxes) + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxFive;   
+                    sumBoxes = (mulInputs.palletOne * quantityBoxes) + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxFive + sumInputs.boxSix + sumInputs.boxSeven;   
                     form.resetFields("boxOneEdit");
                     break;
                 case "palletTwoEdit":
@@ -337,108 +430,208 @@ const DrawerGeneralProgramming  = Form.create()(
                     mulInputs.palletThree = data.palleThreeEdit;
                     mulInputs.palletFour = data.palleFourEdit;
                     mulInputs.palletFive = data.palleFiveEdit;
+                    mulInputs.palletSix = data.palleSixEdit;
+                    mulInputs.palletSeven = data.palleSevenEdit;
                     sumInputs.boxOne = data.boxOneEdit;
                     sumInputs.boxThree = data.boxThreeEdit;
                     sumInputs.boxFour = data.boxFourEdit;
                     sumInputs.boxFive = data.boxFiveEdit;
-                    if((mulInputs.palletOne * quantityBoxes) == data.boxOneEdit || (mulInputs.palletThree * quantityBoxes) == data.boxThreeEdit || (mulInputs.palletFour * quantityBoxes) == data.boxFourEdit || (mulInputs.palletFive * quantityBoxes) == data.boxFiveNew){
+                    sumInputs.boxSix = data.boxSixEdit;
+                    sumInputs.boxSeven = data.boxSevenEdit;
+                    if((mulInputs.palletOne * quantityBoxes) == data.boxOneEdit || (mulInputs.palletThree * quantityBoxes) == data.boxThreeEdit || (mulInputs.palletFour * quantityBoxes) == data.boxFourEdit || (mulInputs.palletFive * quantityBoxes) == data.boxFiveEdit || (mulInputs.palletSix * quantityBoxes) == data.boxSixEdit || (mulInputs.palletSeven * quantityBoxes) == data.boxSevenEdit){
                         multBoxes.one = mulInputs.palletOne * quantityBoxes;
                         multBoxes.two = mulInputs.palletTwo * quantityBoxes;
                         multBoxes.three = mulInputs.palletThree * quantityBoxes;
                         multBoxes.four = mulInputs.palletFour * quantityBoxes;
                         multBoxes.five = mulInputs.palletFive * quantityBoxes;
+                        multBoxes.six = mulInputs.palletSix * quantityBoxes;
+                        multBoxes.seven = mulInputs.palletSeven * quantityBoxes;
                     }else{
                         multBoxes.one = data.boxOneEdit;
                         multBoxes.two = mulInputs.palletTwo * quantityBoxes;
                         multBoxes.three = data.boxThreeEdit; 
                         multBoxes.four = data.boxFourEdit;
                         multBoxes.five = data.boxFiveEdit;
+                        multBoxes.six = data.boxSixEdit;
+                        multBoxes.seven = data.boxSevenEdit;
                     }
-                    sumBoxes = (mulInputs.palletTwo * quantityBoxes) + sumInputs.boxOne + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxFive; 
+                    sumBoxes = (mulInputs.palletTwo * quantityBoxes) + sumInputs.boxOne + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxFive + sumInputs.boxSix + sumInputs.boxSeven; 
                     form.resetFields("boxTwoEdit");
                     break;
-                    case "palletThreeEdit":
-                        mulInputs.palletThree = value;
-                        mulInputs.palletOne = data.palletOneEdit;
-                        mulInputs.palletTwo = data.palleTwoEdit;
-                        mulInputs.palletFour = data.palleFourEdit;
-                        mulInputs.palletFive = data.palleFiveEdit;
-                        sumInputs.boxOne = data.boxOneEdit;
-                        sumInputs.boxTwo = data.boxTwoEdit;
-                        sumInputs.boxFour = data.boxFourEdit;
-                        sumInputs.boxFive = data.boxFiveEdit;
-                        if((mulInputs.palletOne * quantityBoxes) == data.boxOneEdit || (mulInputs.palletTwo * quantityBoxes) == data.boxTwoEdit || (mulInputs.palletFour * quantityBoxes) == data.boxFourEdit || (mulInputs.palletFive * quantityBoxes) == data.boxFiveNew){
-                            multBoxes.one = mulInputs.palletOne * quantityBoxes;
-                            multBoxes.two = mulInputs.palletTwo * quantityBoxes;
-                            multBoxes.three = mulInputs.palletThree * quantityBoxes;
-                            multBoxes.four = mulInputs.palletFour * quantityBoxes;
-                            multBoxes.five = mulInputs.palletFive * quantityBoxes;
-                        }else{
-                            multBoxes.one = data.boxOneEdit;
-                            multBoxes.two = data.boxTwoEdit;
-                            multBoxes.three = mulInputs.palletThree * quantityBoxes;
-                            multBoxes.four = data.boxFourEdit;
-                            multBoxes.five = data.boxFiveEdit;
-                        }
-                        sumBoxes = (mulInputs.palletThree * quantityBoxes) + sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxFour + sumInputs.boxFive;  
-                        form.resetFields("boxThreeEdit");
-                        break;
-                    case "palletFourEdit":
-                        mulInputs.palletFour = value;
-                        mulInputs.palletOne = data.palletOneEdit;
-                        mulInputs.palletTwo = data.palleTwoEdit;
-                        mulInputs.palletThree = data.palleThreeEdit;
-                        mulInputs.palletFive = data.palleFiveEdit;
-                        sumInputs.boxOne = data.boxOneEdit;
-                        sumInputs.boxTwo = data.boxTwoEdit;
-                        sumInputs.boxThree = data.boxThreeEdit;
-                        sumInputs.boxFive = data.boxFiveEdit;
-                        if((mulInputs.palletOne * quantityBoxes) == data.boxOneEdit || (mulInputs.palletTwo * quantityBoxes) == data.boxTwoEdit || (mulInputs.palletThree * quantityBoxes) == data.boxThreeEdit || (mulInputs.palletFive * quantityBoxes) == data.boxFiveNew){
-                            multBoxes.one = mulInputs.palletOne * quantityBoxes;
-                            multBoxes.two = mulInputs.palletTwo * quantityBoxes;
-                            multBoxes.three = mulInputs.palletThree * quantityBoxes;
-                            multBoxes.four = mulInputs.palletFour * quantityBoxes;
-                            multBoxes.five = mulInputs.palletFive * quantityBoxes;
-                        }else{
-                            multBoxes.one = data.boxOneEdit;
-                            multBoxes.two = data.boxTwoEdit;
-                            multBoxes.three = data.boxThreeEdit; 
-                            multBoxes.four = mulInputs.palletFour * quantityBoxes;
-                            multBoxes.five = data.boxFiveEdit;
-                        }
-                        sumBoxes = (mulInputs.palletFour * quantityBoxes) + sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFive; 
-                        form.resetFields("boxFourEdit");
-                        break;
+                case "palletThreeEdit":
+                    mulInputs.palletThree = value;
+                    mulInputs.palletOne = data.palletOneEdit;
+                    mulInputs.palletTwo = data.palleTwoEdit;
+                    mulInputs.palletFour = data.palleFourEdit;
+                    mulInputs.palletFive = data.palleFiveEdit;
+                    mulInputs.palletSix = data.palleSixEdit;
+                    mulInputs.palletSeven = data.palleSevenEdit;
+                    sumInputs.boxOne = data.boxOneEdit;
+                    sumInputs.boxTwo = data.boxTwoEdit;
+                    sumInputs.boxFour = data.boxFourEdit;
+                    sumInputs.boxFive = data.boxFiveEdit;
+                    sumInputs.boxSix = data.boxSixEdit;
+                    sumInputs.boxSeven = data.boxSevenEdit;
+                    if((mulInputs.palletOne * quantityBoxes) == data.boxOneEdit || (mulInputs.palletTwo * quantityBoxes) == data.boxTwoEdit || (mulInputs.palletFour * quantityBoxes) == data.boxFourEdit || (mulInputs.palletFive * quantityBoxes) == data.boxFiveEdit || (mulInputs.palletSix * quantityBoxes) == data.boxSixEdit || (mulInputs.palletSeven * quantityBoxes) == data.boxSevenEdit){
+                        multBoxes.one = mulInputs.palletOne * quantityBoxes;
+                        multBoxes.two = mulInputs.palletTwo * quantityBoxes;
+                        multBoxes.three = mulInputs.palletThree * quantityBoxes;
+                        multBoxes.four = mulInputs.palletFour * quantityBoxes;
+                        multBoxes.five = mulInputs.palletFive * quantityBoxes;
+                        multBoxes.six = mulInputs.palletSix * quantityBoxes;
+                        multBoxes.seven = mulInputs.palletSeven * quantityBoxes;
+                    }else{
+                        multBoxes.one = data.boxOneEdit;
+                        multBoxes.two = data.boxTwoEdit;
+                        multBoxes.three = mulInputs.palletThree * quantityBoxes;
+                        multBoxes.four = data.boxFourEdit;
+                        multBoxes.five = data.boxFiveEdit;
+                        multBoxes.six = data.boxSixEdit;
+                        multBoxes.seven = data.boxSevenEdit;
+                    }
+                    sumBoxes = (mulInputs.palletThree * quantityBoxes) + sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxFour + sumInputs.boxFive + sumInputs.boxSix + sumInputs.boxSeven;
+                    form.resetFields("boxThreeEdit");
+                    break;
+                case "palletFourEdit":
+                    mulInputs.palletFour = value;
+                    mulInputs.palletOne = data.palletOneEdit;
+                    mulInputs.palletTwo = data.palleTwoEdit;
+                    mulInputs.palletThree = data.palleThreeEdit;
+                    mulInputs.palletFive = data.palleFiveEdit;
+                    mulInputs.palletSix = data.palleSixEdit;
+                    mulInputs.palletSeven = data.palleSevenEdit;
+                    sumInputs.boxOne = data.boxOneEdit;
+                    sumInputs.boxTwo = data.boxTwoEdit;
+                    sumInputs.boxThree = data.boxThreeEdit;
+                    sumInputs.boxFive = data.boxFiveEdit;
+                    sumInputs.boxSix = data.boxSixEdit;
+                    sumInputs.boxSeven = data.boxSevenEdit;
+                    if((mulInputs.palletOne * quantityBoxes) == data.boxOneEdit || (mulInputs.palletTwo * quantityBoxes) == data.boxTwoEdit || (mulInputs.palletThree * quantityBoxes) == data.boxThreeEdit || (mulInputs.palletFive * quantityBoxes) == data.boxFiveEdit || (mulInputs.palletSix * quantityBoxes) == data.boxSixEdit || (mulInputs.palletSeven * quantityBoxes) == data.boxSevenEdit){
+                        multBoxes.one = mulInputs.palletOne * quantityBoxes;
+                        multBoxes.two = mulInputs.palletTwo * quantityBoxes;
+                        multBoxes.three = mulInputs.palletThree * quantityBoxes;
+                        multBoxes.four = mulInputs.palletFour * quantityBoxes;
+                        multBoxes.five = mulInputs.palletFive * quantityBoxes;
+                        multBoxes.six = mulInputs.palletSix * quantityBoxes;
+                        multBoxes.seven = mulInputs.palletSeven * quantityBoxes;
+                    }else{
+                        multBoxes.one = data.boxOneEdit;
+                        multBoxes.two = data.boxTwoEdit;
+                        multBoxes.three = data.boxThreeEdit; 
+                        multBoxes.four = mulInputs.palletFour * quantityBoxes;
+                        multBoxes.five = data.boxFiveEdit;
+                        multBoxes.six = data.boxSixEdit;
+                        multBoxes.seven = data.boxSevenEdit;
+                    }
+                    sumBoxes = (mulInputs.palletFour * quantityBoxes) + sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFive + sumInputs.boxSix + sumInputs.boxSeven; 
+                    form.resetFields("boxFourEdit");
+                    break;
                 case "palletFiveEdit":
                     mulInputs.palletFive = value;
                     mulInputs.palletOne = data.palletOneEdit;
                     mulInputs.palletTwo = data.palleTwoEdit;
                     mulInputs.palletThree = data.palleThreeEdit;
                     mulInputs.palletFour = data.palleFourEdit;
+                    mulInputs.palletSix = data.palleSixEdit;
+                    mulInputs.palletSeven = data.palleSevenEdit;
                     sumInputs.boxOne = data.boxOneEdit;
                     sumInputs.boxTwo = data.boxTwoEdit;
                     sumInputs.boxThree = data.boxThreeEdit;
                     sumInputs.boxFour = data.boxFourEdit;
-                    if((mulInputs.palletOne * quantityBoxes) == data.boxOneEdit || (mulInputs.palletTwo * quantityBoxes) == data.boxTwoEdit || (mulInputs.palletThree * quantityBoxes) == data.boxThreeEdit || (mulInputs.palletFour) == data.boxFourEdit){
+                    sumInputs.boxSix = data.boxSixEdit;
+                    sumInputs.boxSeven = data.boxSevenEdit;
+                    if((mulInputs.palletOne * quantityBoxes) == data.boxOneEdit || (mulInputs.palletTwo * quantityBoxes) == data.boxTwoEdit || (mulInputs.palletThree * quantityBoxes) == data.boxThreeEdit || (mulInputs.palletFour) == data.boxFourEdit || (mulInputs.palletSix * quantityBoxes) == data.boxSixEdit || (mulInputs.palletSeven * quantityBoxes) == data.boxSevenEdit){
                         multBoxes.one = mulInputs.palletOne * quantityBoxes;
                         multBoxes.two = mulInputs.palletTwo * quantityBoxes;
                         multBoxes.three = mulInputs.palletThree * quantityBoxes;
                         multBoxes.four = mulInputs.palletFour * quantityBoxes;
                         multBoxes.five = mulInputs.palletFive * quantityBoxes;
+                        multBoxes.six = mulInputs.palletSix * quantityBoxes;
+                        multBoxes.seven = mulInputs.palletSeven * quantityBoxes;
                     }else{
                         multBoxes.one = data.boxOneEdit;
                         multBoxes.two = data.boxTwoEdit;
                         multBoxes.three = data.boxThreeEdit; 
                         multBoxes.four = data.boxFourEdit;
                         multBoxes.five = mulInputs.palletFive * quantityBoxes;
+                        multBoxes.six = data.boxSixEdit;
+                        multBoxes.seven = data.boxSevenEdit;
                     }
-                    sumBoxes = (mulInputs.palletFive * quantityBoxes) + sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFour; 
+                    sumBoxes = (mulInputs.palletFive * quantityBoxes) + sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxSix + sumInputs.boxSeven;
                     form.resetFields("boxFiveEdit");
                     break;
+                case "palletSixEdit":
+                    mulInputs.palletSix = value;
+                    mulInputs.palletOne = data.palletOneEdit;
+                    mulInputs.palletTwo = data.palleTwoEdit;
+                    mulInputs.palletThree = data.palleThreeEdit;
+                    mulInputs.palletFour = data.palleFourEdit;
+                    mulInputs.palletFive = data.palleFiveEdit;
+                    mulInputs.palletSeven = data.palleSevenEdit;
+                    sumInputs.boxOne = data.boxOneEdit;
+                    sumInputs.boxTwo = data.boxTwoEdit;
+                    sumInputs.boxThree = data.boxThreeEdit;
+                    sumInputs.boxFour = data.boxFourEdit;
+                    sumInputs.boxFive = data.boxFiveEdit;
+                    sumInputs.boxSeven = data.boxSevenEdit;
+                    if((mulInputs.palletSix * quantityBoxes) == data.boxOneEdit || (mulInputs.palletTwo * quantityBoxes) == data.boxTwoEdit || (mulInputs.palletThree * quantityBoxes) == data.boxThreeEdit || (mulInputs.palletFour) == data.boxFourEdit || (mulInputs.palletFive * quantityBoxes) == data.boxFiveEdit || (mulInputs.palletSeven * quantityBoxes) == data.boxSevenEdit){
+                        multBoxes.one = mulInputs.palletOne * quantityBoxes;
+                        multBoxes.two = mulInputs.palletTwo * quantityBoxes;
+                        multBoxes.three = mulInputs.palletThree * quantityBoxes;
+                        multBoxes.four = mulInputs.palletFour * quantityBoxes;
+                        multBoxes.five = mulInputs.palletFive * quantityBoxes;
+                        multBoxes.six = mulInputs.palletSix * quantityBoxes;
+                        multBoxes.seven = mulInputs.palletSeven * quantityBoxes;
+                    }else{
+                        multBoxes.one = data.boxOneEdit;
+                        multBoxes.two = data.boxTwoEdit;
+                        multBoxes.three = data.boxThreeEdit; 
+                        multBoxes.four = data.boxFourEdit;
+                        multBoxes.five = data.boxFiveEdit;
+                        multBoxes.six = mulInputs.palletSix * quantityBoxes;
+                        multBoxes.seven = data.boxSevenEdit;
+                    }
+                    sumBoxes = (mulInputs.palletSix * quantityBoxes) + sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxFive + sumInputs.boxSeven;
+                    form.resetFields("boxSixEdit");
+                    break; 
+                case "palletSevenEdit":
+                    mulInputs.palletSeven = value;
+                    mulInputs.palletOne = data.palletOneEdit;
+                    mulInputs.palletTwo = data.palleTwoEdit;
+                    mulInputs.palletThree = data.palleThreeEdit;
+                    mulInputs.palletFour = data.palleFourEdit;
+                    mulInputs.palletFive = data.palleFiveEdit;
+                    mulInputs.palletSix = data.palleSixEdit;
+                    sumInputs.boxOne = data.boxOneEdit;
+                    sumInputs.boxTwo = data.boxTwoEdit;
+                    sumInputs.boxThree = data.boxThreeEdit;
+                    sumInputs.boxFour = data.boxFourEdit;
+                    sumInputs.boxFive = data.boxFiveEdit;
+                    sumInputs.boxSix = data.boxSixEdit;
+                    if((mulInputs.palletSeven * quantityBoxes) == data.boxOneEdit || (mulInputs.palletTwo * quantityBoxes) == data.boxTwoEdit || (mulInputs.palletThree * quantityBoxes) == data.boxThreeEdit || (mulInputs.palletFour) == data.boxFourEdit || (mulInputs.palletFive * quantityBoxes) == data.boxFiveEdit || (mulInputs.palletSix * quantityBoxes) == data.boxSixEdit){
+                        multBoxes.one = mulInputs.palletOne * quantityBoxes;
+                        multBoxes.two = mulInputs.palletTwo * quantityBoxes;
+                        multBoxes.three = mulInputs.palletThree * quantityBoxes;
+                        multBoxes.four = mulInputs.palletFour * quantityBoxes;
+                        multBoxes.five = mulInputs.palletFive * quantityBoxes;
+                        multBoxes.six = mulInputs.palletSix * quantityBoxes;
+                        multBoxes.seven = mulInputs.palletSeven * quantityBoxes;
+                    }else{
+                        multBoxes.one = data.boxOneEdit;
+                        multBoxes.two = data.boxTwoEdit;
+                        multBoxes.three = data.boxThreeEdit; 
+                        multBoxes.four = data.boxFourEdit;
+                        multBoxes.five = data.boxFiveEdit;
+                        multBoxes.six = data.boxSixEdit;
+                        multBoxes.seven = mulInputs.palletSeven * quantityBoxes;
+                    }
+                    sumBoxes = (mulInputs.palletSeven * quantityBoxes) + sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxFive + sumInputs.boxSix;
+                    form.resetFields("boxSevenEdit");
+                    break;           
                 default:
                     break;
             }
-            var sumPallets = mulInputs.palletOne + mulInputs.palletTwo + mulInputs.palletThree + mulInputs.palletFour + mulInputs.palletFive;
+            var sumPallets = mulInputs.palletOne + mulInputs.palletTwo + mulInputs.palletThree + mulInputs.palletFour + mulInputs.palletFive + mulInputs.palletSix + mulInputs.palletSeven;
             this.setState({
                 sumPallets: sumPallets,
                 multiBoxes: { 
@@ -446,7 +639,9 @@ const DrawerGeneralProgramming  = Form.create()(
                     two: multBoxes.two,
                     three: multBoxes.three,
                     four: multBoxes.four,
-                    five: multBoxes.five
+                    five: multBoxes.five,
+                    six: multBoxes.six,
+                    seven: multBoxes.seven
                 },
                 sumBoxes: sumBoxes
             })  
@@ -465,6 +660,8 @@ const DrawerGeneralProgramming  = Form.create()(
                     sumInputs.boxThree = data.boxThreeEdit;
                     sumInputs.boxFour = data.boxFourEdit;
                     sumInputs.boxFive = data.boxFiveEdit;
+                    sumInputs.boxSix = data.boxSixEdit;
+                    sumInputs.boxSeven = data.boxSevenEdit;
                     break;
                 case "boxTwo":
                     sumInputs.boxTwo = value;
@@ -472,6 +669,8 @@ const DrawerGeneralProgramming  = Form.create()(
                     sumInputs.boxThree = data.boxThreeEdit;
                     sumInputs.boxFour = data.boxFourEdit;
                     sumInputs.boxFive = data.boxFiveEdit;
+                    sumInputs.boxSix = data.boxSixEdit;
+                    sumInputs.boxSeven = data.boxSevenEdit;
                     break;
                 case "boxThree":
                     sumInputs.boxThree = value;
@@ -479,6 +678,8 @@ const DrawerGeneralProgramming  = Form.create()(
                     sumInputs.boxTwo = data.boxTwoEdit;
                     sumInputs.boxFour = data.boxFourEdit;
                     sumInputs.boxFive = data.boxFiveEdit;
+                    sumInputs.boxSix = data.boxSixEdit;
+                    sumInputs.boxSeven = data.boxSevenEdit;
                     break;
                 case "boxFour":
                     sumInputs.boxFour = value;
@@ -486,6 +687,8 @@ const DrawerGeneralProgramming  = Form.create()(
                     sumInputs.boxTwo = data.boxTwoEdit;
                     sumInputs.boxThree = data.boxThreeEdit;
                     sumInputs.boxFive = data.boxFiveEdit;
+                    sumInputs.boxSix = data.boxSixEdit;
+                    sumInputs.boxSeven = data.boxSevenEdit;
                     break;
                 case "boxFive":
                     sumInputs.boxFive = value;
@@ -493,11 +696,31 @@ const DrawerGeneralProgramming  = Form.create()(
                     sumInputs.boxTwo = data.boxTwoEdit;
                     sumInputs.boxThree = data.boxThreeEdit;
                     sumInputs.boxFour = data.boxFourEdit;
+                    sumInputs.boxSix = data.boxSixEdit;
+                    sumInputs.boxSeven = data.boxSevenEdit;
                     break;
+                case "boxSix":
+                    sumInputs.boxSix = value;
+                    sumInputs.boxOne = data.boxOneEdit;
+                    sumInputs.boxTwo = data.boxTwoEdit;
+                    sumInputs.boxThree = data.boxThreeEdit;
+                    sumInputs.boxFour = data.boxFourEdit;
+                    sumInputs.boxFive = data.boxFiveEdit;
+                    sumInputs.boxSeven = data.boxSevenEdit;
+                    break;   
+                case "boxSeven":
+                    sumInputs.boxSeven = value;
+                    sumInputs.boxOne = data.boxOneEdit;
+                    sumInputs.boxTwo = data.boxTwoEdit;
+                    sumInputs.boxThree = data.boxThreeEdit;
+                    sumInputs.boxFour = data.boxFourEdit;
+                    sumInputs.boxFive = data.boxFiveEdit;
+                    sumInputs.boxSix = data.boxSixEdit;
+                    break;       
                 default:
                     break;
             }
-            var sumBoxes = sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxFive;
+            var sumBoxes = sumInputs.boxOne + sumInputs.boxTwo + sumInputs.boxThree + sumInputs.boxFour + sumInputs.boxFive + sumInputs.boxSix + sumInputs.boxSeven;
             this.setState({
                 sumBoxes: sumBoxes,
             })
@@ -636,7 +859,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                             <Row>
                                                 <Col xs={0} sm={3} md={3} lg={3} xl={3}></Col>
                                                 <Col xs={16} sm={18} md={18} lg={18} xl={18}>
-                                                    <Form.Item label={dateRanger[5]}>
+                                                    <Form.Item label={dateRanger[3]}>
                                                         <Row>
                                                             <Col span={12}>
                                                                 {getFieldDecorator('palletFourNew',{initialValue: 0})(<InputNumber min={0} onChange={(value) => this.handleChangePallet(value, "palletFour")}/>)}
@@ -652,13 +875,45 @@ const DrawerGeneralProgramming  = Form.create()(
                                             <Row>
                                                 <Col xs={0} sm={3} md={3} lg={3} xl={3}></Col>
                                                 <Col xs={16} sm={18} md={18} lg={18} xl={18}>
-                                                    <Form.Item label={dateRanger[6]}>
+                                                    <Form.Item label={dateRanger[4]}>
                                                         <Row>
                                                             <Col span={12}>
                                                                 {getFieldDecorator('palletFiveNew',{initialValue: 0})(<InputNumber min={0} onChange={(value) => this.handleChangePallet(value, "palletFive")}/>)}             
                                                             </Col>
                                                             <Col span={12}>
                                                                 {getFieldDecorator('boxFiveNew',{initialValue: multiBoxes.five})(<InputNumber min={0} onChange={(value) => this.handleChangeBox(value, "boxFive")}/>)}
+                                                            </Col>
+                                                        </Row>
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col xs={0} sm={5} md={5} lg={5} xl={3}></Col>
+                                            </Row>
+                                            <Row>
+                                                <Col xs={0} sm={3} md={3} lg={3} xl={3}></Col>
+                                                <Col xs={16} sm={18} md={18} lg={18} xl={18}>
+                                                    <Form.Item label={dateRanger[5]}>
+                                                        <Row>
+                                                            <Col span={12}>
+                                                                {getFieldDecorator('palletSixNew',{initialValue: 0})(<InputNumber min={0} onChange={(value) => this.handleChangePallet(value, "palletSix")}/>)}             
+                                                            </Col>
+                                                            <Col span={12}>
+                                                                {getFieldDecorator('boxSixNew',{initialValue: multiBoxes.six})(<InputNumber min={0} onChange={(value) => this.handleChangeBox(value, "boxSix")}/>)}
+                                                            </Col>
+                                                        </Row>
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col xs={0} sm={5} md={5} lg={5} xl={3}></Col>
+                                            </Row>
+                                            <Row>
+                                                <Col xs={0} sm={3} md={3} lg={3} xl={3}></Col>
+                                                <Col xs={16} sm={18} md={18} lg={18} xl={18}>
+                                                    <Form.Item label={dateRanger[6]}>
+                                                        <Row>
+                                                            <Col span={12}>
+                                                                {getFieldDecorator('palletSevenNew',{initialValue: 0})(<InputNumber min={0} onChange={(value) => this.handleChangePallet(value, "palletSeven")}/>)}             
+                                                            </Col>
+                                                            <Col span={12}>
+                                                                {getFieldDecorator('boxSevenNew',{initialValue: multiBoxes.seven})(<InputNumber min={0} onChange={(value) => this.handleChangeBox(value, "boxSeven")}/>)}
                                                             </Col>
                                                         </Row>
                                                     </Form.Item>
@@ -798,7 +1053,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                             <Row>
                                                 <Col xs={0} sm={3} md={3} lg={3} xl={3}></Col>
                                                 <Col xs={16} sm={18} md={18} lg={18} xl={18}>
-                                                    <Form.Item label={rangeEdit == false ? datesGetProgramming[0].dates[3].date : dateRanger[5]}>
+                                                    <Form.Item label={rangeEdit == false ? datesGetProgramming[0].dates[3].date : dateRanger[3]}>
                                                         <Row>
                                                             <Col span={12}>
                                                                 {getFieldDecorator('palleFourEdit',{initialValue: datesGetProgramming[0].dates[3].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletFourEdit")}/>)}
@@ -814,13 +1069,45 @@ const DrawerGeneralProgramming  = Form.create()(
                                             <Row>
                                                 <Col xs={0} sm={3} md={3} lg={3} xl={3}></Col>
                                                 <Col xs={16} sm={18} md={18} lg={18} xl={18}>
-                                                    <Form.Item label={rangeEdit == false ? datesGetProgramming[0].dates[4].date : dateRanger[6]}>
+                                                    <Form.Item label={rangeEdit == false ? datesGetProgramming[0].dates[4].date : dateRanger[4]}>
                                                         <Row>
                                                             <Col span={12}>
                                                                 {getFieldDecorator('palleFiveEdit',{initialValue: datesGetProgramming[0].dates[4].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletFiveEdit")}/>)}             
                                                             </Col>
                                                             <Col span={12}>
                                                                 {getFieldDecorator('boxFiveEdit',{initialValue: editSumPallet == false ? datesGetProgramming[0].dates[4].caja : multiBoxes.five})(<InputNumber min={0} onChange={(value) => this.handleChangeBoxEdit(value, "boxFive")}/>)}
+                                                            </Col>
+                                                        </Row>
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col xs={0} sm={5} md={5} lg={5} xl={3}></Col>
+                                            </Row>
+                                            <Row>
+                                                <Col xs={0} sm={3} md={3} lg={3} xl={3}></Col>
+                                                <Col xs={16} sm={18} md={18} lg={18} xl={18}>
+                                                    <Form.Item label={rangeEdit == false ? datesGetProgramming[0].dates[5].date : dateRanger[5]}>
+                                                        <Row>
+                                                            <Col span={12}>
+                                                                {getFieldDecorator('palleSixEdit',{initialValue: datesGetProgramming[0].dates[5].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletSixEdit")}/>)}             
+                                                            </Col>
+                                                            <Col span={12}>
+                                                                {getFieldDecorator('boxSixEdit',{initialValue: editSumPallet == false ? datesGetProgramming[0].dates[5].caja : multiBoxes.six})(<InputNumber min={0} onChange={(value) => this.handleChangeBoxEdit(value, "boxSix")}/>)}
+                                                            </Col>
+                                                        </Row>
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col xs={0} sm={5} md={5} lg={5} xl={3}></Col>
+                                            </Row>
+                                            <Row>
+                                                <Col xs={0} sm={3} md={3} lg={3} xl={3}></Col>
+                                                <Col xs={16} sm={18} md={18} lg={18} xl={18}>
+                                                    <Form.Item label={rangeEdit == false ? datesGetProgramming[0].dates[6].date : dateRanger[6]}>
+                                                        <Row>
+                                                            <Col span={12}>
+                                                                {getFieldDecorator('palleSevenEdit',{initialValue: datesGetProgramming[0].dates[6].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletSevenEdit")}/>)}             
+                                                            </Col>
+                                                            <Col span={12}>
+                                                                {getFieldDecorator('boxSevenEdit',{initialValue: editSumPallet == false ? datesGetProgramming[0].dates[6].caja : multiBoxes.seven})(<InputNumber min={0} onChange={(value) => this.handleChangeBoxEdit(value, "boxSeven")}/>)}
                                                             </Col>
                                                         </Row>
                                                     </Form.Item>
