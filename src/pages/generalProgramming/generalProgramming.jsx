@@ -129,8 +129,8 @@ class GeneralProgramming extends PureComponent {
                 let payload = {
                     operation: "UPDATE_DATA", 
                     status: "NEW",
-                    startDate: moment(values.weekEdit).format(),
-                    endDate:  moment(dataWeek).format(),
+                    startDate: moment(values.weekEdit).format("YYYY-MM-DD") + "T00:00:00.000Z",
+                    endDate:  moment(dataWeek).format("YYYY-MM-DD") + "T00:00:00.000Z",
                     idSkEdit: values.productEdit + "|" + values.customerEdit,
                     idSk: this.props.datesGetProgramming[0].skProduct + "|" + this.props.datesGetProgramming[0].skCustomer,
                     idPk: "PR-" + moment(values.weekEdit).format("DDMMYY") + moment(dataAllWeek[6]).format("DDMMYY"),
@@ -155,11 +155,17 @@ class GeneralProgramming extends PureComponent {
                         {
                             caja: values.boxFiveEdit,
                             pallet: values.palleFiveEdit
+                        },
+                        {
+                            caja: values.boxSixEdit,
+                            pallet: values.palleSixEdit
+                        },
+                        {
+                            caja: values.boxSevenEdit,
+                            pallet: values.palleSevenEdit
                         }
                     ]
                 };
-                let pos = 3;
-                let dateWeek = dataAllWeek.splice(pos,2)
                 let getProgrammingFormat = "PR-" + moment(getProgramming[0].startDate).format("DDMMYY") + moment(getProgramming[0].endDate).format("DDMMYY");
                 for(var i = 0; i < allProgramming.length; i++){
                     if(getProgrammingFormat != payload.idPk){
@@ -173,17 +179,23 @@ class GeneralProgramming extends PureComponent {
                     var dataSim = this.props.datesGetProgramming[0].dateIso;
                     var dataIso = [];
                     for(var i = 0; i < dataSim.length; i++){
-                        var oData = moment(dataSim[i].date).format();
+                        var oData = moment(dataSim[i].date).format("YYYY-MM-DD") + "T00:00:00.000Z";
                         dataIso.push(oData)
                     }
                     for(var k = 0; k < payload.dates.length; k++){
-                        payload.dates[k]["data"] = dataIso[k]
+                        payload.dates[k]["date"] = dataIso[k]
                     }
                 }else{
+                    var dates = [];
+                    for(var k = 0; k < dataAllWeek.length; k++){
+                        let dateFormat = moment(data[k]).format("YYYY-MM-DD") + "T00:00:00.000Z";
+                        dates.push(dateFormat);
+                    }
                     for(var j = 0; j < payload.dates.length; j++){
-                        payload.dates[j]["data"] = dataAllWeek[j]
+                        payload.dates[j]["date"] = dates[j]
                     }
                 }
+                console.log(payload);
                 this.props.dispatch({
                     type: 'programming/updateProgramming',
                     payload: {
@@ -207,13 +219,11 @@ class GeneralProgramming extends PureComponent {
                 if(err){
                     return;
                 }
-                let pos = 3;
-                let dateWeek = data.splice(pos,2);
                 let payload = {
                     operation: "NEW_DATA", 
                     status: "NEW",
-                    startDate: moment(values.weekNew).format(),
-                    endDate:  weekUntil,
+                    startDate: moment(values.weekNew).format("YYYY-MM-DD") + "T00:00:00.000Z",
+                    endDate:  moment(weekUntil).format("YYYY-MM-DD") + "T00:00:00.000Z",
                     idSk: values.productNew + "|" + values.customerNew,
                     idPk: moment(values.weekNew).format("DDMMYY") + moment(weekUntil).format("DDMMYY"),
                     dates: [
@@ -236,6 +246,14 @@ class GeneralProgramming extends PureComponent {
                         {
                             caja: values.boxFiveNew,
                             pallet: values.palletFiveNew
+                        },
+                        {
+                            caja: values.boxSixNew,
+                            pallet: values.palletSixNew
+                        },
+                        {
+                            caja: values.boxSevenNew,
+                            pallet: values.palletSevenNew
                         }
                     ]
                 };
@@ -246,20 +264,13 @@ class GeneralProgramming extends PureComponent {
                         return;
                     }
                 }
-                if(this.state.rangeEdit == false){
-                    var dataSim = this.props.datesGetProgramming[0].dateIso;
-                    var dataIso = [];
-                    for(var i = 0; i < dataSim.length; i++){
-                        var oData = moment(dataSim[i].date).format();
-                        dataIso.push(oData)
-                    }
-                    for(var k = 0; k < payload.dates.length; k++){
-                        payload.dates[k]["data"] = dataIso[k]
-                    }
-                }else{
-                    for(var j = 0; j < payload.dates.length; j++){
-                        payload.dates[j]["data"] = data[j]
-                    }
+                var dates = [];
+                for(var k = 0; k < data.length; k++){
+                    let dateFormat = moment(data[k]).format("YYYY-MM-DD") + "T00:00:00.000Z";
+                    dates.push(dateFormat);
+                }
+                for(var j = 0; j < payload.dates.length; j++){
+                    payload.dates[j]["date"] = dates[j]
                 }
                 this.props.dispatch({
                     type: 'programming/postProgramming',
