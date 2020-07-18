@@ -56,9 +56,39 @@ export default class Dashboard extends PureComponent {
       payload: {
         startDate,
         customer,
-        products: this.state.products
+        products: this.state.products,
+        Authorization: sessionStorage.getItem('idToken')
       }
-    })
+    });
+
+
+
+    ///////// Bring 7 days
+
+    var currentDate = moment(startDate, "YYYY-MM-DD");
+    var weekStart = currentDate;
+    //var weekEnd = currentDate.add(6, 'days');
+    var aDays = [0, 1, 2, 3, 4, 5, 6];
+
+
+
+    for (const i of aDays) {
+
+        this.props.dispatch({
+          type: 'dashboard/getDay',
+          payload: {
+            Authorization: sessionStorage.getItem('idToken'),
+            startDate,
+            customer,
+            product: this.state.currentSelectedProduct,
+            deliveryDate: moment(weekStart).add(i, 'days').format("YYYY-MM-DD"),
+            dayName: moment(weekStart).add(i, 'days').format("dddd")
+          }
+        })
+
+    }
+
+    
 
   };
 
@@ -112,7 +142,7 @@ export default class Dashboard extends PureComponent {
             </div>
             <Divider />
             <div>
-              <GridDashboard  programmingTotal = {this.props.dashboard.programmingTotal}  programmingTotalPRODUCT1={this.props.dashboard.programmingTotalPRODUCT1} programmingTotalPRODUCT2={this.props.dashboard.programmingTotalPRODUCT2} xs={12} sm={12} md={8} lg={6} xl={3} txs={15} tsm={10} tmd={8} tlg={7} txl={6} dataTwo={3} dataThree={3} dataFour={3} dataFive={130} dataSix={200} dataSeven={15} />
+              <GridDashboard  Monday = {this.props.dashboard.Monday} Tuesday = {this.props.dashboard.Tuesday} Wednesday = {this.props.dashboard.Wednesday} Thursday = {this.props.dashboard.Thursday} Friday = {this.props.dashboard.Friday} Saturday = {this.props.dashboard.Saturday} Sunday = {this.props.dashboard.Sunday} programmingTotal = {this.props.dashboard.programmingTotal}  programmingTotalPRODUCT1={this.props.dashboard.programmingTotalPRODUCT1} programmingTotalPRODUCT2={this.props.dashboard.programmingTotalPRODUCT2} xs={12} sm={12} md={8} lg={6} xl={3} txs={15} tsm={10} tmd={8} tlg={7} txl={6} dataTwo={3} dataThree={3} dataFour={3} dataFive={130} dataSix={200} dataSeven={15} />
             </div>
           </Card>
         </PageHeaderWrapper>
@@ -144,7 +174,7 @@ export default class Dashboard extends PureComponent {
 
           </Form>
           <div>
-            <GridDashboard programmingTotal = {this.props.dashboard.programmingTotal} programmingTotalPRODUCT1={this.props.dashboard.programmingTotalPRODUCT1} programmingTotalPRODUCT2={this.props.dashboard.programmingTotalPRODUCT2} xs={24} sm={12} md={8} lg={6} xl={3} txs={15} tsm={10} tmd={8} tlg={7} txl={6} dataTwo={3} dataThree={4} dataFour={2} dataFive={150} dataSix={200} />
+            <GridDashboard Monday = {this.props.dashboard.Monday} Tuesday = {this.props.dashboard.Tuesday} Wednesday = {this.props.dashboard.Wednesday} Thursday = {this.props.dashboard.Thursday} Friday = {this.props.dashboard.Friday} Saturday = {this.props.dashboard.Saturday} Sunday = {this.props.dashboard.Sunday} programmingTotal = {this.props.dashboard.programmingTotal} programmingTotalPRODUCT1={this.props.dashboard.programmingTotalPRODUCT1} programmingTotalPRODUCT2={this.props.dashboard.programmingTotalPRODUCT2} xs={24} sm={12} md={8} lg={6} xl={3} txs={15} tsm={10} tmd={8} tlg={7} txl={6} dataTwo={3} dataThree={4} dataFour={2} dataFive={150} dataSix={200} />
           </div>
         </Card>
       </PageHeaderWrapper>
