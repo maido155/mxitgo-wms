@@ -7,12 +7,60 @@ import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import TabsOutComming from './TabsOutComming';
 import moment from 'moment';
 
-import { Card, Form, Row, Col, Menu, Dropdown, Button, message, Tooltip, Divider,  Spin } from 'antd';
+import { Card, Form, Row, Col, DatePicker, Menu, Dropdown, Button, message, Tooltip, Divider,  Spin } from 'antd';
 import TableOutComming from './TableOutComming';
 import { connect } from 'dva';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import RangePickerOutcomming from './RangePickerOutcomming';
 import RadioGroupOutcomming from './RadioGroupOutcomming';
+
+function disabledDate(current) {
+    mulInputs = {
+        palletOne: 0,
+        palletTwo: 0,
+        palletThree: 0,
+        palletFour: 0,
+        palletFive: 0
+    }
+    sumInputs = {
+        boxOne: 0,
+        boxTwo: 0,
+        boxThree: 0,
+        boxFour: 0,
+        boxFive: 0
+    }
+    let dateMonday = moment(current).isoWeekday(1);
+    let dateThursday = moment(current).isoWeekday(2);
+    let dateTuesday = moment(current).isoWeekday(4);
+    let dateFriday = moment(current).isoWeekday(5);
+    let dateSaturday = moment(current).isoWeekday(6);
+    let dateSunday = moment(current).isoWeekday(7);
+    let dateAll = moment(current).format('dddd DD MMMM');
+    let compareMonday = moment(dateMonday).format('dddd DD MMMM');
+    let compareThursday = moment(dateThursday).format('dddd DD MMMM');
+    let compareTuesday = moment(dateTuesday).format('dddd DD MMMM');
+    let compareFriday = moment(dateFriday).format('dddd DD MMMM');
+    let compareSaturday = moment(dateSaturday).format('dddd DD MMMM');
+    let compareSunday = moment(dateSunday).format('dddd DD MMMM');
+    if(dateAll === compareMonday || dateAll === compareThursday || dateAll === compareTuesday || dateAll === compareFriday || dateAll === compareSaturday || dateAll === compareSunday){
+        return true;
+    }
+}
+
+var mulInputs = {
+    palletOne: 0,
+    palletTwo: 0,
+    palletThree: 0,
+    palletFour: 0,
+    palletFive: 0
+} 
+var sumInputs = {
+    boxOne: 0, 
+    boxTwo: 0,
+    boxThree: 0,
+    boxFour: 0,
+    boxFive: 0
+}
 
 
 @connect(({ outcomming, programming, loading }) => ({
@@ -25,10 +73,12 @@ import RadioGroupOutcomming from './RadioGroupOutcomming';
 }))
 export default class OutComming extends PureComponent {
     state = {
-        product : "PRODUCT-1",
-        customer: "CUSTOMER-2",
-        dateFrom:"2020-06-25T00:00:00.000Z",
-        dateTo:"2020-06-30T00:00:00.000Z"
+        product : "",
+        productDesc: "Product",
+        customer: "",
+        customerDesc: "Customer",
+        dateFrom:"",
+        dateTo:""
     }
     
     componentDidMount() {
@@ -63,18 +113,37 @@ export default class OutComming extends PureComponent {
 
     }
 
+    isEmpty=(str)=>{
+        return (!str || 0 === str.length); 
+    }
     onChangeWeek=(date,dateString)=>{
 
-        let dateFrom= `${date[0].format("YYYY-MM-DD")}T00:00:00.000Z`; //date[0].toISOString();
-        let dateTo= `${date[1].format("YYYY-MM-DD")}T00:00:00.000Z`;
+        var since = moment(dateString);
+        var until = moment(dateString);
+        until.add(6, 'days');
+        let dateFrom = "";
+        let dateTo = "";
+
+        if (date !== null) {
+            dateFrom= `${since.format("YYYY-MM-DD")}T00:00:00.000Z`; //date[0].toISOString();
+            dateTo= `${until.format("YYYY-MM-DD")}T00:00:00.000Z`;
+        } else {
+            dateFrom = '';
+            dateTo = '';
+        }
         
+
         this.setState({
             dateFrom,dateTo
         })
-        this.props.dispatch({
-            type: 'outcomming/getOutcomming',
-            payload: { Product: this.state.product,Customer: this.state.customer, DateFrom: dateFrom, DateTo: dateTo}
-        });
+
+        if( !this.isEmpty(dateFrom) && !this.isEmpty(dateFrom) && !this.isEmpty(this.state.product) && !this.isEmpty(this.state.customer)){
+            
+            this.props.dispatch({
+                type: 'outcomming/getOutcomming',
+                payload: { Product: this.state.product,Customer: this.state.customer, DateFrom: dateFrom, DateTo: dateTo}
+            });
+        }
 
     };
 
@@ -90,27 +159,34 @@ export default class OutComming extends PureComponent {
     handleProduct= (e)=> {
         //message.info('Click on menu item.');
         //console.log('click', e);
-        console.log(e);
+        // let productName = e.key;
         this.setState({
-            product:e.key
+            product:e.key,
+            productDesc: e.item.props.children
         })
+        console.log(e);
+        if( !this.isEmpty(e) && !this.isEmpty(this.state.customer) && !this.isEmpty(this.state.dateTo) && !this.isEmpty(this.state.dateFrom)){
 
-        this.props.dispatch({
-            type: 'outcomming/getOutcomming',
-            payload: { Product: e.key,Customer: this.state.customer, DateFrom: this.state.dateFrom, DateTo: this.state.dateTo}
-        });
-
+            this.props.dispatch({
+                type: 'outcomming/getOutcomming',
+                payload: { Product: e.key,Customer: this.state.customer, DateFrom: this.state.dateFrom, DateTo: this.state.dateTo}
+            });
+        }
       };
+
       handleClient= (e)=> {
         console.log(e);
         this.setState({
-            customer:e.key
+            customer:e.key,
+            customerDesc: e.item.props.children
         })
+        if( !this.isEmpty(e) && !this.isEmpty(this.state.product) && !this.isEmpty(this.state.dateTo) && !this.isEmpty(this.state.dateFrom)){
 
-        this.props.dispatch({
-            type: 'outcomming/getOutcomming',
-            payload: { Product: this.state.product,Customer: e.key, DateFrom: this.state.dateFrom, DateTo: this.state.dateTo}
-        });
+            this.props.dispatch({
+                type: 'outcomming/getOutcomming',
+                payload: { Product: this.state.product,Customer: e.key, DateFrom: this.state.dateFrom, DateTo: this.state.dateTo}
+            });
+        }
       };
 
 onShowCompositionData = (id) => {
@@ -124,6 +200,7 @@ onShowCompositionData = (id) => {
 
 
     render() {
+        console.log('Context--->', this);  
         console.log(this.props);
         let { datesProductAll, datesCustomerAll} = this.props;
         let {compositionData, datesOutcomming} = this.props.outcomming;
@@ -133,33 +210,36 @@ onShowCompositionData = (id) => {
             wrapperCol: {xs: { span: 24 },sm: { span: 14 },md: { span: 15 },lg: { span: 15 },xl: { span: 15 }}
         };
 
+        
         const menuProduct = (
-            <Menu onClick={this.handleProduct}>
+            <Menu onClick={(e)=>{this.handleProduct(e,this)}}>
 
-            {datesProductAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.productName}</Menu.Item>))}
-              
+                {datesProductAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.productName}</Menu.Item>))}
+
             </Menu>
           );
 
           const menuClient = (
-            <Menu onClick={this.handleClient}>
-
-             {datesCustomerAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.clientName}</Menu.Item>))}
-
+            <Menu onClick={(e)=>{this.handleClient(e,this)}} >
+                {datesCustomerAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.clientName}</Menu.Item>))}
             </Menu>
           );
+
+        
 
         return (
             <PageHeaderWrapper>
                     <Card>
                         <Form {...formItemLayout}>
-                            <Row type="flex" justify="center"> 
-                                <Col xs={24} sm={23} md={17} lg={16} xl={16}>
-                                    <Form.Item label={formatMessage({ id: 'outComming.label.week' })}>
-                                        <RangePickerOutcomming onChange={this.onChangeWeek}/>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
+                        <Row>
+                            <Col xs={0} sm={1} md={1} lg={1} xl={1}></Col>
+                            <Col xs={24} sm={18} md={18} lg={18} xl={18}>
+                                <Form.Item label={formatMessage({id: "general.calendar.week"})}>
+                                    <DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} disabledDate={disabledDate} onChange={(date,dateString)=>{this.onChangeWeek(date,dateString,this)}}/>
+                                </Form.Item>
+                            </Col>
+                            <Col xs={0} sm={5} md={5} lg={5} xl={5}></Col>
+                        </Row>
 
 
                             <Row type="flex" justify="center">
@@ -167,7 +247,7 @@ onShowCompositionData = (id) => {
                                     <Form.Item>
                                         <Dropdown onChange={this.onChangeProd} overlay={menuProduct}>
                                             <Button>
-                                                Product <DownOutlined />
+                                                {this.state.productDesc} <DownOutlined />
                                             </Button>
                                         </Dropdown>
                                     </Form.Item>
@@ -179,7 +259,7 @@ onShowCompositionData = (id) => {
                                             <Form.Item>
                                                 <Dropdown overlay={menuClient}>
                                                     <Button>
-                                                        Client <DownOutlined />
+                                                    {this.state.customerDesc} <DownOutlined />
                                                     </Button>
                                                 </Dropdown>
                                             
