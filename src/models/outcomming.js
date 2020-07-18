@@ -4,7 +4,8 @@ export default {
     namespace: 'outcomming',
     state: {        
         compositionData: [],
-        datesOutcomming: []
+        datesOutcomming: [],
+        postOutcommingSuccess: false
     },
     effects: {
         * confirmOutcomming({ payload }, { call, put }) {
@@ -30,7 +31,15 @@ export default {
                 type: 'getOutcommingReducer',
                 payload: response,
             });
-        }
+        },
+        * postOutcomming({ payload }, { call, put }) {
+            const response = yield call(postOutcomming, payload);
+            //const responseGetAll = yield call(fetchProgrammingAll, payload);
+            yield put({
+                type: 'queryOutcommingPost',
+                payload: response,
+            });
+        },
     },
 
     reducers: {
@@ -49,6 +58,12 @@ export default {
             return {
                 ...state,
                 datesOutcomming: action.payload
+            }
+        },
+        queryOutcommingPost(state, action) {
+            return {
+                ...state,
+                postOutcommingSuccess: true
             }
         }
 

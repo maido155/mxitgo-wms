@@ -449,3 +449,11 @@ export async function dashboardGetMasterTotal(payload) {
 
     });
 }
+
+export async function postOutcomming({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/outcomming`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'Authorization': payload.Authorization },
+        body: JSON.stringify(payload),
+    });
+}

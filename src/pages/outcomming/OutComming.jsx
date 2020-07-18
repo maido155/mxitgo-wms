@@ -183,7 +183,12 @@ export default class OutComming extends PureComponent {
 
     };
 
-
+    postOutcomming = (payload) => {
+        this.props.dispatch({  
+            type: 'outcomming/postOutcomming',  
+            payload: {payload}
+        }); 
+    }
     render() {
         console.log('Context--->', this);  
         console.log(this.props);
@@ -257,7 +262,7 @@ export default class OutComming extends PureComponent {
                             
                             <Row type="flex" justify="center">
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                                    <TableOutComming datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
+                                    <TableOutComming postOutcomming= {this.postOutcomming} datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
                                 </Col>
                             </Row>
                         </Form>

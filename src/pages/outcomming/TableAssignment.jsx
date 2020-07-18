@@ -53,10 +53,10 @@ export default class TableAssignment extends PureComponent {
             title: formatMessage({ id: 'outComming.label.tableassignment-assign' }),
             key: 'action',
             width: isMobile ? 100 : 100,
-            render: () => (
+            render: (record) => (
               <span>
                   <a onClick={this.showDrawerAssigProduct}><FormattedMessage id="outComming.label.tableassignment-assign"/></a>
-                  <DrawerAssignment visible={this.state.visibleAssignProduct} onClose={this.onDrawerAssigProduct}/>     
+                  <DrawerAssignment postOutcomming= {this.props.postOutcomming} visible={this.state.visibleAssignProduct} onClose={this.onDrawerAssigProduct} currentOutcomming={this.props.currentOutcomming} currentShipping={record}/>     
               </span>
             )
         }

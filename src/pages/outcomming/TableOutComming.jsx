@@ -80,7 +80,9 @@ export default class TableOutComming extends PureComponent {
                         </Checkbox>      
                         <AssignmentOutComming 
                             visibleOne={this.state.visibleAssign}
+                            currentOutcomming={this.state.currentRecord}
                             closeOne={this.onCloseDrawerAssig}
+                            postOutcomming= {this.props.postOutcomming}
                         />
                         <CompositionOutComming
                             loading = {this.props.loading}
