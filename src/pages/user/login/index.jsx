@@ -29,6 +29,11 @@ class Login extends Component {
     user: {},
     userAttributes: {}
   };
+  componentDidMount() {
+    if(localStorage.getItem('sessionActive') != 'null' && localStorage.getItem('isRemembered') == 'true'){
+      window.location.href = '/dashboard';
+    }
+}
 
   changeAutoLogin = e => {
     this.setState({
@@ -40,10 +45,14 @@ class Login extends Component {
 
   doLogin = async (_params) => {
     const { dispatch } = this.props;
+    var isRemembered = this.state.autoLogin;
+    let params=[];
+    params.push(_params);
+    params.push(isRemembered);
     try {
       dispatch({
         type: 'login/login',
-        payload: _params,
+        payload: params,
       });
      
     } catch (error) {
@@ -138,10 +147,11 @@ class Login extends Component {
   handleSubmit = (err, values) => {
     const { type } = this.state;
     var self = this;
+   
     if (!err) {
       const { dispatch } = this.props;
-      console.log(values);
-
+      
+     
        self.loginCognito(values);
     
       //  Cognito.loginCognito(values,{
@@ -177,7 +187,6 @@ class Login extends Component {
     });
   };
   handleCancel = () => {    
-    console.log('jj');
      this.setState({
       visible: false
     });
@@ -192,9 +201,6 @@ class Login extends Component {
   onResetLogin = () => {
     const form = this.loginForm;
     form.resetFields();
-
-    console.log('jj');
-    console.log('jj');
   };
   
   handleNewPassword = (pass) => {
