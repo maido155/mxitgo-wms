@@ -55,7 +55,6 @@ export default class DrawerAssignmentProduct extends PureComponent {
             //Put
         //}
 
-        console.log(payload);
         _this.props.postOutcomming(payload);
         _this.props.onClose();
     }

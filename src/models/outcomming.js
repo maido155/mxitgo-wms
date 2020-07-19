@@ -1,4 +1,4 @@
-import {confirmOutcomming, getComposition, getOutcomming} from '../services/api';
+import {confirmOutcomming, getComposition, getOutcomming, postOutcomming} from '../services/api';
 
 export default {
     namespace: 'outcomming',
@@ -34,12 +34,12 @@ export default {
         },
         * postOutcomming({ payload }, { call, put }) {
             const response = yield call(postOutcomming, payload);
-            //const responseGetAll = yield call(fetchProgrammingAll, payload);
+            console.log(response);
             yield put({
-                type: 'queryOutcommingPost',
+                type: 'postOutcommingReducer',
                 payload: response,
             });
-        },
+        }
     },
 
     reducers: {
@@ -60,13 +60,12 @@ export default {
                 datesOutcomming: action.payload
             }
         },
-        queryOutcommingPost(state, action) {
+        postOutcommingReducer(state, action) {
             return {
                 ...state,
                 postOutcommingSuccess: true
             }
         }
-
     }
 }
 
