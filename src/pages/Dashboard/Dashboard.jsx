@@ -4,13 +4,31 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { _ } from 'lodash';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import RangePickerComponent from '../generalComponents/RangePickerComponent';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
-import { Row, Col, Card, Divider, Form } from 'antd';
+import { Row, Col, Card, Divider, Form, DatePicker } from 'antd';
 import { isMobile, isTablet } from "react-device-detect";
 import { formatMessage } from 'umi-plugin-react/locale';
 import 'moment/locale/en-au';
 import GridDashboard from './GridDashboard';
+
+function disabledDate (current) {
+  let dateMonday = moment(current).isoWeekday(1);
+  let dateThursday = moment(current).isoWeekday(2);
+  let dateTuesday = moment(current).isoWeekday(4);
+  let dateFriday = moment(current).isoWeekday(5);
+  let dateSaturday = moment(current).isoWeekday(6);
+  let dateSunday = moment(current).isoWeekday(7);
+  let dateAll = moment(current).format('dddd DD MMMM');
+  let compareMonday = moment(dateMonday).format('dddd DD MMMM');
+  let compareThursday = moment(dateThursday).format('dddd DD MMMM');
+  let compareTuesday = moment(dateTuesday).format('dddd DD MMMM');
+  let compareFriday = moment(dateFriday).format('dddd DD MMMM');
+  let compareSaturday = moment(dateSaturday).format('dddd DD MMMM');
+  let compareSunday = moment(dateSunday).format('dddd DD MMMM');
+  if(dateAll === compareMonday || dateAll === compareThursday || dateAll === compareTuesday || dateAll === compareFriday || dateAll === compareSaturday || dateAll === compareSunday){
+      return true;
+  }
+}
 
 
 
@@ -92,18 +110,21 @@ export default class Dashboard extends PureComponent {
 
   };
 
+
+
   onPickerChange = (oEvent) => {
 
       /// Get current product selection
       /// Customer hardcoded
       //PRODUCT-2|CUSTOMER-1
 
-      this.setState({currentSelectedDate: oEvent[0].format("YYYY-MM-DD")})
 
-      this.selectionMade(this.state.currentSelectedProduct, this.state.currentCustomer, oEvent[0].format("YYYY-MM-DD"));
+      this.setState({currentSelectedDate: oEvent.format("YYYY-MM-DD")})
 
-      
+      this.selectionMade(this.state.currentSelectedProduct, this.state.currentCustomer, oEvent.format("YYYY-MM-DD"));
 
+
+    
   }
 
 
@@ -126,8 +147,10 @@ export default class Dashboard extends PureComponent {
                   <h3>Semana:</h3>
                 </Col>
                 <Col span={24} >
-                  <RangePickerComponent onChange={this.onPickerChange}/>
+                  <DatePicker  onChange={this.onPickerChange}/>
                 </Col>
+
+                
               </Row>
             </div>
             <Divider />
@@ -160,7 +183,7 @@ export default class Dashboard extends PureComponent {
               <Row type="flex" justify="space-between">
                 <Col xs={24} sm={16} md={16} lg={16} xl={16}>
                   <Form.Item label="Semana:">
-                    <RangePickerComponent onChange={this.onPickerChange}/>
+                    <DatePicker format="YYYY-MM-DD" disabledDate={disabledDate} onChange={this.onPickerChange}/>
                   </Form.Item>
                 </Col>
                 <Col xs={24} sm={12} md={12} lg={12} xl={6}>
