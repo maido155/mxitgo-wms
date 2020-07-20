@@ -231,7 +231,7 @@ export default class UsersLayout extends PureComponent {
                             updateUser={updateUser}
                         />
                         <div align="right">
-                            <Button type="primary" shape="circle" onClick={this.showModal}>+</Button>
+                            <Button type="primary" shape="circle" size="large" onClick={this.showModal}><Icon type="plus"/></Button>
                         </div>
                         <Table style={{marginTop: "1rem"}} size="small" columns={columns} dataSource={allUsers} scroll={isMobile ? {x: 960, y: 400} : {x: 900 , y: 185}} pagination={false}/>
                     </Spin>
