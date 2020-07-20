@@ -53,10 +53,10 @@ export default class TableAssignment extends PureComponent {
             title: formatMessage({ id: 'outComming.label.tableassignment-assign' }),
             key: 'action',
             width: isMobile ? 100 : 100,
-            render: () => (
+            render: (record) => (
               <span>
                   <a onClick={this.showDrawerAssigProduct}><FormattedMessage id="outComming.label.tableassignment-assign"/></a>
-                  <DrawerAssignment visible={this.state.visibleAssignProduct} onClose={this.onDrawerAssigProduct}/>     
+                  <DrawerAssignment postOutcomming= {this.props.postOutcomming} visible={this.state.visibleAssignProduct} onClose={this.onDrawerAssigProduct} currentOutcomming={this.props.currentOutcomming} currentShipping={record}/>     
               </span>
             )
         }
@@ -64,7 +64,7 @@ export default class TableAssignment extends PureComponent {
       const data = [
         {
             key: '1',
-            pedido: 'TE1001120201',
+            pedido: 'SH-TE1001120201',
             palletsto: 3,
             cajasto: 150,
             palletsde: 3,
@@ -72,7 +72,7 @@ export default class TableAssignment extends PureComponent {
         },
         {
             key: '2',
-            pedido: 'TE1001120202',
+            pedido: 'SH-TE1001120202',
             palletsto: 10,
             cajasto: 500,
             palletsde: 2,
@@ -80,7 +80,7 @@ export default class TableAssignment extends PureComponent {
         },
         {
             key: '3',
-            pedido: 'TE1001120203',
+            pedido: 'SH-TE1001120203',
             palletsto: 12,
             cajasto: 600,
             palletsde: 12,
@@ -88,7 +88,7 @@ export default class TableAssignment extends PureComponent {
         },
         {
             key: '4',
-            pedido: 'TE1001120204',
+            pedido: 'SH-TE1001120204',
             palletsto: 15,
             cajasto: 900,
             palletsde: 15,

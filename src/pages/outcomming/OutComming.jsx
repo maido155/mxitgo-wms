@@ -1,18 +1,13 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import RangePickerComponent from './RangePickerOutcomming';
-import RadioGroupComponent from './RadioGroupOutcomming';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import TabsOutComming from './TabsOutComming';
 import moment from 'moment';
 
 import { Card, Form, Row, Col, DatePicker, Menu, Dropdown, Button, message, Tooltip, Divider,  Spin } from 'antd';
 import TableOutComming from './TableOutComming';
 import { connect } from 'dva';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
-import RangePickerOutcomming from './RangePickerOutcomming';
-import RadioGroupOutcomming from './RadioGroupOutcomming';
 
 function disabledDate(current) {
     mulInputs = {
@@ -100,18 +95,8 @@ export default class OutComming extends PureComponent {
                 }
              },
         });
-
-        this.props.dispatch({
-            type: 'outcomming/getOutcomming',
-            payload: { Product: "PRODUCT-1",Customer: "CUSTOMER-2", DateFrom: "2020-06-25T00:00:00.000Z", DateTo: "2020-06-30T00:00:00.000Z"}
-        })
         
     };
-
-    onChangeProd=(value)=>{
-        console.log(value);
-
-    }
 
     isEmpty=(str)=>{
         return (!str || 0 === str.length); 
@@ -172,9 +157,9 @@ export default class OutComming extends PureComponent {
                 payload: { Product: e.key,Customer: this.state.customer, DateFrom: this.state.dateFrom, DateTo: this.state.dateTo}
             });
         }
-      };
+    };
 
-      handleClient= (e)=> {
+    handleClient= (e)=> {
         console.log(e);
         this.setState({
             customer:e.key,
@@ -187,9 +172,9 @@ export default class OutComming extends PureComponent {
                 payload: { Product: this.state.product,Customer: e.key, DateFrom: this.state.dateFrom, DateTo: this.state.dateTo}
             });
         }
-      };
+    };
 
-onShowCompositionData = (id) => {
+    onShowCompositionData = (id) => {
          
         this.props.dispatch({  
             type: 'outcomming/getComposition',  
@@ -198,7 +183,12 @@ onShowCompositionData = (id) => {
 
     };
 
-
+    postOutcomming = (payload) => {
+        this.props.dispatch({  
+            type: 'outcomming/postOutcomming',  
+            payload: {payload}
+        }); 
+    }
     render() {
         console.log('Context--->', this);  
         console.log(this.props);
@@ -272,7 +262,7 @@ onShowCompositionData = (id) => {
                             
                             <Row type="flex" justify="center">
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                                    <TableOutComming datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
+                                    <TableOutComming postOutcomming= {this.postOutcomming} datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
                                 </Col>
                             </Row>
                         </Form>
