@@ -8,17 +8,21 @@ import {isMobile} from 'react-device-detect';
 export default class TableAssignment extends PureComponent {
   state ={
     visibleAssignProduct: false,
+    currentItem: {}
   }
 
-  showDrawerAssigProduct = () => {
+  showDrawerAssigProduct = (e) => {
+    
+    console.log(e)
     this.setState({
       visibleAssignProduct: true,
+      currentItem: e
     });
   };
 
   onDrawerAssigProduct = () => {
     this.setState({
-      visibleAssignProduct: false,
+      visibleAssignProduct: false
     });
   }
     render() {
@@ -53,10 +57,10 @@ export default class TableAssignment extends PureComponent {
             title: formatMessage({ id: 'outComming.label.tableassignment-assign' }),
             key: 'action',
             width: isMobile ? 100 : 100,
-            render: () => (
+            render: (record) => (
               <span>
-                  <a onClick={this.showDrawerAssigProduct}><FormattedMessage id="outComming.label.tableassignment-assign"/></a>
-                  <DrawerAssignment visible={this.state.visibleAssignProduct} onClose={this.onDrawerAssigProduct}/>     
+                  <a onClick={ () => {this.showDrawerAssigProduct(record)} }><FormattedMessage id="outComming.label.tableassignment-assign"/></a>
+                  <DrawerAssignment visible={this.state.visibleAssignProduct} currentItem={this.state.currentItem} onClose={this.onDrawerAssigProduct}/>     
               </span>
             )
         }
