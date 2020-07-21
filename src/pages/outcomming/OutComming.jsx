@@ -68,6 +68,7 @@ var sumInputs = {
     programming,
     loading: loading.models.outcomming,
     datesOutcomming:outcomming.datesOutcomming,
+    shippingsByEntry:outcomming.shippingsByEntry,
     datesProductAll: programming.datesProductAll,
     datesCustomerAll: programming.datesCustomerAll
 }))
@@ -101,10 +102,15 @@ export default class OutComming extends PureComponent {
              },
         });
 
-        this.props.dispatch({
-            type: 'outcomming/getOutcomming',
-            payload: { Product: "PRODUCT-1",Customer: "CUSTOMER-2", DateFrom: "2020-06-25T00:00:00.000Z", DateTo: "2020-06-30T00:00:00.000Z"}
-        })
+        // this.props.dispatch({
+        //     type: 'outcomming/getOutcomming',
+        //     payload: { Product: "PRODUCT-1",Customer: "CUSTOMER-2", DateFrom: "2020-06-25T00:00:00.000Z", DateTo: "2020-06-30T00:00:00.000Z"}
+        // })
+        
+        // this.props.dispatch({
+        //     type: 'outcomming/getShippingsByEntry',
+        //     payload: {"WMS-1-PK": "WMS-OC-a692c465-a228-4df7-997b-bd65a924d4fa","WMS-1-SK": "SH-a692c465-a228-4df7-997b-bd65a924d4fa"}
+        // })
         
     };
 
@@ -202,9 +208,9 @@ onShowCompositionData = (id) => {
     render() {
         console.log('Context--->', this);  
         console.log(this.props);
-        let { datesProductAll, datesCustomerAll} = this.props;
+        let { datesProductAll, datesCustomerAll,shippingsByEntry} = this.props;
         let {compositionData, datesOutcomming} = this.props.outcomming;
-
+        console.log(shippingsByEntry);
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 7 },md: { span: 9 },lg: { span: 9 },xl: { span: 5 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 14 },md: { span: 15 },lg: { span: 15 },xl: { span: 15 }}
