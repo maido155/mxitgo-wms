@@ -11,7 +11,7 @@ const Model = {
     effects: {
 
         * login({ payload }, { call, put }) {
-            let email = payload;
+            let email = payload[0];
             const response = yield call(getDataUserByEmail, email);
             yield put({
                 type: 'changeLoginStatus',
@@ -52,6 +52,8 @@ const Model = {
                 localStorage.setItem('middleName', response.middle_name);
                 localStorage.setItem('familyName', response.family_name);
                 localStorage.setItem('email', response.email);
+                localStorage.setItem('isRemembered', payload[1]);
+                localStorage.setItem('sessionActive', localStorage.getItem('CognitoIdentityServiceProvider.25h6ahb7sda3lvk1qs8v5u0ol0.c14be52e-be78-4949-a8c2-d815fe62b088.accessToken'));
 
                 window.location.href = '/dashboard';
             }

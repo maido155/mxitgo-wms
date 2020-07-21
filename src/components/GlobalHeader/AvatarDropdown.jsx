@@ -33,7 +33,16 @@ class AvatarDropdown extends React.Component {
 
     if (key === 'logout') {
       const { dispatch } = this.props;
-      localStorage.clear();
+      localStorage.removeItem('userId');
+      localStorage.removeItem('emailVerified');
+      localStorage.removeItem('userName');
+      localStorage.removeItem('phoneNumberVerified');
+      localStorage.removeItem('phoneNumber');
+      localStorage.removeItem('middleName');
+      localStorage.removeItem('familyName');
+      localStorage.removeItem('email');
+      localStorage.removeItem('antd-pro-authority');
+      localStorage.setItem('sessionActive', null);
       if (dispatch) {
         dispatch({
           type: 'login/logout',

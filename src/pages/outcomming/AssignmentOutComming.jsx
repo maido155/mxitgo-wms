@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import Table from './TableAssignment';
+import TableShipping from './TableAssignment';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { _ } from 'lodash'; 
 import { Drawer,Row, Col, Button, Icon, Divider } from 'antd';
@@ -31,7 +31,7 @@ export default class AssignmentOutComming extends PureComponent {;
                 <Divider/>
                 <Row>
                     <Col span={24}>
-                        <Table/>
+                        <TableShipping postOutcomming= {this.props.postOutcomming} currentOutcomming={this.props.currentOutcomming}/>
                     </Col>
                 </Row>
                 <div
