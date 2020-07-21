@@ -9,11 +9,13 @@ import {isMobile} from 'react-device-detect';
 export default class TableOutComming extends PureComponent {
     state = { 
         visibleAssign: false,
-        visibleCompo: false
+        visibleCompo: false,
+        currentRecord: ""
     };
-    showDrawerAssig = () => {
+    showDrawerAssig = (item) => {
         this.setState({
           visibleAssign: true,
+          currentRecord: item,
         });
     };
     showDrawerCompo = (id) => {
@@ -64,7 +66,7 @@ export default class TableOutComming extends PureComponent {
                 width: isMobile ? 400 : 360,
                 render: (record) => (
                   <span>
-                        <Button type="primary" onClick={this.showDrawerAssig}> 
+                        <Button type="primary" onClick={()=>{this.showDrawerAssig(record)}}> 
                             <FormattedMessage id="outComming.button.assign"/>
                         </Button>
                         <Divider type="vertical" />
@@ -78,7 +80,9 @@ export default class TableOutComming extends PureComponent {
                         </Checkbox>      
                         <AssignmentOutComming 
                             visibleOne={this.state.visibleAssign}
+                            currentOutcomming={this.state.currentRecord}
                             closeOne={this.onCloseDrawerAssig}
+                            postOutcomming= {this.props.postOutcomming}
                         />
                         <CompositionOutComming
                             loading = {this.props.loading}

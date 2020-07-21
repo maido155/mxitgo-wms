@@ -343,16 +343,12 @@ export async function confirmOutcomming(payload) {
     });
 }
 
-
-
 export async function getShippingsByEntry(payload) {
     return request(`${ANT_DESIGN_PRO_TARGET}/outcomming/assigment?payload=${JSON.stringify(payload)}`, {
         method: 'GET',
         headers: { 'Authorization': payload.Authorization }
     });
 }
-
-
 
 export async function getComposition(payload) {
     return request(`${ANT_DESIGN_PRO_TARGET}/outcommings/composition?payload=${JSON.stringify(payload)}`, {
@@ -452,5 +448,22 @@ export async function dashboardGetMasterTotal(payload) {
         method: 'GET',
         headers: { 'Authorization': payload.Authorization }
 
+    });
+}
+
+
+export async function postOutcomming({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/outcomming`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'Authorization': payload.Authorization },
+        body: JSON.stringify(payload),
+    });
+
+}
+       
+export async function getDay(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/dashboard/day?payload=${JSON.stringify(payload)}`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization }
     });
 }

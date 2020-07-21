@@ -25,6 +25,38 @@ export default class DrawerAssignmentProduct extends PureComponent {
         this.setState({
           box: remaingQtyBox
         });
+    };
+
+    onAccept = (_this) => {
+        let payload = { 
+            date: "",//"2020-07-16T00:00:00.000Z",
+            status: "",//"PENDING",
+            skProduct: "",//"PRODUCT-1", 
+            skCustomer: "",//"CUSTOMER-2", 
+            assignSh: {
+                    skShipping: "",//"SH-TAB972020954", 
+                    assignments: {
+                            box: "",
+                            pallet: ""
+                        }
+                }
+        }
+
+        //if(_this.props.currentOutcomming.key === ""){
+            //Post
+            payload.date = _this.props.currentOutcomming.dayDate;
+            payload.status = _this.props.currentOutcomming.status;
+            payload.skProduct = _this.props.currentOutcomming.skProduct;
+            payload.skCustomer = _this.props.currentOutcomming.skCustomer;
+            payload.assignSh.skShipping = _this.props.currentShipping.pedido;
+            payload.assignSh.assignments.box = 1;
+            payload.assignSh.assignments.pallet = 1;
+        //}else{
+            //Put
+        //}
+
+        _this.props.postOutcomming(payload);
+        _this.props.onClose();
     }
     render() {
         const formItemLayout = {
@@ -68,7 +100,7 @@ export default class DrawerAssignmentProduct extends PureComponent {
                         <Button onClick={this.props.onClose} style={{ marginRight: 8 }} type="danger">
                             Cancelar
                         </Button>
-                        <Button onClick={this.props.onClose} type="primary">
+                        <Button onClick={()=>{this.onAccept(this)}} type="primary">
                             Aceptar
                         </Button>
                     </div>

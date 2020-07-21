@@ -1,11 +1,13 @@
-import {confirmOutcomming, getComposition, getOutcomming,getShippingsByEntry} from '../services/api';
+
+import {confirmOutcomming, getComposition, getOutcomming, postOutcomming,getShippingsByEntry} from '../services/api';
 
 export default {
     namespace: 'outcomming',
     state: {        
         compositionData: [],
         datesOutcomming: [],
-        shippingsByEntry: []
+        shippingsByEntry: [],
+        postOutcommingSuccess: false
     },
     effects: {
         * confirmOutcomming({ payload }, { call, put }) {
@@ -39,6 +41,14 @@ export default {
                 type: 'getShippingsByEntryReducer',
                 payload: response,
             });
+        },
+        * postOutcomming({ payload }, { call, put }) {
+            const response = yield call(postOutcomming, payload);
+            console.log(response);
+            yield put({
+                type: 'postOutcommingReducer',
+                payload: response,
+            });
         }
     },
 
@@ -64,9 +74,14 @@ export default {
             return {
                 ...state,
                 datesOutcomming: action.payload
+        	}
+        },
+        postOutcommingReducer(state, action) {
+            return {
+                ...state,
+                postOutcommingSuccess: true
             }
         }
-
     }
 }
 
