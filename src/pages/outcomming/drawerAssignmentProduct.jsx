@@ -67,7 +67,7 @@ export default class DrawerAssignmentProduct extends PureComponent {
     }
 
     setCurrentValues = (pallets, box) => {
-        if (pallets !== undefined) {
+        if (this.state.isFirstTime && pallets !== undefined) {
             this.setState({
                 pallets,
                 box,
@@ -90,7 +90,11 @@ export default class DrawerAssignmentProduct extends PureComponent {
                 placement="right"
                 width={isMobile ? "100%" : "50%"}
                 closable={true}
-                onClose={this.props.onClose}
+                onClose={ (e) => { 
+                    this.setState({
+                        isFirstTime: true
+                    })
+                    this.props.onClose(e, this)}}
                 visible={this.props.visible}
             >
                 <Form {...formItemLayout} style={{marginTop: "5rem"}}>
@@ -118,7 +122,11 @@ export default class DrawerAssignmentProduct extends PureComponent {
                         textAlign: 'right',
                         }}
                     >
-                        <Button onClick={this.props.onClose} style={{ marginRight: 8 }} type="danger">
+                        <Button onClick={ (e) => { 
+                    this.setState({
+                        isFirstTime: true
+                    })
+                    this.props.onClose((e, this))}} style={{ marginRight: 8 }} type="danger">
                             Cancelar
                         </Button>
                         <Button onClick={()=>{this.onAccept(this)}} type="primary">
