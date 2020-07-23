@@ -6,6 +6,7 @@ import DrawerEntry from './drawerEntry';
 import ModalDeleteComponent from '../generalComponents/ModalDeleteComponent';
 import ModalProductTable from '../generalComponents/ModalProductTable';
 import { isMobile } from 'react-device-detect';
+import moment from 'moment';
 import Styles from './StylesShipping.css';
 import { _ } from 'lodash';
 
@@ -73,56 +74,93 @@ class TableShippingMaster extends PureComponent {
 
   };
 
+  formatDate = (mydate) =>{
+    return moment(mydate).format('dddd');
+  };
+
+  dates = (planned, confirmed)=>{
+    if(confirmed<planned){
+      return "danger"
+    }else if(confirmed>planned){
+      return "warning"
+    }
+  }
 
 
-  render(record) {
+
+  render() {
+    const { datesTableShipping } = this.props;
     let columns = [
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.id' }),
-        dataIndex: 'id',
-        key: 'id',
+        dataIndex: 'WMS-1-PK',
+        key: 'WMS-1-PK',
         width: isMobile ? 120 : 140,
         render: text => <a>{text}</a>
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.shipping' }),
-        dataIndex: 'envio',
+        dataIndex: 'departureDate',
         width: isMobile ? 70 : 90,
+        render: (text, record) => (
+          <span>{this.formatDate(record.departureDate)}</span>
+        )
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.arrival' }),
-        dataIndex: 'llegada',
+        dataIndex: 'deliveryDate',
         width: isMobile ? 70 : 90,
+        render: (text, record) => (
+          <span>{this.formatDate(record.deliveryDate)}</span>
+        )
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.entry' }),
-        dataIndex: 'entrada',
+        dataIndex: 'entryDate',
         width: isMobile ? 70 : 90,
+        render: (text, record) => (
+          <span>{this.formatDate(record.entryDate)}</span>
+        )
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.premium' }),
-        dataIndex: 'premium',
+        dataIndex: 'amount',
         width: isMobile ? 130 : 100,
+        render: (text, record) => (
+        <Text type={this.dates(record.products[0].planned,record.products[0].confirmed)} onClick={this.showModal} className={Styles.producto}>{record.products[0].planned}/{record.products[0].confirmed}</Text>
+        )
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.gold' }),
-        dataIndex: 'gold',
+        dataIndex: 'amount',
         width: isMobile ? 110 : 100,
+        render: (text, record) => (
+                <Text type={this.dates(record.products[1].planned,record.products[1].confirmed)} onClick={this.showModal} className={Styles.producto}>{record.products[1].planned}/{record.products[1].confirmed}</Text>
+        )
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.second' }),
-        dataIndex: 'segunda',
+        dataIndex: 'amount',
         width: isMobile ? 130 : 100,
+        render: (text, record) => (
+                <Text type={this.dates(record.products[2].planned,record.products[2].confirmed)} onClick={this.showModal} className={Styles.producto}>{record.products[2].planned}/{record.products[2].confirmed}</Text>
+        )
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.hand' }),
-        dataIndex: 'mano',
+        dataIndex: 'amount',
         width: isMobile ? 120 : 100,
+        render: (text, record) => (
+                <Text type={this.dates(record.products[3].planned,record.products[3].confirmed)} onClick={this.showModal} className={Styles.producto}>{record.products[3].planned}/{record.products[3].confirmed}</Text>
+        )
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.finger' }),
-        dataIndex: 'dedo',
+        dataIndex: 'amount',
         width: isMobile ? 120 : 100,
+        render: (text, record) => (
+          <Text type={this.dates(record.products[4].planned,record.products[4].confirmed)} onClick={this.showModal} className={Styles.producto}>{record.products[4].planned}/{record.products[4].confirmed}</Text>
+        )
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.status' }),
@@ -163,7 +201,7 @@ class TableShippingMaster extends PureComponent {
       }
     ];
 
-    const data = [
+    /*const data = [
       {
         key: '1',
         id: 'TAB20620201722',
@@ -231,7 +269,7 @@ class TableShippingMaster extends PureComponent {
         dedo: '43/-',
         status: 'Proceso'
       }
-    ];
+    ];*/
 
     const rowSelection = {
       onChange: (selectedRowKeys, selectedRows) => {
@@ -243,6 +281,7 @@ class TableShippingMaster extends PureComponent {
       }),
     };
     return (
+      
       <div>
         <ConfirmationShipping
           visibleConfirmationShipping={this.state.visibleConfirmationShipping}
@@ -259,7 +298,7 @@ class TableShippingMaster extends PureComponent {
           handleCancelEntry={this.handleCancelEntry}
           loadingModal={this.state.loadingModal}
         />
-        <Table size="small" rowSelection={rowSelection} columns={columns} dataSource={data} scroll={isMobile ? { x: 1300 } : { x: 1350 }} pagination={false} />
+        <Table size="small" rowSelection={rowSelection} columns={columns} dataSource={datesTableShipping} scroll={isMobile ? { x: 1300 } : { x: 1350 }} pagination={false} />
       </div>
     );
   }

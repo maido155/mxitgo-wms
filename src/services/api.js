@@ -451,12 +451,19 @@ export async function postOutcomming({ payload }) {
         headers: { 'content-type': 'application/json', 'Authorization': payload.Authorization },
         body: JSON.stringify(payload),
     });
-
 }
        
 export async function getDay(payload) {
     return request(`${ANT_DESIGN_PRO_TARGET}/dashboard/day?payload=${JSON.stringify(payload)}`, {
         method: 'GET',
         headers: { 'Authorization': payload.Authorization }
+    });
+}
+
+export async function fetchShippingAll({ payload }) {
+    console.log(payload)
+    return request(`${ANT_DESIGN_PRO_TARGET}/shipping/all`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization },
     });
 }
