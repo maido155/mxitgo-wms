@@ -20,6 +20,7 @@ import moment from 'moment';
     datesShipping: shipping.datesShipping
 }))
 
+
 class ShippingMaster extends PureComponent {
     state = {
         visibleShippingPrograming: false,
@@ -283,7 +284,7 @@ class ShippingMaster extends PureComponent {
                             <Row type="flex" justify="center">
                                 <Col xs={24} sm={23} md={17} lg={16} xl={16}>
                                     <Form.Item label={formatMessage({ id: 'outComming.label.week' })}>
-                                        <RangePickerComponent />
+                                       
                                     </Form.Item>
                                 </Col>
                             </Row>
