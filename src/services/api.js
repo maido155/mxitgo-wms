@@ -343,6 +343,13 @@ export async function confirmOutcomming(payload) {
     });
 }
 
+export async function getShippingsByEntry(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/outcomming/assigment?payload=${JSON.stringify(payload)}`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization }
+    });
+}
+
 export async function getComposition(payload) {
     return request(`${ANT_DESIGN_PRO_TARGET}/outcommings/composition?payload=${JSON.stringify(payload)}`, {
         method: 'GET',
