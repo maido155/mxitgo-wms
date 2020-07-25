@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import Styles from './StylesShipping.css';
-import { Card, Button, Icon, Form, Row, Col, Divider,Spin } from 'antd';
+import { Card, Button, Icon, Form, Row, Col, Divider, Spin, DatePicker } from 'antd';
 import RangePickerComponent from '../generalComponents/RangePickerComponent';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
 import TableShippingMaster from './TableShippingMaster';
@@ -10,6 +10,26 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import { _ } from 'lodash';
 import { connect } from 'dva';
 import moment from 'moment';
+
+
+function disabledDate(current) {
+    let dateMonday = moment(current).isoWeekday(1);
+    let dateThursday = moment(current).isoWeekday(2);
+    let dateTuesday = moment(current).isoWeekday(4);
+    let dateFriday = moment(current).isoWeekday(5);
+    let dateSaturday = moment(current).isoWeekday(6);
+    let dateSunday = moment(current).isoWeekday(7);
+    let dateAll = moment(current).format('dddd DD MMMM');
+    let compareMonday = moment(dateMonday).format('dddd DD MMMM');
+    let compareThursday = moment(dateThursday).format('dddd DD MMMM');
+    let compareTuesday = moment(dateTuesday).format('dddd DD MMMM');
+    let compareFriday = moment(dateFriday).format('dddd DD MMMM');
+    let compareSaturday = moment(dateSaturday).format('dddd DD MMMM');
+    let compareSunday = moment(dateSunday).format('dddd DD MMMM');
+    if(dateAll === compareMonday || dateAll === compareThursday || dateAll === compareTuesday || dateAll === compareFriday || dateAll === compareSaturday || dateAll === compareSunday){
+        return true;
+    }
+}
 
 @connect(({ shipping, loading }) => ({
     shipping,
@@ -44,17 +64,46 @@ class ShippingMaster extends PureComponent {
             },
         }); 
 
-        this.props.dispatch({
+       /* this.props.dispatch({
             type: 'shipping/getShippingAll',
             payload: {
                 payload: {
                  Authorization: sessionStorage.getItem('idToken')
                 }
             },
-        });
+        });*/
 
 
     }
+
+    onChangeWeek=(date,dateString)=>{
+
+        var since = moment(dateString);
+        var until = moment(dateString);
+        until.add(6, 'days');
+        let dateFrom = "";
+
+        if (date !== null) {
+            dateFrom= `${since.format("YYYY-MM-DD")}`; //date[0].toISOString();
+        } else {
+            dateFrom = '';
+        }
+        
+        this.setState({
+            dateFrom
+        })
+
+        this.props.dispatch({
+            type: 'shipping/getShippingAll',
+            payload: {
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken'),
+                 initialDate: dateFrom
+                }
+            },
+        });
+
+    };
 
 
     showShippingPrograming = () => {
@@ -283,9 +332,9 @@ class ShippingMaster extends PureComponent {
                         <Form {...formItemLayout}>
                             <Row type="flex" justify="center">
                                 <Col xs={24} sm={23} md={17} lg={16} xl={16}>
-                                    <Form.Item label={formatMessage({ id: 'outComming.label.week' })}>
-                                       
-                                    </Form.Item>
+                                <Form.Item label={formatMessage({id: "outComming.label.week"})}>
+                                    <DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} disabledDate={disabledDate} onChange={(date,dateString)=>{this.onChangeWeek(date,dateString,this)}}/>
+                                </Form.Item>
                                 </Col>
                             </Row>
                         </Form>
