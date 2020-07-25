@@ -29,6 +29,7 @@ export default class DrawerAssignmentProduct extends PureComponent {
 
     onAccept = (_this) => {
         let payload = { 
+            key: "",
             date: "",//"2020-07-16T00:00:00.000Z",
             status: "",//"PENDING",
             skProduct: "",//"PRODUCT-1", 
@@ -42,18 +43,14 @@ export default class DrawerAssignmentProduct extends PureComponent {
                 }
         }
 
-        //if(_this.props.currentOutcomming.key === ""){
-            //Post
-            payload.date = _this.props.currentOutcomming.dayDate;
-            payload.status = _this.props.currentOutcomming.status;
-            payload.skProduct = _this.props.currentOutcomming.skProduct;
-            payload.skCustomer = _this.props.currentOutcomming.skCustomer;
-            payload.assignSh.skShipping = _this.props.currentShipping.pedido;
-            payload.assignSh.assignments.box = 1;
-            payload.assignSh.assignments.pallet = 1;
-        //}else{
-            //Put
-        //}
+        payload.key = _this.props.currentOutcomming.key;
+        payload.date = _this.props.currentOutcomming.dayDate;
+        payload.status = _this.props.currentOutcomming.status;
+        payload.skProduct = _this.props.currentOutcomming.skProduct;
+        payload.skCustomer = _this.props.currentOutcomming.skCustomer;
+        payload.assignSh.skShipping = _this.props.currentShipping.pedido;
+        payload.assignSh.assignments.box = 1;
+        payload.assignSh.assignments.pallet = 1;        
 
         _this.props.postOutcomming(payload);
         _this.props.onClose();
