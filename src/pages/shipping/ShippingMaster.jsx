@@ -4,6 +4,7 @@ import { Card, Button, Icon, Form, Row, Col, Divider,Spin } from 'antd';
 import RangePickerComponent from '../generalComponents/RangePickerComponent';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
 import TableShippingMaster from './TableShippingMaster';
+import ConfirmationShipping from './ConfirmationShipping';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import DrawerShippingPrograming from './DrawerShippingPrograming';
 import { formatMessage } from 'umi-plugin-react/locale';
@@ -25,6 +26,7 @@ class ShippingMaster extends PureComponent {
     state = {
         visibleShippingPrograming: false,
         visibleNewLine: false,
+        visibleConfirmationShipping: false,
 
         lineData: {},
         masterMode: "NEW",
@@ -82,7 +84,19 @@ class ShippingMaster extends PureComponent {
         });
     };
 
+    showShippingProgramingConfirm = (oItem) => {
 
+
+        this.props.dispatch({
+            type: 'shipping/getShipping',
+            payload: { id: oItem['WMS-1-PK']}
+        })
+
+        this.setState({
+            visibleConfirmationShipping: true,
+            masterMode: "EDIT"
+        })
+    };
 
     showShippingProgramingEdit = (oItem) => {
 
@@ -125,7 +139,11 @@ class ShippingMaster extends PureComponent {
     };
 
 
-
+    onCloseConfirmationShipping = () => {
+        this.setState({
+            visibleConfirmationShipping: false
+        });
+    };
 
     onCloseShippingPrograming = () => {
         this.setState({
@@ -278,6 +296,11 @@ class ShippingMaster extends PureComponent {
                     locationTreeData={locationTreeData}
 
                 />
+                 <ConfirmationShipping
+                     visibleConfirmationShipping={this.state.visibleConfirmationShipping}
+                     onCloseConfirmationShipping={this.onCloseConfirmationShipping}
+                     oShippingItem={oShippingItem}
+                />
                 <PageHeaderWrapper>
                     <Card>
                         <Form {...formItemLayout}>
@@ -301,6 +324,7 @@ class ShippingMaster extends PureComponent {
                             <Col span={24}>
                             <Spin tip={"Cargando..."} spinning={loading}>
                                 <TableShippingMaster
+                                    showConfirmationShipping={this.showShippingProgramingConfirm}
                                     showShippingProgramingEdit={this.showShippingProgramingEdit}
                                     datesTableShipping={datesShipping}
                                 />

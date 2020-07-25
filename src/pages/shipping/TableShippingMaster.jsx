@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { Table, Icon, Divider, Typography } from 'antd';
-import ConfirmationShipping from './ConfirmationShipping';
+
 import DrawerEntry from './drawerEntry';
 import ModalDeleteComponent from '../generalComponents/ModalDeleteComponent';
 import ModalProductTable from '../generalComponents/ModalProductTable';
@@ -13,17 +13,17 @@ import { _ } from 'lodash';
 const { Text } = Typography;
 class TableShippingMaster extends PureComponent {
   state = {
-    visibleConfirmationShipping: false,
+    
     visibleModalProduct: false,
     visibleEntry: false,
     loadingModal: false
   }
 
-  showConfirmationShipping = () => {
+  /*showConfirmationShipping = () => {
     this.setState({
       visibleConfirmationShipping: true
     });
-  };
+  };*/
 
   onCloseConfirmationShipping = () => {
     this.setState({
@@ -31,7 +31,7 @@ class TableShippingMaster extends PureComponent {
     });
   };
 
-  showEntry = () => {
+  showEntry = (record) => {
     this.setState({
       visibleEntry: true
     });
@@ -69,6 +69,14 @@ class TableShippingMaster extends PureComponent {
   editProgramming = () => {
 
     this.props.showShippingProgramingEdit();
+
+
+
+  };
+
+  confirmProgramming = () => {
+
+    this.props.showShippingProgramingConfirm();
 
 
 
@@ -181,7 +189,7 @@ class TableShippingMaster extends PureComponent {
               }
             </a>
             <Divider type="vertical" />
-            <a onClick={this.showConfirmationShipping}>
+            <a onClick={() => { this.props.showConfirmationShipping(record)}}>
               {isMobile
                 ? <Icon type="check" />
                 : <span><Icon type="check" /><FormattedMessage id="shipping.label.table-shipping.confirm" /></span>
@@ -283,10 +291,7 @@ class TableShippingMaster extends PureComponent {
     return (
       
       <div>
-        <ConfirmationShipping
-          visibleConfirmationShipping={this.state.visibleConfirmationShipping}
-          onCloseConfirmationShipping={this.onCloseConfirmationShipping}
-        />
+       
         <ModalProductTable
           visipleModal={this.state.visibleModalProduct}
           ok={this.handleOk}

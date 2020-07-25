@@ -32,6 +32,7 @@ class ConfirmationShipping extends PureComponent {
             labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 6 },lg: { span: 8 },xl: { span: 6 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 12 },md: { span: 14 },lg: { span: 14 },xl: { span: 14  }}
         };
+        const { oShippingItem} = this.props;
         return(
             <div>
                 <NewLine
@@ -50,7 +51,8 @@ class ConfirmationShipping extends PureComponent {
                         <Row>
                             <Col xl={12}>
                                 <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.id-order' })}>
-                                    <Text strong>TE0101023912231</Text>
+                                    <Text strong>{oShippingItem["WMS-1-PK"]}</Text>
+                                   
                                 </Form.Item>
                             </Col>
                         </Row>
