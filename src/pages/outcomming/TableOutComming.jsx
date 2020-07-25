@@ -79,6 +79,7 @@ export default class TableOutComming extends PureComponent {
                             <FormattedMessage id="outComming.button.confirm"/>
                         </Checkbox>      
                         <AssignmentOutComming 
+                            datesProductAll = {this.props.datesProductAll}
                             visibleOne={this.state.visibleAssign}
                             currentOutcomming={this.state.currentRecord}
                             closeOne={this.onCloseDrawerAssig}

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import Styles from './StylesShipping.css';
-import { Card, Button, Icon, Form, Row, Col, Divider } from 'antd';
+import { Card, Button, Icon, Form, Row, Col, Divider,Spin } from 'antd';
 import RangePickerComponent from '../generalComponents/RangePickerComponent';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
 import TableShippingMaster from './TableShippingMaster';
@@ -16,8 +16,10 @@ import moment from 'moment';
     loading: loading.models.shipping,
     warehouses: shipping.warehouses,
     isSuccess: shipping.isSuccess,
-    close: shipping.close
+    close: shipping.close,
+    datesShipping: shipping.datesShipping
 }))
+
 
 class ShippingMaster extends PureComponent {
     state = {
@@ -33,12 +35,22 @@ class ShippingMaster extends PureComponent {
 
     componentDidMount() {
 
-
         this.props.dispatch({
             type: 'shipping/getLocations',
             payload: {
-                Authorization: sessionStorage.getItem('idToken')
-            }
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken')
+                }
+            },
+        }); 
+
+        this.props.dispatch({
+            type: 'shipping/getShippingAll',
+            payload: {
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken')
+                }
+            },
         });
 
 
@@ -230,7 +242,7 @@ class ShippingMaster extends PureComponent {
             labelCol: { xs: { span: 24 }, sm: { span: 7 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 5 } },
             wrapperCol: { xs: { span: 24 }, sm: { span: 14 }, md: { span: 15 }, lg: { span: 15 }, xl: { span: 15 } }
         };
-        const { loading, isSuccess, close } = this.props;
+        const { loading, isSuccess, close, datesShipping } = this.props;
         const { oShippingItem, warehouses, warehouseIds, products, locationTreeData } = this.props.shipping;
 
 
@@ -272,14 +284,7 @@ class ShippingMaster extends PureComponent {
                             <Row type="flex" justify="center">
                                 <Col xs={24} sm={23} md={17} lg={16} xl={16}>
                                     <Form.Item label={formatMessage({ id: 'outComming.label.week' })}>
-                                        <RangePickerComponent />
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                            <Row type="flex" justify="center">
-                                <Col xs={24} sm={23} md={17} lg={16} xl={8}>
-                                    <Form.Item label={formatMessage({ id: 'outComming.label.product' })}>
-                                        <RadioGroupComponent />
+                                       
                                     </Form.Item>
                                 </Col>
                             </Row>
@@ -294,9 +299,12 @@ class ShippingMaster extends PureComponent {
                         </Row>
                         <Row>
                             <Col span={24}>
+                            <Spin tip={"Cargando..."} spinning={loading}>
                                 <TableShippingMaster
                                     showShippingProgramingEdit={this.showShippingProgramingEdit}
+                                    datesTableShipping={datesShipping}
                                 />
+                            </Spin>
                             </Col>
                         </Row>
                     </Card>

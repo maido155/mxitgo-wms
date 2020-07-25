@@ -9,21 +9,30 @@ const { Text } = Typography;
 
 export default class DrawerAssignmentProduct extends PureComponent {
     state = {
-        pallets: 4,
-        box: 10
+        pallets: 0,
+        box: 0,
+        isFirstTime: true
     }
 
-    onChangeQuantityPallet = () => {
-        let remaingQtyPallet = this.state.pallets - 1;
+    componentDidMount() {}
+
+    onChangeQuantityPallet = (e) => {
+        console.log("props -----> ", this.props)
+        this.props.datesProductAll;
+        let remaingQtyPallet = this.state.originalPallets;
+        if (e.target.value === "") remaingQtyPallet;
+            else remaingQtyPallet = remaingQtyPallet - parseInt(e.target.value);
         this.setState({
-          pallets: remaingQtyPallet
+            pallets: remaingQtyPallet
         });
-    };
+    }
     
-    onChangeQuantityBox = () => {
-        let remaingQtyBox = this.state.box - 1;
+    onChangeQuantityBox = (e) => {
+        let remaingQtyBox = this.state.originalBox;
+        if (e.target.value === "") remaingQtyBox;
+            else remaingQtyBox = remaingQtyBox - parseInt(e.target.value);
         this.setState({
-          box: remaingQtyBox
+            box: remaingQtyBox
         });
     };
 
@@ -55,7 +64,21 @@ export default class DrawerAssignmentProduct extends PureComponent {
         _this.props.postOutcomming(payload);
         _this.props.onClose();
     }
+
+    setCurrentValues = (pallets, box) => {
+        if (this.state.isFirstTime && pallets !== undefined) {
+            this.setState({
+                pallets,
+                box,
+                originalPallets: pallets,
+                originalBox: box,
+                isFirstTime: false
+            });
+        }
+    }
+
     render() {
+        this.setCurrentValues(this.props.currentItem.cajasde, this.props.currentItem.palletsde);
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 8 },lg: { span: 8 },xl: { span: 6 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 12 },md: { span: 12 },lg: { span: 12 },xl: { span: 14 }}
@@ -66,7 +89,11 @@ export default class DrawerAssignmentProduct extends PureComponent {
                 placement="right"
                 width={isMobile ? "100%" : "50%"}
                 closable={true}
-                onClose={this.props.onClose}
+                onClose={ (e) => { 
+                    this.setState({
+                        isFirstTime: true
+                    })
+                    this.props.onClose(e, this)}}
                 visible={this.props.visible}
             >
                 <Form {...formItemLayout} style={{marginTop: "5rem"}}>
@@ -77,10 +104,10 @@ export default class DrawerAssignmentProduct extends PureComponent {
                         <Text>{this.state.box}</Text> 
                     </Form.Item>
                     <Form.Item label={'Pallets'}>
-                        <Input onChange={this.onChangeQuantityPallet}/>
+                        <Input onChange={(e) => {this.onChangeQuantityPallet(e, this)}}/>
                     </Form.Item>
                     <Form.Item label={'Cajas'}>
-                        <Input onChange={this.onChangeQuantityBox}/>
+                        <Input onChange={(e) => {this.onChangeQuantityBox(e, this)}}/>
                     </Form.Item>
                     <div
                         style={{
@@ -94,7 +121,11 @@ export default class DrawerAssignmentProduct extends PureComponent {
                         textAlign: 'right',
                         }}
                     >
-                        <Button onClick={this.props.onClose} style={{ marginRight: 8 }} type="danger">
+                        <Button onClick={ (e) => { 
+                    this.setState({
+                        isFirstTime: true
+                    })
+                    this.props.onClose((e, this))}} style={{ marginRight: 8 }} type="danger">
                             Cancelar
                         </Button>
                         <Button onClick={()=>{this.onAccept(this)}} type="primary">
