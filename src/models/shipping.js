@@ -1,4 +1,4 @@
-import { saveShipping, updateShipping, getShipping, getLocations,fetchShippingAll } from '../services/api';
+import { saveShipping, updateShipping, getShipping, getLocations, fetchShippingAll, fetchProductAll } from '../services/api';
 import moment from 'moment';
 
 export default {
@@ -12,6 +12,7 @@ export default {
         products: [],
         locationTreeData: [],
         datesShipping: [],
+        productsAll: []
     },
     effects: {
 
@@ -28,9 +29,18 @@ export default {
 
         * saveShipping({ payload }, { call, put }) {
             const response = yield call(saveShipping, payload);
+            console.log(response);
+            console.log(response);
             yield put({
                 type: 'saveShippingReducer',
                 payload: response,
+            });
+            const responseGetAll = yield call(fetchShippingAll, payload);
+            console.log(responseGetAll);
+            console.log(responseGetAll);
+            yield put({
+                type: 'queryGetShippingAll',
+                payload: responseGetAll,
             });
         },
         * saveWarehouse({ payload }, { call, put }) {
@@ -105,6 +115,13 @@ export default {
                 type: 'getLocationsReducer',
                 payload: response,
             });
+        },
+        * getProducts({ payload }, { call, put }) {
+            const response = yield call(fetchProductAll, payload);
+            yield put({
+                type: 'getProductsReducer',
+                payload: response,
+            });
         }
 
 
@@ -113,14 +130,14 @@ export default {
     reducers: {
 
         queryGetShippingAll(state, action) {
-            const allDates = [...state.datesShipping, action.payload];
-            const newDates =[];
-            for(let i = 0; i<allDates[0].length; i++){
-                newDates.push(allDates[0][i])
-            }
+            // const allDates = [...state.datesShipping, action.payload];
+            // const newDates = [];
+            // for (let i = 0; i < allDates[0].length; i++) {
+            //     newDates.push(allDates[0][i])
+            // }
             return {
                 ...state,
-                datesShipping : newDates
+                datesShipping: action.payload
             }
         },
         resetValuesReducer(state, action) {
@@ -207,6 +224,12 @@ export default {
                 close: false,
                 oShippingItem: { products: [], id: "" },
                 products: []
+            }
+        },
+        getProductsReducer(state, action) {
+            return {
+                ...state,
+                productsAll: action.payload.Items
             }
         },
         getShippingReducer(state, action) {
