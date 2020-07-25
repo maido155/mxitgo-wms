@@ -11,19 +11,23 @@ export default class DrawerAssignmentProduct extends PureComponent {
     state = {
         pallets: 0,
         box: 0,
-        isFirstTime: true
+        isFirstTime: true,
+        currentValuePallet: 0,
+        currentValueBox: 0
     }
 
     componentDidMount() {}
 
     onChangeQuantityPallet = (e) => {
-        console.log("props -----> ", this.props)
+        var quantityBoxes = this.handleChangePallet();
+        console.log("Boxes ----> ", quantityBoxes);
         this.props.datesProductAll;
         let remaingQtyPallet = this.state.originalPallets;
         if (e.target.value === "") remaingQtyPallet;
             else remaingQtyPallet = remaingQtyPallet - parseInt(e.target.value);
         this.setState({
-            pallets: remaingQtyPallet
+            pallets: remaingQtyPallet,
+            currentValuePallet: parseInt(e.target.value)
         });
     }
     
@@ -32,9 +36,30 @@ export default class DrawerAssignmentProduct extends PureComponent {
         if (e.target.value === "") remaingQtyBox;
             else remaingQtyBox = remaingQtyBox - parseInt(e.target.value);
         this.setState({
-            box: remaingQtyBox
+            box: remaingQtyBox,
+            currentValueBox: parseInt(e.target.value)
         });
     };
+
+    handleChangePallet = () => {
+        // this.validationProduct();
+
+        let currentProduct = this.props.currentOutcomming.product;
+
+        var quantityBoxes = this.props.datesProductAll.filter((el) => el.productName = currentProduct);
+        return quantityBoxes;
+        // var palletvsBoxes = this.props.datesProductAll;
+        // const form = this.props.form;
+        // let data = form.getFieldsValue();
+        // var productName = data.productNew;
+        // var quantityBoxes = 0;
+        // var sumBoxes = 0;
+        // for(var i = 0; i < palletvsBoxes.length; i++){
+        //     if(palletvsBoxes[i]["WMS-1-SK"] == productName){
+        //         quantityBoxes = palletvsBoxes[i].quantityBoxes;
+        //     }
+        // }
+    }
 
     onAccept = (_this) => {
         let payload = { 
