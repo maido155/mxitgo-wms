@@ -83,8 +83,8 @@ export default class DrawerAssignmentProduct extends PureComponent {
         payload.skProduct = _this.props.currentOutcomming.skProduct;
         payload.skCustomer = _this.props.currentOutcomming.skCustomer;
         payload.assignSh.skShipping = _this.props.currentShipping.pedido;
-        payload.assignSh.assignments.box = 1;
-        payload.assignSh.assignments.pallet = 1;        
+        payload.assignSh.assignments.box = _this.state.currentValueBox;
+        payload.assignSh.assignments.pallet = _this.state.currentValuePallet;        
 
         _this.props.postOutcomming(payload);
         _this.props.onClose();
