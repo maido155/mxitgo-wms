@@ -60,7 +60,7 @@ export default class TableAssignment extends PureComponent {
             render: (record) => (
               <span>
                   <a onClick={ () => {this.showDrawerAssigProduct(record)} }><FormattedMessage id="outComming.label.tableassignment-assign"/></a>   
-                  <DrawerAssignment postOutcomming= {this.props.postOutcomming} currentItem={this.state.currentItem} visible={this.state.visibleAssignProduct} onClose={this.onDrawerAssigProduct} currentOutcomming={this.props.currentOutcomming} currentShipping={record}/>     
+                  <DrawerAssignment postOutcomming= {this.props.postOutcomming} datesProductAll = {this.props.datesProductAll} currentItem={this.state.currentItem} visible={this.state.visibleAssignProduct} onClose={this.onDrawerAssigProduct} currentOutcomming={this.props.currentOutcomming} currentShipping={record}/>     
               </span>
             )
         }

@@ -17,6 +17,8 @@ export default class DrawerAssignmentProduct extends PureComponent {
     componentDidMount() {}
 
     onChangeQuantityPallet = (e) => {
+        console.log("props -----> ", this.props)
+        this.props.datesProductAll;
         let remaingQtyPallet = this.state.originalPallets;
         if (e.target.value === "") remaingQtyPallet;
             else remaingQtyPallet = remaingQtyPallet - parseInt(e.target.value);
