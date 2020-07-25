@@ -6,6 +6,7 @@ import TableComponent from '../generalComponents/TableComponent';
 import { isMobile } from 'react-device-detect';
 import NewLine from './NewLine';
 import { _ } from 'lodash';
+import moment from 'moment';
 
 
 const { TextArea } = Input;
@@ -63,13 +64,13 @@ class DrawerShippingPrograming extends PureComponent {
             }
             var date = new Date();
             values["createdBy"] = localStorage.getItem('userName');
-            values["date"] = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+            values["date"] = moment().format("YYYY-MM-DD");
             values["deliveryDate"] = this.state.deliveryDate;
             values["departureDate"] = this.state.departureDate;
             values["entryDate"] = this.state.entryDate;
             values["dateNew"] = this.state.datesGeneralNewLine.dateCreated;
             values["createdByNew"] = this.state.datesGeneralNewLine.createdByNew;
-            values["destinity"] = "Central de abastos"
+            values["destination"] = "Central de abastos"
             values["products"] = this.props.products;
             values["warehouses"] = this.props.warehouseIds;
             values["comment"] = values.comment;

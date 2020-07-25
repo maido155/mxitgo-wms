@@ -48,7 +48,8 @@ class ShippingMaster extends PureComponent {
             type: 'shipping/getShippingAll',
             payload: {
                 payload: {
-                 Authorization: sessionStorage.getItem('idToken')
+                 Authorization: sessionStorage.getItem('idToken'),
+                 initialDate: "2020-07-29"
                 }
             },
         });
@@ -173,7 +174,7 @@ class ShippingMaster extends PureComponent {
                             departureDate: datesShipping.departureDate,
                             deliveryDate: datesShipping.deliveryDate,
                             entryDate: datesShipping.entryDate,
-                            destinity: datesShipping.destinity,
+                            destination: datesShipping.destination,
                             products: datesShipping.products,
                             skWh: datesShipping.warehouses,
                             dateNew: datesShipping.dateNew,
@@ -198,7 +199,7 @@ class ShippingMaster extends PureComponent {
                     departureDate: datesShipping.departureDate,
                     deliveryDate: datesShipping.deliveryDate,
                     entryDate: datesShipping.entryDate,
-                    destinity: datesShipping.destinity,
+                    destination: datesShipping.destination,
                     products: datesShipping.products,
                     skWh: datesShipping.warehouses,
                     dateNew: datesShipping.dateNew,
