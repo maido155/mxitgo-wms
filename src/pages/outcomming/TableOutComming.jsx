@@ -66,18 +66,30 @@ export default class TableOutComming extends PureComponent {
                 width: isMobile ? 400 : 360,
                 render: (record) => (
                   <span>
-                        <Button type="primary" onClick={()=>{this.showDrawerAssig(record)}}> 
-                            <FormattedMessage id="outComming.button.assign"/>
-                        </Button>
+                      {
+                            record.status=="PENDING" ?
+                                <Button type="primary" onClick={()=>{this.showDrawerAssig(record)}}> 
+                                    <FormattedMessage id="outComming.button.assign"/>
+                                </Button>
+                                : <Button disabled type="primary" onClick={()=>{this.showDrawerAssig(record)}}> 
+                                <FormattedMessage id="outComming.button.assign"/>
+                            </Button>}
                         <Divider type="vertical" />
                         <Button onClick={()=>{this.showDrawerCompo(record.key)}}>
                             <FormattedMessage id="outComming.button.composition"/>
                         </Button>
                         <Divider type="vertical" />
-                        <Checkbox onChange={()=>{this.props.onConfirm(record.key)}}>
-                            
-                            <FormattedMessage id="outComming.button.confirm"/>
-                        </Checkbox>      
+                        { record.key=="" 
+                            ? <Checkbox defaultChecked={false} disabled onChange={()=>{this.props.onConfirm(record)}}>Confirm</Checkbox>
+                            :   <span>
+                                {
+                                    record.status=="PENDING"
+                                    ? <Checkbox onChange={()=>{this.props.onConfirm(record)} } > Confirm </Checkbox>
+                                    : <Checkbox disabled onChange={()=>{this.props.onConfirm(record)} } > Confirmed </Checkbox>
+                                }
+                                    
+                                </span> 
+                        }      
                         <AssignmentOutComming 
                             visibleOne={this.state.visibleAssign}
                             currentOutcomming={this.state.currentRecord}

@@ -13,9 +13,13 @@ export default {
         * confirmOutcomming({ payload }, { call, put }) {
             const response = yield call(confirmOutcomming, payload);
             console.log(response);
+
+            //const responseGetAll = yield call(fetchProgrammingAll, payload);
+            const responseGetOutComming = yield call(getOutcomming, payload);
+
             yield put({
                 type: 'confirmOutcommingReducer',
-                payload: response,
+                payload: responseGetOutComming,
             });
         },
         * getComposition({ payload }, { call, put }) {
@@ -55,7 +59,8 @@ export default {
     reducers: {
         confirmOutcommingReducer(state, action) {
             return {
-                ...state
+                ...state,
+                datesOutcomming: action.payload
             }
         },
         getCompositionReducer(state, action) {
