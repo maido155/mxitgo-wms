@@ -31,7 +31,7 @@ export default class AssignmentOutComming extends PureComponent {;
                 <Divider/>
                 <Row>
                     <Col span={24}>
-                        <TableShipping postOutcomming= {this.props.postOutcomming} currentOutcomming={this.props.currentOutcomming}/>
+                        <TableShipping postOutcomming= {this.props.postOutcomming} datesProductAll = {this.props.datesProductAll} currentOutcomming={this.props.currentOutcomming}/>
                     </Col>
                 </Row>
                 <div
