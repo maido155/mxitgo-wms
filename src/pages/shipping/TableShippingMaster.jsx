@@ -227,7 +227,7 @@ class TableShippingMaster extends PureComponent {
         //   departureDate: "2020-06-17", // OK
         //   deliveryDate: "2020-06-18", // OK
         //   entryDate: "2020-06-15", // OK
-        //   destinity: "Central de abastos",
+        //   destination: "Central de abastos",
         //   products: [ /// Needs processing
         //   [{ "product": "premium", "amount": 200 },
         //   { "product": "gold", "amount": 100 },
