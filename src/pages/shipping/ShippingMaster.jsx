@@ -17,7 +17,8 @@ import moment from 'moment';
     warehouses: shipping.warehouses,
     isSuccess: shipping.isSuccess,
     close: shipping.close,
-    datesShipping: shipping.datesShipping
+    datesShipping: shipping.datesShipping,
+    productsAll: shipping.productsAll
 }))
 
 
@@ -50,6 +51,15 @@ class ShippingMaster extends PureComponent {
                 payload: {
                  Authorization: sessionStorage.getItem('idToken'),
                  initialDate: "2020-07-29"
+                }
+            },
+        });
+
+        this.props.dispatch({
+            type: 'shipping/getProducts',
+            payload: {
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken')
                 }
             },
         });
@@ -243,7 +253,7 @@ class ShippingMaster extends PureComponent {
             labelCol: { xs: { span: 24 }, sm: { span: 7 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 5 } },
             wrapperCol: { xs: { span: 24 }, sm: { span: 14 }, md: { span: 15 }, lg: { span: 15 }, xl: { span: 15 } }
         };
-        const { loading, isSuccess, close, datesShipping } = this.props;
+        const { loading, isSuccess, close, datesShipping, productsAll } = this.props;
         const { oShippingItem, warehouses, warehouseIds, products, locationTreeData } = this.props.shipping;
 
 
@@ -277,6 +287,8 @@ class ShippingMaster extends PureComponent {
                     products={products}
                     updateShippingSuccess={this.updateShippingSuccess}
                     locationTreeData={locationTreeData}
+
+                    productsAll={productsAll}
 
                 />
                 <PageHeaderWrapper>

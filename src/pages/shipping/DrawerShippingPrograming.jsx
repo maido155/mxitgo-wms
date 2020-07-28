@@ -114,7 +114,7 @@ class DrawerShippingPrograming extends PureComponent {
             wrapperCol: { xs: { span: 24 }, sm: { span: 12 }, md: { span: 14 }, lg: { span: 14 }, xl: { span: 14 } }
         };
         const { getFieldDecorator } = this.props.form;
-        const { oShippingItem, warehouse } = this.props;
+        const { oShippingItem, warehouse, productsAll } = this.props;
 
 
 
@@ -153,6 +153,7 @@ class DrawerShippingPrograming extends PureComponent {
                     warehouses={this.props.warehouses}
                     warehouseIds={this.props.warehouseIds}
                     locationTreeData = {this.props.locationTreeData}
+                    productsAll={productsAll}
                 />
                 <Drawer
                     title={formatMessage({ id: 'shipping.drawershipping.label.title' })}
