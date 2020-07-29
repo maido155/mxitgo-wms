@@ -67,14 +67,10 @@ export default class DrawerAssignmentProduct extends PureComponent {
             date: "",//"2020-07-16T00:00:00.000Z",
             status: "",//"PENDING",
             skProduct: "",//"PRODUCT-1", 
-            skCustomer: "",//"CUSTOMER-2", 
-            assignSh: {
-                    skShipping: "",//"SH-TAB972020954", 
-                    assignments: {
-                            box: "",
-                            pallet: ""
-                        }
-                }
+            skCustomer: "",//"CUSTOMER-2",
+            skShipping: "",//assignShipping, 
+            box: 0, //assignments
+            pallet: 0 //assignments
         }
 
         payload.key = _this.props.currentOutcomming.key;
@@ -82,9 +78,9 @@ export default class DrawerAssignmentProduct extends PureComponent {
         payload.status = _this.props.currentOutcomming.status;
         payload.skProduct = _this.props.currentOutcomming.skProduct;
         payload.skCustomer = _this.props.currentOutcomming.skCustomer;
-        payload.assignSh.skShipping = _this.props.currentShipping.pedido;
-        payload.assignSh.assignments.box = _this.state.currentValueBox;
-        payload.assignSh.assignments.pallet = _this.state.currentValuePallet;        
+        payload.skShipping = _this.props.currentShipping.pedido;
+        payload.box = _this.state.currentValueBox;
+        payload.pallet = _this.state.currentValuePallet;        
 
         _this.props.postOutcomming(payload);
         _this.props.onClose();

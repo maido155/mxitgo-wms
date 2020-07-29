@@ -212,13 +212,29 @@ export default class OutComming extends PureComponent {
     };
 
     postOutcomming = (payload, context) => {
-        payload.DateFrom = context.state.dateFrom;
-        payload.DateTo = context.state.dateTo;
-        payload.Product = payload.skProduct;
-        payload.Customer = payload.skCustomer;
+
         this.props.dispatch({  
             type: 'outcomming/postOutcomming',  
-            payload: {payload}
+            payload: { 
+                payload: {
+                    key: payload.key,
+                    date: payload.date,
+                    status: payload.status,
+                    skProduct: payload.skProduct, 
+                    skCustomer: payload.skCustomer, 
+                    assignSh: {
+                            skShipping: payload.skShipping, 
+                            assignments: {
+                                    box: payload.box,
+                                    pallet: payload.pallet
+                                }
+                    },
+                    DateFrom: context.state.dateFrom, //for getOutcomming
+                    DateTo: context.state.dateTo, //for getOutcomming
+                    Product: payload.skProduct, //for getOutcomming
+                    Customer: payload.skCustomer //for getOutcomming
+                }    
+            }
         }); 
     }
     render() {

@@ -48,11 +48,9 @@ export default {
         },
         * postOutcomming({ payload }, { call, put }) {
             const response = yield call(postOutcomming, payload);
-            console.log(response);
-
-            payload = payload.payload;
-            const responseOutcomming = yield call(getOutcomming, payload);
-            console.log(responseOutcomming);
+            //console.log(response);
+            const responseOutcomming = yield call(getOutcomming, payload.payload);
+            //console.log(responseOutcomming);
 
             yield put({
                 type: 'postOutcommingReducer',
