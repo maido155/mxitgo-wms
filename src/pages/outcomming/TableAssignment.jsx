@@ -71,32 +71,32 @@ export default class TableAssignment extends PureComponent {
             pedido: 'SH-TE1001120201',
             palletsto: 3,
             cajasto: 150,
-            palletsde: 3,
-            cajasde: 150
+            palletsde: 150,
+            cajasde: 6
         },
         {
             key: '2',
             pedido: 'SH-TE1001120202',
             palletsto: 10,
             cajasto: 500,
-            palletsde: 2,
-            cajasde: 100
+            palletsde: 100,
+            cajasde: 2
         },
         {
             key: '3',
             pedido: 'SH-TE1001120203',
             palletsto: 12,
             cajasto: 600,
-            palletsde: 12,
-            cajasde: 600
+            palletsde: 600,
+            cajasde: 12
         },
         {
             key: '4',
             pedido: 'SH-TE1001120204',
             palletsto: 15,
             cajasto: 900,
-            palletsde: 15,
-            cajasde: 900
+            palletsde: 900,
+            cajasde: 15
         }
       ];
         return (
