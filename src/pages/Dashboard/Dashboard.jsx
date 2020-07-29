@@ -143,10 +143,10 @@ export default class Dashboard extends PureComponent {
           <Card>
             <div>
               <Row type="flex" justify="center">
-                <Col span={24} style={{ textAlign: "center" }}>
+                <Col span={6} style={{ textAlign: "center" }}>
                   <h3>Semana:</h3>
                 </Col>
-                <Col span={24} >
+                <Col span={6} >
                   <DatePicker  onChange={this.onPickerChange}/>
                 </Col>
 
@@ -180,20 +180,33 @@ export default class Dashboard extends PureComponent {
         <Card>
           <Form {...formItemLayout}>
             <div>
-              <Row type="flex" justify="space-between">
-                <Col xs={24} sm={16} md={16} lg={16} xl={16}>
-                  <Form.Item label="Semana:">
-                    <DatePicker format="YYYY-MM-DD" disabledDate={disabledDate} onChange={this.onPickerChange}/>
-                  </Form.Item>
+              <Row>
+
+              
+                <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                  <Card>
+                    <Form.Item label="Semana:">
+                      <DatePicker format="YYYY-MM-DD" disabledDate={disabledDate} onChange={this.onPickerChange}/>
+                    </Form.Item>
+                  
+                    <Form.Item label="">
+                      <RadioGroupComponent onChange={this.onRadioChange}/>
+                    </Form.Item>
+                  </Card>
                 </Col>
-                <Col xs={24} sm={12} md={12} lg={12} xl={6}>
-                  <Form.Item label="">
-                    <RadioGroupComponent onChange={this.onRadioChange}/>
-                  </Form.Item>
+                
+                
+                
+                <Col  xs={24} sm={24} md={11} lg={11} xl={11}>
+                  <Card>
+                    <Form.Item label="">
+                      <RadioGroupComponent onChange={this.onRadioChange}/>
+                    </Form.Item>
+                  </Card>
                 </Col>
               </Row>
             </div>
-            <Divider />
+            
 
           </Form>
           <div>
