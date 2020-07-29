@@ -89,12 +89,12 @@ class ShippingMaster extends PureComponent {
 
         this.props.dispatch({
             type: 'shipping/getShipping',
-            payload: { id: oItem['WMS-1-PK']}
+            payload: { id: oItem['WMS-1-PK'], status: "New"}
         })
 
         this.setState({
             visibleConfirmationShipping: true,
-            masterMode: "EDIT"
+            masterMode: "Confirmed"
         })
     };
 
@@ -103,7 +103,7 @@ class ShippingMaster extends PureComponent {
 
         this.props.dispatch({
             type: 'shipping/getShipping',
-            payload: { id: oItem.id, status: "New" }
+            payload: { id: oItem['WMS-1-PK'],status: "New" }
         })
 
         this.setState({
@@ -233,6 +233,30 @@ class ShippingMaster extends PureComponent {
 
 
     }
+    confirmShipping = (datesShipping) => {
+        this.props.dispatch({
+            type: 'shipping/updateShipping',
+            payload: {
+                typeCondition: "Confirmed",
+                isMasterModified: true,
+                comment: datesShipping.comment,
+                createdBy: datesShipping.createdBy,
+                date: datesShipping.date,
+                departureDate: datesShipping.departureDate,
+                deliveryDate: datesShipping.deliveryDate,
+                entryDate: datesShipping.entryDate,
+                destinity: datesShipping.destinity,
+                products: datesShipping.products,
+                skWh: datesShipping.warehouses,
+                dateNew: datesShipping.dateNew,
+                createdByNew: datesShipping.createdByNew,
+                idShipping: datesShipping.idShipping,
+                Authorization: sessionStorage.getItem('idToken')
+            }
+        })
+
+    }
+
     changedSuccess = () => {
         this.props.dispatch({
             type: 'shipping/changedSuccess',
@@ -297,9 +321,34 @@ class ShippingMaster extends PureComponent {
 
                 />
                  <ConfirmationShipping
+                    masterMode={this.state.masterMode}
+                    lineMode={this.state.lineMode}
+
                      visibleConfirmationShipping={this.state.visibleConfirmationShipping}
                      onCloseConfirmationShipping={this.onCloseConfirmationShipping}
                      oShippingItem={oShippingItem}
+
+                     visibleNewLine={this.state.visibleNewLine}
+                     onCloseNewLine={this.onCloseNewLine}
+                     showNewLine={this.showNewLine}
+                     lineData={this.state.lineData}
+                     insertWarehouse={this.insertWarehouse}
+                     replaceWarehouse={this.replaceWarehouse}
+ 
+                     warehouses={warehouses}
+                     warehouseIds={warehouseIds}
+ 
+                     confirmShipping={this.confirmShipping}
+                     loading={loading}
+                     isSuccess={isSuccess}
+                     changedSuccess={this.changedSuccess}
+                     close={close}
+                     changedClose={this.changedClose}
+                     products={products}
+                     updateShippingSuccess={this.updateShippingSuccess}
+                     locationTreeData={locationTreeData}
+ 
+ 
                 />
                 <PageHeaderWrapper>
                     <Card>

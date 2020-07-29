@@ -81,7 +81,7 @@ export default {
             const response = yield call(getShipping, payload);
             console.log(response);
             yield put({
-                type: 'rGetShipping',
+                type: 'getShippingReducer',
                 payload: response,
             });
         },
@@ -207,20 +207,6 @@ export default {
                 close: false,
                 oShippingItem: { products: [], id: "" },
                 products: []
-            }
-        },
-        rGetShipping(state, action) {
-
-            var oItem = action.payload;
-            return {
-                ...state,
-                warehouses: [],
-                warehouseIds:[],
-                visibleShippingPrograming: true,
-                oShippingItem: oItem,
-                masterMode: "EDIT",
-                products: []
-
             }
         },
 
