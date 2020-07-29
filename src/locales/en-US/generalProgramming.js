@@ -6,7 +6,7 @@ export default {
     'general.modal-title.Edit': 'Edit programming',
     'general.modal-title.absolute': 'Absolute:',
     'general.modal.clear': 'Clear',
-    'general.modal.accept': 'Accept',
+    'general.modal.accept': 'Save',
     'general.modal-label.boxes': 'Boxes',
     'general.modal-label.pallets': 'Pallets',
     'general.table.week': 'Week',

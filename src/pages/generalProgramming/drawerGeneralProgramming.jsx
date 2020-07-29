@@ -37,7 +37,7 @@ function disabledDate(current) {
     let compareFriday = moment(dateFriday).format('dddd DD MMMM');
     let compareSaturday = moment(dateSaturday).format('dddd DD MMMM');
     let compareSunday = moment(dateSunday).format('dddd DD MMMM');
-    if(dateAll === compareMonday || dateAll === compareThursday || dateAll === compareTuesday || dateAll === compareFriday || dateAll === compareSaturday || dateAll === compareSunday){
+    if(dateAll === compareMonday || dateAll === compareThursday || dateAll === compareTuesday || dateAll === compareFriday || dateAll === compareSaturday || dateAll === compareSunday || current < moment().endOf('day')){
         return true;
     }
 }
@@ -77,25 +77,18 @@ const DrawerGeneralProgramming  = Form.create()(
             this.setState({weekNewUntil: until})
             var dateAllRange = this.betweenDate(since, until);
             for(var i = 0; i < dateAllRange.length; i++){
-                let nameDate = moment(dateAllRange[i]).format('dddd DD MMMM')
-                dateShow.push(nameDate);
+                let nameDate = moment(dateAllRange[i]).format('dddd DD MMMM');
+                let splitDate = nameDate.split(" ");
+                var dateDay = splitDate[0].charAt(0).toUpperCase() + splitDate[0].slice(1);
+                var dateMonth = splitDate[2].charAt(0).toUpperCase() + splitDate[2].slice(1);
+                var dateAll = dateDay + " " + splitDate[1] + " " + dateMonth;
+                dateShow.push(dateAll);
             }
             this.props.dataInputShow();
             this.props.mRangeEdit();
             this.setState({
                 dateRanger: dateShow,
-                sumPallets: 0,
-                sumBoxes: 0,
-                multiBoxes: {one: 0, two: 0, three: 0, four: 0, five: 0, six: 0, seven: 0}
             });
-            const form = this.props.form;
-            form.resetFields("palletOneNew");
-            form.resetFields("palletTwoNew");
-            form.resetFields("palletThreeNew");
-            form.resetFields("palletFourNew");
-            form.resetFields("palletFiveNew");
-            form.resetFields("palletSixNew");
-            form.resetFields("palletSevenNew");
             this.resetInputs();
         }
         betweenDate = (since, until) => {
@@ -733,7 +726,7 @@ const DrawerGeneralProgramming  = Form.create()(
             const tailFormItemLayout = { 
                 wrapperCol: {xs: {span: 0,offset: 0,}, sm: {span: 13,offset: 11,}, md: {span: 13,offset: 11,}, lg: {span: 13,offset: 11,}, xl: {span: 13,offset: 11,}},
             };
-            const { edit, loading, datesProductAll, datesCustomerAll, rangePicker, handleSubmit, datesGetProgramming, rangeEdit, editSumPallet, editSumBoxes } = this.props;
+            const { edit, loading, datesProductAll, datesCustomerAll, rangePicker, handleSubmit, datesGetProgramming, rangeEdit, editSumPallet, editSumBoxes, visualizar } = this.props;
             const { getFieldDecorator } = this.props.form;
             const { dateRanger, multiBoxes, sumPallets, sumBoxes, weekNewUntil, dateIso } = this.state;
             return(
@@ -827,7 +820,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                             <Row>
                                                 <Col xs={0} sm={3} md={3} lg={3} xl={3}></Col>
                                                 <Col xs={16} sm={18} md={18} lg={18} xl={18}>
-                                                    <Form.Item label={dateRanger[1]}>
+                                                    <Form.Item label={dateRanger[1]} >
                                                         <Row>
                                                             <Col span={12}>
                                                                 {getFieldDecorator('palletTwoNew',{initialValue: 0})(<InputNumber min={0} onChange={(value) => this.handleChangePallet(value, "palletTwo")}/>)}
@@ -949,7 +942,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                                 <Col xs={24} sm={18} md={18} lg={18} xl={18}>
                                                     <Form.Item label={formatMessage({id: "general.calendar.week"})}>
                                                         {getFieldDecorator('weekEdit',{initialValue: moment(datesGetProgramming[0].startDate, "YYYY-MM-DD"), rules: [{ required: true, message: formatMessage({id: "general.modal-date"}) }]})
-                                                            (<DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} disabledDate={disabledDate} format="YYYY-MM-DD" onChange={this.onChange}/>)
+                                                            (<DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} disabledDate={disabledDate} format="YYYY-MM-DD" onChange={this.onChange} disabled={edit == true ? true : false}/>)
                                                         }
                                                     </Form.Item>
                                                 </Col>
@@ -961,7 +954,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                                     <Form.Item label={formatMessage({id: "general.buttoon-product.product"})}>
                                                         {getFieldDecorator('productEdit',{initialValue: datesGetProgramming[0].skProduct, rules: [{ required: true, message: formatMessage({id: "general.modal-product"}) }]})
                                                             (<Select showSearch style={{ width: 200 }} placeholder="Select product" optionFilterProp="children" onChange={this.onChangeProd} style={{ width: '100%' }}
-                                                                onFocus={this.onFocusProd} onBlur={this.onBlurProd} onSearch={this.onSearchProd}filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                                                                onFocus={this.onFocusProd} onBlur={this.onBlurProd} onSearch={this.onSearchProd}filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}  disabled={edit == true ? true : false}
                                                             >
                                                                 {datesProductAll.map(item => (<Option value={item["WMS-1-SK"]}>{item.productName}</Option>))}
                                                             </Select>)
@@ -976,7 +969,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                                     <Form.Item label={formatMessage({id: "general.buttoon-center.center"})}>
                                                         {getFieldDecorator('customerEdit',{initialValue: datesGetProgramming[0].skCustomer, rules: [{ required: true, message: formatMessage({id: "general.modal-customer"}) }]})
                                                             (<Select showSearch style={{ width: 200 }} placeholder="Select center" optionFilterProp="children" onChange={this.onChangeCent} style={{ width: '100%' }}
-                                                                onFocus={this.onFocusCent} onBlur={this.onBlurCent} onSearch={this.onSearchCent} filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                                                                onFocus={this.onFocusCent} onBlur={this.onBlurCent} onSearch={this.onSearchCent} filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0} disabled={edit == true ? true : false}
                                                             >
                                                                 {datesCustomerAll.map(item => (<Option value={item["WMS-1-SK"]}>{item.clientName}</Option>))}
                                                             </Select>)
@@ -1008,10 +1001,10 @@ const DrawerGeneralProgramming  = Form.create()(
                                                     <Form.Item label={rangeEdit == false ? datesGetProgramming[0].dates[0].date : dateRanger[0]}>
                                                         <Row>
                                                             <Col span={12}>
-                                                                {getFieldDecorator('palletOneEdit',{initialValue: datesGetProgramming[0].dates[0].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletOneEdit")}/>)}                                                           
+                                                                {getFieldDecorator('palletOneEdit',{initialValue: datesGetProgramming[0].dates[0].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletOneEdit")} disabled={visualizar == true ? true : false}/>)}                                                           
                                                             </Col>
                                                             <Col span={12}>
-                                                                {getFieldDecorator('boxOneEdit',{initialValue: editSumPallet == false ? datesGetProgramming[0].dates[0].caja : multiBoxes.one})(<InputNumber min={0} onChange={(value) => this.handleChangeBoxEdit(value, "boxOne")}/>)}
+                                                                {getFieldDecorator('boxOneEdit',{initialValue: editSumPallet == false ? datesGetProgramming[0].dates[0].box : multiBoxes.one})(<InputNumber min={0} onChange={(value) => this.handleChangeBoxEdit(value, "boxOne")} disabled={visualizar == true ? true : false}/>)}
                                                             </Col>
                                                         </Row>
                                                     </Form.Item>
@@ -1024,10 +1017,10 @@ const DrawerGeneralProgramming  = Form.create()(
                                                     <Form.Item label={rangeEdit == false ? datesGetProgramming[0].dates[1].date : dateRanger[1]}>
                                                         <Row>
                                                             <Col span={12}>
-                                                                {getFieldDecorator('palleTwoEdit',{initialValue: datesGetProgramming[0].dates[1].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletTwoEdit")}/>)}
+                                                                {getFieldDecorator('palleTwoEdit',{initialValue: datesGetProgramming[0].dates[1].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletTwoEdit")} disabled={visualizar == true ? true : false}/>)}
                                                             </Col>
                                                             <Col span={12}>
-                                                                {getFieldDecorator('boxTwoEdit',{initialValue: editSumPallet == false ? datesGetProgramming[0].dates[1].caja : multiBoxes.two})(<InputNumber min={0} onChange={(value) => this.handleChangeBoxEdit(value, "boxTwo")}/>)}  
+                                                                {getFieldDecorator('boxTwoEdit',{initialValue: editSumPallet == false ? datesGetProgramming[0].dates[1].box : multiBoxes.two})(<InputNumber min={0} onChange={(value) => this.handleChangeBoxEdit(value, "boxTwo")} disabled={visualizar == true ? true : false}/>)}  
                                                             </Col>
                                                         </Row>
                                                     </Form.Item>
@@ -1040,10 +1033,10 @@ const DrawerGeneralProgramming  = Form.create()(
                                                     <Form.Item label={rangeEdit == false ? datesGetProgramming[0].dates[2].date : dateRanger[2]}>
                                                         <Row>
                                                             <Col span={12}>
-                                                                {getFieldDecorator('palleThreeEdit',{initialValue: datesGetProgramming[0].dates[2].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletThreeEdit")}/>)}
+                                                                {getFieldDecorator('palleThreeEdit',{initialValue: datesGetProgramming[0].dates[2].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletThreeEdit")} disabled={visualizar == true ? true : false}/>)}
                                                             </Col>
                                                             <Col span={12}>
-                                                                {getFieldDecorator('boxThreeEdit',{initialValue: editSumPallet == false ? datesGetProgramming[0].dates[2].caja : multiBoxes.three})(<InputNumber min={0} onChange={(value) => this.handleChangeBoxEdit(value, "boxThree")}/>)}
+                                                                {getFieldDecorator('boxThreeEdit',{initialValue: editSumPallet == false ? datesGetProgramming[0].dates[2].box : multiBoxes.three})(<InputNumber min={0} onChange={(value) => this.handleChangeBoxEdit(value, "boxThree")} disabled={visualizar == true ? true : false}/>)}
                                                             </Col>
                                                         </Row>
                                                     </Form.Item>
@@ -1056,10 +1049,10 @@ const DrawerGeneralProgramming  = Form.create()(
                                                     <Form.Item label={rangeEdit == false ? datesGetProgramming[0].dates[3].date : dateRanger[3]}>
                                                         <Row>
                                                             <Col span={12}>
-                                                                {getFieldDecorator('palleFourEdit',{initialValue: datesGetProgramming[0].dates[3].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletFourEdit")}/>)}
+                                                                {getFieldDecorator('palleFourEdit',{initialValue: datesGetProgramming[0].dates[3].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletFourEdit")} disabled={visualizar == true ? true : false}/>)}
                                                             </Col>
                                                             <Col span={12}>
-                                                                {getFieldDecorator('boxFourEdit',{initialValue: editSumPallet == false ? datesGetProgramming[0].dates[3].caja : multiBoxes.four})(<InputNumber min={0} onChange={(value) => this.handleChangeBoxEdit(value, "boxFour")}/>)}
+                                                                {getFieldDecorator('boxFourEdit',{initialValue: editSumPallet == false ? datesGetProgramming[0].dates[3].box : multiBoxes.four})(<InputNumber min={0} onChange={(value) => this.handleChangeBoxEdit(value, "boxFour")} disabled={visualizar == true ? true : false}/>)}
                                                             </Col>
                                                         </Row>
                                                     </Form.Item>
@@ -1072,10 +1065,10 @@ const DrawerGeneralProgramming  = Form.create()(
                                                     <Form.Item label={rangeEdit == false ? datesGetProgramming[0].dates[4].date : dateRanger[4]}>
                                                         <Row>
                                                             <Col span={12}>
-                                                                {getFieldDecorator('palleFiveEdit',{initialValue: datesGetProgramming[0].dates[4].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletFiveEdit")}/>)}             
+                                                                {getFieldDecorator('palleFiveEdit',{initialValue: datesGetProgramming[0].dates[4].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletFiveEdit")} disabled={visualizar == true ? true : false}/>)}             
                                                             </Col>
                                                             <Col span={12}>
-                                                                {getFieldDecorator('boxFiveEdit',{initialValue: editSumPallet == false ? datesGetProgramming[0].dates[4].caja : multiBoxes.five})(<InputNumber min={0} onChange={(value) => this.handleChangeBoxEdit(value, "boxFive")}/>)}
+                                                                {getFieldDecorator('boxFiveEdit',{initialValue: editSumPallet == false ? datesGetProgramming[0].dates[4].box : multiBoxes.five})(<InputNumber min={0} onChange={(value) => this.handleChangeBoxEdit(value, "boxFive")} disabled={visualizar == true ? true : false}/>)}
                                                             </Col>
                                                         </Row>
                                                     </Form.Item>
@@ -1088,10 +1081,10 @@ const DrawerGeneralProgramming  = Form.create()(
                                                     <Form.Item label={rangeEdit == false ? datesGetProgramming[0].dates[5].date : dateRanger[5]}>
                                                         <Row>
                                                             <Col span={12}>
-                                                                {getFieldDecorator('palleSixEdit',{initialValue: datesGetProgramming[0].dates[5].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletSixEdit")}/>)}             
+                                                                {getFieldDecorator('palleSixEdit',{initialValue: datesGetProgramming[0].dates[5].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletSixEdit")} disabled={visualizar == true ? true : false}/>)}             
                                                             </Col>
                                                             <Col span={12}>
-                                                                {getFieldDecorator('boxSixEdit',{initialValue: editSumPallet == false ? datesGetProgramming[0].dates[5].caja : multiBoxes.six})(<InputNumber min={0} onChange={(value) => this.handleChangeBoxEdit(value, "boxSix")}/>)}
+                                                                {getFieldDecorator('boxSixEdit',{initialValue: editSumPallet == false ? datesGetProgramming[0].dates[5].box : multiBoxes.six})(<InputNumber min={0} onChange={(value) => this.handleChangeBoxEdit(value, "boxSix")} disabled={visualizar == true ? true : false}/>)}
                                                             </Col>
                                                         </Row>
                                                     </Form.Item>
@@ -1104,10 +1097,10 @@ const DrawerGeneralProgramming  = Form.create()(
                                                     <Form.Item label={rangeEdit == false ? datesGetProgramming[0].dates[6].date : dateRanger[6]}>
                                                         <Row>
                                                             <Col span={12}>
-                                                                {getFieldDecorator('palleSevenEdit',{initialValue: datesGetProgramming[0].dates[6].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletSevenEdit")}/>)}             
+                                                                {getFieldDecorator('palleSevenEdit',{initialValue: datesGetProgramming[0].dates[6].pallet})(<InputNumber min={0} onChange={(value) => this.handleChangePalletEdit(value, "palletSevenEdit")} disabled={visualizar == true ? true : false}/>)}             
                                                             </Col>
                                                             <Col span={12}>
-                                                                {getFieldDecorator('boxSevenEdit',{initialValue: editSumPallet == false ? datesGetProgramming[0].dates[6].caja : multiBoxes.seven})(<InputNumber min={0} onChange={(value) => this.handleChangeBoxEdit(value, "boxSeven")}/>)}
+                                                                {getFieldDecorator('boxSevenEdit',{initialValue: editSumPallet == false ? datesGetProgramming[0].dates[6].box : multiBoxes.seven})(<InputNumber min={0} onChange={(value) => this.handleChangeBoxEdit(value, "boxSeven")} disabled={visualizar == true ? true : false}/>)}
                                                             </Col>
                                                         </Row>
                                                     </Form.Item>

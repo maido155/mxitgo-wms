@@ -16,7 +16,7 @@ const rowSelection = {
 
 class TableGeneralProgramming extends PureComponent{
     render(){
-        const { datesPrograming, cancelProgramming, visibleNewDrawer, onCloseNewDrawer, showEditDrawer } = this.props;
+        const { datesPrograming, cancelProgramming, visibleNewDrawer, onCloseNewDrawer, showEditDrawer,showVisualizar } = this.props;
         const columns = [{
             title: formatMessage({id: "general.calendar.week"}),
             dataIndex: 'Week',
@@ -57,7 +57,7 @@ class TableGeneralProgramming extends PureComponent{
             title: <FormattedMessage id="general.table.actions-mobil"/>,
             key: 'action',
             fixed: 'right',
-            width: isMobile ? 120 : 350,
+            width: isMobile ? 120 : 250,
             render: (record) => (
                 <span>
                     <a onClick={() => {showEditDrawer(record.Sk)}}>
@@ -75,14 +75,7 @@ class TableGeneralProgramming extends PureComponent{
                         }
                     </a >
                     <Divider type="vertical" />
-                    <a>
-                        {isMobile
-                            ? <Icon type="arrows-alt"/>
-                            : <span><Icon type="arrows-alt" />Pendiente</span>
-                        }
-                    </a>
-                    <Divider type="vertical" />
-                    <a>
+                    <a onClick={() => {showVisualizar(record.Sk)}}>
                         {isMobile
                             ? <Icon type="eye"/>
                             : <span><Icon type="eye"/>Visualizar</span>
