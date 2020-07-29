@@ -6,6 +6,12 @@ import TableComponent from '../generalComponents/TableComponent';
 import { isMobile } from 'react-device-detect';
 import NewLine from './NewLine';
 import { _ } from 'lodash';
+import moment from 'moment';
+function disabledDate(current) {
+    // Can not select days before today and today
+    return current && current < moment().endOf('day');
+  }
+
 
 
 const { TextArea } = Input;
@@ -63,13 +69,13 @@ class DrawerShippingPrograming extends PureComponent {
             }
             var date = new Date();
             values["createdBy"] = localStorage.getItem('userName');
-            values["date"] = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+            values["date"] = moment().format("YYYY-MM-DD");
             values["deliveryDate"] = this.state.deliveryDate;
             values["departureDate"] = this.state.departureDate;
             values["entryDate"] = this.state.entryDate;
             values["dateNew"] = this.state.datesGeneralNewLine.dateCreated;
             values["createdByNew"] = this.state.datesGeneralNewLine.createdByNew;
-            values["destinity"] = "Central de abastos"
+            values["destination"] = "Central de abastos"
             values["products"] = this.props.products;
             values["warehouses"] = this.props.warehouseIds;
             values["comment"] = values.comment;
@@ -121,7 +127,7 @@ class DrawerShippingPrograming extends PureComponent {
             wrapperCol: { xs: { span: 24 }, sm: { span: 12 }, md: { span: 14 }, lg: { span: 14 }, xl: { span: 14 } }
         };
         const { getFieldDecorator } = this.props.form;
-        const { oShippingItem, warehouse } = this.props;
+        const { oShippingItem, warehouse, productsAll } = this.props;
 
 
 
@@ -160,6 +166,7 @@ class DrawerShippingPrograming extends PureComponent {
                     warehouses={this.props.warehouses}
                     warehouseIds={this.props.warehouseIds}
                     locationTreeData = {this.props.locationTreeData}
+                    productsAll={productsAll}
                 />
                 <Drawer
                     title={formatMessage({ id: 'shipping.drawershipping.label.title' })}
@@ -179,21 +186,21 @@ class DrawerShippingPrograming extends PureComponent {
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-exit' })}>
                                         {getFieldDecorator('departureDate',
                                             { initialValue: oShippingItem.departureDate, rules: [{ required: true, message: "Fecha no seleccionada" }] })
-                                            (<DatePicker style={{ width: '100%' }} onChange={this.onDepartureDate} />)}
+                                            (<DatePicker style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onDepartureDate} />)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-arrival' })}>
                                         {getFieldDecorator('deliveryDate',
                                             { initialValue: oShippingItem.deliveryDate, rules: [{ required: true, message: "Fecha no seleccionada" }] })
-                                            (<DatePicker style={{ width: '100%' }} onChange={this.onDeliveryDate} />)}
+                                            (<DatePicker style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onDeliveryDate} />)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-entry' })}>
                                         {getFieldDecorator('entryDate',
                                             { initialValue: oShippingItem.entryDate, rules: [{ required: true, message: "Fecha no seleccionada" }] })
-                                            (<DatePicker style={{ width: '100%' }} onChange={this.onEntryDate} />)}
+                                            (<DatePicker style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onEntryDate} />)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>

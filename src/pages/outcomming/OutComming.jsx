@@ -4,7 +4,7 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import moment from 'moment';
 
-import { Card, Form, Row, Col, DatePicker, Menu, Dropdown, Button, message, Tooltip, Divider,  Spin } from 'antd';
+import { Card, Form, Row, Col, DatePicker, Menu, Dropdown, Button, notification, Tooltip, Divider,  Spin } from 'antd';
 import TableOutComming from './TableOutComming';
 import { connect } from 'dva';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
@@ -143,12 +143,29 @@ export default class OutComming extends PureComponent {
 
     };
 
-    onConfirm = (id) => {
+    onConfirm = (record) => {
+
+        if(record.key!==""){
+            this.props.dispatch({
+                type: 'outcomming/confirmOutcomming',
+                payload: {
+                    Product: this.state.product,
+                    Customer: this.state.customer, 
+                    DateFrom: this.state.dateFrom, 
+                    DateTo: this.state.dateTo,
+                    SK: record.key, 
+                    operation: "UPDATE_STATUS", 
+                    status: "CONFIRMED"}
+            })
+        }
+        else{
+            notification["info"]({
+                message: "This option is not available",
+                description: "Validation",
+            });
+        }
          
-        this.props.dispatch({
-            type: 'outcomming/confirmOutcomming',
-            payload: {SK: id, operation: "UPDATE_STATUS", status: "CONFIRMED"}
-        })
+        
 
     };
 
@@ -194,7 +211,11 @@ export default class OutComming extends PureComponent {
 
     };
 
-    postOutcomming = (payload) => {
+    postOutcomming = (payload, context) => {
+        payload.DateFrom = context.state.dateFrom;
+        payload.DateTo = context.state.dateTo;
+        payload.Product = payload.skProduct;
+        payload.Customer = payload.skCustomer;
         this.props.dispatch({  
             type: 'outcomming/postOutcomming',  
             payload: {payload}
@@ -207,8 +228,8 @@ export default class OutComming extends PureComponent {
         let {compositionData, datesOutcomming} = this.props.outcomming;
         console.log(shippingsByEntry);
         const formItemLayout = {
-            labelCol: {xs: { span: 24 },sm: { span: 7 },md: { span: 9 },lg: { span: 9 },xl: { span: 5 }},
-            wrapperCol: {xs: { span: 24 },sm: { span: 14 },md: { span: 15 },lg: { span: 15 },xl: { span: 15 }}
+            labelCol: {xs: { span: 24 },sm: { span: 6 },md: { span: 6  },lg: { span: 6 },xl: { span: 6 }},
+            wrapperCol: {xs: { span: 24 },sm: { span: 18 },md: { span: 18 },lg: { span: 18 },xl: { span: 18 }}
         };
 
         
@@ -231,52 +252,56 @@ export default class OutComming extends PureComponent {
         return (
             <PageHeaderWrapper>
                     <Card>
-                        <Form {...formItemLayout}>
-                        <Row>
-                            <Col xs={0} sm={1} md={1} lg={1} xl={1}></Col>
-                            <Col xs={24} sm={18} md={18} lg={18} xl={18}>
-                                <Form.Item label={formatMessage({id: "general.calendar.week"})}>
-                                    <DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} disabledDate={disabledDate} onChange={(date,dateString)=>{this.onChangeWeek(date,dateString,this)}}/>
-                                </Form.Item>
-                            </Col>
-                            <Col xs={0} sm={5} md={5} lg={5} xl={5}></Col>
-                        </Row>
-
-
-                            <Row type="flex" justify="center">
-                               <Col xs={24} sm={23} md={2} lg={2} xl={2}  >
-                                    <Form.Item>
-                                        <Dropdown onChange={this.onChangeProd} overlay={menuProduct}>
+                        <Form layout="inline">
+                       
+                            
+                        <Row style={{padding:"1rem"}} type="flex" justify="center">
+                                <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                                    <Form.Item label={formatMessage({id: "general.calendar.week"})}>
+                                        <DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} disabledDate={disabledDate} onChange={(date,dateString)=>{this.onChangeWeek(date,dateString,this)}}/>
+                                    </Form.Item>
+                                </Col>
+                                <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                                <Form.Item >
+                                        <Dropdown  onChange={this.onChangeProd} overlay={menuProduct}>
                                             <Button>
                                                 {this.state.productDesc} <DownOutlined />
                                             </Button>
                                         </Dropdown>
                                     </Form.Item>
                                 </Col>
-                               <Col xs={24} sm={23} md={1} lg={1} xl={1}  >
-                               </Col>
-                                <Col  xs={24} sm={23} md={2} lg={2} xl={2} >
-                                    <Form.Item>
-                                            <Form.Item>
-                                                <Dropdown overlay={menuClient}>
-                                                    <Button>
-                                                    {this.state.customerDesc} <DownOutlined />
-                                                    </Button>
-                                                </Dropdown>
-                                            
-                                
-                                            </Form.Item>
-                                    </Form.Item>  
+                                <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                                <Form.Item >
+                                        <Form.Item>
+                                            <Dropdown overlay={menuClient}>
+                                                <Button>
+                                                {this.state.customerDesc} <DownOutlined />
+                                                </Button>
+                                            </Dropdown>
+                                        
+                            
+                                        </Form.Item>
+                                </Form.Item>
                                 </Col>
-                            </Row>
+                        </Row>
+                                
+                            
+                            
+                                
+                          
+                            
+                                  
+                            
+                        
 
+                                </Form>
                             
                             <Row type="flex" justify="center">
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                                    <TableOutComming postOutcomming= {this.postOutcomming} datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
+                                    <TableOutComming postOutcomming= {(payload)=>{this.postOutcomming(payload,this)}} datesProductAll = {datesProductAll} datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
                                 </Col>
                             </Row>
-                        </Form>
+                        
                     </Card>
             </PageHeaderWrapper>
         );            

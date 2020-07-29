@@ -23,13 +23,14 @@ class GeneralProgramming extends PureComponent {
     state = { 
         visibleNewDrawer: false,
         edit: false,
+        visualizar: false,
         rangePicker: false,
         rangeEdit: false,
         pk: "",
         showEdit: true,
         showNew: true,
         editSumPallet: false,
-        editSumBoxes: false
+        editSumBoxes: false,
     }
     componentDidMount() {
         this.props.dispatch({
@@ -54,6 +55,23 @@ class GeneralProgramming extends PureComponent {
             visibleNewDrawer: true
         });
     };
+    showVisualizar = (skVizualizar) => {
+        this.showNewDrawer();
+        this.setState({
+            visualizar: true,
+            edit: true,
+            pk: skVizualizar
+        })
+        this.props.dispatch({
+            type: 'programming/getProgramming',
+            payload: {
+                payload: {
+                    Authorization: sessionStorage.getItem('idToken'),
+                    idProgramming: skVizualizar
+                }
+             },
+        });
+    };
     onCloseNewDrawer = () => {
         const form = this.formRefNewLine.props.form;
         form.resetFields();
@@ -70,7 +88,8 @@ class GeneralProgramming extends PureComponent {
         this.showNewDrawer();
         this.setState({
             edit: true,
-            pk: skEdit
+            pk: skEdit,
+            visualizar: false
         })
         this.props.dispatch({
             type: 'programming/getProgramming',
@@ -109,6 +128,8 @@ class GeneralProgramming extends PureComponent {
     handleSubmit = (data, weekUntil) => {
         const form = this.formRefNewLine.props.form;
         var allProgramming = this.props.datesPrograming;
+        var allProduct = this.props.datesProductAll;
+        var allCustomer = this.props.datesCustomerAll;
         var getProgramming = this.props.datesGetProgramming;
         if(this.state.edit == true){
             form.validateFields((err, values) => {
@@ -137,31 +158,31 @@ class GeneralProgramming extends PureComponent {
                     idPkOri: this.state.pk,
                     dates: [
                         {
-                            caja: values.boxOneEdit,
+                            box: values.boxOneEdit,
                             pallet: values.palletOneEdit
                         },
                         {
-                            caja: values.boxTwoEdit,
+                            box: values.boxTwoEdit,
                             pallet: values.palleTwoEdit
                         },
                         {
-                            caja: values.boxThreeEdit,
+                            box: values.boxThreeEdit,
                             pallet: values.palleThreeEdit
                         },
                         {
-                            caja: values.boxFourEdit,
+                            box: values.boxFourEdit,
                             pallet: values.palleFourEdit
                         },
                         {
-                            caja: values.boxFiveEdit,
+                            box: values.boxFiveEdit,
                             pallet: values.palleFiveEdit
                         },
                         {
-                            caja: values.boxSixEdit,
+                            box: values.boxSixEdit,
                             pallet: values.palleSixEdit
                         },
                         {
-                            caja: values.boxSevenEdit,
+                            box: values.boxSevenEdit,
                             pallet: values.palleSevenEdit
                         }
                     ]
@@ -228,38 +249,55 @@ class GeneralProgramming extends PureComponent {
                     idPk: moment(values.weekNew).format("DDMMYY") + moment(weekUntil).format("DDMMYY"),
                     dates: [
                         {
-                            caja: values.boxOneNew,
+                            box: values.boxOneNew,
                             pallet: values.palletOneNew
                         },
                         {
-                            caja: values.boxTwoNew,
+                            box: values.boxTwoNew,
                             pallet: values.palletTwoNew
                         },
                         {
-                            caja: values.boxThreeNew,
+                            box: values.boxThreeNew,
                             pallet: values.palletThreeNew
                         },
                         {
-                            caja: values.boxFourNew,
+                            box: values.boxFourNew,
                             pallet: values.palletFourNew
                         },
                         {
-                            caja: values.boxFiveNew,
+                            box: values.boxFiveNew,
                             pallet: values.palletFiveNew
                         },
                         {
-                            caja: values.boxSixNew,
+                            box: values.boxSixNew,
                             pallet: values.palletSixNew
                         },
                         {
-                            caja: values.boxSevenNew,
+                            box: values.boxSevenNew,
                             pallet: values.palletSevenNew
                         }
                     ]
                 };
+                let week = [];
                 let pkPayload = "PR-" + payload.idPk;
                 for(var i = 0; i < allProgramming.length; i++){
-                    if(allProgramming[i].Sk == pkPayload){
+                    let weekData = allProgramming[i].Sk.substr(0, 15);
+                    let client = allProgramming[i].Client;
+                    let product = allProgramming[i].Product;
+                    week.push({
+                        week: weekData,
+                        client: client,
+                        product: product
+                    });
+                }
+                let productSelect = allProduct.filter(function(dates){
+                    return dates["WMS-1-SK"] === values.productNew;
+                })
+                let customerSelect = allCustomer.filter(function(dates){
+                    return dates["WMS-1-SK"] === values.customerNew;
+                })
+                for(var j = 0; j < week.length; j++){
+                    if(week[j].week == pkPayload && week[j].client == customerSelect[0].clientName && week[j].product == productSelect[0].productName){
                         this.openNotificationWithIcon('warning');
                         return;
                     }
@@ -387,6 +425,7 @@ class GeneralProgramming extends PureComponent {
                    showeditSumPallet = {this.showeditSumPallet}
                    editSumBoxes = {this.state.editSumBoxes}
                    showeditSumBoxes = {this.showeditSumBoxes}
+                   visualizar={this.state.visualizar}
                 />
                 <PageHeaderWrapper>
                     <Card>
@@ -395,7 +434,7 @@ class GeneralProgramming extends PureComponent {
                                 <Button type="primary" shape="circle" size="large" onClick={this.showNewDrawer}>
                                     <Icon type="plus"/>
                                 </Button>
-                                <TableProgramming datesPrograming={datesPrograming} cancelProgramming={this.cancelProgramming} showEditDrawer={this.showEditDrawer}/>
+                                <TableProgramming datesPrograming={datesPrograming} cancelProgramming={this.cancelProgramming} showEditDrawer={this.showEditDrawer} showVisualizar={this.showVisualizar}/>
                             </div>
                         </Spin>
                     </Card>
