@@ -7,6 +7,11 @@ import { isMobile } from 'react-device-detect';
 import NewLine from './NewLine';
 import { _ } from 'lodash';
 import moment from 'moment';
+function disabledDate(current) {
+    // Can not select days before today and today
+    return current && current < moment().endOf('day');
+  }
+
 
 
 const { TextArea } = Input;
@@ -173,21 +178,21 @@ class DrawerShippingPrograming extends PureComponent {
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-exit' })}>
                                         {getFieldDecorator('departureDate',
                                             { initialValue: oShippingItem.departureDate, rules: [{ required: true, message: "Fecha no seleccionada" }] })
-                                            (<DatePicker style={{ width: '100%' }} onChange={this.onDepartureDate} />)}
+                                            (<DatePicker style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onDepartureDate} />)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-arrival' })}>
                                         {getFieldDecorator('deliveryDate',
                                             { initialValue: oShippingItem.deliveryDate, rules: [{ required: true, message: "Fecha no seleccionada" }] })
-                                            (<DatePicker style={{ width: '100%' }} onChange={this.onDeliveryDate} />)}
+                                            (<DatePicker style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onDeliveryDate} />)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-entry' })}>
                                         {getFieldDecorator('entryDate',
                                             { initialValue: oShippingItem.entryDate, rules: [{ required: true, message: "Fecha no seleccionada" }] })
-                                            (<DatePicker style={{ width: '100%' }} onChange={this.onEntryDate} />)}
+                                            (<DatePicker style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onEntryDate} />)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
