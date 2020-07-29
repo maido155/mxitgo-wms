@@ -114,7 +114,7 @@ export default {
                 let nameDate = moment(dateConvert).format('dddd DD MMMM')
                 dates.push({
                     date: nameDate,
-                    caja: action.payload[0].date[i].caja,
+                    box: action.payload[0].date[i].box,
                     pallet: action.payload[0].date[i].pallet,
                 })
             }
@@ -124,7 +124,7 @@ export default {
             var sumBoxes = 0;
             for (var k = 0; k < action.payload[0].date.length; k++) {
                 pallet.push(action.payload[0].date[k].pallet);
-                boxes.push(action.payload[0].date[k].caja);
+                boxes.push(action.payload[0].date[k].box);
             }
             pallet.forEach(function(numero) {
                 sumPallet += numero;

@@ -31,7 +31,8 @@ class TableShippingMaster extends PureComponent {
     });
   };
 
-  showEntry = () => {
+  showEntry = (data, date) => {
+    console.log(data, date);
     this.setState({
       visibleEntry: true
     });
@@ -190,7 +191,7 @@ class TableShippingMaster extends PureComponent {
             <Divider type="vertical" />
             <ModalDeleteComponent />
             <Divider type="vertical" />
-            <a onClick={this.showEntry}>
+            <a onClick={() => {this.showEntry(record["WMS-1-PK"], record.status)}}>
               {isMobile
                 ? <Icon type="form" />
                 : <span><Icon type="form" /><FormattedMessage id="shipping.label.table-shipping.entry" /></span>
@@ -227,7 +228,7 @@ class TableShippingMaster extends PureComponent {
         //   departureDate: "2020-06-17", // OK
         //   deliveryDate: "2020-06-18", // OK
         //   entryDate: "2020-06-15", // OK
-        //   destinity: "Central de abastos",
+        //   destination: "Central de abastos",
         //   products: [ /// Needs processing
         //   [{ "product": "premium", "amount": 200 },
         //   { "product": "gold", "amount": 100 },
