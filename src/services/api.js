@@ -474,3 +474,11 @@ export async function fetchShippingAll({ payload }) {
         headers: { 'Authorization': payload.Authorization },
     });
 }
+
+export async function restartOutcomming(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/outcomming/shipping/restart`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'Authorization': payload.Authorization },
+        body: JSON.stringify(payload)
+    });
+}

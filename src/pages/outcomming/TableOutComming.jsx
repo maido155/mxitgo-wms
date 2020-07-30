@@ -96,6 +96,7 @@ export default class TableOutComming extends PureComponent {
                             currentOutcomming={this.state.currentRecord}
                             closeOne={this.onCloseDrawerAssig}
                             postOutcomming= {this.props.postOutcomming}
+                            restartOutcomming= {this.props.restartOutcomming}
                         />
                         <CompositionOutComming
                             loading = {this.props.loading}

@@ -237,6 +237,14 @@ export default class OutComming extends PureComponent {
             }
         }); 
     }
+
+    restartOutcomming = (payload) => {
+
+        this.props.dispatch({  
+            type: 'outcomming/restartOutcomming',  
+            payload: { payload }
+        }); 
+    }
     render() {
         console.log('Context--->', this);  
         console.log(this.props);
@@ -314,7 +322,7 @@ export default class OutComming extends PureComponent {
                             
                             <Row type="flex" justify="center">
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                                    <TableOutComming postOutcomming= {(payload)=>{this.postOutcomming(payload,this)}} datesProductAll = {datesProductAll} datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
+                                    <TableOutComming restartOutcomming= {this.restartOutcomming} postOutcomming= {(payload)=>{this.postOutcomming(payload,this)}} datesProductAll = {datesProductAll} datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
                                 </Col>
                             </Row>
                         
