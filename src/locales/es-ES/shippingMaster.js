@@ -28,7 +28,8 @@ export default {
     'shipping.tablecomponent.label.actions': 'Acciones',
     'shipping.newline.label.title': 'Nueva Línea',
     'shipping.treeselect.label.select': 'Selecciona',
-    'shipping.button.program': 'Programar',
+    'shipping.button.program': 'Planear',
+    'shipping.button.add': 'Agregar',
     'shipping.button.conf': 'Confirmar',
     'shipping.button.cancel': 'Cancelar',
     'shipping.shippingconfirmation.title': 'Confirmacion de envíos',
@@ -37,14 +38,15 @@ export default {
     'shipping.shippingconfirmation.phone': 'Telefono',
     'menu.Maestro de envíos': 'Maestro de envíos',
     'shipping.label.table-shipping.id': 'Id',
-    'shipping.label.table-shipping.ubication':'Ubicacion',
-    'shipping.label.table-shipping.output':'Salida',
-    'shipping.shippingconfirmation.title': 'Nueva entrada',
+    'shipping.label.table-shipping.ubication': 'Ubicacion',
+    'shipping.label.table-shipping.output': 'Salida',
+    'shipping.shippingNew.title': 'Nueva entrada',
     'shipping.shippingconfirmation.comments': 'Comentarios',
-    'shipping.shippingconfirmation.photo':'Foto',
+    'shipping.shippingconfirmation.photo': 'Foto',
     'shipping.entryProducts.amounts': 'Cantidades',
-    'shipping.entryProducts.temperature':'Temperatura',
-    'shipping.entryProducts.photo':'Foto',
-    'shipping.entryProducts.title':'Detalle del producto'
+    'shipping.entryProducts.temperature': 'Temperatura',
+    'shipping.entryProducts.photo': 'Foto',
+    'shipping.entryProducts.title': 'Detalle del producto',
+    'shipping.shippingEntry.title': 'Entrada'
 
 };

@@ -30,5 +30,6 @@ export default {
     'general.modal-cancell-yes': 'Si',
     'general.modal-cancell-no': 'No',
     'general.modal-verify-programming-message': 'Programación existente',
-    'general.modal-verify-programming-description': 'Hemos encontrado una programación con la misma fecha. Por favor intente de nuevo'
+    'general.modal-verify-programming-description': 'Hemos encontrado una programación con la misma fecha. Por favor intente de nuevo',
+    'general.modal-visualize': 'Visualizar'
 }

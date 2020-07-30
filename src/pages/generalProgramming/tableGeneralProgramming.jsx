@@ -63,14 +63,14 @@ class TableGeneralProgramming extends PureComponent{
                     <a onClick={() => {showEditDrawer(record.Sk)}}>
                         {isMobile
                             ? <Icon type="edit"/>
-                            : <span><Icon type="edit"/><FormattedMessage id="general.table.edit"/></span>
+                            : <span><Icon type="edit"/> <FormattedMessage id="general.table.edit"/></span>
                         }
                     </a >
                     <Divider type="vertical" />
                     <a onClick={()=>{cancelProgramming(record.Sk)}}>
                         {isMobile
                             ? <Icon type="delete"/>
-                            : <span><Icon type="delete"/><FormattedMessage id="general.table.delete"/></span>
+                            : <span><Icon type="delete"/> <FormattedMessage id="general.table.delete"/></span>
 
                         }
                     </a >
@@ -78,7 +78,7 @@ class TableGeneralProgramming extends PureComponent{
                     <a onClick={() => {showVisualizar(record.Sk)}}>
                         {isMobile
                             ? <Icon type="eye"/>
-                            : <span><Icon type="eye"/>Visualizar</span>
+                            : <span><Icon type="eye"/> <FormattedMessage id="general.modal-visualize"/></span>
                         }
                     </a>
                 </span>
