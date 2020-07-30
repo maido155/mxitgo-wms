@@ -4,6 +4,14 @@ import { PageLoading } from '@ant-design/pro-layout';
 import { Redirect } from 'umi';
 import { stringify } from 'querystring';
 
+/******/
+import Amplify from 'aws-amplify'
+import config from './../aws-config/cognito-config'
+// import config from './../aws-exports'
+Amplify.configure(config);
+import { Auth } from 'aws-amplify';
+/******/
+
 class SecurityLayout extends React.Component {
   state = {
     isReady: false,

@@ -262,7 +262,7 @@ const NewLine = Form.create()(
                                     <FormattedMessage id="shipping.button.cancel" />
                                 </Button>
                                 <Button type="primary" onClick={this.handleSubmitLine}>
-                                    <FormattedMessage id="shipping.button.program" />
+                                    <FormattedMessage id="shipping.button.add" />
                                 </Button>
                             </div>
                         </Form>
