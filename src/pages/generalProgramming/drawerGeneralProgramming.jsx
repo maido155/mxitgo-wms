@@ -720,8 +720,8 @@ const DrawerGeneralProgramming  = Form.create()(
         }
         render(){
             const formItemLayout = {
-                labelCol: {xs:{ span: 12}, sm:{ span: 10 }, md:{ span: 10 }, lg:{ span: 10 }, xl: { span: 10 }},
-                wrapperCol: {xs:{ span: 12}, sm:{ span: 14 }, md:{ span: 14 }, lg:{ span: 14 }, xl : { span: 14 }},
+                labelCol: {xs:{ span: 12}, sm:{ span: 12 }, md:{ span: 12 }, lg:{ span: 12 }, xl: { span: 11 }},
+                wrapperCol: {xs:{ span: 12}, sm:{ span: 12 }, md:{ span: 12 }, lg:{ span: 12 }, xl : { span: 13 }},
             };
             const tailFormItemLayout = { 
                 wrapperCol: {xs: {span: 0,offset: 0,}, sm: {span: 13,offset: 11,}, md: {span: 13,offset: 11,}, lg: {span: 13,offset: 11,}, xl: {span: 13,offset: 11,}},
@@ -731,7 +731,7 @@ const DrawerGeneralProgramming  = Form.create()(
             const { dateRanger, multiBoxes, sumPallets, sumBoxes, weekNewUntil, dateIso } = this.state;
             return(
                 <Drawer
-                    title={edit == false ? <FormattedMessage id="general.modal-title.title"/> : <FormattedMessage id="general.modal-title.Edit"/>}
+                    title={edit == false ? <FormattedMessage id="general.modal-title.title"/> : visualizar == true ? <FormattedMessage id="general.modal-visualize"/> : <FormattedMessage id="general.modal-title.Edit"/>} 
                     width={isMobile ? "100%" : 550}
                     closable={true}
                     onClose={this.props.onCloseNewDrawer}

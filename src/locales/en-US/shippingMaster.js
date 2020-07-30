@@ -28,7 +28,8 @@ export default {
     'shipping.tablecomponent.label.actions': 'Actions',
     'shipping.newline.label.title': 'New line',
     'shipping.treeselect.label.select': 'Select',
-    'shipping.button.program': 'Program',
+    'shipping.button.program': 'Plan',
+    'shipping.button.add': 'Add',
     'shipping.button.conf': 'Confirm',
     'shipping.button.cancel': 'Cancel',
     'shipping.shippingconfirmation.title': 'Shipping confirm',
@@ -37,15 +38,15 @@ export default {
     'shipping.shippingconfirmation.phone': 'Phone',
     'menu.Maestro de envíos': 'Shipping master',
     'shipping.label.table-shipping.id': 'Id',
-    'shipping.label.table-shipping.ubication':'Ubicaction',
-    'shipping.label.table-shipping.output':'output',
-    'shipping.shippingconfirmation.title': 'New entry',
+    'shipping.label.table-shipping.ubication': 'Ubicaction',
+    'shipping.label.table-shipping.output': 'output',
     'shipping.shippingconfirmation.comments': 'Comments',
-    'shipping.shippingconfirmation.photo':'Photo',
+    'shipping.shippingconfirmation.photo': 'Photo',
     'shipping.entryProducts.amounts': 'Amounts',
-    'shipping.entryProducts.temperature':'Temperature',
-    'shipping.entryProducts.photo':'Photo',
-    'shipping.entryProducts.title':'Product detail'
+    'shipping.entryProducts.temperature': 'Temperature',
+    'shipping.entryProducts.photo': 'Photo',
+    'shipping.entryProducts.title': 'Product detail',
+    'shipping.shippingEntry.title': 'Entry'
 
 
 };

@@ -178,14 +178,14 @@ class TableShippingMaster extends PureComponent {
             <a onClick={() => { this.props.showShippingProgramingEdit(record) }}>
               {isMobile
                 ? <Icon type="edit" />
-                : <span><Icon type="edit" /><FormattedMessage id="shipping.label.table-shipping.edit" /></span>
+                : <span><Icon type="edit" /> <FormattedMessage id="shipping.label.table-shipping.edit" /></span>
               }
             </a>
             <Divider type="vertical" />
             <a onClick={this.showConfirmationShipping}>
               {isMobile
                 ? <Icon type="check" />
-                : <span><Icon type="check" /><FormattedMessage id="shipping.label.table-shipping.confirm" /></span>
+                : <span><Icon type="check" /> <FormattedMessage id="shipping.label.table-shipping.confirm" /></span>
               }
             </a>
             <Divider type="vertical" />
@@ -194,7 +194,7 @@ class TableShippingMaster extends PureComponent {
             <a onClick={() => {this.showEntry(record["WMS-1-PK"], record.status)}}>
               {isMobile
                 ? <Icon type="form" />
-                : <span><Icon type="form" /><FormattedMessage id="shipping.label.table-shipping.entry" /></span>
+                : <span><Icon type="form" /> <FormattedMessage id="shipping.label.table-shipping.entry" /></span>
               }
             </a>
           </span>

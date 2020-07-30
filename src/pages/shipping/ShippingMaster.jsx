@@ -65,15 +65,15 @@ class ShippingMaster extends PureComponent {
             },
         }); 
 
-       /* this.props.dispatch({
-            type: 'shipping/getShippingAll',
-            payload: {
-                payload: {
-                 Authorization: sessionStorage.getItem('idToken'),
-                 initialDate: "2020-07-29"
-                }
-            },
-        });
+    //    this.props.dispatch({
+    //         type: 'shipping/getShippingAll',
+    //         payload: {
+    //             payload: {
+    //              Authorization: sessionStorage.getItem('idToken'),
+    //              initialDate: "2020-07-29"
+    //             }
+    //         },
+    //     });
 
         this.props.dispatch({
             type: 'shipping/getProducts',
@@ -82,7 +82,7 @@ class ShippingMaster extends PureComponent {
                  Authorization: sessionStorage.getItem('idToken')
                 }
             },
-        });*/
+        });
 
 
     }
@@ -193,6 +193,7 @@ class ShippingMaster extends PureComponent {
         });
     };
     showNewLine = (sLineStatus, record) => {
+        // this.setState({ visibleNewLine: true });
         this.setState({ visibleNewLine: true, lineData: record, lineMode: sLineStatus });
     };
     onCloseNewLine = () => {

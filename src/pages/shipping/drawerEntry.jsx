@@ -62,7 +62,7 @@ class drawerEntry extends PureComponent {
       return (
         <div>
             <Drawer
-                title={formatMessage({ id: 'shipping.shippingconfirmation.title' })}
+                title={formatMessage({ id: 'shipping.shippingEntry.title' })}
                 width={isMobile ? "100%" : "70%"}
                 onClose={this.props.handleCancelEntry}
                 visible={this.props.visibleEntry}
