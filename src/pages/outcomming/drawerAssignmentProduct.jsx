@@ -12,6 +12,7 @@ export default class DrawerAssignmentProduct extends PureComponent {
         pallets: 0,
         box: 0,
         isFirstTime: true,
+        // newBoxValue: 0,
         currentValuePallet: 0,
         currentValueBox: 0
     }
@@ -19,46 +20,72 @@ export default class DrawerAssignmentProduct extends PureComponent {
     componentDidMount() {}
 
     onChangeQuantityPallet = (e) => {
-        var quantityBoxes = this.handleChangePallet();
-        console.log("Boxes ----> ", quantityBoxes);
+        let quantityBoxes = this.handleChangePallet();
         this.props.datesProductAll;
+
+        
         let remaingQtyPallet = this.state.originalPallets;
-        if (e.target.value === "") remaingQtyPallet;
-            else remaingQtyPallet = remaingQtyPallet - parseInt(e.target.value);
+        // var newBoxValue = remaingQtyPallet * quantityBoxes;
+
+        var remaingQtyBox = this.state.originalBox;
+
+        var currentValuePallet = parseInt(e.target.value);
+
+        if (e.target.value === "") {
+            remaingQtyPallet;
+            currentValuePallet = 0;
+        } else {
+            remaingQtyPallet = remaingQtyPallet - currentValuePallet;
+            
+            // Box - Updated Value
+            remaingQtyBox = remaingQtyBox - (quantityBoxes * currentValuePallet);
+
+            // newBoxValue = quantityBoxes * currentValuePallet;
+
+        }
+
         this.setState({
             pallets: remaingQtyPallet,
-            currentValuePallet: parseInt(e.target.value)
+            currentValueBox: quantityBoxes * currentValuePallet,
+            box: remaingQtyBox,
+            currentValuePallet: currentValuePallet
         });
     }
     
     onChangeQuantityBox = (e) => {
-        let remaingQtyBox = this.state.originalBox;
-        if (e.target.value === "") remaingQtyBox;
-            else remaingQtyBox = remaingQtyBox - parseInt(e.target.value);
+        var remaingQtyBox = this.state.originalBox;
+        let quantityBoxes = this.handleChangePallet();
+        var currentValuePallet = this.state.originalPallets;
+
+        var a = currentValuePallet;
+
+        var currentValueBox = parseInt(e.target.value);
+
+        if (e.target.value === "") { 
+            remaingQtyBox;
+            currentValueBox = 0;
+            a = 0;
+        } else {
+            currentValuePallet = (remaingQtyBox / quantityBoxes) - currentValueBox;
+            a = (remaingQtyBox / quantityBoxes) - currentValueBox;
+            // remaingQtyBox = remaingQtyBox - (quantityBoxes * currentValuePallet);
+             remaingQtyBox = remaingQtyBox - parseInt(e.target.value);
+        }
+        
         this.setState({
             box: remaingQtyBox,
-            currentValueBox: parseInt(e.target.value)
+            currentValueBox: currentValueBox,
+            pallets: currentValuePallet,
+            currentValuePallet: currentValuePallet
         });
     };
 
     handleChangePallet = () => {
-        // this.validationProduct();
-
         let currentProduct = this.props.currentOutcomming.product;
-
-        var quantityBoxes = this.props.datesProductAll.filter((el) => el.productName = currentProduct);
-        return quantityBoxes;
-        // var palletvsBoxes = this.props.datesProductAll;
-        // const form = this.props.form;
-        // let data = form.getFieldsValue();
-        // var productName = data.productNew;
-        // var quantityBoxes = 0;
-        // var sumBoxes = 0;
-        // for(var i = 0; i < palletvsBoxes.length; i++){
-        //     if(palletvsBoxes[i]["WMS-1-SK"] == productName){
-        //         quantityBoxes = palletvsBoxes[i].quantityBoxes;
-        //     }
-        // }
+        var filteredItem = this.props.datesProductAll.filter((el) => { 
+            if (el.productName === currentProduct) return el;
+        });
+        return filteredItem[0].quantityBoxes;
     }
 
     onAccept = (_this) => {
@@ -125,10 +152,10 @@ export default class DrawerAssignmentProduct extends PureComponent {
                         <Text>{this.state.box}</Text> 
                     </Form.Item>
                     <Form.Item label={'Pallets'}>
-                        <Input onChange={(e) => {this.onChangeQuantityPallet(e, this)}}/>
+                        <Input value={this.state.currentValuePallet} onChange={(e) => {this.onChangeQuantityPallet(e, this)}}/>
                     </Form.Item>
                     <Form.Item label={'Cajas'}>
-                        <Input onChange={(e) => {this.onChangeQuantityBox(e, this)}}/>
+                        <Input value={this.state.currentValueBox} onChange={(e) => {this.onChangeQuantityBox(e, this)}}/>
                     </Form.Item>
                     <div
                         style={{

@@ -6,7 +6,7 @@ export default {
     'general.modal-title.Edit': 'Editar programación',
     'general.modal-title.absolute': 'Total:',
     'general.modal.clear': 'Limpiar',
-    'general.modal.accept': 'Aceptar',
+    'general.modal.accept': 'Guardar',
     'general.modal-label.boxes': 'Cajas',
     'general.modal-label.pallets': 'Pallets',
     'general.table.week': 'Semana',

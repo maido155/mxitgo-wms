@@ -99,11 +99,11 @@ export default {
             });
         },
         * getDay({ payload }, { call, put }) {
-            
+
             var response = yield call(getDay, payload);
 
             console.log("Day:" + JSON.stringify(payload));
-            
+
             response.dayName = payload.dayName;
 
             console.log(response);
@@ -126,7 +126,7 @@ export default {
 
             if (action.payload.Items && action.payload.Items.length > 0) {
 
-                action.payload.Items[0].dates.forEach((oItem) => { productTotal += oItem.caja; })
+                action.payload.Items[0].dates.forEach((oItem) => { productTotal += oItem.box; })
 
             }
 
