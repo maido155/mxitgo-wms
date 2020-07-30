@@ -9,7 +9,8 @@ import ModalNewPassword from '../login/components/Login/ModalNewPassword';
 import styles from './style.less';
 /******/
 import Amplify from 'aws-amplify'
-import config from './../../../aws-exports'
+import config from './../../../aws-config/cognito-config'
+// import config from './../../../aws-exports'
 Amplify.configure(config);
 import { Auth } from 'aws-amplify'
 import {

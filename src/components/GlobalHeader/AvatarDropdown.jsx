@@ -7,7 +7,8 @@ import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
 /******/
 import Amplify from 'aws-amplify'
-import config from './../../aws-exports'
+import config from './../../aws-config/cognito-config'
+// import config from './../../aws-exports'
 Amplify.configure(config);
 import { Auth } from 'aws-amplify'
 /******/

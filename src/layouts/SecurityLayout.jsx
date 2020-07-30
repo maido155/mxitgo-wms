@@ -6,7 +6,8 @@ import { stringify } from 'querystring';
 
 /******/
 import Amplify from 'aws-amplify'
-import config from './../aws-exports'
+import config from './../aws-config/cognito-config'
+// import config from './../aws-exports'
 Amplify.configure(config);
 import { Auth } from 'aws-amplify';
 /******/

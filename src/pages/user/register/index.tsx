@@ -6,7 +6,8 @@ import Link from 'umi/link';
 import router from 'umi/router';
 /******/
 import Amplify from 'aws-amplify'
-import config from './../../../aws-exports'
+import config from './../../../aws-config/cognito-config'
+// import config from './../../../aws-exports'
 Amplify.configure(config);
 import { Auth } from 'aws-amplify'
 import {
