@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
-import { Input, Popover, Form, Progress, Icon, Button, Result, Select} from 'antd';
+import { Input, Popover, Form, Progress, Icon, Button, Result, Select, Divider} from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import styles from './style.less';
 import Link from 'umi/link';
 import router from 'umi/router';
-
+/******/
+import Amplify from 'aws-amplify'
+import config from './../../../aws-exports'
+Amplify.configure(config);
+import { Auth } from 'aws-amplify'
+import {
+  FacebookOutlined,
+  GoogleOutlined
+} from '@ant-design/icons';
+/******/
 const FormItem = Form.Item;
 const Cognito = require('./../../../utils/Cognito.js');
 const { Option } = Select;
@@ -124,6 +133,7 @@ class Register extends Component{
       if (!err) {
         var phone_number = self.state.valueOption + values.phone_number;
         values.phone_number = phone_number;
+        localStorage.setItem('facebookLogin', "false");
         Cognito.signUpCognito(values).then(function(data){
           var cognitoUser = data.user;
           var destination = data.codeDeliveryDetails.Destination;
@@ -208,9 +218,14 @@ class Register extends Component{
 
     return(
       <div className={styles.main}>
+        <Divider plain><FormattedMessage id="Crear una cuenta usando"/></Divider>
+        <div className={styles.iconsSocial}>
+          <Button type="primary" className={styles.btnFb} onClick={() => Auth.federatedSignIn({ provider: "Facebook" })}><FacebookOutlined />Facebook</Button>
+          <Button type="danger"  className={styles.btnGo} onClick={() => Auth.federatedSignIn({ provider: "Google" })}><GoogleOutlined />Google</Button>
+        </div>
         {visibleResultSuccess === false && 
           <div>
-            <h3><FormattedMessage id="menu.register"/></h3>
+            <Divider plain style={{paddingTop: "12px"}}><FormattedMessage id="o crear una nueva aquí"/></Divider>
             <Form onSubmit={this.handleSubmit}>
               <FormItem>
                 {getFieldDecorator('name', {

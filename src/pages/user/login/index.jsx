@@ -1,4 +1,4 @@
-import { Alert, Checkbox, Icon, message } from 'antd';
+import { Alert, Checkbox, Icon, message, Button, Divider} from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import React, { Component } from 'react';
 import { Link } from 'umi';
@@ -7,6 +7,16 @@ import LoginComponents from './components/Login';
 import ModalChangePassword from '../login/components/Login/ModalChangePassword';
 import ModalNewPassword from '../login/components/Login/ModalNewPassword';
 import styles from './style.less';
+/******/
+import Amplify from 'aws-amplify'
+import config from './../../../aws-exports'
+Amplify.configure(config);
+import { Auth } from 'aws-amplify'
+import {
+  FacebookOutlined,
+  GoogleOutlined
+} from '@ant-design/icons';
+/******/
 //import router from 'umi/router';
 import { config as AWSConfig } from 'aws-sdk';
 var AWS = require('aws-sdk');
@@ -27,13 +37,15 @@ class Login extends Component {
     visible: false,
     visibleNew: false,
     user: {},
-    userAttributes: {}
+    userAttributes: {},
+    loading: false,
+    showLogin: false
   };
-  componentDidMount() {
+  componentDidMount(){
     if(localStorage.getItem('sessionActive') != 'null' && localStorage.getItem('isRemembered') == 'true'){
       window.location.href = '/dashboard';
     }
-}
+  }
 
   changeAutoLogin = e => {
     this.setState({
@@ -150,10 +162,10 @@ class Login extends Component {
    
     if (!err) {
       const { dispatch } = this.props;
-      
+      localStorage.setItem('facebookLogin', "false");
      
        self.loginCognito(values);
-    
+      
       //  Cognito.loginCognito(values,{
         
       //       onSuccess: function (result) {
@@ -303,108 +315,108 @@ class Login extends Component {
   render() {
     const { userLogin = {}, submitting } = this.props;
     const { status, type: loginType } = userLogin;
-    const { type, autoLogin } = this.state;
+    const { type, autoLogin, loading, showLogin } = this.state;
     return (
-      <div className={styles.main}>
-        <LoginComponents
-         
-         defaultActiveKey={type}
-          onSubmit={this.handleSubmit}
-          onCreate={form => {
-            this.loginForm = form;
-          }}
-        >
-          <ModalNewPassword 
-            visible = {this.state.visibleNew}
-            wrappedComponentRef = {this.saveFormRefDraw}
-            onCancel={this.handleCancelNew}
-            onNewPassword={this.handleNewPassword}
-          />
-          
-            {status === 'error' &&
-              loginType === 'account' &&
-              !submitting &&
-              this.renderMessage(
-                formatMessage({
-                  id: 'Tu usuario o contraseña son incorrectas',//'user-login.login.message-invalid-credentials'
-                }),
-              )}
-            <UserName
-              name="userName"
-              placeholder={`${formatMessage({
-               id: 'Correo electronico'
-              })}`}
-              rules={[
-                {
-                  type: 'email', message: 'The input is not valid Email!',
-                  required: true,
-                  message: formatMessage({
-                    id: 'ingresa tu correo', //'user-login.userName.required'
-                  }),
-                },
-              ]}
-            />
-            <Password
-              name="userPassword"
-              placeholder={`${formatMessage({
-                id: 'contraseña',
-              })}`}
-              rules={[
-                {
-                  required: true,
-                  message: formatMessage({
-                    id: 'Ingresa tu contraseña', //'user-login.password.required'
-                  }),
-                },
-              ]}
-              onPressEnter={e => {
-                e.preventDefault();
-
-                if (this.loginForm) {
-                  this.loginForm.validateFields(this.handleSubmit);
-                }
+          <div className={styles.main}>
+            <LoginComponents
+            
+            defaultActiveKey={type}
+              onSubmit={this.handleSubmit}
+              onCreate={form => {
+                this.loginForm = form;
               }}
-            />
-         
-          <div>
-            <Checkbox checked={autoLogin} onChange={this.changeAutoLogin}>
-              <FormattedMessage id="recordarme"//"user-login.login.remember-me"
-               />
-            </Checkbox>
-            <a
-              style={{
-                float: 'right',
-              }}
-              onClick={this.showModal}
-            > 
-              <FormattedMessage id="olvidaste tu contraseña?" //"user-login.login.forgot-password"
-              /> 
-            </a> 
-            <ModalChangePassword
-                visible = {this.state.visible}
+            >
+              <ModalNewPassword 
+                visible = {this.state.visibleNew}
                 wrappedComponentRef = {this.saveFormRefDraw}
-                onCancel={this.handleCancel}
-                onChangePass={this.handleSubmitChangePassword}
-                onConfirmCode={this.handleConfirmCode}
+                onCancel={this.handleCancelNew}
+                onNewPassword={this.handleNewPassword}
               />
+              
+                {status === 'error' &&
+                  loginType === 'account' &&
+                  !submitting &&
+                  this.renderMessage(
+                    formatMessage({
+                      id: 'Tu usuario o contraseña son incorrectas',//'user-login.login.message-invalid-credentials'
+                    }),
+                  )}
+                <UserName
+                  name="userName"
+                  placeholder={`${formatMessage({
+                  id: 'Correo electronico'
+                  })}`}
+                  rules={[
+                    {
+                      type: 'email', message: 'The input is not valid Email!',
+                      required: true,
+                      message: formatMessage({
+                        id: 'ingresa tu correo', //'user-login.userName.required'
+                      }),
+                    },
+                  ]}
+                />
+                <Password
+                  name="userPassword"
+                  placeholder={`${formatMessage({
+                    id: 'contraseña',
+                  })}`}
+                  rules={[
+                    {
+                      required: true,
+                      message: formatMessage({
+                        id: 'Ingresa tu contraseña', //'user-login.password.required'
+                      }),
+                    },
+                  ]}
+                  onPressEnter={e => {
+                    e.preventDefault();
+
+                    if (this.loginForm) {
+                      this.loginForm.validateFields(this.handleSubmit);
+                    }
+                  }}
+                />
+            
+              <div>
+                <Checkbox checked={autoLogin} onChange={this.changeAutoLogin}>
+                  <FormattedMessage id="recordarme"//"user-login.login.remember-me"
+                  />
+                </Checkbox>
+                <a
+                  style={{
+                    float: 'right',
+                  }}
+                  onClick={this.showModal}
+                > 
+                  <FormattedMessage id="olvidaste tu contraseña?" //"user-login.login.forgot-password"
+                  /> 
+                </a> 
+                <ModalChangePassword
+                    visible = {this.state.visible}
+                    wrappedComponentRef = {this.saveFormRefDraw}
+                    onCancel={this.handleCancel}
+                    onChangePass={this.handleSubmitChangePassword}
+                    onConfirmCode={this.handleConfirmCode}
+                  />
+              </div>
+              <Submit loading={submitting}>
+                <FormattedMessage id= "iniciar sesión" //"user-login.login.login"
+                />
+              </Submit>
+              <div className={styles.other}>
+                <Link className={styles.register} to="/user/register">
+                  <FormattedMessage id="Registrarme"//"user-login.login.signup"
+                  />
+                </Link>
+              </div>
+              <Divider plain><FormattedMessage id="o inicie sesión con"/></Divider>
+              <div className={styles.iconsSocial}>
+                <Button type="primary"  className={styles.btnFb} onClick={() => Auth.federatedSignIn({ provider: "Facebook" })}><FacebookOutlined />Facebook</Button>
+                <Button type="danger"  className={styles.btnGo} onClick={() => Auth.federatedSignIn({ provider: "Google" })}><GoogleOutlined />Google</Button>
+              </div>
+            </LoginComponents>
           </div>
-          <Submit loading={submitting}>
-            <FormattedMessage id= "iniciar sesión" //"user-login.login.login"
-             />
-          </Submit>
-          <div className={styles.other}>
-            <FormattedMessage id="Registrarme con"//"user-login.login.sign-in-with"
-             />
-            <Icon type="google-circle" className={styles.icon} theme="filled" />
-            <Icon type="facebook" className={styles.icon} theme="filled" />
-            <Icon type="github" className={styles.icon} theme="filled" />
-            <Link className={styles.register} to="/user/register">
-              <FormattedMessage id="Registrarme"//"user-login.login.signup"
-               />
-            </Link>
-          </div>
-        </LoginComponents>
-      </div>
     );
   }
 }
