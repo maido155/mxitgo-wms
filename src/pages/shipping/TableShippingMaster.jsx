@@ -31,7 +31,8 @@ class TableShippingMaster extends PureComponent {
     });
   };
 
-  showEntry = (record) => {
+  showEntry = (data, date) => {
+    console.log(data, date);
     this.setState({
       visibleEntry: true
     });
@@ -185,23 +186,23 @@ class TableShippingMaster extends PureComponent {
             <a onClick={() => { this.props.showShippingProgramingEdit(record) }}>
               {isMobile
                 ? <Icon type="edit" />
-                : <span><Icon type="edit" /><FormattedMessage id="shipping.label.table-shipping.edit" /></span>
+                : <span><Icon type="edit" /> <FormattedMessage id="shipping.label.table-shipping.edit" /></span>
               }
             </a>
             <Divider type="vertical" />
             <a onClick={() => { this.props.showConfirmationShipping(record)}}>
               {isMobile
                 ? <Icon type="check" />
-                : <span><Icon type="check" /><FormattedMessage id="shipping.label.table-shipping.confirm" /></span>
+                : <span><Icon type="check" /> <FormattedMessage id="shipping.label.table-shipping.confirm" /></span>
               }
             </a>
             <Divider type="vertical" />
             <ModalDeleteComponent />
             <Divider type="vertical" />
-            <a onClick={this.showEntry}>
+            <a onClick={() => {this.showEntry(record["WMS-1-PK"], record.status)}}>
               {isMobile
                 ? <Icon type="form" />
-                : <span><Icon type="form" /><FormattedMessage id="shipping.label.table-shipping.entry" /></span>
+                : <span><Icon type="form" /> <FormattedMessage id="shipping.label.table-shipping.entry" /></span>
               }
             </a>
           </span>
@@ -235,7 +236,7 @@ class TableShippingMaster extends PureComponent {
         //   departureDate: "2020-06-17", // OK
         //   deliveryDate: "2020-06-18", // OK
         //   entryDate: "2020-06-15", // OK
-        //   destinity: "Central de abastos",
+        //   destination: "Central de abastos",
         //   products: [ /// Needs processing
         //   [{ "product": "premium", "amount": 200 },
         //   { "product": "gold", "amount": 100 },

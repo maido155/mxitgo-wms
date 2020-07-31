@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import Styles from './StylesShipping.css';
-import { Card, Button, Icon, Form, Row, Col, Divider,Spin } from 'antd';
+import { Card, Button, Icon, Form, Row, Col, Divider, Spin, DatePicker } from 'antd';
 import RangePickerComponent from '../generalComponents/RangePickerComponent';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
 import TableShippingMaster from './TableShippingMaster';
@@ -12,13 +12,34 @@ import { _ } from 'lodash';
 import { connect } from 'dva';
 import moment from 'moment';
 
+
+function disabledDate(current) {
+    let dateMonday = moment(current).isoWeekday(1);
+    let dateThursday = moment(current).isoWeekday(2);
+    let dateTuesday = moment(current).isoWeekday(4);
+    let dateFriday = moment(current).isoWeekday(5);
+    let dateSaturday = moment(current).isoWeekday(6);
+    let dateSunday = moment(current).isoWeekday(7);
+    let dateAll = moment(current).format('dddd DD MMMM');
+    let compareMonday = moment(dateMonday).format('dddd DD MMMM');
+    let compareThursday = moment(dateThursday).format('dddd DD MMMM');
+    let compareTuesday = moment(dateTuesday).format('dddd DD MMMM');
+    let compareFriday = moment(dateFriday).format('dddd DD MMMM');
+    let compareSaturday = moment(dateSaturday).format('dddd DD MMMM');
+    let compareSunday = moment(dateSunday).format('dddd DD MMMM');
+    if(dateAll === compareMonday || dateAll === compareThursday || dateAll === compareTuesday || dateAll === compareFriday || dateAll === compareSaturday || dateAll === compareSunday){
+        return true;
+    }
+}
+
 @connect(({ shipping, loading }) => ({
     shipping,
     loading: loading.models.shipping,
     warehouses: shipping.warehouses,
     isSuccess: shipping.isSuccess,
     close: shipping.close,
-    datesShipping: shipping.datesShipping
+    datesShipping: shipping.datesShipping,
+    productsAll: shipping.productsAll
 }))
 
 
@@ -46,8 +67,18 @@ class ShippingMaster extends PureComponent {
             },
         }); 
 
+    //    this.props.dispatch({
+    //         type: 'shipping/getShippingAll',
+    //         payload: {
+    //             payload: {
+    //              Authorization: sessionStorage.getItem('idToken'),
+    //              initialDate: "2020-07-29"
+    //             }
+    //         },
+    //     });
+
         this.props.dispatch({
-            type: 'shipping/getShippingAll',
+            type: 'shipping/getProducts',
             payload: {
                 payload: {
                  Authorization: sessionStorage.getItem('idToken')
@@ -57,6 +88,35 @@ class ShippingMaster extends PureComponent {
 
 
     }
+
+    onChangeWeek=(date,dateString)=>{
+
+        var since = moment(dateString);
+        var until = moment(dateString);
+        until.add(6, 'days');
+        let dateFrom = "";
+
+        if (date !== null) {
+            dateFrom= `${since.format("YYYY-MM-DD")}`; //date[0].toISOString();
+        } else {
+            dateFrom = '';
+        }
+        
+        this.setState({
+            dateFrom
+        })
+
+        this.props.dispatch({
+            type: 'shipping/getShippingAll',
+            payload: {
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken'),
+                 initialDate: dateFrom
+                }
+            },
+        });
+
+    };
 
 
     showShippingPrograming = () => {
@@ -151,6 +211,7 @@ class ShippingMaster extends PureComponent {
         });
     };
     showNewLine = (sLineStatus, record) => {
+        // this.setState({ visibleNewLine: true });
         this.setState({ visibleNewLine: true, lineData: record, lineMode: sLineStatus });
     };
     onCloseNewLine = () => {
@@ -191,7 +252,7 @@ class ShippingMaster extends PureComponent {
                             departureDate: datesShipping.departureDate,
                             deliveryDate: datesShipping.deliveryDate,
                             entryDate: datesShipping.entryDate,
-                            destinity: datesShipping.destinity,
+                            destination: datesShipping.destination,
                             products: datesShipping.products,
                             skWh: datesShipping.warehouses,
                             dateNew: datesShipping.dateNew,
@@ -216,7 +277,7 @@ class ShippingMaster extends PureComponent {
                     departureDate: datesShipping.departureDate,
                     deliveryDate: datesShipping.deliveryDate,
                     entryDate: datesShipping.entryDate,
-                    destinity: datesShipping.destinity,
+                    destination: datesShipping.destination,
                     products: datesShipping.products,
                     skWh: datesShipping.warehouses,
                     dateNew: datesShipping.dateNew,
@@ -284,7 +345,7 @@ class ShippingMaster extends PureComponent {
             labelCol: { xs: { span: 24 }, sm: { span: 7 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 5 } },
             wrapperCol: { xs: { span: 24 }, sm: { span: 14 }, md: { span: 15 }, lg: { span: 15 }, xl: { span: 15 } }
         };
-        const { loading, isSuccess, close, datesShipping } = this.props;
+        const { loading, isSuccess, close, datesShipping, productsAll } = this.props;
         const { oShippingItem, warehouses, warehouseIds, products, locationTreeData } = this.props.shipping;
 
 
@@ -318,6 +379,8 @@ class ShippingMaster extends PureComponent {
                     products={products}
                     updateShippingSuccess={this.updateShippingSuccess}
                     locationTreeData={locationTreeData}
+
+                    productsAll={productsAll}
 
                 />
                  <ConfirmationShipping
@@ -355,9 +418,9 @@ class ShippingMaster extends PureComponent {
                         <Form {...formItemLayout}>
                             <Row type="flex" justify="center">
                                 <Col xs={24} sm={23} md={17} lg={16} xl={16}>
-                                    <Form.Item label={formatMessage({ id: 'outComming.label.week' })}>
-                                       
-                                    </Form.Item>
+                                <Form.Item label={formatMessage({id: "outComming.label.week"})}>
+                                    <DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} disabledDate={disabledDate} onChange={(date,dateString)=>{this.onChangeWeek(date,dateString,this)}}/>
+                                </Form.Item>
                                 </Col>
                             </Row>
                         </Form>

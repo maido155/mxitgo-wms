@@ -5,7 +5,11 @@ import { _ } from 'lodash';
 import { Drawer,Row, Col, Button, Icon, Divider } from 'antd';
 import {isMobile} from 'react-device-detect';
 
-export default class AssignmentOutComming extends PureComponent {;
+export default class AssignmentOutComming extends PureComponent {
+    
+    onReset = (_this) => {
+        _this.props.restartOutcomming(_this.props.currentOutcomming.key);
+    }
     render() {
         return (
             <Drawer
@@ -25,13 +29,18 @@ export default class AssignmentOutComming extends PureComponent {;
                         <FormattedMessage id="outComming.label.products-assignment-outcomming"/>
                     </Col>
                     <Col xs={24} sm={8} md={8} lg={6} xl={3} style={{textAlign: "center"}}>
-                        <Button type="danger"><FormattedMessage id="outComming.button.assignment-outcomming"/></Button>
+                        <Button 
+                            disabled={this.props.recordKey==""?true:false}
+                            type="danger" 
+                            onClick={()=>{this.onReset(this)}}>
+                                <FormattedMessage id="outComming.button.assignment-outcomming"/>
+                        </Button>
                     </Col>
                 </Row>
                 <Divider/>
                 <Row>
                     <Col span={24}>
-                        <TableShipping postOutcomming= {this.props.postOutcomming} currentOutcomming={this.props.currentOutcomming}/>
+                        <TableShipping postOutcomming= {this.props.postOutcomming} datesProductAll = {this.props.datesProductAll} currentOutcomming={this.props.currentOutcomming}/>
                     </Col>
                 </Row>
                 <div

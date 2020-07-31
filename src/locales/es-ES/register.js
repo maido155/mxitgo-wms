@@ -25,4 +25,5 @@ export default {
     'register.button.register': 'Registrar',
     'register.button.account': '¿Ya tienes una cuenta?',
     'register.button.button-success': 'Ir a login',
+    'register.socialNetwork.register': 'Crear una cuenta usando'
 };

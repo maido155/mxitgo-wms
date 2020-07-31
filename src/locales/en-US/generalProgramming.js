@@ -6,7 +6,7 @@ export default {
     'general.modal-title.Edit': 'Edit programming',
     'general.modal-title.absolute': 'Absolute:',
     'general.modal.clear': 'Clear',
-    'general.modal.accept': 'Accept',
+    'general.modal.accept': 'Save',
     'general.modal-label.boxes': 'Boxes',
     'general.modal-label.pallets': 'Pallets',
     'general.table.week': 'Week',
@@ -30,5 +30,6 @@ export default {
     'general.modal-cancell-yes': 'Yes',
     'general.modal-cancell-no': 'No',
     'general.modal-verify-programming-message': 'Existing programming',
-    'general.modal-verify-programming-description': 'We have found a schedule on the same date. Please try again'
+    'general.modal-verify-programming-description': 'We have found a schedule on the same date. Please try again',
+    'general.modal-visualize': 'Visualize'
 }

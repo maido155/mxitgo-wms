@@ -1,5 +1,5 @@
 
-import {confirmOutcomming, getComposition, getOutcomming, postOutcomming,getShippingsByEntry} from '../services/api';
+import {confirmOutcomming, getComposition, getOutcomming, postOutcomming,getShippingsByEntry, restartOutcomming} from '../services/api';
 
 export default {
     namespace: 'outcomming',
@@ -7,15 +7,20 @@ export default {
         compositionData: [],
         datesOutcomming: [],
         shippingsByEntry: [],
-        postOutcommingSuccess: false
+        postOutcommingSuccess: false,
+        restartOutcommingSuccess: false,
     },
     effects: {
         * confirmOutcomming({ payload }, { call, put }) {
             const response = yield call(confirmOutcomming, payload);
             console.log(response);
+
+            //const responseGetAll = yield call(fetchProgrammingAll, payload);
+            const responseGetOutComming = yield call(getOutcomming, payload);
+
             yield put({
                 type: 'confirmOutcommingReducer',
-                payload: response,
+                payload: responseGetOutComming,
             });
         },
         * getComposition({ payload }, { call, put }) {
@@ -44,10 +49,23 @@ export default {
         },
         * postOutcomming({ payload }, { call, put }) {
             const response = yield call(postOutcomming, payload);
-            console.log(response);
+            //console.log(response);
+            const responseOutcomming = yield call(getOutcomming, payload.payload);
+            //console.log(responseOutcomming);
+
             yield put({
                 type: 'postOutcommingReducer',
-                payload: response,
+                payload: responseOutcomming,
+            });
+        },
+        * restartOutcomming({ payload }, { call, put }) {
+            const response = yield call(restartOutcomming, payload);
+            console.log(response);
+            const responseOutcomming = yield call(getOutcomming, payload);
+            //console.log(responseOutcomming);
+            yield put({
+                type: 'restartOutcommingReducer',
+                payload: responseOutcomming,
             });
         }
     },
@@ -55,7 +73,8 @@ export default {
     reducers: {
         confirmOutcommingReducer(state, action) {
             return {
-                ...state
+                ...state,
+                datesOutcomming: action.payload
             }
         },
         getCompositionReducer(state, action) {
@@ -79,7 +98,15 @@ export default {
         postOutcommingReducer(state, action) {
             return {
                 ...state,
-                postOutcommingSuccess: true
+                postOutcommingSuccess: true,
+                datesOutcomming: action.payload
+            }
+        },
+        restartOutcommingReducer(state, action) {
+            return {
+                ...state,
+                restartOutcommingSuccess: true,
+                datesOutcomming: action.payload
             }
         }
     }

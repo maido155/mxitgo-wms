@@ -154,11 +154,11 @@ const NewLine = Form.create()(
                 }
 
 
-                var premium = values.premium;
-                var finger = values.finger;
-                var gold = values.gold;
-                var hand = values.hand;
-                var second = values.second;
+                var premium = values.Premium;
+                var finger = values.Dedo;
+                var gold = values.Gold;
+                var hand = values.Mano;
+                var second = values.Segunda;
                 var date = new Date();
                 var datesGeneralNewLine = {
                     dateCreated: date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear(),
@@ -206,7 +206,7 @@ const NewLine = Form.create()(
                 wrapperCol: { xs: { span: 24 }, sm: { span: 12 }, md: { span: 12 }, lg: { span: 12 }, xl: { span: 14 } }
             };
             const { getFieldDecorator } = this.props.form;
-            const { handleSubmitNewLine } = this.props;
+            const { handleSubmitNewLine, productsAll } = this.props;
             var { lineData } = this.props;
             if (typeof lineData == "undefined") {
                 lineData = {};
@@ -214,6 +214,7 @@ const NewLine = Form.create()(
 
             return (
                 <div>
+                    { productsAll !== undefined && productsAll.length !== 0 &&
                     <Drawer
                         title={formatMessage({ id: 'shipping.newline.label.title' })}
                         width={isMobile ? "100%" : "50%"}
@@ -223,44 +224,28 @@ const NewLine = Form.create()(
                     >
                         <Form {...formItemLayout} className={Styles.formnweline}>
                             <Form.Item label={formatMessage({ id: 'shipping.tablecomponent.label.center' })}>
-                                {getFieldDecorator('centro',
-                                    { initialValue: lineData.warehouseId, rules: [{ required: true, message: "Centro no seleccionado" }] })
-                                    (
-                                        <TreeSelect
-                                            //value= {"WH-1"}
-                                            // key={"WH-1"}
-                                            showSearch
-                                            style={{ width: '100%' }}
-                                            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                                            placeholder={formatMessage({ id: 'shipping.treeselect.label.select' })}
-                                            allowClear
-                                            treeDefaultExpandAll
-                                            onSelect={this.onSelect}
-                                        >
-                                            {this.renderTreeNode(this.props.locationTreeData)}
-                                        </TreeSelect>
-                                    )}
+                                {getFieldDecorator('centro',{ initialValue: lineData.warehouseId, rules: [{ required: true, message: "Centro no seleccionado" }] })
+                                    (<TreeSelect
+                                        //value= {"WH-1"}
+                                        // key={"WH-1"}
+                                        showSearch
+                                        style={{ width: '100%' }}
+                                        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                                        placeholder={formatMessage({ id: 'shipping.treeselect.label.select' })}
+                                        allowClear
+                                        treeDefaultExpandAll
+                                        onSelect={this.onSelect}
+                                    >
+                                        {this.renderTreeNode(this.props.locationTreeData)}
+                                    </TreeSelect>
+                                )}
                             </Form.Item>
-                            <Form.Item label={formatMessage({ id: 'shipping.tablecomponent.label.premium' })}>
-                                {getFieldDecorator('premium', { initialValue: lineData.premium })
+                            {productsAll.map(item => (
+                                <Form.Item label={item.productName}>
+                                    {getFieldDecorator(item.productName,)
                                     (<InputNumber min={0} max={500} style={{ width: '100%' }} />)}
-                            </Form.Item>
-                            <Form.Item label={formatMessage({ id: 'shipping.tablecomponent.label.gold' })}>
-                                {getFieldDecorator('gold', { initialValue: lineData.gold })
-                                    (<InputNumber min={0} max={500} style={{ width: '100%' }} />)}
-                            </Form.Item>
-                            <Form.Item label={formatMessage({ id: 'shipping.tablecomponent.label.second' })}>
-                                {getFieldDecorator('second', { initialValue: lineData.second })
-                                    (<InputNumber min={0} max={500} style={{ width: '100%' }} />)}
-                            </Form.Item>
-                            <Form.Item label={formatMessage({ id: 'shipping.tablecomponent.label.hand' })}>
-                                {getFieldDecorator('hand', { initialValue: lineData.hand })
-                                    (<InputNumber min={0} max={500} style={{ width: '100%' }} />)}
-                            </Form.Item>
-                            <Form.Item label={formatMessage({ id: 'shipping.tablecomponent.label.finger' })}>
-                                {getFieldDecorator('finger', { initialValue: lineData.finger })
-                                    (<InputNumber min={0} max={500} style={{ width: '100%' }} />)}
-                            </Form.Item>
+                                </Form.Item>
+                            ))}
                             <div
                                 style={{
                                     position: 'absolute',
@@ -277,11 +262,12 @@ const NewLine = Form.create()(
                                     <FormattedMessage id="shipping.button.cancel" />
                                 </Button>
                                 <Button type="primary" onClick={this.handleSubmitLine}>
-                                    <FormattedMessage id="shipping.button.program" />
+                                    <FormattedMessage id="shipping.button.add" />
                                 </Button>
                             </div>
                         </Form>
                     </Drawer>
+                    }
                 </div>
             );
         };

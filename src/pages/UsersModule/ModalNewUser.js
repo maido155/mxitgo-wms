@@ -120,7 +120,7 @@ class ModalNewUser extends PureComponent{
                     getFieldDecorator('name', {rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_name"/>}]})(<Input/>)
                   }
                   { edit == true &&
-                    getFieldDecorator('name', { initialValue: dataUser.name, rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_name"/>}]})(<Input/>)
+                    getFieldDecorator('name', { initialValue: dataUser.name, rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_name"/>}]})(<Input disabled={numberPhone == "" ? true : false}/>)
                   }
                 </Form.Item>
               </Col>
@@ -132,7 +132,7 @@ class ModalNewUser extends PureComponent{
                     getFieldDecorator('family_name',{ rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_family"/>}]})(<Input/>)
                   }
                   { edit == true &&
-                    getFieldDecorator('family_name',{ initialValue: dataUser.family_name, rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_family"/>}]})(<Input/>)
+                    getFieldDecorator('family_name',{ initialValue: dataUser.family_name, rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_family"/>}]})(<Input disabled={numberPhone == "" ? true : false}/>)
                   }
                 </Form.Item>
               </Col>
@@ -144,7 +144,7 @@ class ModalNewUser extends PureComponent{
                     getFieldDecorator('middle_name',{ rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_middle"/>}]})(<Input/>)
                   }
                   { edit == true &&
-                    getFieldDecorator('middle_name',{ initialValue: dataUser.middle_name, rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_middle"/>}]})(<Input/>)
+                    getFieldDecorator('middle_name',{ initialValue: dataUser.middle_name, rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_middle"/>}]})(<Input disabled={numberPhone == "" ? true : false}/>)
                   }
                 </Form.Item>
               </Col>
@@ -194,7 +194,7 @@ class ModalNewUser extends PureComponent{
                   }
                   { edit == true &&
                     getFieldDecorator('phone_number', { initialValue: numberPhone, rules: [{ required: true, message: <FormattedMessage id="usersModule.modal.message_phone"/> },
-                    { pattern: /^\d{10}$/, message: <FormattedMessage id="usersModule.modal.message_phone_err"/>}],})(<Input addonBefore={prefixSelector}/>)
+                    { pattern: /^\d{10}$/, message: <FormattedMessage id="usersModule.modal.message_phone_err"/>}],})(<Input addonBefore={prefixSelector} disabled={numberPhone == "" ? true : false}/>)
                   }
                 </Form.Item>
               </Col>

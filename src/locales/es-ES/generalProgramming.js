@@ -6,7 +6,7 @@ export default {
     'general.modal-title.Edit': 'Editar programación',
     'general.modal-title.absolute': 'Total:',
     'general.modal.clear': 'Limpiar',
-    'general.modal.accept': 'Aceptar',
+    'general.modal.accept': 'Guardar',
     'general.modal-label.boxes': 'Cajas',
     'general.modal-label.pallets': 'Pallets',
     'general.table.week': 'Semana',
@@ -30,5 +30,6 @@ export default {
     'general.modal-cancell-yes': 'Si',
     'general.modal-cancell-no': 'No',
     'general.modal-verify-programming-message': 'Programación existente',
-    'general.modal-verify-programming-description': 'Hemos encontrado una programación con la misma fecha. Por favor intente de nuevo'
+    'general.modal-verify-programming-description': 'Hemos encontrado una programación con la misma fecha. Por favor intente de nuevo',
+    'general.modal-visualize': 'Visualizar'
 }

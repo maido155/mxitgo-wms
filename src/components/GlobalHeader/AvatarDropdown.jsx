@@ -5,9 +5,42 @@ import { connect } from 'dva';
 import { router } from 'umi';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
-
+/******/
+import Amplify from 'aws-amplify'
+import config from './../../aws-config/cognito-config'
+// import config from './../../aws-exports'
+Amplify.configure(config);
+import { Auth } from 'aws-amplify'
+/******/
 class AvatarDropdown extends React.Component {
-  componentDidMount() {
+  async componentDidMount() {
+    try {
+      if(localStorage.getItem('facebookLogin') == "false"){
+        const user =  await Auth.currentAuthenticatedUser().then((user) => {
+          localStorage.setItem('userId', user.username);
+          localStorage.setItem('emailVerified', user.attributes.email_verified);
+          localStorage.setItem('userName', user.attributes.name);
+          localStorage.setItem('middleName', user.attributes.middle_name);
+          localStorage.setItem('familyName', user.attributes.family_name);
+          localStorage.setItem('email', user.attributes.email);
+          localStorage.setItem('isRemembered', "true");
+          localStorage.setItem('facebookLogin', "false");
+        });
+      }else{
+        const user =  await Auth.currentAuthenticatedUser().then((user) => {
+          localStorage.setItem('userId', user.username);
+          localStorage.setItem('emailVerified', user.attributes.email_verified);
+          localStorage.setItem('userName', user.attributes.name);
+          localStorage.setItem('middleName', user.attributes.middle_name);
+          localStorage.setItem('familyName', user.attributes.family_name);
+          localStorage.setItem('email', user.attributes.email);
+          localStorage.setItem('isRemembered', "true");
+          localStorage.setItem('facebookLogin', "true");
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
       this.props.dispatch({
         type: 'user/fetchUserByEmail',
         payload: {
@@ -41,17 +74,19 @@ class AvatarDropdown extends React.Component {
       localStorage.removeItem('middleName');
       localStorage.removeItem('familyName');
       localStorage.removeItem('email');
+      localStorage.removeItem('facebookLogin');
       localStorage.removeItem('antd-pro-authority');
       localStorage.setItem('sessionActive', null);
-      if (dispatch) {
-        dispatch({
-          type: 'login/logout',
-        });
-      }
-
-      return;
+      Auth.signOut();
+            //   if (dispatch) {
+      //     dispatch({
+      //       type: 'login/logout',
+      //     });
+      //   }
+      //   return;
+    }else{
+      router.push(`/${key}`);
     }
-    router.push(`/${key}`);
   };
 
   render() {
