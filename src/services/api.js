@@ -381,6 +381,14 @@ export async function getShipping(payload) {
     });
 }
 
+export async function getShippingDetail(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/shipping/detail?payload=${JSON.stringify(payload)}`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization }
+
+    });
+}
+
 export async function getLocations(payload) {
     return request(`${ANT_DESIGN_PRO_TARGET}/location/all?payload=${JSON.stringify(payload)}`, {
         method: 'GET',

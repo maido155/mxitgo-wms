@@ -1,4 +1,4 @@
-import { saveShipping, updateShipping, getShipping, getLocations, fetchShippingAll, fetchProductAll } from '../services/api';
+import { saveShipping, updateShipping, getShipping, getLocations, fetchShippingAll, fetchProductAll,getShippingDetail } from '../services/api';
 import moment from 'moment';
 
 export default {
@@ -92,6 +92,14 @@ export default {
             console.log(response);
             yield put({
                 type: 'getShippingReducer',
+                payload: response,
+            });
+        },
+        * getShippingDetail({ payload }, { call, put }) {
+            const response = yield call(getShippingDetail, payload);
+            console.log(response);
+            yield put({
+                type: 'getShippingDetailReducer',
                 payload: response,
             });
         },
@@ -269,6 +277,31 @@ export default {
                 oShippingItem: oItem,
                 masterMode: "EDIT",
                 products: oItem.products
+
+            }
+        },
+        getShippingDetailReducer(state, action) {
+
+            var oItem = action.payload[0];
+
+
+
+            
+            /// convert date properties to moment
+
+            oItem.originalDepartureDate = new moment(oItem.departureDate);
+            oItem.originalDeliveryDate = new moment(oItem.deliveryDate);
+            oItem.originalEntryDate = new moment(oItem.entryDate);
+
+            oItem.departureDate = new moment(oItem.departureDate);
+            oItem.deliveryDate = new moment(oItem.deliveryDate);
+            oItem.entryDate = new moment(oItem.entryDate);
+
+
+            return {
+                ...state,
+                oShippingItem: oItem,
+                visibleModalProduct: true
 
             }
         },

@@ -4,7 +4,7 @@ import { Table, Icon, Divider, Typography } from 'antd';
 import ConfirmationShipping from './ConfirmationShipping';
 import DrawerEntry from './drawerEntry';
 import ModalDeleteComponent from '../generalComponents/ModalDeleteComponent';
-import ModalProductTable from '../generalComponents/ModalProductTable';
+
 import { isMobile } from 'react-device-detect';
 import moment from 'moment';
 import Styles from './StylesShipping.css';
@@ -75,6 +75,21 @@ class TableShippingMaster extends PureComponent {
 
   };
 
+  confirmProgramming = () => {
+
+    this.props.showShippingProgramingConfirm();
+
+
+
+  };
+  modalProducts = () => {
+
+    this.props.showShippingProgramingConfirm();
+
+
+
+  };
+
   formatDate = (mydate) =>{
     return moment(mydate).format('dddd');
   };
@@ -128,7 +143,7 @@ class TableShippingMaster extends PureComponent {
         dataIndex: 'amount',
         width: isMobile ? 130 : 100,
         render: (text, record) => (
-        <Text type={this.dates(record.products[0].planned,record.products[0].confirmed)} onClick={this.showModal} className={Styles.producto}>{record.products[0].planned}/{record.products[0].confirmed}</Text>
+        <Text type={this.dates(record.products[0].planned,record.products[0].confirmed)} onClick={() => { this.props.showModalProduct(record,"premium")}} className={Styles.producto}>{record.products[0].planned}/{record.products[0].confirmed}</Text>
         )
       },
       {
@@ -136,7 +151,7 @@ class TableShippingMaster extends PureComponent {
         dataIndex: 'amount',
         width: isMobile ? 110 : 100,
         render: (text, record) => (
-                <Text type={this.dates(record.products[1].planned,record.products[1].confirmed)} onClick={this.showModal} className={Styles.producto}>{record.products[1].planned}/{record.products[1].confirmed}</Text>
+                <Text type={this.dates(record.products[1].planned,record.products[1].confirmed)}  className={Styles.producto}>{record.products[1].planned}/{record.products[1].confirmed}</Text>
         )
       },
       {
@@ -144,7 +159,7 @@ class TableShippingMaster extends PureComponent {
         dataIndex: 'amount',
         width: isMobile ? 130 : 100,
         render: (text, record) => (
-                <Text type={this.dates(record.products[2].planned,record.products[2].confirmed)} onClick={this.showModal} className={Styles.producto}>{record.products[2].planned}/{record.products[2].confirmed}</Text>
+                <Text type={this.dates(record.products[2].planned,record.products[2].confirmed)}  className={Styles.producto}>{record.products[2].planned}/{record.products[2].confirmed}</Text>
         )
       },
       {
@@ -152,7 +167,7 @@ class TableShippingMaster extends PureComponent {
         dataIndex: 'amount',
         width: isMobile ? 120 : 100,
         render: (text, record) => (
-                <Text type={this.dates(record.products[3].planned,record.products[3].confirmed)} onClick={this.showModal} className={Styles.producto}>{record.products[3].planned}/{record.products[3].confirmed}</Text>
+                <Text type={this.dates(record.products[3].planned,record.products[3].confirmed)}  className={Styles.producto}>{record.products[3].planned}/{record.products[3].confirmed}</Text>
         )
       },
       {
@@ -160,7 +175,7 @@ class TableShippingMaster extends PureComponent {
         dataIndex: 'amount',
         width: isMobile ? 120 : 100,
         render: (text, record) => (
-          <Text type={this.dates(record.products[4].planned,record.products[4].confirmed)} onClick={this.showModal} className={Styles.producto}>{record.products[4].planned}/{record.products[4].confirmed}</Text>
+          <Text type={this.dates(record.products[4].planned,record.products[4].confirmed)}  className={Styles.producto}>{record.products[4].planned}/{record.products[4].confirmed}</Text>
         )
       },
       {
@@ -284,15 +299,8 @@ class TableShippingMaster extends PureComponent {
     return (
       
       <div>
-        <ConfirmationShipping
-          visibleConfirmationShipping={this.state.visibleConfirmationShipping}
-          onCloseConfirmationShipping={this.onCloseConfirmationShipping}
-        />
-        <ModalProductTable
-          visipleModal={this.state.visibleModalProduct}
-          ok={this.handleOk}
-          cancel={this.handleCancel}
-        />
+       
+       
         <DrawerEntry
           visibleEntry={this.state.visibleEntry}
           successModal={this.handleOk}

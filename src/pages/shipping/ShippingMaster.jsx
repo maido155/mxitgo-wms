@@ -4,6 +4,8 @@ import { Card, Button, Icon, Form, Row, Col, Divider, Spin, DatePicker } from 'a
 import RangePickerComponent from '../generalComponents/RangePickerComponent';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
 import TableShippingMaster from './TableShippingMaster';
+import ConfirmationShipping from './ConfirmationShipping';
+import ModalProductTable from '../generalComponents/ModalProductTable';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import DrawerShippingPrograming from './DrawerShippingPrograming';
 import { formatMessage } from 'umi-plugin-react/locale';
@@ -46,6 +48,8 @@ class ShippingMaster extends PureComponent {
     state = {
         visibleShippingPrograming: false,
         visibleNewLine: false,
+        visibleConfirmationShipping: false,
+        visibleModalProduct: false,
 
         lineData: {},
         masterMode: "NEW",
@@ -141,6 +145,19 @@ class ShippingMaster extends PureComponent {
             masterMode: "NEW"
         });
     };
+    
+    showModalProduct = (oItem,producto) => {
+
+
+        this.props.dispatch({
+            type: 'shipping/getShippingDetail',
+            payload: { id: oItem['WMS-1-PK'], product: producto}
+        })
+
+        this.setState({
+            visibleModalProduct: true
+        })
+    };
 
 
 
@@ -149,7 +166,7 @@ class ShippingMaster extends PureComponent {
 
         this.props.dispatch({
             type: 'shipping/getShipping',
-            payload: { id: oItem.id, status: "New" }
+            payload: { id: oItem['WMS-1-PK'], status: "New" }
         })
 
         this.setState({
@@ -298,6 +315,12 @@ class ShippingMaster extends PureComponent {
             payload: {}
         })
     }
+
+    onCloseModalProduct = e => {
+        this.setState({
+          visibleModalProduct: false,
+        });
+      };
     render() {
         const formItemLayout = {
             labelCol: { xs: { span: 24 }, sm: { span: 7 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 5 } },
@@ -341,6 +364,11 @@ class ShippingMaster extends PureComponent {
                     productsAll={productsAll}
 
                 />
+                <ModalProductTable
+                    visibleModalProduct={this.state.visibleModalProduct}
+                    onCloseModalProduct={this.onCloseModalProduct}
+                    oShippingItem={oShippingItem}
+                />
                 <PageHeaderWrapper>
                     <Card>
                         <Form {...formItemLayout}>
@@ -365,6 +393,7 @@ class ShippingMaster extends PureComponent {
                             <Spin tip={"Cargando..."} spinning={loading}>
                                 <TableShippingMaster
                                     showShippingProgramingEdit={this.showShippingProgramingEdit}
+                                    showModalProduct={this.showModalProduct}
                                     datesTableShipping={datesShipping}
                                 />
                             </Spin>

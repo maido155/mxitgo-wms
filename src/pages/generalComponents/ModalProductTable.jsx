@@ -2,18 +2,20 @@ import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
 import { Modal, Row, Col, Typography  } from 'antd';
 import Styles from './StylesGeneral.css';
+import moment from 'moment';
 
 const { Text } = Typography;
 
 export default class ModalProductTable extends PureComponent{
     render(){
+        const { oShippingItem} = this.props;
         return(
             <div>
                 <Modal
                     title="Detalles"
-                    visible={this.props.visipleModal}
-                    onOk={this.props.ok}
-                    onCancel={this.props.cancel}
+                    visible={this.props.visibleModalProduct}
+                    onOk={this.props.onCloseModalProduct}
+                    onCancel={this.props.onCloseModalProduct}
                     width={"40%"}
                 >
                     <Row justify="center">
@@ -22,7 +24,7 @@ export default class ModalProductTable extends PureComponent{
                             <Text strong>Envio</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
-                            <Text>TE0101023912231</Text>
+                        <Text>{oShippingItem['WMS-1-PK']}</Text>
                         </Col>
                         <Col md={1} lg={3} xl={4}></Col>
                     </Row>
@@ -33,7 +35,7 @@ export default class ModalProductTable extends PureComponent{
                             <Text strong>Dia</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
-                            <Text>Lunes</Text>
+                            <Text></Text>
                         </Col>
                         <Col md={1} lg={3} xl={4}></Col>
                     </Row>
@@ -44,7 +46,7 @@ export default class ModalProductTable extends PureComponent{
                             <Text strong>Producto</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
-                            <Text>Premium</Text>
+                            <Text></Text>
                         </Col>
                         <Col md={1} lg={3} xl={4}></Col>
                     </Row>
@@ -55,7 +57,7 @@ export default class ModalProductTable extends PureComponent{
                             <Text strong>Planeado</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
-                            <Text>1200</Text>
+                            <Text></Text>
                         </Col>
                         <Col md={1} lg={3} xl={4}></Col>
                     </Row>
@@ -66,7 +68,7 @@ export default class ModalProductTable extends PureComponent{
                             <Text strong>Confirmado</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
-                            <Text>1150</Text>
+                            <Text></Text>
                         </Col>
                         <Col md={1} lg={3} xl={4}></Col>
                     </Row>
@@ -77,7 +79,7 @@ export default class ModalProductTable extends PureComponent{
                             <Text strong>Entrada</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
-                            <Text>1100</Text>
+                            <Text></Text>
                         </Col>
                         <Col md={1} lg={3} xl={4}></Col>
                     </Row>
