@@ -3,7 +3,7 @@ import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import DatePicker from '../generalComponents/DatePickerComponent';
 import TextArea from '../generalComponents/TextAreaComponent';
 import TableComponent from '../generalComponents/TableComponent';
-import { Drawer, Form, Row, Col, Typography, Divider, Button, Icon, Input } from 'antd';
+import { Drawer, Form, Row, Col, Typography, Divider, Button, Icon, Input, AutoComplete  } from 'antd';
 import {isMobile} from 'react-device-detect';
 import Styles from './StylesShipping.css';
 import NewLine from './NewLine';
@@ -12,7 +12,8 @@ import { _ } from 'lodash';
 const { Text } = Typography;
 class ConfirmationShipping extends PureComponent {
     state={
-        visibleNewLine: false    
+        visibleNewLine: false,
+        phoneOperator: ''    
     }
 
     showNewLine = () =>{
@@ -27,11 +28,22 @@ class ConfirmationShipping extends PureComponent {
         });
     };
 
+    onSelect = (value) => {
+        let phoneOperator = this.props.operatorAll.filter(function(data){
+            return data.operators.name == value;
+        })
+        this.setState({phoneOperator: phoneOperator[0].operators.phone})
+    }
     render(){
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 6 },lg: { span: 8 },xl: { span: 6 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 12 },md: { span: 14 },lg: { span: 14 },xl: { span: 14  }}
         };
+        const { phoneOperator }= this.state;
+        const {operatorAll} = this.props;
+        let nameOperator = operatorAll.map(function(data){
+            return data.operators.name;
+        });
         return(
             <div>
                 <NewLine
@@ -92,12 +104,18 @@ class ConfirmationShipping extends PureComponent {
                         <Row className={Styles.lastcolumn}>
                             <Col lg={12} xl={12}>
                                 <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.driver' })}>
-                                    <Input/>
+                                    <AutoComplete
+                                        dataSource={nameOperator}
+                                        filterOption={(inputValue, option) =>
+                                            option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                                        }
+                                        onSelect={this.onSelect}
+                                    />
                                 </Form.Item>
                             </Col>
                             <Col lg={12} xl={12}>
                                 <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.phone' })}>
-                                    <Input/>
+                                    <Input value={phoneOperator}/>
                                 </Form.Item>
                             </Col>
                         </Row>

@@ -90,7 +90,7 @@ class TableShippingMaster extends PureComponent {
 
 
   render() {
-    const { datesTableShipping } = this.props;
+    const { datesTableShipping, operatorAll } = this.props;
     let columns = [
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.id' }),
@@ -287,6 +287,7 @@ class TableShippingMaster extends PureComponent {
         <ConfirmationShipping
           visibleConfirmationShipping={this.state.visibleConfirmationShipping}
           onCloseConfirmationShipping={this.onCloseConfirmationShipping}
+          operatorAll={operatorAll}
         />
         <ModalProductTable
           visipleModal={this.state.visibleModalProduct}
