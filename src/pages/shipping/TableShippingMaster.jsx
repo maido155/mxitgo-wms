@@ -98,7 +98,7 @@ class TableShippingMaster extends PureComponent {
 
 
   render() {
-    const { datesTableShipping } = this.props;
+    const { datesTableShipping, operatorAll } = this.props;
     let columns = [
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.id' }),
