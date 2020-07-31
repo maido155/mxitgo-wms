@@ -212,13 +212,43 @@ export default class OutComming extends PureComponent {
     };
 
     postOutcomming = (payload, context) => {
-        payload.DateFrom = context.state.dateFrom;
-        payload.DateTo = context.state.dateTo;
-        payload.Product = payload.skProduct;
-        payload.Customer = payload.skCustomer;
+
         this.props.dispatch({  
             type: 'outcomming/postOutcomming',  
-            payload: {payload}
+            payload: { 
+                payload: {
+                    key: payload.key,
+                    date: payload.date,
+                    status: payload.status,
+                    skProduct: payload.skProduct, 
+                    skCustomer: payload.skCustomer, 
+                    assignSh: {
+                            skShipping: payload.skShipping, 
+                            assignments: {
+                                    box: payload.box,
+                                    pallet: payload.pallet
+                                }
+                    },
+                    DateFrom: context.state.dateFrom, //for getOutcomming
+                    DateTo: context.state.dateTo, //for getOutcomming
+                    Product: payload.skProduct, //for getOutcomming
+                    Customer: payload.skCustomer //for getOutcomming
+                }    
+            }
+        }); 
+    }
+
+    restartOutcomming = (key, context) => {
+
+        this.props.dispatch({  
+            type: 'outcomming/restartOutcomming',  
+            payload:  {
+                key: key,
+                Product: context.state.product,
+                Customer: context.state.customer, 
+                DateFrom: context.state.dateFrom, 
+                DateTo: context.state.dateTo
+            }
         }); 
     }
     render() {
@@ -298,7 +328,7 @@ export default class OutComming extends PureComponent {
                             
                             <Row type="flex" justify="center">
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                                    <TableOutComming postOutcomming= {(payload)=>{this.postOutcomming(payload,this)}} datesProductAll = {datesProductAll} datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
+                                    <TableOutComming restartOutcomming= {(payload)=>{this.restartOutcomming(payload,this)}} postOutcomming= {(payload)=>{this.postOutcomming(payload,this)}} datesProductAll = {datesProductAll} datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
                                 </Col>
                             </Row>
                         
