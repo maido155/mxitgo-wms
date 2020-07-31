@@ -398,7 +398,7 @@ export async function getOutcomming(payload) {
 
 export async function getProgramming({ payload }) {
     return request(
-        `${ANT_DESIGN_PRO_TARGET}/programming?idProgramming=${payload.idProgramming}`, {
+        `${ANT_DESIGN_PRO_TARGET}/programming?payload=${JSON.stringify(payload)}`, {
             method: 'GET',
             headers: { 'Authorization': payload.Authorization },
         });
@@ -459,7 +459,7 @@ export async function postOutcomming({ payload }) {
         body: JSON.stringify(payload),
     });
 }
-       
+
 export async function getDay(payload) {
     return request(`${ANT_DESIGN_PRO_TARGET}/dashboard/day?payload=${JSON.stringify(payload)}`, {
         method: 'GET',
