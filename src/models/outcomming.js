@@ -60,12 +60,12 @@ export default {
         },
         * restartOutcomming({ payload }, { call, put }) {
             const response = yield call(restartOutcomming, payload);
-            //console.log(response);
-            //const responseOutcomming = yield call(getOutcomming, payload.payload);
+            console.log(response);
+            const responseOutcomming = yield call(getOutcomming, payload);
             //console.log(responseOutcomming);
             yield put({
                 type: 'restartOutcommingReducer',
-                payload: response//Outcomming,
+                payload: responseOutcomming,
             });
         }
     },
