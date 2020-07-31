@@ -55,19 +55,26 @@ class GeneralProgramming extends PureComponent {
             visibleNewDrawer: true
         });
     };
-    showVisualizar = (skVizualizar) => {
+    showVisualizar = (skVizualizar, client, product) => {
         this.showNewDrawer();
         this.setState({
             visualizar: true,
             edit: true,
             pk: skVizualizar
         })
+        let productName = this.props.datesProductAll.filter(function(data){
+            return data.productName == product;
+        });
+        let clientName = this.props.datesCustomerAll.filter(function(data){
+            return data.clientName == client;
+        })
         this.props.dispatch({
             type: 'programming/getProgramming',
             payload: {
                 payload: {
-                    Authorization: sessionStorage.getItem('idToken'),
-                    idProgramming: skVizualizar
+                    "Authorization": sessionStorage.getItem('idToken'),
+                    "idProgramming": skVizualizar,
+                    "productPorgramming": productName[0]["WMS-1-SK"] + "|" + clientName[0]["WMS-1-SK"]
                 }
              },
         });
@@ -84,21 +91,58 @@ class GeneralProgramming extends PureComponent {
             editSumBoxes: false
         });
     };
-    showEditDrawer = (skEdit) => {
+    showEditDrawer = (skEdit, client, product) => {
         this.showNewDrawer();
         this.setState({
             edit: true,
             pk: skEdit,
             visualizar: false
         })
+        let productName = this.props.datesProductAll.filter(function(data){
+            return data.productName == product;
+        });
+        let clientName = this.props.datesCustomerAll.filter(function(data){
+            return data.clientName == client;
+        })
+        console.log(clientName);
         this.props.dispatch({
             type: 'programming/getProgramming',
             payload: {
                 payload: {
-                    Authorization: sessionStorage.getItem('idToken'),
-                    idProgramming: skEdit
+                    "Authorization": sessionStorage.getItem('idToken'),
+                    "idProgramming": skEdit,
+                    "productPorgramming": productName[0]["WMS-1-SK"] + "|" + clientName[0]["WMS-1-SK"]
                 }
              },
+        });
+    }
+    cancelProgramming = (idProgramming, client, product) => {
+        let _self = this;
+        let productName = this.props.datesProductAll.filter(function(data){
+            return data.productName == product;
+        });
+        let clientName = this.props.datesCustomerAll.filter(function(data){
+            return data.clientName == client;
+        })
+        confirm({
+            title: formatMessage({ id: 'general.modal-cancell' }),
+            // content: 'Some descriptions',
+            okText: formatMessage({ id: 'general.modal-cancell-yes' }),
+            okType: 'danger',
+            cancelText: formatMessage({ id: 'general.modal-cancell-no' }),
+            onOk(){
+                _self.props.dispatch({
+                    type: 'programming/updateProgrammingStatus',
+                    payload: {
+                        payload: {
+                            SK: idProgramming, operation: "UPDATE_STATUS", status: "CANCELLED",Authorization: sessionStorage.getItem('idToken'), productPorgramming: productName[0]["WMS-1-SK"] + "|" + clientName[0]["WMS-1-SK"]
+                        }
+                    }
+                })
+            }, 
+            onCancel() {
+              console.log('Cancel');
+            },
         });
     }
     dataInputShow = () => {
@@ -346,29 +390,7 @@ class GeneralProgramming extends PureComponent {
             payload: {},
         });
     }
-    cancelProgramming = (idProgramming) => {
-        let _self = this;
-        confirm({
-            title: formatMessage({ id: 'general.modal-cancell' }),
-            // content: 'Some descriptions',
-            okText: formatMessage({ id: 'general.modal-cancell-yes' }),
-            okType: 'danger',
-            cancelText: formatMessage({ id: 'general.modal-cancell-no' }),
-            onOk(){
-                _self.props.dispatch({
-                    type: 'programming/updateProgrammingStatus',
-                    payload: {
-                        payload: {
-                            SK: idProgramming, operation: "UPDATE_STATUS", status: "CANCELLED",Authorization: sessionStorage.getItem('idToken')
-                        }
-                    }
-                })
-            }, 
-            onCancel() {
-              console.log('Cancel');
-            },
-        });
-    }
+
     showeditSumPallet = () => {
         this.setState({ editSumPallet: true })
     }

@@ -31,5 +31,6 @@ export default {
     'general.modal-cancell-no': 'No',
     'general.modal-verify-programming-message': 'Existing programming',
     'general.modal-verify-programming-description': 'We have found a schedule on the same date. Please try again',
-    'general.modal-visualize': 'Visualize'
+    'general.modal-visualize': 'Visualize',
+    'general.table.New': 'New'
 }
