@@ -292,8 +292,8 @@ export default class OutComming extends PureComponent {
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} sm={24} md={8} lg={8} xl={8}>
-                                <Form.Item >
-                                        <Dropdown  onChange={this.onChangeProd} overlay={menuProduct}>
+                                    <Form.Item >
+                                        <Dropdown onChange={this.onChangeProd} overlay={menuProduct}>
                                             <Button>
                                                 {this.state.productDesc} <DownOutlined />
                                             </Button>
@@ -301,17 +301,14 @@ export default class OutComming extends PureComponent {
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} sm={24} md={8} lg={8} xl={8}>
-                                <Form.Item >
-                                        <Form.Item>
-                                            <Dropdown overlay={menuClient}>
-                                                <Button>
+                                        <Form.Item style={{width:"100%"}}>
+                                            <Dropdown style={{width:"100%"}} overlay={menuClient}>
+                                                <Button style={{width:"100%"}}>
                                                 {this.state.customerDesc} <DownOutlined />
                                                 </Button>
                                             </Dropdown>
-                                        
-                            
                                         </Form.Item>
-                                </Form.Item>
+                                
                                 </Col>
                         </Row>
                                 
