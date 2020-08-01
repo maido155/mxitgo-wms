@@ -40,7 +40,13 @@ export default class AssignmentOutComming extends PureComponent {
                 <Divider/>
                 <Row>
                     <Col span={24}>
-                        <TableAssignment postOutcomming= {this.props.postOutcomming} datesProductAll = {this.props.datesProductAll} currentOutcomming={this.props.currentOutcomming}/>
+                        <TableAssignment 
+                            postOutcomming= {this.props.postOutcomming} 
+                            datesProductAll = {this.props.datesProductAll} 
+                            currentOutcomming={this.props.currentOutcomming}
+                            visibleAssignProduct={this.props.visibleAssignProduct} 
+                            setVisibleAssignProduct={this.props.setVisibleAssignProduct}
+                        />
                     </Col>
                 </Row>
                 <div

@@ -74,7 +74,10 @@ export default class OutComming extends PureComponent {
         customer: "",
         customerDesc: "Customer",
         dateFrom:"",
-        dateTo:""
+        dateTo:"",
+        visibleAssign: false, //flag for tableOutcooming
+        visibleCompo: false, //flag for tableOutcooming
+        visibleAssignProduct: false, //flag for Assign Product
     }
     
     componentDidMount() {
@@ -236,7 +239,7 @@ export default class OutComming extends PureComponent {
                 }    
             }
         }); 
-    }
+    };
 
     restartOutcomming = (key, context) => {
 
@@ -250,7 +253,26 @@ export default class OutComming extends PureComponent {
                 DateTo: context.state.dateTo
             }
         }); 
-    }
+    };
+
+    setVisibleAssign=(value)=>{
+        this.setState({
+            visibleAssign: value
+        })
+    };
+
+    setVisibleCompo=(value)=>{
+        this.setState({
+            visibleCompo: value
+        })
+    };
+
+    setVisibleAssignProduct=(value)=>{
+        this.setState({
+            visibleAssignProduct: value,
+        })
+    };
+
     render() {
         console.log('Context--->', this);  
         console.log(this.props);
@@ -325,7 +347,7 @@ export default class OutComming extends PureComponent {
                             
                             <Row type="flex" justify="center">
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                                    <TableOutComming restartOutcomming= {(payload)=>{this.restartOutcomming(payload,this)}} postOutcomming= {(payload)=>{this.postOutcomming(payload,this)}} datesProductAll = {datesProductAll} datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
+                                    <TableOutComming visibleAssignProduct={this.state.visibleAssignProduct} setVisibleAssignProduct={this.setVisibleAssignProduct} visibleAssign={this.state.visibleAssign} setVisibleAssign={this.setVisibleAssign} visibleCompo={this.state.visibleCompo} setVisibleCompo={this.setVisibleCompo} restartOutcomming= {(payload)=>{this.restartOutcomming(payload,this)}} postOutcomming= {(payload)=>{this.postOutcomming(payload,this)}} datesProductAll = {datesProductAll} datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
                                 </Col>
                             </Row>
                         
