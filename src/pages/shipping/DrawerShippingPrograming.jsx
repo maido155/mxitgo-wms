@@ -127,7 +127,7 @@ class DrawerShippingPrograming extends PureComponent {
             wrapperCol: { xs: { span: 24 }, sm: { span: 12 }, md: { span: 14 }, lg: { span: 14 }, xl: { span: 14 } }
         };
         const { getFieldDecorator } = this.props.form;
-        const { oShippingItem, warehouse, productsAll } = this.props;
+        const { oShippingItem, warehouse, productsAll, masterMode} = this.props;
 
 
 
@@ -169,7 +169,7 @@ class DrawerShippingPrograming extends PureComponent {
                     productsAll={productsAll}
                 />
                 <Drawer
-                    title={formatMessage({ id: 'shipping.drawershipping.label.title' })}
+                    title={ masterMode == "NEW" ? formatMessage({ id: 'shipping.drawershipping.label.title' }) : formatMessage({ id: 'shipping.drawershipping.label.title.edit' })}
                     width={isMobile ? "100%" : "80%"}
                     closable={true}
                     onClose={this.props.onCloseShippingPrograming}

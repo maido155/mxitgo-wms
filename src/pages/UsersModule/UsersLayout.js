@@ -198,14 +198,14 @@ export default class UsersLayout extends PureComponent {
                         <a onClick={() => this.editModal(record.mail)}>
                             {isMobile
                                 ? <Icon type="edit"/>
-                                : <span><Icon type="edit"/><FormattedMessage id="shipping.label.table-shipping.edit"/></span>
+                                : <span><Icon type="edit"/> <FormattedMessage id="shipping.label.table-shipping.edit"/></span>
                             }
                         </a>
                         <Divider type="vertical"/>
                         <a onClick={() => this.deleteModal(record.mail, record.nameUser, record.familyName)}>
                             {isMobile
                                 ? <Icon type="delete" />
-                                : <span><Icon type="delete" /><FormattedMessage id="shipping.label.table-shipping.delete"/></span>
+                                : <span><Icon type="delete" /> <FormattedMessage id="shipping.label.table-shipping.delete"/></span>
                             }
                         </a>
                     </span>

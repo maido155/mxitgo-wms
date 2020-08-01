@@ -51,7 +51,10 @@ class TableGeneralProgramming extends PureComponent{
             title: formatMessage({id: "general.table.status"}),
             dataIndex: 'status',
             key: 'status',
-            width: isMobile ? 100 :100
+            width: isMobile ? 100 :100,
+            render: (text, record) => (
+                <FormattedMessage id="general.table.New"/>
+            )
         },
         {
             title: <FormattedMessage id="general.table.actions-mobil"/>,
@@ -60,25 +63,25 @@ class TableGeneralProgramming extends PureComponent{
             width: isMobile ? 120 : 250,
             render: (record) => (
                 <span>
-                    <a onClick={() => {showEditDrawer(record.Sk)}}>
+                    <a onClick={() => {showEditDrawer(record.Sk, record.Client, record.Product)}}>
                         {isMobile
                             ? <Icon type="edit"/>
-                            : <span><Icon type="edit"/><FormattedMessage id="general.table.edit"/></span>
+                            : <span><Icon type="edit"/> <FormattedMessage id="general.table.edit"/></span>
                         }
                     </a >
                     <Divider type="vertical" />
-                    <a onClick={()=>{cancelProgramming(record.Sk)}}>
+                    <a onClick={()=>{cancelProgramming(record.Sk, record.Client, record.Product)}}>
                         {isMobile
                             ? <Icon type="delete"/>
-                            : <span><Icon type="delete"/><FormattedMessage id="general.table.delete"/></span>
+                            : <span><Icon type="delete"/> <FormattedMessage id="general.table.delete"/></span>
 
                         }
                     </a >
                     <Divider type="vertical" />
-                    <a onClick={() => {showVisualizar(record.Sk)}}>
+                    <a onClick={() => {showVisualizar(record.Sk, record.Client, record.Product)}}>
                         {isMobile
                             ? <Icon type="eye"/>
-                            : <span><Icon type="eye"/>Visualizar</span>
+                            : <span><Icon type="eye"/> <FormattedMessage id="general.modal-visualize"/></span>
                         }
                     </a>
                 </span>

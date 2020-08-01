@@ -10,12 +10,14 @@ export default class TableOutComming extends PureComponent {
     state = { 
         visibleAssign: false,
         visibleCompo: false,
-        currentRecord: ""
+        currentRecord: "",
+        recordKey: ""
     };
     showDrawerAssig = (item) => {
         this.setState({
           visibleAssign: true,
           currentRecord: item,
+          recordKey: item.key,
         });
     };
     showDrawerCompo = (id) => {
@@ -96,6 +98,8 @@ export default class TableOutComming extends PureComponent {
                             currentOutcomming={this.state.currentRecord}
                             closeOne={this.onCloseDrawerAssig}
                             postOutcomming= {this.props.postOutcomming}
+                            restartOutcomming= {this.props.restartOutcomming}
+                            recordKey= {this.state.recordKey}
                         />
                         <CompositionOutComming
                             loading = {this.props.loading}
