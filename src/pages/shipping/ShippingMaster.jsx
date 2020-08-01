@@ -321,7 +321,10 @@ class ShippingMaster extends PureComponent {
                 skWh: datesShipping.warehouses,
                 dateNew: datesShipping.dateNew,
                 createdByNew: datesShipping.createdByNew,
-                idShipping: datesShipping.idShipping,
+                pk: datesShipping.idShipping,
+                sk: datesShipping.idShipping.substr(4,14),
+                operator: datesShipping.operator,
+                phone: datesShipping.phone,
                 Authorization: sessionStorage.getItem('idToken')
             }
         })
@@ -420,6 +423,8 @@ class ShippingMaster extends PureComponent {
                      products={products}
                      updateShippingSuccess={this.updateShippingSuccess}
                      locationTreeData={locationTreeData}
+                     operatorAll={operatorAll}
+
  
  
                 />

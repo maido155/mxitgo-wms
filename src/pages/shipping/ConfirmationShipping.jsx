@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';;
 import TextArea from '../generalComponents/TextAreaComponent';
 import TableComponent from '../generalComponents/TableComponent';
-import { Drawer, Form, Row, Col, Typography, Divider, Button, Icon, Input, AutoComplete,Spin, message } from 'antd';
+import { Drawer, Form, Row, Col, Typography, Divider, Button, Icon, Input,DatePicker, AutoComplete,Spin, message } from 'antd';
 import {isMobile} from 'react-device-detect';
 import Styles from './StylesShipping.css';
 import NewLine from './NewLine';
@@ -225,18 +225,22 @@ class ConfirmationShipping extends PureComponent {
                         <Row className={Styles.lastcolumn}>
                             <Col lg={12} xl={12}>
                                 <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.driver' })}>
-                                    <AutoComplete
+                                {getFieldDecorator('operator')
+                                    (<AutoComplete
                                         dataSource={nameOperator}
                                         filterOption={(inputValue, option) =>
                                             option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                                         }
                                         onSelect={this.onSelect}
-                                    />
+                                    />)}
                                 </Form.Item>
                             </Col>
                             <Col lg={12} xl={12}>
                                 <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.phone' })}>
-                                    <Input value={phoneOperator}/>
+                                {getFieldDecorator('phone',
+                                 { initialValue: phoneOperator})
+                                    (<Input />
+                                )}
                                 </Form.Item>
                             </Col>
                         </Row>
