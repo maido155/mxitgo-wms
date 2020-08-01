@@ -8,35 +8,26 @@ import {isMobile} from 'react-device-detect';
 
 export default class TableOutComming extends PureComponent {
     state = { 
-        visibleAssign: false,
-        visibleCompo: false,
         currentRecord: "",
         recordKey: ""
     };
     showDrawerAssig = (item) => {
+        this.props.setVisibleAssign(true);
         this.setState({
-          visibleAssign: true,
           currentRecord: item,
           recordKey: item.key,
         });
     };
     showDrawerCompo = (id) => {
-
         this.props.onShowCompositionData(id);
 
-        this.setState({
-          visibleCompo: true,
-        });
+        this.props.setVisibleCompo(true);
     };
     onCloseDrawerAssig = () => {
-        this.setState({
-          visibleAssign: false,
-        });
+        this.props.setVisibleAssign(false);
     };
     onCloseDrawerCompo = () => {
-        this.setState({
-          visibleCompo: false,
-        });
+        this.props.setVisibleCompo(true);
     };
     render() {
         const { datesOutcomming } = this.props;
@@ -94,17 +85,19 @@ export default class TableOutComming extends PureComponent {
                         }      
                         <AssignmentOutComming 
                             datesProductAll = {this.props.datesProductAll}
-                            visibleOne={this.state.visibleAssign}
+                            visibleOne={this.props.visibleAssign}
                             currentOutcomming={this.state.currentRecord}
                             closeOne={this.onCloseDrawerAssig}
                             postOutcomming= {this.props.postOutcomming}
                             restartOutcomming= {this.props.restartOutcomming}
                             recordKey= {this.state.recordKey}
+                            visibleAssignProduct={this.props.visibleAssignProduct} 
+                            setVisibleAssignProduct={this.props.setVisibleAssignProduct}
                         />
                         <CompositionOutComming
                             loading = {this.props.loading}
                             compositionData = {this.props.compositionData}
-                            visibleTwo={this.state.visibleCompo}
+                            visibleTwo={this.props.visibleCompo}
                             closeTwo={this.onCloseDrawerCompo}
                         />
                   </span>
