@@ -1,5 +1,5 @@
 
-import { saveShipping, updateShipping, getShipping, getLocations, fetchShippingAll, fetchProductAll,getShippingDetail,fetchOperatorAll } from '../services/api';
+import { saveShipping, updateShipping, getShipping, getLocations, fetchShippingAll, fetchProductAll,getShippingDetail,fetchOperatorAll,deleteShipping } from '../services/api';
 
 
 import moment from 'moment';
