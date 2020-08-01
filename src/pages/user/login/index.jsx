@@ -345,14 +345,14 @@ class Login extends Component {
                 <UserName
                   name="userName"
                   placeholder={`${formatMessage({
-                  id: 'Correo electronico'
+                  id: 'login.email'
                   })}`}
                   rules={[
                     {
                       type: 'email', message: 'The input is not valid Email!',
                       required: true,
                       message: formatMessage({
-                        id: 'ingresa tu correo', //'user-login.userName.required'
+                        id: 'register.mode.message.email', //'user-login.userName.required'
                       }),
                     },
                   ]}
@@ -360,13 +360,13 @@ class Login extends Component {
                 <Password
                   name="userPassword"
                   placeholder={`${formatMessage({
-                    id: 'contraseña',
+                    id: 'login.pass',
                   })}`}
                   rules={[
                     {
                       required: true,
                       message: formatMessage({
-                        id: 'Ingresa tu contraseña', //'user-login.password.required'
+                        id: 'register.label.message.password', //'user-login.password.required'
                       }),
                     },
                   ]}
@@ -381,7 +381,7 @@ class Login extends Component {
             
               <div>
                 <Checkbox checked={autoLogin} onChange={this.changeAutoLogin}>
-                  <FormattedMessage id="recordarme"//"user-login.login.remember-me"
+                  <FormattedMessage id="login.remember.pass"//"user-login.login.remember-me"
                   />
                 </Checkbox>
                 <a
@@ -390,7 +390,7 @@ class Login extends Component {
                   }}
                   onClick={this.showModal}
                 > 
-                  <FormattedMessage id="olvidaste tu contraseña?" //"user-login.login.forgot-password"
+                  <FormattedMessage id="login.forgot.pass" //"user-login.login.forgot-password"
                   /> 
                 </a> 
                 <ModalChangePassword
@@ -402,16 +402,16 @@ class Login extends Component {
                   />
               </div>
               <Submit loading={submitting}>
-                <FormattedMessage id= "iniciar sesión" //"user-login.login.login"
+                <FormattedMessage id= "user-login.login.login" //"user-login.login.login"
                 />
               </Submit>
               <div className={styles.other}>
                 <Link className={styles.register} to="/user/register">
-                  <FormattedMessage id="Registrarme"//"user-login.login.signup"
+                  <FormattedMessage id="user-login.login.signup"//"user-login.login.signup"
                   />
                 </Link>
               </div>
-              <Divider plain><FormattedMessage id="o inicie sesión con"/></Divider>
+              <Divider plain><FormattedMessage id="login.login.with"/></Divider>
               <div className={styles.iconsSocial}>
                 <Button type="primary"  className={styles.btnFb} onClick={() => Auth.federatedSignIn({ provider: "Facebook" })}><FacebookOutlined />Facebook</Button>
                 <Button type="danger"  className={styles.btnGo} onClick={() => Auth.federatedSignIn({ provider: "Google" })}><GoogleOutlined />Google</Button>

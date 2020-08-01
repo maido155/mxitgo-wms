@@ -45,7 +45,8 @@ class GeneralProgramming extends PureComponent {
             type: 'programming/fetchProductAll',
             payload: {
                 payload: {
-                 Authorization: sessionStorage.getItem('idToken')
+                 Authorization: sessionStorage.getItem('idToken'),
+                 type: "Primary"
                 }
              },
         });
