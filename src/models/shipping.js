@@ -142,7 +142,7 @@ export default {
                 type: 'getOperatorReducer',
                 payload: response,
             });
-        }
+        },
 
         * deleteShipping({ payload }, { call, put }) {
             const response = yield call(deleteShipping, payload);
@@ -153,7 +153,7 @@ export default {
                 payload: responseShippingAll,
             });
 
-        },
+        }
 
 
 
