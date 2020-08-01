@@ -192,7 +192,7 @@ export default class UsersLayout extends PureComponent {
                 title: formatMessage({ id: 'usersModule.table.accions' }),
                 key: 'action',
                 fixed: 'right',
-                width: isMobile ? 70 : 150,
+                width: isMobile ? 70 : 170,
                 render: (record) => (
                     <span>
                         <a onClick={() => this.editModal(record.mail)}>

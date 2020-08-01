@@ -344,22 +344,21 @@ class ShippingMaster extends PureComponent {
                 <PageHeaderWrapper>
                     <Card>
                         <Form {...formItemLayout}>
-                            <Row type="flex" justify="center">
-                                <Col xs={24} sm={23} md={17} lg={16} xl={16}>
-                                <Form.Item label={formatMessage({id: "outComming.label.week"})}>
-                                    <DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} disabledDate={disabledDate} onChange={(date,dateString)=>{this.onChangeWeek(date,dateString,this)}}/>
-                                </Form.Item>
+                            <Row type="flex" >
+                                <Col xs={24} sm={23} md={17} lg={16} xl={6}></Col>
+                                <Col xs={24} sm={23} md={17} lg={16} xl={10}>
+                                    <Form.Item label={formatMessage({id: "outComming.label.week"})}>
+                                        <DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} disabledDate={disabledDate} onChange={(date,dateString)=>{this.onChangeWeek(date,dateString,this)}}/>
+                                    </Form.Item>
                                 </Col>
+                                <Col xs={24} sm={23} md={17} lg={16} xl={8} className={Styles.addshippingmaster}>
+                                    <Button type="primary" shape="circle" size="large" onClick={this.showShippingPrograming}>
+                                        <Icon type="plus" />
+                                    </Button>
+                            </Col>
                             </Row>
                         </Form>
                         <Divider />
-                        <Row>
-                            <Col span={22} className={Styles.addshippingmaster}>
-                                <Button type="primary" shape="circle" size="large" onClick={this.showShippingPrograming}>
-                                    <Icon type="plus" />
-                                </Button>
-                            </Col>
-                        </Row>
                         <Row>
                             <Col span={24}>
                             <Spin tip={"Cargando..."} spinning={loading}>
