@@ -381,6 +381,14 @@ export async function getShipping(payload) {
     });
 }
 
+export async function getShippingDetail(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/shipping/detail?payload=${JSON.stringify(payload)}`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization }
+
+    });
+}
+
 export async function getLocations(payload) {
     return request(`${ANT_DESIGN_PRO_TARGET}/location/all?payload=${JSON.stringify(payload)}`, {
         method: 'GET',
@@ -483,6 +491,13 @@ export async function restartOutcomming(payload) {
     });
 }
 
+export async function fetchOperatorAll({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/operator/all`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization },
+    });
+}
+
 export async function deleteShipping(payload) {
     return request(`${ANT_DESIGN_PRO_TARGET}/shipping`, {
         method: 'DELETE',
@@ -490,3 +505,4 @@ export async function deleteShipping(payload) {
         body: JSON.stringify(payload)
     });
 }
+

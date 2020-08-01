@@ -1,4 +1,7 @@
-import { saveShipping, updateShipping, getShipping, getLocations, fetchShippingAll, fetchProductAll, deleteShipping } from '../services/api';
+
+import { saveShipping, updateShipping, getShipping, getLocations, fetchShippingAll, fetchProductAll,getShippingDetail,fetchOperatorAll } from '../services/api';
+
+
 import moment from 'moment';
 
 export default {
@@ -12,7 +15,8 @@ export default {
         products: [],
         locationTreeData: [],
         datesShipping: [],
-        productsAll: []
+        productsAll: [],
+        operatorAll: []
     },
     effects: {
 
@@ -95,6 +99,14 @@ export default {
                 payload: response,
             });
         },
+        * getShippingDetail({ payload }, { call, put }) {
+            const response = yield call(getShippingDetail, payload);
+            console.log(response);
+            yield put({
+                type: 'getShippingDetailReducer',
+                payload: response,
+            });
+        },
         * setShipping({ payload }, { call, put }) {
             yield put({
                 type: 'setShippingReducer',
@@ -123,6 +135,15 @@ export default {
                 payload: response,
             });
         },
+
+        * getOperators({ payload }, { call, put }) {
+            const response = yield call(fetchOperatorAll, payload);
+            yield put({
+                type: 'getOperatorReducer',
+                payload: response,
+            });
+        }
+
         * deleteShipping({ payload }, { call, put }) {
             const response = yield call(deleteShipping, payload);
             console.log(response);
@@ -133,6 +154,7 @@ export default {
             });
 
         },
+
 
 
     },
@@ -242,6 +264,12 @@ export default {
                 productsAll: action.payload.Items
             }
         },
+        getOperatorReducer(state, action) {
+            return {
+                ...state,
+                operatorAll: action.payload
+            }
+        },
         getShippingReducer(state, action) {
 
             var oItem = action.payload;
@@ -279,6 +307,31 @@ export default {
                 oShippingItem: oItem,
                 masterMode: "EDIT",
                 products: oItem.products
+
+            }
+        },
+        getShippingDetailReducer(state, action) {
+
+            var oItem = action.payload[0];
+
+
+
+            
+            /// convert date properties to moment
+
+            oItem.originalDepartureDate = new moment(oItem.departureDate);
+            oItem.originalDeliveryDate = new moment(oItem.deliveryDate);
+            oItem.originalEntryDate = new moment(oItem.entryDate);
+
+            oItem.departureDate = new moment(oItem.departureDate);
+            oItem.deliveryDate = new moment(oItem.deliveryDate);
+            oItem.entryDate = new moment(oItem.entryDate);
+
+
+            return {
+                ...state,
+                oShippingItem: oItem,
+                visibleModalProduct: true
 
             }
         },
