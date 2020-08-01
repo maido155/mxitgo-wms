@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import { Table, Icon, Divider, Typography } from 'antd';
+import { Table, Icon, Divider, Typography, Button } from 'antd';
 
 import DrawerEntry from './drawerEntry';
 import ModalDeleteComponent from '../generalComponents/ModalDeleteComponent';
@@ -200,7 +200,7 @@ class TableShippingMaster extends PureComponent {
                     }
                   </Button>
                   <Divider type="vertical"/>
-                  <Button type="link" onClick={this.showConfirmationShipping}>
+                  <Button type="link" onClick={() =>{this.props.showConfirmationShipping(record)}}>
                     {isMobile
                       ? <Icon type="check" />
                       : <a><Icon type="check" /> <FormattedMessage id="shipping.label.table-shipping.confirm"/></a>
