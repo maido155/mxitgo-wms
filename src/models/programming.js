@@ -42,9 +42,12 @@ export default {
         },
         * fetchProductAll({ payload }, { call, put }) {
             const response = yield call(fetchProductAll, payload);
+            let typeProduct = response.Items.filter(function(data) {
+                return data.type == payload.payload.type
+            })
             yield put({
                 type: 'queryProductAll',
-                payload: response,
+                payload: typeProduct,
             });
             const responseCus = yield call(fetchCustomerAll, payload);
             yield put({
@@ -158,7 +161,7 @@ export default {
         queryProductAll(state, action) {
             return {
                 ...state,
-                datesProductAll: action.payload.Items
+                datesProductAll: action.payload
             }
         },
         queryValidation(state, action) {

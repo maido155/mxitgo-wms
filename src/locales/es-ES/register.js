@@ -25,5 +25,13 @@ export default {
     'register.button.register': 'Registrar',
     'register.button.account': '¿Ya tienes una cuenta?',
     'register.button.button-success': 'Ir a login',
-    'register.socialNetwork.register': 'Crear una cuenta usando'
+    'register.social-Network.register': 'Registrate con',
+    'register.modal.register': 'Crear una cuenta',
+    'login.email': 'Correo electronico',
+    'login.pass': 'Contraseña',
+    'login.remember.pass': 'Recordarme',
+    'login.forgot.pass': 'olvidaste tu contraseña?',
+    'user-login.login.login': 'iniciar sesión',
+    'user-login.login.signup': 'Registrarme',
+    'login.login.with': 'o inicie sesión con'
 };

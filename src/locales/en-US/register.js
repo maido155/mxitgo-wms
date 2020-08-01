@@ -25,4 +25,12 @@ export default {
     'register.button.register': 'Registration',
     'register.button.account': 'Do you have an account yet?',
     'register.button.button-success': 'Go to login',
+    'register.social-Network.register': 'Register with',
+    'register.modal.register': 'Create your account',
+    'login.email': 'Email',
+    'login.pass': 'Password',
+    'login.remember.pass': 'Remember me',
+    'login.forgot.pass': 'Forgot password?',
+    'login.login.with': 'Login with'
+
 };
