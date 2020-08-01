@@ -143,7 +143,7 @@ class TableShippingMaster extends PureComponent {
         dataIndex: 'amount',
         width: isMobile ? 130 : 100,
         render: (text, record) => (
-        <Text type={this.dates(record.products[0].planned,record.products[0].confirmed)} onClick={() => { this.props.showModalProduct(record,"premium")}} className={Styles.producto}>{record.products[0].planned}/{record.products[0].confirmed}</Text>
+        <Text type={this.dates(record.products[0].planned,record.products[0].confirmed)} onClick={() => { this.props.showModalProduct(record,record.products[0].product)}} className={Styles.producto}>{record.products[0].planned}/{record.products[0].confirmed}</Text>
         )
       },
       {
@@ -151,7 +151,7 @@ class TableShippingMaster extends PureComponent {
         dataIndex: 'amount',
         width: isMobile ? 110 : 100,
         render: (text, record) => (
-                <Text type={this.dates(record.products[1].planned,record.products[1].confirmed)}  className={Styles.producto}>{record.products[1].planned}/{record.products[1].confirmed}</Text>
+                <Text type={this.dates(record.products[1].planned,record.products[1].confirmed)} onClick={() => { this.props.showModalProduct(record,record.products[1].product)}} className={Styles.producto}>{record.products[1].planned}/{record.products[1].confirmed}</Text>
         )
       },
       {
@@ -159,7 +159,7 @@ class TableShippingMaster extends PureComponent {
         dataIndex: 'amount',
         width: isMobile ? 130 : 100,
         render: (text, record) => (
-                <Text type={this.dates(record.products[2].planned,record.products[2].confirmed)}  className={Styles.producto}>{record.products[2].planned}/{record.products[2].confirmed}</Text>
+                <Text type={this.dates(record.products[2].planned,record.products[2].confirmed)} onClick={() => { this.props.showModalProduct(record,record.products[2].product)}} className={Styles.producto}>{record.products[2].planned}/{record.products[2].confirmed}</Text>
         )
       },
       {
@@ -167,7 +167,7 @@ class TableShippingMaster extends PureComponent {
         dataIndex: 'amount',
         width: isMobile ? 120 : 100,
         render: (text, record) => (
-                <Text type={this.dates(record.products[3].planned,record.products[3].confirmed)}  className={Styles.producto}>{record.products[3].planned}/{record.products[3].confirmed}</Text>
+                <Text type={this.dates(record.products[3].planned,record.products[3].confirmed)} onClick={() => { this.props.showModalProduct(record,record.products[3].product)}} className={Styles.producto}>{record.products[3].planned}/{record.products[3].confirmed}</Text>
         )
       },
       {
@@ -175,7 +175,7 @@ class TableShippingMaster extends PureComponent {
         dataIndex: 'amount',
         width: isMobile ? 120 : 100,
         render: (text, record) => (
-          <Text type={this.dates(record.products[4].planned,record.products[4].confirmed)}  className={Styles.producto}>{record.products[4].planned}/{record.products[4].confirmed}</Text>
+          <Text type={this.dates(record.products[4].planned,record.products[4].confirmed)} onClick={() => { this.props.showModalProduct(record,record.products[4].product)}} className={Styles.producto}>{record.products[4].planned}/{record.products[4].confirmed}</Text>
         )
       },
       {

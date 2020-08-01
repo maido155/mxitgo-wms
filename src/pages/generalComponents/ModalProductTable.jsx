@@ -1,14 +1,26 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
-import { Modal, Row, Col, Typography  } from 'antd';
+import { Modal, Row, Col, Typography, Spin  } from 'antd';
 import Styles from './StylesGeneral.css';
 import moment from 'moment';
 
 const { Text } = Typography;
 
 export default class ModalProductTable extends PureComponent{
+    state = {
+        currentLoader: false,
+    }  
+    faltante =(confirmed,planned)=>{
+    let faltante = planned-confirmed;
+    console.log(faltante);    
+    return (faltante)
+   }
     render(){
         const { oShippingItem} = this.props;
+        let deliveryDate = moment(oShippingItem.deliveryDate).format('dddd');
+        console.log(deliveryDate);
+        let currentLoader = this.props.loading === undefined ? false : this.props.loading;
+        this.setState({ currentLoader });
         return(
             <div>
                 <Modal
@@ -18,82 +30,84 @@ export default class ModalProductTable extends PureComponent{
                     onCancel={this.props.onCloseModalProduct}
                     width={"40%"}
                 >
+                    <Spin spinning={this.state.currentLoader}>
                     <Row justify="center">
                         <Col sm={1} md={3} lg={6} xl={7}></Col>
-                        <Col xs={24} sm={8} md={6} lg={5} xl={4} className={Styles.labelone}>
+                        <Col xs={24} sm={8} md={6} lg={5} xl={7} className={Styles.labelone}>
                             <Text strong>Envio</Text>
                         </Col>
-                        <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
+                        <Col xs={24} sm={14} md={12} lg={8} xl={10} className={Styles.labeltwo}>
                         <Text>{oShippingItem['WMS-1-PK']}</Text>
                         </Col>
-                        <Col md={1} lg={3} xl={4}></Col>
+                        <Col md={1} lg={3} ></Col>
                     </Row>
 
                     <Row justify="center">
                         <Col sm={1} md={3} lg={6} xl={7}></Col>
-                        <Col xs={24} sm={8} md={6} lg={5} xl={4} className={Styles.labelone}>
+                        <Col xs={24} sm={8} md={6} lg={5} xl={7} className={Styles.labelone}>
                             <Text strong>Dia</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
-                            <Text></Text>
+                            <Text>{deliveryDate}</Text>
                         </Col>
                         <Col md={1} lg={3} xl={4}></Col>
                     </Row>
 
                     <Row justify="center">
                         <Col sm={1} md={3} lg={6} xl={7}></Col>
-                        <Col xs={24} sm={8} md={6} lg={5} xl={4} className={Styles.labelone}>
+                        <Col xs={24} sm={8} md={6} lg={5} xl={7} className={Styles.labelone}>
                             <Text strong>Producto</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
-                            <Text></Text>
+                            <Text>{oShippingItem.products.length == 0 ? "0" : oShippingItem.products[0].product}</Text>
                         </Col>
                         <Col md={1} lg={3} xl={4}></Col>
                     </Row>
 
                     <Row justify="center">
                         <Col sm={1} md={3} lg={6} xl={7}></Col>
-                        <Col xs={24} sm={8} md={6} lg={5} xl={4} className={Styles.labelone}>
+                        <Col xs={24} sm={8} md={6} lg={5} xl={7} className={Styles.labelone}>
                             <Text strong>Planeado</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
-                            <Text></Text>
+                            <Text>{oShippingItem.products.length == 0 ? "0" : oShippingItem.products[0].planned}</Text>
                         </Col>
                         <Col md={1} lg={3} xl={4}></Col>
                     </Row>
 
                     <Row justify="center">
                         <Col sm={1} md={3} lg={6} xl={7}></Col>
-                        <Col xs={24} sm={8} md={6} lg={5} xl={4} className={Styles.labelone}>
+                        <Col xs={24} sm={8} md={6} lg={5} xl={7} className={Styles.labelone}>
                             <Text strong>Confirmado</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
-                            <Text></Text>
+                            <Text>{oShippingItem.products.length == 0 ? "0" : oShippingItem.products[0].confirmed}</Text>
                         </Col>
                         <Col md={1} lg={3} xl={4}></Col>
                     </Row>
 
                     <Row justify="center">
                         <Col sm={1} md={3} lg={6} xl={7}></Col>
-                        <Col xs={24} sm={8} md={6} lg={5} xl={4} className={Styles.labelone}>
+                        <Col xs={24} sm={8} md={6} lg={5} xl={7} className={Styles.labelone}>
                             <Text strong>Entrada</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
-                            <Text></Text>
+                            <Text>{oShippingItem.products.length == 0 ? "0" : oShippingItem.products[0].entry}</Text>
                         </Col>
                         <Col md={1} lg={3} xl={4}></Col>
                     </Row>
 
                     <Row justify="center">
                         <Col sm={1} md={3} lg={6} xl={7}></Col>
-                        <Col xs={24} sm={8} md={6} lg={5} xl={4} className={Styles.labelone}>
+                        <Col xs={24} sm={8} md={6} lg={5} xl={7} className={Styles.labelone}>
                             <Text type="danger" strong>Faltante</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
-                            <Text type="danger">100</Text>
+                        <Text type="danger">{this.faltante(oShippingItem.products.length == 0 ? "0" : oShippingItem.products[0].confirmed,oShippingItem.products.length == 0 ? "0" : oShippingItem.products[0].planned)}</Text>
                         </Col>
                         <Col md={1} lg={3} xl={4}></Col>
                     </Row>
+                    </Spin>
                 </Modal>
             </div>
         );
