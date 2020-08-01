@@ -1,16 +1,17 @@
 import React, { PureComponent } from 'react';
 import Styles from './StylesShipping.css';
-import { Card, Button, Icon, Form, Row, Col, Divider, Spin, DatePicker } from 'antd';
+import { Card, Button, Icon, Form, Row, Col, Divider, Spin, DatePicker,Modal } from 'antd';
 import RangePickerComponent from '../generalComponents/RangePickerComponent';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
 import TableShippingMaster from './TableShippingMaster';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import DrawerShippingPrograming from './DrawerShippingPrograming';
-import { formatMessage } from 'umi-plugin-react/locale';
+import { FormattedMessage,formatMessage } from 'umi-plugin-react/locale';
 import { _ } from 'lodash';
 import { connect } from 'dva';
 import moment from 'moment';
 
+const { confirm } = Modal;
 
 function disabledDate(current) {
     let dateMonday = moment(current).isoWeekday(1);
@@ -298,6 +299,35 @@ class ShippingMaster extends PureComponent {
             payload: {}
         })
     }
+    
+    deleteShipping = (shipping) => {
+        let idShipping = shipping["WMS-1-PK"];
+        let _self = this;
+        confirm({
+            title: formatMessage({ id: 'shipping.modal-delete' }),
+            // content: 'Some descriptions',
+            okText: formatMessage({ id: 'shipping.modal-delete-yes' }),
+            okType: 'danger',
+            cancelText: formatMessage({ id: 'shipping.modal-delete-no' }),
+            onOk(){
+                console.log('Deleting..........');
+                _self.props.dispatch({
+                    type: 'shipping/deleteShipping',
+                    payload: {
+                        'WMS-1-PK': idShipping,
+                        payload: {
+                            initialDate: _self.state.dateFrom,
+                        },
+                        Authorization: sessionStorage.getItem('idToken')
+                    }
+                })
+            }, 
+            onCancel() {
+              console.log('Deleting shipping cancelled');
+            },
+        });
+    }
+
     render() {
         const formItemLayout = {
             labelCol: { xs: { span: 24 }, sm: { span: 7 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 5 } },
@@ -365,6 +395,7 @@ class ShippingMaster extends PureComponent {
                                 <TableShippingMaster
                                     showShippingProgramingEdit={this.showShippingProgramingEdit}
                                     datesTableShipping={datesShipping}
+                                    deleteShipping={this.deleteShipping}
                                 />
                             </Spin>
                             </Col>

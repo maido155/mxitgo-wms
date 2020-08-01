@@ -482,3 +482,11 @@ export async function restartOutcomming(payload) {
         body: JSON.stringify(payload)
     });
 }
+
+export async function deleteShipping(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/shipping`, {
+        method: 'DELETE',
+        headers: {  'content-type': 'application/json', 'Authorization': payload.Authorization },
+        body: JSON.stringify(payload)
+    });
+}
