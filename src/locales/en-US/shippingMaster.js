@@ -45,7 +45,9 @@ export default {
     'shipping.entryProducts.amounts': 'Amounts',
     'shipping.entryProducts.temperature':'Temperature',
     'shipping.entryProducts.photo':'Photo',
-    'shipping.entryProducts.title':'Product detail'
-
-
+    'shipping.entryProducts.title':'Product detail',
+    'shipping.modal-delete': 'Are you sure you want to cancel this shipping?',
+    'shipping.modal-delete-yes': 'Yes',
+    'shipping.modal-delete-no': 'No'
+    
 };

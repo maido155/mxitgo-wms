@@ -90,7 +90,7 @@ class TableShippingMaster extends PureComponent {
 
 
   render() {
-    const { datesTableShipping } = this.props;
+    const { datesTableShipping,deleteShipping} = this.props;
     let columns = [
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.id' }),
@@ -189,7 +189,13 @@ class TableShippingMaster extends PureComponent {
               }
             </a>
             <Divider type="vertical" />
-            <ModalDeleteComponent />
+            <a onClick={()=>{deleteShipping(record)}}>
+                {isMobile
+                    ? <Icon type="delete"/>
+                    : <span><Icon type="delete"/><FormattedMessage id="general.table.delete"/></span>
+
+                }
+            </a >
             <Divider type="vertical" />
             <a onClick={() => {this.showEntry(record["WMS-1-PK"], record.status)}}>
               {isMobile
