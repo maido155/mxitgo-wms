@@ -1,4 +1,6 @@
-import { saveShipping, updateShipping, getShipping, getLocations, fetchShippingAll, fetchProductAll,getShippingDetail } from '../services/api';
+
+import { saveShipping, updateShipping, getShipping, getLocations, fetchShippingAll, fetchProductAll,getShippingDetail,fetchOperatorAll } from '../services/api';
+
 import moment from 'moment';
 
 export default {
@@ -12,7 +14,8 @@ export default {
         products: [],
         locationTreeData: [],
         datesShipping: [],
-        productsAll: []
+        productsAll: [],
+        operatorAll: []
     },
     effects: {
 
@@ -130,6 +133,13 @@ export default {
                 type: 'getProductsReducer',
                 payload: response,
             });
+        },
+        * getOperators({ payload }, { call, put }) {
+            const response = yield call(fetchOperatorAll, payload);
+            yield put({
+                type: 'getOperatorReducer',
+                payload: response,
+            });
         }
 
 
@@ -238,6 +248,12 @@ export default {
             return {
                 ...state,
                 productsAll: action.payload.Items
+            }
+        },
+        getOperatorReducer(state, action) {
+            return {
+                ...state,
+                operatorAll: action.payload
             }
         },
         getShippingReducer(state, action) {

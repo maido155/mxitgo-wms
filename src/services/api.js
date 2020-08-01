@@ -467,7 +467,7 @@ export async function postOutcomming({ payload }) {
         body: JSON.stringify(payload),
     });
 }
-       
+
 export async function getDay(payload) {
     return request(`${ANT_DESIGN_PRO_TARGET}/dashboard/day?payload=${JSON.stringify(payload)}`, {
         method: 'GET',
@@ -478,6 +478,21 @@ export async function getDay(payload) {
 export async function fetchShippingAll({ payload }) {
     console.log(payload)
     return request(`${ANT_DESIGN_PRO_TARGET}/shipping/all?payload=${JSON.stringify(payload)}`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization },
+    });
+}
+
+export async function restartOutcomming(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/outcomming/shipping/restart`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'Authorization': payload.Authorization },
+        body: JSON.stringify(payload)
+    });
+}
+
+export async function fetchOperatorAll({ payload }) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/operator/all`, {
         method: 'GET',
         headers: { 'Authorization': payload.Authorization },
     });

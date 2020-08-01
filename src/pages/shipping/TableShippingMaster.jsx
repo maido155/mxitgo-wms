@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { Table, Icon, Divider, Typography } from 'antd';
-import ConfirmationShipping from './ConfirmationShipping';
+
 import DrawerEntry from './drawerEntry';
 import ModalDeleteComponent from '../generalComponents/ModalDeleteComponent';
 
@@ -13,17 +13,17 @@ import { _ } from 'lodash';
 const { Text } = Typography;
 class TableShippingMaster extends PureComponent {
   state = {
-    visibleConfirmationShipping: false,
+    
     visibleModalProduct: false,
     visibleEntry: false,
     loadingModal: false
   }
 
-  showConfirmationShipping = () => {
+  /*showConfirmationShipping = () => {
     this.setState({
       visibleConfirmationShipping: true
     });
-  };
+  };*/
 
   onCloseConfirmationShipping = () => {
     this.setState({
@@ -105,7 +105,7 @@ class TableShippingMaster extends PureComponent {
 
 
   render() {
-    const { datesTableShipping } = this.props;
+    const { datesTableShipping, operatorAll } = this.props;
     let columns = [
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.id' }),
@@ -197,7 +197,7 @@ class TableShippingMaster extends PureComponent {
               }
             </a>
             <Divider type="vertical" />
-            <a onClick={this.showConfirmationShipping}>
+            <a onClick={() => { this.props.showConfirmationShipping(record)}}>
               {isMobile
                 ? <Icon type="check" />
                 : <span><Icon type="check" /> <FormattedMessage id="shipping.label.table-shipping.confirm" /></span>

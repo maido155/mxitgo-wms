@@ -1,5 +1,5 @@
 
-import {confirmOutcomming, getComposition, getOutcomming, postOutcomming,getShippingsByEntry} from '../services/api';
+import {confirmOutcomming, getComposition, getOutcomming, postOutcomming,getShippingsByEntry, restartOutcomming} from '../services/api';
 
 export default {
     namespace: 'outcomming',
@@ -7,7 +7,8 @@ export default {
         compositionData: [],
         datesOutcomming: [],
         shippingsByEntry: [],
-        postOutcommingSuccess: false
+        postOutcommingSuccess: false,
+        restartOutcommingSuccess: false,
     },
     effects: {
         * confirmOutcomming({ payload }, { call, put }) {
@@ -48,14 +49,22 @@ export default {
         },
         * postOutcomming({ payload }, { call, put }) {
             const response = yield call(postOutcomming, payload);
-            console.log(response);
-
-            payload = payload.payload;
-            const responseOutcomming = yield call(getOutcomming, payload);
-            console.log(responseOutcomming);
+            //console.log(response);
+            const responseOutcomming = yield call(getOutcomming, payload.payload);
+            //console.log(responseOutcomming);
 
             yield put({
                 type: 'postOutcommingReducer',
+                payload: responseOutcomming,
+            });
+        },
+        * restartOutcomming({ payload }, { call, put }) {
+            const response = yield call(restartOutcomming, payload);
+            console.log(response);
+            const responseOutcomming = yield call(getOutcomming, payload);
+            //console.log(responseOutcomming);
+            yield put({
+                type: 'restartOutcommingReducer',
                 payload: responseOutcomming,
             });
         }
@@ -90,6 +99,13 @@ export default {
             return {
                 ...state,
                 postOutcommingSuccess: true,
+                datesOutcomming: action.payload
+            }
+        },
+        restartOutcommingReducer(state, action) {
+            return {
+                ...state,
+                restartOutcommingSuccess: true,
                 datesOutcomming: action.payload
             }
         }

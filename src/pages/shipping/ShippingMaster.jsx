@@ -12,6 +12,7 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import { _ } from 'lodash';
 import { connect } from 'dva';
 import moment from 'moment';
+import shippingMaster from '@/locales/es-ES/shippingMaster';
 
 
 function disabledDate(current) {
@@ -40,7 +41,8 @@ function disabledDate(current) {
     isSuccess: shipping.isSuccess,
     close: shipping.close,
     datesShipping: shipping.datesShipping,
-    productsAll: shipping.productsAll
+    productsAll: shipping.productsAll,
+    operatorAll: shipping.operatorAll
 }))
 
 
@@ -87,6 +89,14 @@ class ShippingMaster extends PureComponent {
                 }
             },
         });
+        this.props.dispatch({
+            type: 'shipping/getOperators',
+            payload: {
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken')
+                }
+            },
+        })
 
 
     }
@@ -159,7 +169,19 @@ class ShippingMaster extends PureComponent {
         })
     };
 
+    showShippingProgramingConfirm = (oItem) => {
 
+
+        this.props.dispatch({
+            type: 'shipping/getShipping',
+            payload: { id: oItem['WMS-1-PK'], status: "New"}
+        })
+
+        this.setState({
+            visibleConfirmationShipping: true,
+            masterMode: "Confirmed"
+        })
+    };
 
     showShippingProgramingEdit = (oItem) => {
 
@@ -202,7 +224,11 @@ class ShippingMaster extends PureComponent {
     };
 
 
-
+    onCloseConfirmationShipping = () => {
+        this.setState({
+            visibleConfirmationShipping: false
+        });
+    };
 
     onCloseShippingPrograming = () => {
         this.setState({
@@ -293,6 +319,33 @@ class ShippingMaster extends PureComponent {
 
 
     }
+    confirmShipping = (datesShipping) => {
+        this.props.dispatch({
+            type: 'shipping/updateShipping',
+            payload: {
+                typeCondition: "Confirmed",
+                isMasterModified: true,
+                comment: datesShipping.comment,
+                createdBy: datesShipping.createdBy,
+                date: datesShipping.date,
+                departureDate: datesShipping.departureDate,
+                deliveryDate: datesShipping.deliveryDate,
+                entryDate: datesShipping.entryDate,
+                destinity: datesShipping.destinity,
+                products: datesShipping.products,
+                skWh: datesShipping.warehouses,
+                dateNew: datesShipping.dateNew,
+                createdByNew: datesShipping.createdByNew,
+                pk: datesShipping.idShipping,
+                sk: datesShipping.idShipping.substr(4,14),
+                operator: datesShipping.operator,
+                phone: datesShipping.phone,
+                Authorization: sessionStorage.getItem('idToken')
+            }
+        })
+
+    }
+
     changedSuccess = () => {
         this.props.dispatch({
             type: 'shipping/changedSuccess',
@@ -326,7 +379,7 @@ class ShippingMaster extends PureComponent {
             labelCol: { xs: { span: 24 }, sm: { span: 7 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 5 } },
             wrapperCol: { xs: { span: 24 }, sm: { span: 14 }, md: { span: 15 }, lg: { span: 15 }, xl: { span: 15 } }
         };
-        const { loading, isSuccess, close, datesShipping, productsAll } = this.props;
+        const { loading, isSuccess, close, datesShipping, productsAll, operatorAll } = this.props;
         const { oShippingItem, warehouses, warehouseIds, products, locationTreeData } = this.props.shipping;
 
 
@@ -369,6 +422,38 @@ class ShippingMaster extends PureComponent {
                     onCloseModalProduct={this.onCloseModalProduct}
                     oShippingItem={oShippingItem}
                 />
+                 <ConfirmationShipping
+                    masterMode={this.state.masterMode}
+                    lineMode={this.state.lineMode}
+
+                     visibleConfirmationShipping={this.state.visibleConfirmationShipping}
+                     onCloseConfirmationShipping={this.onCloseConfirmationShipping}
+                     oShippingItem={oShippingItem}
+
+                     visibleNewLine={this.state.visibleNewLine}
+                     onCloseNewLine={this.onCloseNewLine}
+                     showNewLine={this.showNewLine}
+                     lineData={this.state.lineData}
+                     insertWarehouse={this.insertWarehouse}
+                     replaceWarehouse={this.replaceWarehouse}
+ 
+                     warehouses={warehouses}
+                     warehouseIds={warehouseIds}
+ 
+                     confirmShipping={this.confirmShipping}
+                     loading={loading}
+                     isSuccess={isSuccess}
+                     changedSuccess={this.changedSuccess}
+                     close={close}
+                     changedClose={this.changedClose}
+                     products={products}
+                     updateShippingSuccess={this.updateShippingSuccess}
+                     locationTreeData={locationTreeData}
+                     operatorAll={operatorAll}
+
+ 
+ 
+                />
                 <PageHeaderWrapper>
                     <Card>
                         <Form {...formItemLayout}>
@@ -392,9 +477,11 @@ class ShippingMaster extends PureComponent {
                             <Col span={24}>
                             <Spin tip={"Cargando..."} spinning={loading}>
                                 <TableShippingMaster
+                                    showConfirmationShipping={this.showShippingProgramingConfirm}
                                     showShippingProgramingEdit={this.showShippingProgramingEdit}
                                     showModalProduct={this.showModalProduct}
                                     datesTableShipping={datesShipping}
+                                    operatorAll={operatorAll}
                                 />
                             </Spin>
                             </Col>
