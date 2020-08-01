@@ -413,8 +413,8 @@ class Login extends Component {
               </div>
               <Divider plain><FormattedMessage id="o inicie sesión con"/></Divider>
               <div className={styles.iconsSocial}>
-                <Button type="primary"  className={styles.btnFb} onClick={() => Auth.federatedSignIn({ provider: "Facebook" })}>Facebook</Button>
-                <Button type="danger"  className={styles.btnGo} onClick={() => Auth.federatedSignIn({ provider: "Google" })}>Google</Button>
+                <Button type="primary"  className={styles.btnFb} onClick={() => Auth.federatedSignIn({ provider: "Facebook" })}><FacebookOutlined />Facebook</Button>
+                <Button type="danger"  className={styles.btnGo} onClick={() => Auth.federatedSignIn({ provider: "Google" })}><GoogleOutlined />Google</Button>
               </div>
             </LoginComponents>
           </div>
