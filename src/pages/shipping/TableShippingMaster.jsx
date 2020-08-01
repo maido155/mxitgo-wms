@@ -105,7 +105,7 @@ class TableShippingMaster extends PureComponent {
 
 
   render() {
-    const { datesTableShipping, operatorAll } = this.props;
+    const { datesTableShipping, operatorAll, deleteShipping } = this.props;
     let columns = [
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.id' }),
@@ -207,7 +207,13 @@ class TableShippingMaster extends PureComponent {
                     }
                   </Button>
                   <Divider type="vertical"/>
-                  <ModalDeleteComponent/>
+                    <a onClick={()=>{deleteShipping(record)}}>
+                        {isMobile
+                            ? <Icon type="delete"/>
+                            : <span><Icon type="delete"/><FormattedMessage id="general.table.delete"/></span>
+
+                        }
+                    </a >
                   <Divider type="vertical"/>
                   <Button type="link" onClick={() => {this.showEntry(record["WMS-1-PK"], record.status)}} disabled={true}>
                     {isMobile
@@ -233,7 +239,13 @@ class TableShippingMaster extends PureComponent {
                       }
                     </Button>
                     <Divider type="vertical"/>
-                    <ModalDeleteComponent/>
+                    <a onClick={()=>{deleteShipping(record)}}>
+                        {isMobile
+                            ? <Icon type="delete"/>
+                            : <span><Icon type="delete"/><FormattedMessage id="general.table.delete"/></span>
+
+                        }
+                    </a >
                     <Divider type="vertical"/>
                     <Button type="link" onClick={() => {this.showEntry(record["WMS-1-PK"], record.status)}}>
                       {isMobile
@@ -258,7 +270,13 @@ class TableShippingMaster extends PureComponent {
                     }
                   </Button>
                   <Divider type="vertical"/>
-                  <ModalDeleteComponent/>
+                  <a onClick={()=>{deleteShipping(record)}}>
+                        {isMobile
+                            ? <Icon type="delete"/>
+                            : <span><Icon type="delete"/><FormattedMessage id="general.table.delete"/></span>
+
+                        }
+                    </a >
                   <Divider type="vertical"/>
                   <Button type="link" onClick={() => {this.showEntry(record["WMS-1-PK"], record.status)}}>
                     {isMobile

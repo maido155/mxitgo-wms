@@ -48,6 +48,9 @@ export default {
     'shipping.entryProducts.temperature': 'Temperatura',
     'shipping.entryProducts.photo': 'Foto',
     'shipping.entryProducts.title': 'Detalle del producto',
-    'shipping.shippingEntry.title': 'Entrada'
+    'shipping.shippingEntry.title': 'Entrada',
+    'shipping.modal-delete': '¿Está seguro que quieres cancelar este envío?',
+    'shipping.modal-delete-yes': 'Si',
+    'shipping.modal-delete-no': 'No'
 
 };

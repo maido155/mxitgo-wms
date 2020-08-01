@@ -88,8 +88,16 @@ class DrawerShippingPrograming extends PureComponent {
 
 
             if(this.props.masterMode == "NEW"){
+   
 
-            values["idShipping"] = this.state.idShipping + date.getDate() + (date.getMonth() + 1) + date.getFullYear() + date.getHours() + date.getMinutes();
+            // values["idShipping"] = this.state.idShipping + date.getDate() + (date.getMonth() + 1) + date.getFullYear() + date.getHours() + date.getMinutes();
+            values["idShipping"] = this.state.idShipping +
+            ( date.getDate().toString().length === 1 ? "0"+date.getDate().toString() : date.getDate().toString() ) +
+            ( (date.getMonth()+1).toString().length === 1 ? "0"+(date.getMonth() + 1).toString() : (date.getMonth() + 1).toString() ) +
+            ( date.getFullYear().toString() )+
+            ( date.getHours().toString().length === 1 ? "0"+date.getHours().toString() : date.getHours().toString() )+
+            ( date.getMinutes().toString().length === 1 ? "0"+date.getMinutes().toString() : date.getMinutes().toString() );
+             console.log(values["idShipping"]);   
 
             }else{
 

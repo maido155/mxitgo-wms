@@ -1,6 +1,7 @@
 
 import { saveShipping, updateShipping, getShipping, getLocations, fetchShippingAll, fetchProductAll,getShippingDetail,fetchOperatorAll } from '../services/api';
 
+
 import moment from 'moment';
 
 export default {
@@ -134,6 +135,7 @@ export default {
                 payload: response,
             });
         },
+
         * getOperators({ payload }, { call, put }) {
             const response = yield call(fetchOperatorAll, payload);
             yield put({
@@ -141,6 +143,18 @@ export default {
                 payload: response,
             });
         }
+
+        * deleteShipping({ payload }, { call, put }) {
+            const response = yield call(deleteShipping, payload);
+            console.log(response);
+            const responseShippingAll = yield call(fetchShippingAll, payload);
+            yield put({
+                type: 'deleteShippingReducer',
+                payload: responseShippingAll,
+            });
+
+        },
+
 
 
     },
@@ -359,9 +373,14 @@ export default {
                 ...state,
                 locationTreeData: aTreeData
             }
-        }
-
-
+        },
+        deleteShippingReducer(state, action) {
+            return {
+                ...state,
+                oShippingItem: { products: [], id: "" },
+                datesShipping: action.payload
+            }
+        },
 
     },
 }
