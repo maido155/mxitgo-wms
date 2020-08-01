@@ -126,10 +126,12 @@ export default {
         * deleteShipping({ payload }, { call, put }) {
             const response = yield call(deleteShipping, payload);
             console.log(response);
+            const responseShippingAll = yield call(fetchShippingAll, payload);
             yield put({
                 type: 'deleteShippingReducer',
-                payload: response,
+                payload: responseShippingAll,
             });
+
         },
 
 
@@ -323,6 +325,7 @@ export default {
             return {
                 ...state,
                 oShippingItem: { products: [], id: "" },
+                datesShipping: action.payload
             }
         },
 

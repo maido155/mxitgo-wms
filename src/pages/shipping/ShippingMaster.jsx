@@ -300,14 +300,6 @@ class ShippingMaster extends PureComponent {
         })
     }
     
-    //deleteShipping = (oItem) =>{
-    //   this.props.dispatch({
-    //       type: 'shipping/deleteShipping',
-    //       payload: {
-    //            idShipping: oItem.id,
-    //           Authorization: sessionStorage.getItem('idToken')}
-    //    })
-    //}
     deleteShipping = (shipping) => {
         let idShipping = shipping["WMS-1-PK"];
         let _self = this;
@@ -322,7 +314,10 @@ class ShippingMaster extends PureComponent {
                 _self.props.dispatch({
                     type: 'shipping/deleteShipping',
                     payload: {
-                        PK: idShipping,
+                        'WMS-1-PK': idShipping,
+                        payload: {
+                            initialDate: _self.state.dateFrom,
+                        },
                         Authorization: sessionStorage.getItem('idToken')
                     }
                 })
