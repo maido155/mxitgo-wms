@@ -5,12 +5,23 @@ import { _ } from 'lodash';
 import { Drawer,Row, Col, Button, Icon, Divider } from 'antd';
 import {isMobile} from 'react-device-detect';
 
+
 export default class AssignmentOutComming extends PureComponent {
     
+    componentDidMount() {
+
+
+
+    };
+
+
     onReset = (_this) => {
         _this.props.restartOutcomming(_this.props.currentOutcomming.key);
     }
     render() {
+        let {dataOutcommingsByEntry} = this.props;
+        console.log("AssignmentOutComming");
+        console.log(dataOutcommingsByEntry);
         return (
             <Drawer
                 title={formatMessage({ id: 'outComming.label.assignment-outcomming' })}
@@ -46,6 +57,7 @@ export default class AssignmentOutComming extends PureComponent {
                             currentOutcomming={this.props.currentOutcomming}
                             visibleAssignProduct={this.props.visibleAssignProduct} 
                             setVisibleAssignProduct={this.props.setVisibleAssignProduct}
+                            dataOutcommingsByEntry={dataOutcommingsByEntry}
                         />
                     </Col>
                 </Row>

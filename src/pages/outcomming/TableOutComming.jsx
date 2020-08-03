@@ -5,18 +5,46 @@ import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import AssignmentOutComming from './AssignmentOutComming';
 import CompositionOutComming from './CompositionOutComming';
 import {isMobile} from 'react-device-detect';
+import { connect } from 'dva';
 
+
+
+@connect(({ outcomming, programming, loading }) => ({
+    outcomming,
+    programming,
+    loading: loading.models.outcomming,
+    datesOutcomming:outcomming.datesOutcomming,
+    shippingsByEntry:outcomming.shippingsByEntry,
+    datesProductAll: programming.datesProductAll,
+    datesCustomerAll: programming.datesCustomerAll,
+    dataOutcommingsByEntry: outcomming.dataOutcommingsByEntry
+}))
 export default class TableOutComming extends PureComponent {
     state = { 
         currentRecord: "",
         recordKey: ""
     };
     showDrawerAssig = (item) => {
+        console.log("assign")
+        let oc = item.key;
         this.props.setVisibleAssign(true);
         this.setState({
           currentRecord: item,
-          recordKey: item.key,
+          recordKey: oc,
         });
+        
+        this.props.dispatch({
+            type: 'outcomming/getOutcommingsByEntry',
+            payload: {
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken'),
+                 idOutcomming : oc,
+                 productKey : this.props.productKey
+                }
+             },
+        });
+
+
     };
     showDrawerCompo = (id) => {
         this.props.onShowCompositionData(id);
@@ -30,7 +58,10 @@ export default class TableOutComming extends PureComponent {
         this.props.setVisibleCompo(true);
     };
     render() {
+        let {dataOutcommingsByEntry} = this.props.outcomming;
         const { datesOutcomming } = this.props;
+        console.log("TableOutComming");
+        console.log(dataOutcommingsByEntry);
 
         const columns = [
             {
@@ -93,6 +124,7 @@ export default class TableOutComming extends PureComponent {
                             recordKey= {this.state.recordKey}
                             visibleAssignProduct={this.props.visibleAssignProduct} 
                             setVisibleAssignProduct={this.props.setVisibleAssignProduct}
+                            dataOutcommingsByEntry={dataOutcommingsByEntry}
                         />
                         <CompositionOutComming
                             loading = {this.props.loading}
