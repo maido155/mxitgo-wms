@@ -210,6 +210,7 @@ export default class OutComming extends PureComponent {
         }); 
 
     };
+    
 
     postOutcomming = (payload, context) => {
 
@@ -251,6 +252,13 @@ export default class OutComming extends PureComponent {
             }
         }); 
     }
+
+    onChangeProd = (id) => {
+         debugger;
+        console.log(id)
+
+    };
+
     render() {
         console.log('Context--->', this);  
         console.log(this.props);
@@ -293,7 +301,7 @@ export default class OutComming extends PureComponent {
                                 </Col>
                                 <Col xs={24} sm={24} md={8} lg={8} xl={8}>
                                 <Form.Item >
-                                        <Dropdown  onChange={this.onChangeProd} overlay={menuProduct}>
+                                        <Dropdown  onChange={(date,dateString)=>{this.onChangeProd(e)}} overlay={menuProduct}>
                                             <Button>
                                                 {this.state.productDesc} <DownOutlined />
                                             </Button>
@@ -328,7 +336,7 @@ export default class OutComming extends PureComponent {
                             
                             <Row type="flex" justify="center">
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                                    <TableOutComming restartOutcomming= {(payload)=>{this.restartOutcomming(payload,this)}} postOutcomming= {(payload)=>{this.postOutcomming(payload,this)}} datesProductAll = {datesProductAll} datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
+                                    <TableOutComming productKey={this.state.product} restartOutcomming= {(payload)=>{this.restartOutcomming(payload,this)}} postOutcomming= {(payload)=>{this.postOutcomming(payload,this)}} datesProductAll = {datesProductAll} datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
                                 </Col>
                             </Row>
                         

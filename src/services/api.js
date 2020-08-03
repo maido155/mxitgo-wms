@@ -506,3 +506,11 @@ export async function deleteShipping(payload) {
     });
 }
 
+export async function getOutcommingsByEntry(payload) {
+    return request(`${ANT_DESIGN_PRO_TARGET}/outcomming/byEntry?payload=${JSON.stringify(payload)}`, {
+        method: 'GET',
+        headers: { 'Authorization': payload.Authorization }
+    });
+}
+
+
