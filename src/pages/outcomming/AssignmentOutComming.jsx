@@ -24,7 +24,7 @@ export default class AssignmentOutComming extends PureComponent {
         console.log(dataOutcommingsByEntry);
         return (
             <Drawer
-                title={formatMessage({ id: 'outComming.label.assignment-outcomming' })}
+                title={  `${ formatMessage({ id: 'outComming.label.assignment-outcomming' }) } -  ${ this.props.productDesc }  `} 
                 placement="right"
                 width={isMobile ? "100%" : "70%"}
                 closable={true}

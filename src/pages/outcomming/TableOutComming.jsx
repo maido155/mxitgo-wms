@@ -115,6 +115,7 @@ export default class TableOutComming extends PureComponent {
                                 </span> 
                         }      
                         <AssignmentOutComming 
+                            productDesc = {this.props.productDesc}
                             datesProductAll = {this.props.datesProductAll}
                             visibleOne={this.props.visibleAssign}
                             currentOutcomming={this.state.currentRecord}
