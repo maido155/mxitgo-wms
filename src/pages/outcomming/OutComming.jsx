@@ -74,7 +74,10 @@ export default class OutComming extends PureComponent {
         customer: "",
         customerDesc: "Customer",
         dateFrom:"",
-        dateTo:""
+        dateTo:"",
+        visibleAssign: false, //flag for tableOutcooming
+        visibleCompo: false, //flag for tableOutcooming
+        visibleAssignProduct: false, //flag for Assign Product
     }
     
     componentDidMount() {
@@ -92,7 +95,8 @@ export default class OutComming extends PureComponent {
             type: 'programming/fetchProductAll',
             payload: {
                 payload: {
-                 Authorization: sessionStorage.getItem('idToken')
+                 Authorization: sessionStorage.getItem('idToken'),
+                 type: "Primary"
                 }
              },
         });
@@ -237,7 +241,7 @@ export default class OutComming extends PureComponent {
                 }    
             }
         }); 
-    }
+    };
 
     restartOutcomming = (key, context) => {
 
@@ -254,9 +258,26 @@ export default class OutComming extends PureComponent {
     }
 
     onChangeProd = (id) => {
-         debugger;
         console.log(id)
 
+    };
+
+    setVisibleAssign=(value)=>{
+        this.setState({
+            visibleAssign: value
+        })
+    };
+
+    setVisibleCompo=(value)=>{
+        this.setState({
+            visibleCompo: value
+        })
+    };
+
+    setVisibleAssignProduct=(value)=>{
+        this.setState({
+            visibleAssignProduct: value,
+        })
     };
 
     render() {
@@ -300,8 +321,8 @@ export default class OutComming extends PureComponent {
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} sm={24} md={8} lg={8} xl={8}>
-                                <Form.Item >
-                                        <Dropdown  onChange={(date,dateString)=>{this.onChangeProd(e)}} overlay={menuProduct}>
+                                    <Form.Item >
+                                        <Dropdown onChange={(date,dateString)=>{this.onChangeProd(e)}} overlay={menuProduct}>
                                             <Button>
                                                 {this.state.productDesc} <DownOutlined />
                                             </Button>
@@ -309,17 +330,14 @@ export default class OutComming extends PureComponent {
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} sm={24} md={8} lg={8} xl={8}>
-                                <Form.Item >
-                                        <Form.Item>
-                                            <Dropdown overlay={menuClient}>
-                                                <Button>
+                                        <Form.Item style={{width:"100%"}}>
+                                            <Dropdown style={{width:"100%"}} overlay={menuClient}>
+                                                <Button style={{width:"100%"}}>
                                                 {this.state.customerDesc} <DownOutlined />
                                                 </Button>
                                             </Dropdown>
-                                        
-                            
                                         </Form.Item>
-                                </Form.Item>
+                                
                                 </Col>
                         </Row>
                                 
@@ -336,7 +354,7 @@ export default class OutComming extends PureComponent {
                             
                             <Row type="flex" justify="center">
                                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                                    <TableOutComming productKey={this.state.product} restartOutcomming= {(payload)=>{this.restartOutcomming(payload,this)}} postOutcomming= {(payload)=>{this.postOutcomming(payload,this)}} datesProductAll = {datesProductAll} datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
+                                    <TableOutComming  productKey={this.state.product} visibleAssignProduct={this.state.visibleAssignProduct} setVisibleAssignProduct={this.setVisibleAssignProduct} visibleAssign={this.state.visibleAssign} setVisibleAssign={this.setVisibleAssign} visibleCompo={this.state.visibleCompo} setVisibleCompo={this.setVisibleCompo} restartOutcomming= {(payload)=>{this.restartOutcomming(payload,this)}} postOutcomming= {(payload)=>{this.postOutcomming(payload,this)}} datesProductAll = {datesProductAll} datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
                                 </Col>
                             </Row>
                         

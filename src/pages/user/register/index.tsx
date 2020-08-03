@@ -219,14 +219,14 @@ class Register extends Component{
 
     return(
       <div className={styles.main}>
-        <Divider plain><FormattedMessage id="Crear una cuenta usando"/></Divider>
+        <Divider plain><FormattedMessage id="register.social-Network.register"/></Divider>
         <div className={styles.iconsSocial}>
           <Button type="primary" className={styles.btnFb} onClick={() => Auth.federatedSignIn({ provider: "Facebook" })}><FacebookOutlined />Facebook</Button>
           <Button type="danger"  className={styles.btnGo} onClick={() => Auth.federatedSignIn({ provider: "Google" })}><GoogleOutlined />Google</Button>
         </div>
         {visibleResultSuccess === false && 
           <div>
-            <Divider plain style={{paddingTop: "12px"}}><FormattedMessage id="o crear una nueva aquí"/></Divider>
+            <Divider plain style={{paddingTop: "12px"}}><FormattedMessage id="register.modal.register"/></Divider>
             <Form onSubmit={this.handleSubmit}>
               <FormItem>
                 {getFieldDecorator('name', {

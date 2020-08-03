@@ -50,6 +50,11 @@ export default {
     'shipping.shippingEntry.title': 'Entry',
     'shipping.modal-delete': 'Are you sure you want to cancel this shipping?',
     'shipping.modal-delete-yes': 'Yes',
-    'shipping.modal-delete-no': 'No'
+    'shipping.modal-delete-no': 'No',
+    'shipping.label.table-shipping.status.new':'NEW',
+    'shipping.label.table-shipping.status.entry':'ENTRY',
+    'shipping.label.table-shipping.status.confirmed':'CONFIRMED',
+    'shipping.label.table-shipping.status.no-status':'NO STATUS'
+   
 
 };
