@@ -22,31 +22,34 @@ export default class TableAssignment extends PureComponent {
     this.props.setVisibleAssignProduct(false);
   }
     render() {
+      let {dataOutcommingsByEntry} = this.props;
+      console.log("TableAssignment");
+      console.log(dataOutcommingsByEntry);
       const columns = [
         {
           title: formatMessage({ id: 'outComming.label.tableassignment-order' }),
-          dataIndex: 'pedido',
+          dataIndex: 'shipment',
           width: isMobile ? 120 : 120,
           render: text => <a>{text}</a>,
         },
         {
           title: formatMessage({ id: 'outComming.label.tableassignment-pallets-re' }),
-          dataIndex: 'palletsto',
+          dataIndex: 'received_pallets',
           width: isMobile ? 160 : 160,
         },
         {
           title: formatMessage({ id: 'outComming.label.tableassignment-boxes-re' }),
-          dataIndex: 'cajasto',
+          dataIndex: 'received_boxes',
           width: isMobile ? 160 : 160,
         },
         {
           title: formatMessage({ id: 'outComming.label.tableassignment-pallets-di' }),
-          dataIndex: 'palletsde',
+          dataIndex: 'availables_pallets',
           width: isMobile ? 160 : 150,
         },
         {
           title: formatMessage({ id: 'outComming.label.tableassignment-boxes-di' }),
-          dataIndex: 'cajasde',
+          dataIndex: 'availables_boxes',
           width: isMobile ? 160 : 150,
         },
         {
@@ -96,7 +99,7 @@ export default class TableAssignment extends PureComponent {
         }
       ];
         return (
-            <Table columns={columns} dataSource={data} scroll={isMobile ? {x: 860}: {x: 840}} pagination={false}/>
+            <Table columns={columns} dataSource={dataOutcommingsByEntry} scroll={isMobile ? {x: 860}: {x: 840}} pagination={false}/>
         );            
     }
 }
