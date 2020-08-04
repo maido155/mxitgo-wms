@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import Styles from './StylesShipping.css';
-import { Card, Button, Icon, Form, Row, Col, Divider, Spin, DatePicker,Modal } from 'antd';
+import { Card, Button, Icon, Form, Row, Col, Divider, Spin, DatePicker,Modal, notification } from 'antd';
 import RangePickerComponent from '../generalComponents/RangePickerComponent';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
 import TableShippingMaster from './TableShippingMaster';
@@ -264,7 +264,6 @@ class ShippingMaster extends PureComponent {
     saveShipping = (datesShipping) => {
 
         if (this.state.masterMode == "NEW") {
-
             this.props.dispatch({
                 type: 'shipping/saveShipping',
                 payload: {
@@ -291,7 +290,6 @@ class ShippingMaster extends PureComponent {
             });
 
         } else {
-
             this.props.dispatch({
                 type: 'shipping/updateShipping',
                 payload: {
@@ -314,37 +312,48 @@ class ShippingMaster extends PureComponent {
             })
 
         }
-
-
-
-
-
     }
     confirmShipping = (datesShipping) => {
-        this.props.dispatch({
-            type: 'shipping/updateShipping',
-            payload: {
-                typeCondition: "Confirmed",
-                isMasterModified: true,
-                comment: datesShipping.comment,
-                createdBy: datesShipping.createdBy,
-                date: datesShipping.date,
-                departureDate: datesShipping.departureDate,
-                deliveryDate: datesShipping.deliveryDate,
-                entryDate: datesShipping.entryDate,
-                destinity: datesShipping.destinity,
-                products: datesShipping.products,
-                skWh: datesShipping.warehouses,
-                dateNew: datesShipping.dateNew,
-                createdByNew: datesShipping.createdByNew,
-                pk: datesShipping.idShipping,
-                sk: datesShipping.idShipping.substr(4,14),
-                operator: datesShipping.operator,
-                phone: datesShipping.phone,
-                Authorization: sessionStorage.getItem('idToken')
-            }
+        console.log(datesShipping);
+        let operators = this.props.operatorAll;
+        let existsOperator = operators.filter(function(data){
+            return data.operators.phone == datesShipping.phone && data.operators.name != datesShipping.operator;
         })
+        if(existsOperator.length == 0){
+            this.props.dispatch({
+                type: 'shipping/updateShipping',
+                payload: {
+                    typeCondition: "Confirmed",
+                    isMasterModified: true,
+                    comment: datesShipping.comment,
+                    createdBy: datesShipping.createdBy,
+                    date: datesShipping.date,
+                    departureDate: datesShipping.departureDate,
+                    deliveryDate: datesShipping.deliveryDate,
+                    entryDate: datesShipping.entryDate,
+                    destinity: datesShipping.destinity,
+                    products: datesShipping.products,
+                    skWh: datesShipping.warehouses,
+                    dateNew: datesShipping.dateNew,
+                    createdByNew: datesShipping.createdByNew,
+                    pk: datesShipping.idShipping,
+                    sk: datesShipping.idShipping.substr(4,14),
+                    operator: datesShipping.operator,
+                    phone: datesShipping.phone,
+                    Authorization: sessionStorage.getItem('idToken')
+                }
+            })
+        }else{
+           this.openNotificationWithIcon('warning');
+           return;
+        }
+    }
 
+    openNotificationWithIcon = type => {
+        notification[type]({
+            message: formatMessage({ id: 'shipping.notification.operator' }),
+            // description: '',
+        });
     }
 
     changedSuccess = () => {
