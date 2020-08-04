@@ -7,11 +7,11 @@ export default {
     'accountSettings.label.prefix-two': '+522',
     'accountSettings.security.message.account': "Guardando Cambios",
     'accountSettings.mode.message.err': "Necesita Agregar Imagen",
-    'register.label.name':'Name(s): ',
-    'register.label.lastmid':'Last middle name: ',
-    'register.label.email':'Email: ',
-    'register.label.lastfam':'Last family name: ',
-    'register.label.phone':'Phone: ',
+    'register.label.name': 'Name(s): ',
+    'register.label.lastmid': 'Apellido Materno: ',
+    'register.label.email': 'Correo Electrónico: ',
+    'register.label.lastfam': 'Apellido Paterno: ',
+    'register.label.phone': 'Telefono: ',
     'menu.Configuración': 'Settings',
     'menu.Configuración.Usuarios': 'Users'
 };

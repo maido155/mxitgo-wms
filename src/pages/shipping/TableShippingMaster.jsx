@@ -182,7 +182,19 @@ class TableShippingMaster extends PureComponent {
         title: formatMessage({ id: 'shipping.label.table-shipping.status' }),
         dataIndex: 'status',
         width: isMobile ? 90 : 100,
-      },
+        render: (text, record) => (
+          <span>
+            {record.status === "NEW"
+              ? <FormattedMessage id="shipping.label.table-shipping.status.new" />
+              : record.status === "ENTRY"
+                  ?<FormattedMessage id="shipping.label.table-shipping.status.entry" />
+                  : record.status === "CONFIRMED"
+                      ?<FormattedMessage id="shipping.label.table-shipping.status.confirmed" />
+                      : <FormattedMessage id="shipping.label.table-shipping.status.no-status" />
+            } 
+            </span>
+          )
+      } ,
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.actions' }),
         key: 'action',

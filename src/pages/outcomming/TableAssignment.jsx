@@ -7,50 +7,49 @@ import {isMobile} from 'react-device-detect';
 
 export default class TableAssignment extends PureComponent {
   state ={
-    visibleAssignProduct: false,
     currentItem: {}
   }
 
-  showDrawerAssigProduct = (e) => {
-    
+  showDrawerAssigProduct = (e) => { 
     console.log(e)
+    this.props.setVisibleAssignProduct(true);
     this.setState({
-      visibleAssignProduct: true,
       currentItem: e
     });
   };
 
   onDrawerAssigProduct = () => {
-    this.setState({
-      visibleAssignProduct: false
-    });
+    this.props.setVisibleAssignProduct(false);
   }
     render() {
+      let {dataOutcommingsByEntry} = this.props;
+      console.log("TableAssignment");
+      console.log(dataOutcommingsByEntry);
       const columns = [
         {
           title: formatMessage({ id: 'outComming.label.tableassignment-order' }),
-          dataIndex: 'pedido',
+          dataIndex: 'shipment',
           width: isMobile ? 120 : 120,
           render: text => <a>{text}</a>,
         },
         {
           title: formatMessage({ id: 'outComming.label.tableassignment-pallets-re' }),
-          dataIndex: 'palletsto',
+          dataIndex: 'received_pallets',
           width: isMobile ? 160 : 160,
         },
         {
           title: formatMessage({ id: 'outComming.label.tableassignment-boxes-re' }),
-          dataIndex: 'cajasto',
+          dataIndex: 'received_boxes',
           width: isMobile ? 160 : 160,
         },
         {
           title: formatMessage({ id: 'outComming.label.tableassignment-pallets-di' }),
-          dataIndex: 'palletsde',
+          dataIndex: 'availables_pallets',
           width: isMobile ? 160 : 150,
         },
         {
           title: formatMessage({ id: 'outComming.label.tableassignment-boxes-di' }),
-          dataIndex: 'cajasde',
+          dataIndex: 'availables_boxes',
           width: isMobile ? 160 : 150,
         },
         {
@@ -60,7 +59,7 @@ export default class TableAssignment extends PureComponent {
             render: (record) => (
               <span>
                   <a onClick={ () => {this.showDrawerAssigProduct(record)} }><FormattedMessage id="outComming.label.tableassignment-assign"/></a>   
-                  <DrawerAssignment postOutcomming= {this.props.postOutcomming} datesProductAll = {this.props.datesProductAll} currentItem={this.state.currentItem} visible={this.state.visibleAssignProduct} onClose={this.onDrawerAssigProduct} currentOutcomming={this.props.currentOutcomming} currentShipping={record}/>     
+                  <DrawerAssignment postOutcomming= {this.props.postOutcomming} datesProductAll = {this.props.datesProductAll} currentItem={this.state.currentItem} visible={this.props.visibleAssignProduct} onClose={this.onDrawerAssigProduct} currentOutcomming={this.props.currentOutcomming} currentShipping={record}/>     
               </span>
             )
         }
@@ -100,7 +99,7 @@ export default class TableAssignment extends PureComponent {
         }
       ];
         return (
-            <Table columns={columns} dataSource={data} scroll={isMobile ? {x: 860}: {x: 840}} pagination={false}/>
+            <Table columns={columns} dataSource={dataOutcommingsByEntry} scroll={isMobile ? {x: 860}: {x: 840}} pagination={false}/>
         );            
     }
 }

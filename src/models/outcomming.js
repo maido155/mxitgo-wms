@@ -1,5 +1,5 @@
 
-import {confirmOutcomming, getComposition, getOutcomming, postOutcomming,getShippingsByEntry, restartOutcomming} from '../services/api';
+import {confirmOutcomming, getComposition, getOutcomming, postOutcomming,getShippingsByEntry, restartOutcomming, getOutcommingsByEntry} from '../services/api';
 
 export default {
     namespace: 'outcomming',
@@ -67,7 +67,15 @@ export default {
                 type: 'restartOutcommingReducer',
                 payload: responseOutcomming,
             });
-        }
+        },
+        * getOutcommingsByEntry({ payload }, { call, put }) {
+            const response = yield call(getOutcommingsByEntry, payload);
+            console.log(response);
+            yield put({
+                type: 'getOutcommingsByEntryReducer',
+                payload: response,
+            });
+        },        
     },
 
     reducers: {
@@ -108,7 +116,13 @@ export default {
                 restartOutcommingSuccess: true,
                 datesOutcomming: action.payload
             }
-        }
+        },
+        getOutcommingsByEntryReducer(state, action) {
+            return {
+                ...state,
+                dataOutcommingsByEntry: action.payload
+            }
+        },        
     }
 }
 

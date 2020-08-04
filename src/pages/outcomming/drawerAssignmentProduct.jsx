@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import Table from './TableAssignment';
 import { _ } from 'lodash'; 
-import { Drawer,Button, Form, Input} from 'antd';
+import { Drawer,Button, Form, InputNumber, Input} from 'antd';
 import {isMobile} from 'react-device-detect';
 import { Typography } from 'antd';
 
@@ -29,9 +29,9 @@ export default class DrawerAssignmentProduct extends PureComponent {
 
         var remaingQtyBox = this.state.originalBox;
 
-        var currentValuePallet = parseInt(e.target.value);
+        var currentValuePallet = e;
 
-        if (e.target.value === "") {
+        if (e === "") {
             remaingQtyPallet;
             currentValuePallet = 0;
         } else {
@@ -41,6 +41,11 @@ export default class DrawerAssignmentProduct extends PureComponent {
             remaingQtyBox = remaingQtyBox - (quantityBoxes * currentValuePallet);
 
             // newBoxValue = quantityBoxes * currentValuePallet;
+        if (Math.sign(remaingQtyPallet) === -1) {
+            remaingQtyPallet = 0;
+            remaingQtyBox = 0;
+        }
+
 
         }
 
@@ -59,9 +64,9 @@ export default class DrawerAssignmentProduct extends PureComponent {
 
         var a = currentValuePallet;
 
-        var currentValueBox = parseInt(e.target.value);
+        var currentValueBox = e;
 
-        if (e.target.value === "") { 
+        if (e === "") { 
             remaingQtyBox;
             currentValueBox = 0;
             a = 0;
@@ -69,7 +74,12 @@ export default class DrawerAssignmentProduct extends PureComponent {
             currentValuePallet = (remaingQtyBox / quantityBoxes) - currentValueBox;
             a = (remaingQtyBox / quantityBoxes) - currentValueBox;
             // remaingQtyBox = remaingQtyBox - (quantityBoxes * currentValuePallet);
-             remaingQtyBox = remaingQtyBox - parseInt(e.target.value);
+             remaingQtyBox = remaingQtyBox - e;
+
+             if (Math.sign(remaingQtyBox) === -1) {
+                remaingQtyPallet = 0;
+                remaingQtyBox = 0;
+            }
         }
         
         this.setState({
@@ -152,10 +162,10 @@ export default class DrawerAssignmentProduct extends PureComponent {
                         <Text>{this.state.box}</Text> 
                     </Form.Item>
                     <Form.Item label={'Pallets'}>
-                        <Input value={this.state.currentValuePallet} onChange={(e) => {this.onChangeQuantityPallet(e, this)}}/>
+                        <InputNumber min={0} value={this.state.currentValuePallet} onChange={(e) => {this.onChangeQuantityPallet(e, this)}}/>
                     </Form.Item>
                     <Form.Item label={'Cajas'}>
-                        <Input value={this.state.currentValueBox} onChange={(e) => {this.onChangeQuantityBox(e, this)}}/>
+                        <InputNumber min={0} value={this.state.currentValueBox} onChange={(e) => {this.onChangeQuantityBox(e, this)}}/>
                     </Form.Item>
                     <div
                         style={{

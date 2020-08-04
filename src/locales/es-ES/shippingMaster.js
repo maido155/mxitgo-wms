@@ -51,6 +51,10 @@ export default {
     'shipping.shippingEntry.title': 'Entrada',
     'shipping.modal-delete': '¿Está seguro que quieres cancelar este envío?',
     'shipping.modal-delete-yes': 'Si',
-    'shipping.modal-delete-no': 'No'
+    'shipping.modal-delete-no': 'No',
+    'shipping.label.table-shipping.status.new':'NUEVO',
+    'shipping.label.table-shipping.status.entry':'ENTRADA',
+    'shipping.label.table-shipping.status.confirmed':'CONFIRMADO',
+    'shipping.label.table-shipping.status.no-status':'SIN ESTATUS'
 
 };
