@@ -1,5 +1,5 @@
 
-import { saveShipping, updateShipping, getShipping, getLocations, fetchShippingAll, fetchProductAll,getShippingDetail,fetchOperatorAll } from '../services/api';
+import { confirmShipping,saveShipping, updateShipping, getShipping, getLocations, fetchShippingAll, fetchProductAll,getShippingDetail,fetchOperatorAll } from '../services/api';
 
 
 import moment from 'moment';
@@ -153,7 +153,15 @@ export default {
                 payload: responseShippingAll,
             });
 
-        }
+        },
+        * confirmShipping({ payload }, { call, put }) {
+            const response = yield call(confirmShipping, payload);
+            console.log(response);
+            yield put({
+                type: 'updateShippingReducer',
+                payload: response,
+            });
+        },
 
 
 

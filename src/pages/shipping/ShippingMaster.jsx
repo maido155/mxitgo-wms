@@ -322,7 +322,7 @@ class ShippingMaster extends PureComponent {
     }
     confirmShipping = (datesShipping) => {
         this.props.dispatch({
-            type: 'shipping/updateShipping',
+            type: 'shipping/confirmShipping',
             payload: {
                 typeCondition: "Confirmed",
                 isMasterModified: true,
@@ -338,7 +338,7 @@ class ShippingMaster extends PureComponent {
                 dateNew: datesShipping.dateNew,
                 createdByNew: datesShipping.createdByNew,
                 pk: datesShipping.idShipping,
-                sk: datesShipping.idShipping.substr(4,14),
+                sk: datesShipping.idShipping.substr(4,18),
                 operator: datesShipping.operator,
                 phone: datesShipping.phone,
                 Authorization: sessionStorage.getItem('idToken')
@@ -453,6 +453,7 @@ class ShippingMaster extends PureComponent {
                     visibleModalProduct={this.state.visibleModalProduct}
                     onCloseModalProduct={this.onCloseModalProduct}
                     oShippingItem={oShippingItem}
+                    loading={loading}
                 />
                  <ConfirmationShipping
                     masterMode={this.state.masterMode}
