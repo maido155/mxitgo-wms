@@ -134,7 +134,7 @@ class Register extends Component{
       if (!err) {
         var phone_number = self.state.valueOption + values.phone_number;
         values.phone_number = phone_number;
-        localStorage.setItem('facebookLogin', "false");
+        localStorage.setItem('socialNetwork', "false");
         Cognito.signUpCognito(values).then(function(data){
           var cognitoUser = data.user;
           var destination = data.codeDeliveryDetails.Destination;
