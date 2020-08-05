@@ -197,21 +197,21 @@ class AccountSettings extends PureComponent{
                                         <Form.Item label={formatMessage({ id: 'register.label.name' })}>
                                             {getFieldDecorator('name', { initialValue: userByEmail.name,
                                                 rules: [{ required: true, message: <FormattedMessage id="register.mode.message.name"/>}]})
-                                            (<Input disabled={localStorage.getItem('facebookLogin') == "true" ? true : false}/>)}
+                                            (<Input disabled={localStorage.getItem('socialNetwork') == "true" ? true : false}/>)}
                                         </Form.Item>
                                     </Col>
                                     <Col lg={12} xl={12}>
                                         <Form.Item label={formatMessage({ id: 'register.label.lastfam' })}>
                                             {getFieldDecorator('family_name',{ initialValue: userByEmail.family_name,
                                                 rules: [{ required: true, message: <FormattedMessage id="register.mode.message.lastfam"/>}]})
-                                            (<Input disabled={localStorage.getItem('facebookLogin') == "true" ? true : false}/>)}
+                                            (<Input disabled={localStorage.getItem('socialNetwork') == "true" ? true : false}/>)}
                                         </Form.Item>
                                     </Col>
                                     <Col lg={12} xl={12}>
                                         <Form.Item label={formatMessage({ id: 'register.label.lastmid' })}>
                                             {getFieldDecorator('middle_name',{ initialValue: userByEmail.middle_name,
                                                 rules: [{ required: true, message: <FormattedMessage id="register.mode.message.lastmid"/>}]})
-                                            (<Input disabled={localStorage.getItem('facebookLogin') == "true" ? true : false}/>)}
+                                            (<Input disabled={localStorage.getItem('socialNetwork') == "true" ? true : false}/>)}
                                         </Form.Item>
                                     </Col>
                                     <Col lg={12} xl={12}>
@@ -219,7 +219,7 @@ class AccountSettings extends PureComponent{
                                             {getFieldDecorator('phone_number', { initialValue: numberPhone,
                                                 rules: [{ required: true, message: <FormattedMessage id="register.mode.message.phone"/> },
                                                 { pattern: /^\d{10}$/, message: <FormattedMessage id="register.security.message.phone"/>}],})
-                                                (<Input addonBefore={prefixSelector} disabled={localStorage.getItem('facebookLogin') == "true" ? true : false}/>)}
+                                                (<Input addonBefore={prefixSelector} disabled={localStorage.getItem('socialNetwork') == "true" ? true : false}/>)}
                                         </Form.Item>
                                     </Col>
                                     <Col lg={12} xl={12}>

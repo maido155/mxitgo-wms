@@ -15,7 +15,7 @@ import { Auth } from 'aws-amplify'
 class AvatarDropdown extends React.Component {
   async componentDidMount() {
     try {
-      if(localStorage.getItem('facebookLogin') == "false"){
+      if(localStorage.getItem('socialNetwork') == "false"){
         const user =  await Auth.currentAuthenticatedUser().then((user) => {
           localStorage.setItem('userId', user.username);
           localStorage.setItem('emailVerified', user.attributes.email_verified);
@@ -24,7 +24,7 @@ class AvatarDropdown extends React.Component {
           localStorage.setItem('familyName', user.attributes.family_name);
           localStorage.setItem('email', user.attributes.email);
           localStorage.setItem('isRemembered', "true");
-          localStorage.setItem('facebookLogin', "false");
+          localStorage.setItem('socialNetwork', "false");
         });
       }else{
         const user =  await Auth.currentAuthenticatedUser().then((user) => {
@@ -35,7 +35,7 @@ class AvatarDropdown extends React.Component {
           localStorage.setItem('familyName', user.attributes.family_name);
           localStorage.setItem('email', user.attributes.email);
           localStorage.setItem('isRemembered', "true");
-          localStorage.setItem('facebookLogin', "true");
+          localStorage.setItem('socialNetwork', "true");
         });
       }
     } catch (error) {
@@ -74,7 +74,7 @@ class AvatarDropdown extends React.Component {
       localStorage.removeItem('middleName');
       localStorage.removeItem('familyName');
       localStorage.removeItem('email');
-      localStorage.removeItem('facebookLogin');
+      localStorage.removeItem('socialNetwork');
       localStorage.removeItem('antd-pro-authority');
       localStorage.setItem('sessionActive', null);
       Auth.signOut();
