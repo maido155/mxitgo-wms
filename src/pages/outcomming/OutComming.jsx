@@ -10,20 +10,7 @@ import { connect } from 'dva';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
 function disabledDate(current) {
-    mulInputs = {
-        palletOne: 0,
-        palletTwo: 0,
-        palletThree: 0,
-        palletFour: 0,
-        palletFive: 0
-    }
-    sumInputs = {
-        boxOne: 0,
-        boxTwo: 0,
-        boxThree: 0,
-        boxFour: 0,
-        boxFive: 0
-    }
+    
     let dateMonday = moment(current).isoWeekday(1);
     let dateThursday = moment(current).isoWeekday(2);
     let dateTuesday = moment(current).isoWeekday(4);
@@ -40,21 +27,6 @@ function disabledDate(current) {
     if (dateAll === compareMonday || dateAll === compareThursday || dateAll === compareTuesday || dateAll === compareFriday || dateAll === compareSaturday || dateAll === compareSunday) {
         return true;
     }
-}
-
-var mulInputs = {
-    palletOne: 0,
-    palletTwo: 0,
-    palletThree: 0,
-    palletFour: 0,
-    palletFive: 0
-}
-var sumInputs = {
-    boxOne: 0,
-    boxTwo: 0,
-    boxThree: 0,
-    boxFour: 0,
-    boxFive: 0
 }
 
 @connect(({ outcomming, programming, loading }) => ({
