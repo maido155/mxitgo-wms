@@ -450,13 +450,17 @@ class GeneralProgramming extends PureComponent {
                    showeditSumBoxes = {this.showeditSumBoxes}
                    visualizar={this.state.visualizar}
                 />
-                <PageHeaderWrapper>
+                <PageHeaderWrapper 
+                    extra={
+                        <div style={{paddingRight:"2rem"}}> 
+                            <Button type="primary" shape="circle" size="large" onClick={this.showNewDrawer}>
+                                <Icon type="plus"/>
+                            </Button>
+                        </div>}>
                     <Card>
                         <Spin tip={"Cargando..."} spinning={loading}>
                             <div align="right">
-                                <Button type="primary" shape="circle" size="large" onClick={this.showNewDrawer}>
-                                    <Icon type="plus"/>
-                                </Button>
+                                
                                 <TableProgramming datesPrograming={datesPrograming} cancelProgramming={this.cancelProgramming} showEditDrawer={this.showEditDrawer} showVisualizar={this.showVisualizar}/>
                             </div>
                         </Spin>

@@ -1,6 +1,6 @@
 export default {
-    'general.buttoon-center.center': 'Centro',
-    'general.buttoon-product.product': 'Producto',
+    'general.button-center.center': 'Centro',
+    'general.button-product.product': 'Producto',
     'general.calendar.week': 'Semana',
     'general.modal-title.title': 'Nueva programación',
     'general.modal-title.Edit': 'Editar programación',

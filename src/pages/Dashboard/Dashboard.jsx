@@ -5,12 +5,12 @@ import { routerRedux } from 'dva/router';
 import { _ } from 'lodash';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
-import { Row, Col, Card, Divider, Form, DatePicker } from 'antd';
+import { Row, Col, Card, Tooltip, Typography, Progress, Form, DatePicker } from 'antd';
 import { isMobile, isTablet } from "react-device-detect";
 import { formatMessage } from 'umi-plugin-react/locale';
 import 'moment/locale/en-au';
 import GridDashboard from './GridDashboard';
-
+const { Text, Title } = Typography; 
 function disabledDate (current) {
   let dateMonday = moment(current).isoWeekday(1);
   let dateThursday = moment(current).isoWeekday(2);
@@ -33,9 +33,11 @@ function disabledDate (current) {
 
 
 
-@connect(({ dashboard, loading }) => ({
+@connect(({ dashboard,programming, loading }) => ({
   dashboard,
+  programming,
   loading: loading.models.dashboard,
+  datesProductAll: programming.datesProductAll,
   currentSelectedDate: dashboard.currentSelectedDate,
   currentSelectedProduct: dashboard.currentSelectedProduct
 }))
@@ -45,7 +47,15 @@ function disabledDate (current) {
 export default class Dashboard extends PureComponent {
 
   componentDidMount() {
-
+    this.props.dispatch({
+      type: 'programming/fetchProductAll',
+      payload: {
+          payload: {
+           Authorization: sessionStorage.getItem('idToken'),
+           type: "Primary"
+          }
+       },
+    });
     
   }
 
@@ -130,16 +140,18 @@ export default class Dashboard extends PureComponent {
 
   onRadioChange  = (oEvent) => {
 
-      this.setState({currentSelectedProduct: oEvent.target.value})
+      this.setState({currentSelectedProduct: oEvent})
 
-      this.selectionMade(oEvent.target.value, this.state.currentCustomer, this.state.currentSelectedDate);
+      this.selectionMade(oEvent, this.state.currentCustomer, this.state.currentSelectedDate);
 
   }
 
   render() {
-    if (isMobile) {
+
+    let { datesProductAll} = this.props;
+    /* if (isMobile) {
       return (
-        <PageHeaderWrapper>
+        <PageHeaderWrapper extra={<span>Test</span>}>
           <Card>
             <div>
               <Row type="flex" justify="center">
@@ -170,34 +182,56 @@ export default class Dashboard extends PureComponent {
           </Card>
         </PageHeaderWrapper>
       );
-    }
+    } */
     const formItemLayout = {
       labelCol: { xs: { span: 24 }, sm: { span: 9 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 9 } },
       wrapperCol: { xs: { span: 24 }, sm: { span: 15 }, md: { span: 15 }, lg: { span: 15 }, xl: { span: 15 } }
     };
     return (
-      <PageHeaderWrapper>
-        <Card>
-          <Form {...formItemLayout}>
-            <div>
+      <PageHeaderWrapper
+        
+        extra={
+          <Form style={{paddingRight:"2rem"}} layout="inline" >
+            <Form.Item {...formItemLayout} label={formatMessage({id: "general.calendar.week"})}>
+              <DatePicker format="YYYY-MM-DD" disabledDate={disabledDate} onChange={this.onPickerChange}/>
+            </Form.Item>
+            <Form.Item {...formItemLayout} label={formatMessage({id: "general.button-product.product"})}>
+              <RadioGroupComponent datesProductAll={datesProductAll} handleProduct={this.onRadioChange}/>
+            </Form.Item>
+
+            {/* <div>
               <Row type="flex" justify="space-between">
                 <Col xs={24} sm={16} md={16} lg={16} xl={16}>
-                  <Form.Item label="Semana:">
-                    <DatePicker format="YYYY-MM-DD" disabledDate={disabledDate} onChange={this.onPickerChange}/>
-                  </Form.Item>
+                  
                 </Col>
                 <Col xs={24} sm={12} md={12} lg={12} xl={6}>
-                  <Form.Item label="">
-                    <RadioGroupComponent onChange={this.onRadioChange}/>
-                  </Form.Item>
+                  
                 </Col>
               </Row>
-            </div>
-            <Divider />
+            </div> */}
 
           </Form>
+        }>
+        <Card>
+          
           <div>
-            <GridDashboard Monday = {this.props.dashboard.Monday} Tuesday = {this.props.dashboard.Tuesday} Wednesday = {this.props.dashboard.Wednesday} Thursday = {this.props.dashboard.Thursday} Friday = {this.props.dashboard.Friday} Saturday = {this.props.dashboard.Saturday} Sunday = {this.props.dashboard.Sunday} programmingTotal = {this.props.dashboard.programmingTotal} programmingTotalPRODUCT1={this.props.dashboard.programmingTotalPRODUCT1} programmingTotalPRODUCT2={this.props.dashboard.programmingTotalPRODUCT2} xs={24} sm={12} md={8} lg={6} xl={3} txs={15} tsm={10} tmd={8} tlg={7} txl={6} dataTwo={3} dataThree={4} dataFour={2} dataFive={150} dataSix={200} />
+            <GridDashboard  
+            Monday = {this.props.dashboard.Monday} 
+            Tuesday = {this.props.dashboard.Tuesday} 
+            Wednesday = {this.props.dashboard.Wednesday} 
+            Thursday = {this.props.dashboard.Thursday} 
+            Friday = {this.props.dashboard.Friday} 
+            Saturday = {this.props.dashboard.Saturday} 
+            Sunday = {this.props.dashboard.Sunday} 
+            programmingTotal = {this.props.dashboard.programmingTotal} 
+            programmingTotalPRODUCT1={this.props.dashboard.programmingTotalPRODUCT1} 
+            programmingTotalPRODUCT2={this.props.dashboard.programmingTotalPRODUCT2} 
+            xs={24} sm={12} md={8} lg={6} xl={3} txs={15} tsm={10} tmd={8} tlg={7} txl={6} 
+            dataTwo={3} 
+            dataThree={4} 
+            dataFour={2} 
+            dataFive={150} 
+            dataSix={200} />
           </div>
         </Card>
       </PageHeaderWrapper>

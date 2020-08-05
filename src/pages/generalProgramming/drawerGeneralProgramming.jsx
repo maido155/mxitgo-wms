@@ -755,7 +755,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                     <Row>
                                         <Col xs={0} sm={1} md={1} lg={1} xl={1}></Col>
                                         <Col xs={24} sm={18} md={18} lg={18} xl={18}>
-                                            <Form.Item label={formatMessage({id: "general.buttoon-product.product"})}>
+                                            <Form.Item label={formatMessage({id: "general.button-product.product"})}>
                                                 {getFieldDecorator('productNew',{rules: [{ required: true, message: formatMessage({id: "general.modal-product"}) }]})
                                                     (<Select showSearch style={{ width: 200 }} placeholder="Select product" optionFilterProp="children" onChange={this.onChangeProd} style={{ width: '100%' }}
                                                         onFocus={this.onFocusProd} onBlur={this.onBlurProd} onSearch={this.onSearchProd}filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
@@ -770,7 +770,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                     <Row>
                                         <Col xs={0} sm={1} md={1} lg={1} xl={1}></Col>
                                         <Col xs={24} sm={18} md={18} lg={18} xl={18}>
-                                            <Form.Item label={formatMessage({id: "general.buttoon-center.center"})}>
+                                            <Form.Item label={formatMessage({id: "general.button-center.center"})}>
                                                 {getFieldDecorator('customerNew',{rules: [{ required: true, message: formatMessage({id: "general.modal-customer"}) }] })
                                                     (<Select showSearch style={{ width: 200 }} placeholder="Select center" optionFilterProp="children" onChange={this.onChangeCent} style={{ width: '100%' }}
                                                         onFocus={this.onFocusCent} onBlur={this.onBlurCent} onSearch={this.onSearchCent} filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
@@ -951,7 +951,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                             <Row>
                                                 <Col xs={0} sm={1} md={1} lg={1} xl={1}></Col>
                                                 <Col xs={24} sm={18} md={18} lg={18} xl={18}>
-                                                    <Form.Item label={formatMessage({id: "general.buttoon-product.product"})}>
+                                                    <Form.Item label={formatMessage({id: "general.button-product.product"})}>
                                                         {getFieldDecorator('productEdit',{initialValue: datesGetProgramming[0].skProduct, rules: [{ required: true, message: formatMessage({id: "general.modal-product"}) }]})
                                                             (<Select showSearch style={{ width: 200 }} placeholder="Select product" optionFilterProp="children" onChange={this.onChangeProd} style={{ width: '100%' }}
                                                                 onFocus={this.onFocusProd} onBlur={this.onBlurProd} onSearch={this.onSearchProd}filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}  disabled={edit == true ? true : false}
@@ -966,7 +966,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                             <Row>
                                                 <Col xs={0} sm={1} md={1} lg={1} xl={1}></Col>
                                                 <Col xs={24} sm={18} md={18} lg={18} xl={18}>
-                                                    <Form.Item label={formatMessage({id: "general.buttoon-center.center"})}>
+                                                    <Form.Item label={formatMessage({id: "general.button-center.center"})}>
                                                         {getFieldDecorator('customerEdit',{initialValue: datesGetProgramming[0].skCustomer, rules: [{ required: true, message: formatMessage({id: "general.modal-customer"}) }]})
                                                             (<Select showSearch style={{ width: 200 }} placeholder="Select center" optionFilterProp="children" onChange={this.onChangeCent} style={{ width: '100%' }}
                                                                 onFocus={this.onFocusCent} onBlur={this.onBlurCent} onSearch={this.onSearchCent} filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0} disabled={edit == true ? true : false}
