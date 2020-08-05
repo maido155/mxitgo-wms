@@ -52,10 +52,17 @@ export default {
     'shipping.modal-delete': '¿Está seguro que quieres cancelar este envío?',
     'shipping.modal-delete-yes': 'Si',
     'shipping.modal-delete-no': 'No',
-    'shipping.label.table-shipping.status.new': 'NUEVO',
-    'shipping.label.table-shipping.status.entry': 'ENTRADA',
-    'shipping.label.table-shipping.status.confirmed': 'CONFIRMADO',
-    'shipping.label.table-shipping.status.no-status': 'SIN ESTATUS',
-    'shipping.notification.operator': 'Este número de teléfono móvil ya esta en uso'
+    'shipping.label.table-shipping.status.new':'NUEVO',
+    'shipping.label.table-shipping.status.entry':'ENTRADA',
+    'shipping.label.table-shipping.status.confirmed':'CONFIRMADO',
+    'shipping.label.table-shipping.status.no-status':'SIN ESTATUS',
+    'shipping.modal.detail-table.title': 'Detalle',
+    'shipping.modal.detail-table.shipping': 'Envío',
+    'shipping.modal.detail-table.day': 'Día',
+    'shipping.modal.detail-table.product': 'Product',
+    'shipping.modal.detail-table.planned': 'Planeado',
+    'shipping.modal.detail-table.confirmed': 'Confirmado',
+    'shipping.modal.detail-table.entry': 'Entrada',
+    'shipping.modal.detail-table.missing': 'Faltante',
 
 };

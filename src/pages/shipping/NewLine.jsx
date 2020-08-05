@@ -211,7 +211,15 @@ const NewLine = Form.create()(
             if (typeof lineData == "undefined") {
                 lineData = {};
             }
-
+            let products = [];
+            products.push(lineData.finger, lineData.second, lineData.premium, lineData.gold, lineData.hand);
+            if(productsAll != undefined){
+                for(var i = 0; i < productsAll.length; i++){
+                    productsAll[i]["quantityEdit"] = products[i];
+                    console.log(productsAll);
+                }
+            }
+            console.log(productsAll);
             return (
                 <div>
                     { productsAll !== undefined && productsAll.length !== 0 &&
@@ -242,7 +250,7 @@ const NewLine = Form.create()(
                             </Form.Item>
                             {productsAll.map(item => (
                                 <Form.Item label={item.productName}>
-                                    {getFieldDecorator(item.productName,)
+                                    {getFieldDecorator(item.productName,{initialValue: item.quantityEdit})
                                     (<InputNumber min={0} max={500} style={{ width: '100%' }} />)}
                                 </Form.Item>
                             ))}
