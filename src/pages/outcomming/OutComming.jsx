@@ -4,8 +4,9 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import moment from 'moment';
 
-import { Card, Form, Row, Col, DatePicker, Menu, Dropdown, Button, notification, Tooltip, Divider,  Spin } from 'antd';
+import { Card, Form, Row, Col, DatePicker, Menu, Dropdown, Button, notification, Select, Divider,  Spin } from 'antd';
 import TableOutComming from './TableOutComming';
+import FilterFormOutcoming from './FilterFormOutcoming';
 import { connect } from 'dva';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
@@ -173,35 +174,34 @@ export default class OutComming extends PureComponent {
 
     };
 
-    handleProduct= (e)=> {
+    handleProduct= (value,key)=> {
         //message.info('Click on menu item.');
         //console.log('click', e);
         // let productName = e.key;
         this.setState({
-            product:e.key,
-            productDesc: e.item.props.children
+            product:value,
+            productDesc: key.props.children
         })
-        console.log(e);
-        if( !this.isEmpty(e) && !this.isEmpty(this.state.customer) && !this.isEmpty(this.state.dateTo) && !this.isEmpty(this.state.dateFrom)){
+        //console.log(e);
+        if( !this.isEmpty(value) && !this.isEmpty(this.state.customer) && !this.isEmpty(this.state.dateTo) && !this.isEmpty(this.state.dateFrom)){
 
             this.props.dispatch({
                 type: 'outcomming/getOutcomming',
-                payload: { Product: e.key,Customer: this.state.customer, DateFrom: this.state.dateFrom, DateTo: this.state.dateTo}
+                payload: { Product: value,Customer: this.state.customer, DateFrom: this.state.dateFrom, DateTo: this.state.dateTo}
             });
         }
     };
 
-    handleClient= (e)=> {
-        console.log(e);
+    handleClient= (value,key)=> {
         this.setState({
-            customer:e.key,
-            customerDesc: e.item.props.children
+            customer:value,
+            customerDesc: key.props.children
         })
-        if( !this.isEmpty(e) && !this.isEmpty(this.state.product) && !this.isEmpty(this.state.dateTo) && !this.isEmpty(this.state.dateFrom)){
+        if( !this.isEmpty(value) && !this.isEmpty(this.state.product) && !this.isEmpty(this.state.dateTo) && !this.isEmpty(this.state.dateFrom)){
 
             this.props.dispatch({
                 type: 'outcomming/getOutcomming',
-                payload: { Product: this.state.product,Customer: e.key, DateFrom: this.state.dateFrom, DateTo: this.state.dateTo}
+                payload: { Product: this.state.product,Customer: value, DateFrom: this.state.dateFrom, DateTo: this.state.dateTo}
             });
         }
     };
@@ -292,74 +292,32 @@ export default class OutComming extends PureComponent {
         };
 
         
-        const menuProduct = (
-            <Menu onClick={(e)=>{this.handleProduct(e,this)}}>
-
-                {datesProductAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.productName}</Menu.Item>))}
-
-            </Menu>
-          );
-
-          const menuClient = (
-            <Menu onClick={(e)=>{this.handleClient(e,this)}} >
-                {datesCustomerAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.clientName}</Menu.Item>))}
-            </Menu>
-          );
-
-        
 
         return (
-            <PageHeaderWrapper>
-                    <Card>
-                        <Form layout="inline">
-                       
-                            
-                        <Row style={{padding:"1rem"}} type="flex" justify="center">
-                                <Col xs={24} sm={24} md={8} lg={8} xl={8}>
-                                    <Form.Item label={formatMessage({id: "general.calendar.week"})}>
-                                        <DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} disabledDate={disabledDate} onChange={(date,dateString)=>{this.onChangeWeek(date,dateString,this)}}/>
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={24} md={8} lg={8} xl={8}>
-                                    <Form.Item >
-                                        <Dropdown onChange={(date,dateString)=>{this.onChangeProd(e)}} overlay={menuProduct}>
-                                            <Button>
-                                                {this.state.productDesc} <DownOutlined />
-                                            </Button>
-                                        </Dropdown>
-                                    </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={24} md={8} lg={8} xl={8}>
-                                        <Form.Item style={{width:"100%"}}>
-                                            <Dropdown style={{width:"100%"}} overlay={menuClient}>
-                                                <Button style={{width:"100%"}}>
-                                                {this.state.customerDesc} <DownOutlined />
-                                                </Button>
-                                            </Dropdown>
-                                        </Form.Item>
-                                
-                                </Col>
-                        </Row>
-                                
-                            
-                            
-                                
-                          
-                            
-                                  
-                            
+            <div>
+                <PageHeaderWrapper  extra=
+                    {<FilterFormOutcoming 
+                        onChangeWeek={this.onChangeWeek}
+                        handleProduct={this.handleProduct}
+                        handleClient={this.handleClient}
+                        datesProductAll={datesProductAll} 
+                        datesCustomerAll={datesCustomerAll}
                         
-
-                                </Form>
+                    />}>
+                    <Card>
+                    
+                        
                             
-                            <Row type="flex" justify="center">
-                                <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                                    <TableOutComming productDesc={this.state.productDesc} productKey={this.state.product} visibleAssignProduct={this.state.visibleAssignProduct} setVisibleAssignProduct={this.setVisibleAssignProduct} visibleAssign={this.state.visibleAssign} setVisibleAssign={this.setVisibleAssign} visibleCompo={this.state.visibleCompo} setVisibleCompo={this.setVisibleCompo} restartOutcomming= {(payload)=>{this.restartOutcomming(payload,this)}} postOutcomming= {(payload)=>{this.postOutcomming(payload,this)}} datesProductAll = {datesProductAll} datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
-                                </Col>
-                            </Row>
+                        <Row type="flex" justify="center">
+                            <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                                <TableOutComming productDesc={this.state.productDesc} productKey={this.state.product} visibleAssignProduct={this.state.visibleAssignProduct} setVisibleAssignProduct={this.setVisibleAssignProduct} visibleAssign={this.state.visibleAssign} setVisibleAssign={this.setVisibleAssign} visibleCompo={this.state.visibleCompo} setVisibleCompo={this.setVisibleCompo} restartOutcomming= {(payload)=>{this.restartOutcomming(payload,this)}} postOutcomming= {(payload)=>{this.postOutcomming(payload,this)}} datesProductAll = {datesProductAll} datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
+                            </Col>
+                        </Row>
                         
                     </Card>
-            </PageHeaderWrapper>
+                </PageHeaderWrapper>
+            </div>
+            
         );            
     }
 }
