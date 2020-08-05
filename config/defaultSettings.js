@@ -1,13 +1,13 @@
 export default {
   navTheme: 'dark',
   // 拂晓蓝
-  primaryColor: 'daybreak',
+  primaryColor: '#64A9DD',
   layout: 'sidemenu',
   contentWidth: 'Fluid',
   fixedHeader: false,
-  autoHideHeader: false,
+  autoHideHeader: true,
   fixSiderbar: false,
-  colorWeak: false,
+  colorWeak: true,
   menu: {
     locale: true,
   },

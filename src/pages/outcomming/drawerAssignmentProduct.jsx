@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import { Drawer,Button, Form, InputNumber, Input} from 'antd';
+import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import {isMobile} from 'react-device-detect';
 import { Typography } from 'antd';
 

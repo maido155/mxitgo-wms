@@ -163,7 +163,7 @@ class Login extends Component {
    
     if (!err) {
       const { dispatch } = this.props;
-      localStorage.setItem('facebookLogin', "false");
+      localStorage.setItem('socialNetwork', "false");
      
        self.loginCognito(values);
       

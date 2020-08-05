@@ -1,5 +1,5 @@
 
-import { saveShipping, updateShipping, getShipping, getLocations, fetchShippingAll, fetchProductAll,getShippingDetail,fetchOperatorAll,deleteShipping } from '../services/api';
+import { confirmShipping,saveShipping, updateShipping, getShipping, getLocations, fetchShippingAll, fetchProductAll,getShippingDetail,fetchOperatorAll,deleteShipping } from '../services/api';
 
 
 import moment from 'moment';
@@ -153,7 +153,21 @@ export default {
                 payload: responseShippingAll,
             });
 
-        }
+        },
+        * confirmShipping({ payload }, { call, put }) {
+            const response = yield call(confirmShipping, payload);
+            console.log(response);
+            yield put({
+                type: 'confirmShippingReducer',
+                payload: response,
+            });
+            const responseShippingAll = yield call(fetchShippingAll, payload);
+            console.log(responseShippingAll);
+            yield put({
+                type: 'queryGetShippingAll',
+                payload: responseShippingAll,
+            });
+        },
 
 
 
@@ -250,12 +264,19 @@ export default {
         updateShippingReducer(state, action) {
             return {
                 ...state,
+                datesShipping: action.payload,
                 warehouses: [],
                 warehouseIds: [],
                 isSuccess: true,
                 close: false,
                 oShippingItem: { products: [], id: "" },
                 products: []
+            }
+        },
+        confirmShippingReducer(state, action) {
+            return {
+                ...state,
+                isSuccess: true
             }
         },
         getProductsReducer(state, action) {

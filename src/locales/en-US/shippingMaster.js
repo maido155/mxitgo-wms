@@ -37,7 +37,7 @@ export default {
     'shipping.shippingconfirmation.id-order': 'Id order',
     'shipping.shippingconfirmation.driver': 'Driver',
     'shipping.shippingconfirmation.phone': 'Phone',
-    'menu.Maestro de envíos': 'Shipping master',
+    'menu.Maestro de envíos': 'Shipping Master',
     'shipping.label.table-shipping.id': 'Id',
     'shipping.label.table-shipping.ubication': 'Ubicaction',
     'shipping.label.table-shipping.output': 'output',
@@ -54,7 +54,15 @@ export default {
     'shipping.label.table-shipping.status.new':'NEW',
     'shipping.label.table-shipping.status.entry':'ENTRY',
     'shipping.label.table-shipping.status.confirmed':'CONFIRMED',
-    'shipping.label.table-shipping.status.no-status':'NO STATUS'
+    'shipping.label.table-shipping.status.no-status':'NO STATUS',
+    'shipping.modal.detail-table.title': 'Detail',
+    'shipping.modal.detail-table.shipping': 'Shipping',
+    'shipping.modal.detail-table.day': 'Day',
+    'shipping.modal.detail-table.product': 'Product',
+    'shipping.modal.detail-table.planned': 'Planned',
+    'shipping.modal.detail-table.confirmed': 'Confirmed',
+    'shipping.modal.detail-table.entry': 'Entry',
+    'shipping.modal.detail-table.missing': 'Missing',
    
 
 };
