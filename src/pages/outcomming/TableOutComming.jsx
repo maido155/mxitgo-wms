@@ -5,11 +5,9 @@ import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import AssignmentOutComming from './AssignmentOutComming';
 import CompositionOutComming from './CompositionOutComming';
 import {isMobile} from 'react-device-detect';
-import { connect } from 'dva';
+//import { connect } from 'dva';
 
-
-
-@connect(({ outcomming, programming, loading }) => ({
+/*@connect(({ outcomming, programming, loading }) => ({
     outcomming,
     programming,
     loading: loading.models.outcomming,
@@ -18,7 +16,7 @@ import { connect } from 'dva';
     datesProductAll: programming.datesProductAll,
     datesCustomerAll: programming.datesCustomerAll,
     dataOutcommingsByEntry: outcomming.dataOutcommingsByEntry
-}))
+}))*/
 export default class TableOutComming extends PureComponent {
     state = { 
         currentRecord: "",
@@ -33,7 +31,8 @@ export default class TableOutComming extends PureComponent {
           recordKey: oc,
         });
         
-        this.props.dispatch({
+        this.props.getOutcommingByEntry(oc,this.props.productKey);
+        /*this.props.dispatch({
             type: 'outcomming/getOutcommingsByEntry',
             payload: {
                 payload: {
@@ -42,9 +41,7 @@ export default class TableOutComming extends PureComponent {
                  productKey : this.props.productKey
                 }
              },
-        });
-
-
+        });*/
     };
     showDrawerCompo = (id) => {
         this.props.onShowCompositionData(id);
@@ -58,7 +55,7 @@ export default class TableOutComming extends PureComponent {
         this.props.setVisibleCompo(true);
     };
     render() {
-        let {dataOutcommingsByEntry} = this.props.outcomming;
+        let {dataOutcommingsByEntry} = this.props;
         const { datesOutcomming } = this.props;
         console.log("TableOutComming");
         console.log(dataOutcommingsByEntry);
@@ -99,9 +96,14 @@ export default class TableOutComming extends PureComponent {
                                 <FormattedMessage id="outComming.button.assign"/>
                             </Button>}
                         <Divider type="vertical" />
-                        <Button onClick={()=>{this.showDrawerCompo(record.key)}}>
-                            <FormattedMessage id="outComming.button.composition"/>
-                        </Button>
+                        { record.key=="" 
+                            ?<Button disabled onClick={()=>{this.showDrawerCompo(record.key)}}>
+                                <FormattedMessage id="outComming.button.composition"/>
+                             </Button>
+                            :<Button onClick={()=>{this.showDrawerCompo(record.key)}}>
+                                <FormattedMessage id="outComming.button.composition"/>
+                             </Button>                                       
+                        }    
                         <Divider type="vertical" />
                         { record.key=="" 
                             ? <Checkbox defaultChecked={false} disabled onChange={()=>{this.props.onConfirm(record)}}>Confirm</Checkbox>
@@ -115,6 +117,7 @@ export default class TableOutComming extends PureComponent {
                                 </span> 
                         }      
                         <AssignmentOutComming 
+                            loading = {this.props.loading}
                             productDesc = {this.props.productDesc}
                             datesProductAll = {this.props.datesProductAll}
                             visibleOne={this.props.visibleAssign}

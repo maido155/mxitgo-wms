@@ -6,15 +6,7 @@ import { Drawer,Row, Col, Button, Icon, Divider } from 'antd';
 import {isMobile} from 'react-device-detect';
 
 
-export default class AssignmentOutComming extends PureComponent {
-    
-    componentDidMount() {
-
-
-
-    };
-
-
+export default class AssignmentOutComming extends PureComponent {    
     onReset = (_this) => {
         _this.props.restartOutcomming(_this.props.currentOutcomming.key);
     }
@@ -52,6 +44,7 @@ export default class AssignmentOutComming extends PureComponent {
                 <Row>
                     <Col span={24}>
                         <TableAssignment 
+                            loading = {this.props.loading}
                             postOutcomming= {this.props.postOutcomming} 
                             datesProductAll = {this.props.datesProductAll} 
                             currentOutcomming={this.props.currentOutcomming}

@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import Table from './TableAssignment';
 import { _ } from 'lodash'; 
 import { Drawer,Button, Form, InputNumber, Input} from 'antd';
 import {isMobile} from 'react-device-detect';
