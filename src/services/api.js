@@ -372,7 +372,7 @@ export async function updateShipping(payload) {
         body: JSON.stringify(payload)
     });
 }
-export async function confirmShipping(payload) {
+export async function confirmShipping({payload}) {
     return request(`${ANT_DESIGN_PRO_TARGET}/shipping`, {
         method: 'POST',
         headers: { 'Authorization': payload.Authorization },

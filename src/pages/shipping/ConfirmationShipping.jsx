@@ -81,7 +81,7 @@ class ConfirmationShipping extends PureComponent {
             values["entryDate"] = this.state.entryDate;
             values["dateNew"] = this.state.datesGeneralNewLine.dateCreated;
             values["createdByNew"] = this.state.datesGeneralNewLine.createdByNew;
-            values["destinity"] = "Central de abastos"
+            values["destination"] = "Central de abastos"
             values["products"] = this.props.products;
             values["warehouses"] = this.props.warehouseIds;
             values["comment"] = values.comment;
@@ -225,7 +225,8 @@ class ConfirmationShipping extends PureComponent {
                         <Row className={Styles.lastcolumn}>
                             <Col lg={12} xl={12}>
                                 <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.driver' })}>
-                                {getFieldDecorator('operator')
+                                {getFieldDecorator('operator',
+                                {rules: [{ required: true, message: "Operador no seleccionado" }]}) 
                                     (<AutoComplete
                                         dataSource={nameOperator}
                                         filterOption={(inputValue, option) =>

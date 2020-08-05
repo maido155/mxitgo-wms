@@ -172,7 +172,7 @@ class ShippingMaster extends PureComponent {
 
     showShippingProgramingConfirm = (oItem) => {
 
-
+        
         this.props.dispatch({
             type: 'shipping/getShipping',
             payload: { id: oItem['WMS-1-PK'], status: "New"}
@@ -314,6 +314,7 @@ class ShippingMaster extends PureComponent {
         }
     }
     confirmShipping = (datesShipping) => {
+        let _self = this;
         console.log(datesShipping);
         let operators = this.props.operatorAll;
         let existsOperator = operators.filter(function(data){
@@ -321,26 +322,29 @@ class ShippingMaster extends PureComponent {
         })
         if(existsOperator.length == 0){
             this.props.dispatch({
-                type: 'shipping/updateShipping',
+                type: 'shipping/confirmShipping',
                 payload: {
-                    typeCondition: "Confirmed",
-                    isMasterModified: true,
-                    comment: datesShipping.comment,
-                    createdBy: datesShipping.createdBy,
-                    date: datesShipping.date,
-                    departureDate: datesShipping.departureDate,
-                    deliveryDate: datesShipping.deliveryDate,
-                    entryDate: datesShipping.entryDate,
-                    destination: datesShipping.destination,
-                    products: datesShipping.products,
-                    skWh: datesShipping.warehouses,
-                    dateNew: datesShipping.dateNew,
-                    createdByNew: datesShipping.createdByNew,
-                    pk: datesShipping.idShipping,
-                    sk: datesShipping.idShipping.substr(4,14),
-                    operator: datesShipping.operator,
-                    phone: datesShipping.phone,
-                    Authorization: sessionStorage.getItem('idToken')
+                    payload: {
+                        typeCondition: "Confirmed",
+                        isMasterModified: true,
+                        comment: datesShipping.comment,
+                        createdBy: datesShipping.createdBy,
+                        date: datesShipping.date,
+                        departureDate: datesShipping.departureDate,
+                        deliveryDate: datesShipping.deliveryDate,
+                        entryDate: datesShipping.entryDate,
+                        destination: datesShipping.destination,
+                        products: datesShipping.products,
+                        skWh: datesShipping.warehouses,
+                        dateNew: datesShipping.dateNew,
+                        createdByNew: datesShipping.createdByNew,
+                        pk: datesShipping.idShipping,
+                        sk: datesShipping.idShipping.substr(4,14),
+                        operator: datesShipping.operator,
+                        phone: datesShipping.phone,
+                        initialDate: _self.state.dateFrom,
+                        Authorization: sessionStorage.getItem('idToken')
+                    }
                 }
             })
         }else{
