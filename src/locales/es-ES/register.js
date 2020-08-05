@@ -31,7 +31,7 @@ export default {
     'login.pass': 'Contraseña',
     'login.remember.pass': 'Recordarme',
     'login.forgot.pass': 'olvidaste tu contraseña?',
-    'user-login.login.login': 'iniciar sesión',
+    'user-login.login.login': 'Iniciar Sesión',
     'user-login.login.signup': 'Registrarme',
     'login.login.with': 'o inicie sesión con'
 };

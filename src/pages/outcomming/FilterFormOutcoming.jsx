@@ -100,7 +100,7 @@ class FilterFormOutcomingForm extends PureComponent {
                             <DatePicker format="YYYY-MM-DD" style={{ width: 120 }} 
                             disabledDate={disabledDate} onChange={(date,dateString)=>{this.props.onChangeWeek(date,dateString,this)}}/>
                         </Form.Item>
-                            <Form.Item {...formItemLayout} label={formatMessage({id: "general.buttoon-product.product"})} >
+                            <Form.Item {...formItemLayout} label={formatMessage({id: "general.button-product.product"})} >
                                 {getFieldDecorator('productNew',
                                     {
                                         rules: [
@@ -122,7 +122,7 @@ class FilterFormOutcomingForm extends PureComponent {
                             </Form.Item>
                     
                     
-                            <Form.Item {...formItemLayout} label={formatMessage({id: "general.buttoon-center.center"})}>
+                            <Form.Item {...formItemLayout} label={formatMessage({id: "general.button-center.center"})}>
                                 {getFieldDecorator('customerNew',
                                     {rules: [
                                         {

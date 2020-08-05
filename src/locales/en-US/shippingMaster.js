@@ -37,7 +37,7 @@ export default {
     'shipping.shippingconfirmation.id-order': 'Id order',
     'shipping.shippingconfirmation.driver': 'Driver',
     'shipping.shippingconfirmation.phone': 'Phone',
-    'menu.Maestro de envíos': 'Shipping master',
+    'menu.Maestro de envíos': 'Shipping Master',
     'shipping.label.table-shipping.id': 'Id',
     'shipping.label.table-shipping.ubication': 'Ubicaction',
     'shipping.label.table-shipping.output': 'output',

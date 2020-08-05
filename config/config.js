@@ -161,7 +161,11 @@ export default {
     ],
     // Theme for antd: https://ant.design/docs/react/customize-theme-cn
     theme: {
+        "primary-color": "#64A9DD",
         // ...darkTheme,
+        // 'menu-dark-color':'#244999',
+        // 'menu-dark-submenu-bg': '#244999'
+        /*'layout-sider-background': '#244999'  */ 
     },
     define: {
         ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION: ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION || '',

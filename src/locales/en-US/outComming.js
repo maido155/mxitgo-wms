@@ -30,5 +30,5 @@ export default {
     'outComming.button.composition-outcomming-pallets-ass': 'Pallets assigned',
     'outComming.button.composition-outcomming-boxes-ass': 'Boxes assigned',
     'outComming.label.table-status':'Status',
-    'menu.Salidas': 'Outgoing'
+    'menu.Salidas': 'Outbounds'
 };

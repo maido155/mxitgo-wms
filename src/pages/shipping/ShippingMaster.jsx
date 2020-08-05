@@ -486,24 +486,33 @@ class ShippingMaster extends PureComponent {
  
  
                 />
-                <PageHeaderWrapper>
-                    <Card>
-                        <Form {...formItemLayout}>
-                            <Row type="flex" >
-                                <Col xs={24} sm={23} md={17} lg={16} xl={6}></Col>
-                                <Col xs={24} sm={23} md={17} lg={16} xl={10}>
-                                    <Form.Item label={formatMessage({id: "outComming.label.week"})}>
-                                        <DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} disabledDate={disabledDate} onChange={(date,dateString)=>{this.onChangeWeek(date,dateString,this)}}/>
+                <PageHeaderWrapper
+                
+                
+                extra={
+                    
+                        <div >
+                            
+                            <Form style={{paddingRight:"1rem"}} layout="inline" >  
+                                    <Form.Item {...formItemLayout}  label={formatMessage({id: "outComming.label.week"})}>
+                                        <DatePicker format="YYYY-MM-DD" style={{ width: 200 }} disabledDate={disabledDate} onChange={(date,dateString)=>{this.onChangeWeek(date,dateString,this)}}/>
                                     </Form.Item>
-                                </Col>
-                                <Col xs={24} sm={23} md={17} lg={16} xl={8} className={Styles.addshippingmaster}>
+                                    <Form.Item style={{padding:"0rem 1rem 0rem 7rem"}} {...formItemLayout}>
                                     <Button type="primary" shape="circle" size="large" onClick={this.showShippingPrograming}>
                                         <Icon type="plus" />
                                     </Button>
-                            </Col>
-                            </Row>
-                        </Form>
-                        <Divider />
+                                    </Form.Item>
+                                
+                            </Form>
+                            
+                        </div>
+                        
+                        
+                        
+                   
+                    
+                }>
+                    <Card>
                         <Row>
                             <Col span={24}>
                             <Spin tip={"Cargando..."} spinning={loading}>
