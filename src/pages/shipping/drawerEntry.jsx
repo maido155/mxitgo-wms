@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
 import { Drawer,Button, Row, Col, Form, Input, Upload, Icon, message} from 'antd';
-import TableModal from './tableModalEntry';
-import GridModal from './gridModalEntry';
+import TableModalEntry from './tableModalEntry';
+import GridModalEntry from './gridModalEntry';
 import {isMobile} from 'react-device-detect';
 import Styles from './StylesShipping.css';
 import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
@@ -65,14 +65,14 @@ class drawerEntry extends PureComponent {
                 title={formatMessage({ id: 'shipping.shippingEntry.title' })}
                 width={isMobile ? "100%" : "70%"}
                 onClose={this.props.handleCancelEntry}
-                visible={this.props.visibleEntry}
+                visible={this.props.visibleShippingEntry}
                 bodyStyle={{ paddingBottom: 80 }}
                 getContainer={isMobile ? false : true} 
             >
-                <TableModal/>
+                <TableModalEntry data= {this.props.oShippingItem}/>
                 <Row type="flex" justify="center" style={{marginTop: "2rem"}}>
                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                        <GridModal/>
+                        <GridModalEntry data= {this.props.oShippingItem}/>
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                         <Form {...formItemLayout} className={Styles.comments}>

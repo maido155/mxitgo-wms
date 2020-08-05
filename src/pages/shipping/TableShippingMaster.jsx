@@ -15,7 +15,7 @@ class TableShippingMaster extends PureComponent {
   state = {
     
     visibleModalProduct: false,
-    visibleEntry: false,
+    visibleShippingEntry: false,
     loadingModal: false
   }
 
@@ -31,21 +31,26 @@ class TableShippingMaster extends PureComponent {
     });
   };
 
-  showEntry = (data, date) => {
-    console.log(data, date);
+  showEntry = (data) => {
+    console.log(data);
+
+    
+    this.props.showShippingEntry(data);
+
+
     this.setState({
-      visibleEntry: true
+      visibleShippingEntry: true
     });
   };
 
   handleCancelEntry = () => {
-    this.setState({ visibleEntry: false });
+    this.setState({ visibleShippingEntry: false });
   };
 
   handleOk = () => {
     this.setState({ loadingModal: true });
     setTimeout(() => {
-      this.setState({ loadingModal: false, visibleEntry: false });
+      this.setState({ loadingModal: false, visibleShippingEntry: false });
     }, 3000);
   };
 
@@ -247,7 +252,7 @@ class TableShippingMaster extends PureComponent {
                         }
                     </a >
                     <Divider type="vertical"/>
-                    <Button type="link" onClick={() => {this.showEntry(record["WMS-1-PK"], record.status)}}>
+                    <Button type="link" onClick={() => {this.showEntry(record)}}>
                       {isMobile
                         ? <Icon type="form" />
                         : <a><Icon type="form" /> <FormattedMessage id="shipping.label.table-shipping.entry" /></a>
@@ -376,10 +381,11 @@ class TableShippingMaster extends PureComponent {
        
        
         <DrawerEntry
-          visibleEntry={this.state.visibleEntry}
+          visibleShippingEntry={this.props.visibleShippingEntry}
           successModal={this.handleOk}
           handleCancelEntry={this.handleCancelEntry}
           loadingModal={this.state.loadingModal}
+          oShippingItem = {this.props.oShippingItem}
         />
         <Table size="small" rowSelection={rowSelection} columns={columns} dataSource={datesTableShipping} scroll={isMobile ? { x: 1300 } : { x: 1350 }} pagination={false} />
       </div>

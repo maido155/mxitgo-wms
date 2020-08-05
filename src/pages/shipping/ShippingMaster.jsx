@@ -50,6 +50,7 @@ function disabledDate(current) {
 class ShippingMaster extends PureComponent {
     state = {
         visibleShippingPrograming: false,
+        visibleShippingEntry: false,
         visibleNewLine: false,
         visibleConfirmationShipping: false,
         visibleModalProduct: false,
@@ -184,6 +185,25 @@ class ShippingMaster extends PureComponent {
         })
     };
 
+
+    showShippingEntry = (oItem) => {
+
+
+        this.props.dispatch({
+            type: 'shipping/getShipping',
+            payload: { id: oItem['WMS-1-PK'], status: "New" }
+        })
+
+        this.setState({
+            visibleShippingEntry: true,
+            masterMode: "NEW"
+        })
+
+      
+    };
+
+
+
     showShippingProgramingEdit = (oItem) => {
 
 
@@ -196,32 +216,6 @@ class ShippingMaster extends PureComponent {
             visibleShippingPrograming: true,
             masterMode: "EDIT"
         })
-
-        // var aWarehouseData = [];
-
-        // for (var i = 0; i < oItem.products.length; i++) {
-        //     var oLineItem = {};
-        //     oItem.products[i].forEach((oProductItem) => {
-        //         oLineItem[oProductItem.product] = oProductItem.amount;
-        //     });
-        //     oLineItem.center = oItem.center;
-        //     aWarehouseData.push(oLineItem);
-        // };
-
-        // /// convert date properties to moment
-        // oItem.departureDate = new moment(oItem.departureDate);
-        // oItem.deliveryDate = new moment(oItem.deliveryDate);
-        // oItem.entryDate = new moment(oItem.entryDate);
-
-        // this.props.dispatch({
-        //     type: 'shipping/setWarehouse',
-        //     payload: { warehouses: aWarehouseData }
-        // })
-        // this.setState({
-        //     visibleShippingPrograming: true,
-        //     oShippingItem: oItem,
-        //     masterMode: "EDIT"
-        // });
     };
 
 
@@ -423,6 +417,9 @@ class ShippingMaster extends PureComponent {
                     lineMode={this.state.lineMode}
 
                     visibleShippingPrograming={this.state.visibleShippingPrograming}
+
+                    
+
                     oShippingItem={oShippingItem}
 
                     onCloseShippingPrograming={this.onCloseShippingPrograming}
@@ -512,10 +509,17 @@ class ShippingMaster extends PureComponent {
                                     showShippingProgramingEdit={this.showShippingProgramingEdit}
                                     showModalProduct={this.showModalProduct}
                                     datesTableShipping={datesShipping}
+                                    showShippingEntry = {this.showShippingEntry}
+                                    visibleShippingEntry = {this.state.visibleShippingEntry}
+                                    
 
                                     operatorAll={operatorAll}
 
                                     deleteShipping={this.deleteShipping}
+                                    showShippingPrograming={this.showShippingPrograming}
+
+                                    
+                                    oShippingItem={oShippingItem}
                                 />
                             </Spin>
                             </Col>

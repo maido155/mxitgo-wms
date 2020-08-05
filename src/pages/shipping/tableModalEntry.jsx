@@ -6,8 +6,8 @@ import { formatMessage } from 'umi-plugin-react/locale';
 const columns = [
     {
       title: formatMessage({ id: 'shipping.label.table-shipping.id' }),
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'idShipping',
+      key: 'idShipping',
       width: 110,
     },
     {
@@ -18,22 +18,22 @@ const columns = [
     },
     {
       title: formatMessage({ id: 'shipping.label.table-shipping.output' }),
-      dataIndex: 'salida',
-      key: 'salida',
+      dataIndex: 'formattedDepartureDate',
+      key: 'formattedDepartureDate',
       width: 100,
     },
     
     {
       title: formatMessage({ id: 'shipping.label.table-shipping.arrival' }),
-      dataIndex: 'llegada',
-      key: 'llegada',
+      dataIndex: 'formattedDeliveryDate',
+      key: 'formattedDeliveryDate',
       width: 100,
     },
     
     {
       title: formatMessage({ id: 'shipping.label.table-shipping.entry' }),
-      dataIndex: 'entrada',
-      key: 'entrada',
+      dataIndex: 'formattedEntryDate',
+      key: 'formattedEntryDate',
       width: 100,
     },
     
@@ -63,10 +63,23 @@ const columns = [
   ];
 
   class tableModalEntry extends PureComponent {
+
+
+    
+
+
+
       
     render() {
+
+        
+
+        this.props.data.formattedEntryDate = this.props.data.entryDate?.format("YYYY-MM-DD");
+        this.props.data.formattedDeliveryDate = this.props.data.deliveryDate?.format("YYYY-MM-DD");
+        this.props.data.formattedDepartureDate = this.props.data.departureDate?.format("YYYY-MM-DD");
+
         return (
-          <Table columns={columns} dataSource={data} scroll={{x: 'max-content'}} pagination={false}/>  
+          <Table columns={columns} dataSource={[this.props.data]} scroll={{x: 'max-content'}} pagination={false}/>  
         );
         
     }      
