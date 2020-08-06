@@ -26,6 +26,7 @@ export default {
     'shipping.tablecomponent.label.second': 'Second',
     'shipping.tablecomponent.label.hand': 'Hand',
     'shipping.tablecomponent.label.finger': 'Finger',
+    'shipping.tablecomponent.label.no-label':'no label',
     'shipping.tablecomponent.label.actions': 'Actions',
     'shipping.newline.label.title': 'New line',
     'shipping.treeselect.label.select': 'Select',
@@ -63,6 +64,7 @@ export default {
     'shipping.modal.detail-table.confirmed': 'Confirmed',
     'shipping.modal.detail-table.entry': 'Entry',
     'shipping.modal.detail-table.missing': 'Missing',
+    'shipping.loading': 'Loading...'
    
 
 };

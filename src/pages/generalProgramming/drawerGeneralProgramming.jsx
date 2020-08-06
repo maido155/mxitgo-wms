@@ -738,7 +738,7 @@ const DrawerGeneralProgramming  = Form.create()(
                     visible={this.props.visibleNewDrawer}
                 >
                     <Form {...formItemLayout}>
-                        <Spin tip={"Cargando..."} spinning={loading}>
+                        <Spin tip={formatMessage({id: "general.loading"})} spinning={loading}>
                             {edit == false && 
                                 <div>
                                     <Row>

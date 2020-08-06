@@ -529,7 +529,7 @@ class ShippingMaster extends PureComponent {
                     <Card>
                         <Row>
                             <Col span={24}>
-                            <Spin tip={"Cargando..."} spinning={loading}>
+                            <Spin tip={formatMessage({id: "shipping.loading"})} spinning={loading}>
                                 <TableShippingMaster
                                     showConfirmationShipping={this.showShippingProgramingConfirm}
                                     showShippingProgramingEdit={this.showShippingProgramingEdit}
