@@ -5,18 +5,7 @@ import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import AssignmentOutComming from './AssignmentOutComming';
 import CompositionOutComming from './CompositionOutComming';
 import {isMobile} from 'react-device-detect';
-//import { connect } from 'dva';
 
-/*@connect(({ outcomming, programming, loading }) => ({
-    outcomming,
-    programming,
-    loading: loading.models.outcomming,
-    datesOutcomming:outcomming.datesOutcomming,
-    shippingsByEntry:outcomming.shippingsByEntry,
-    datesProductAll: programming.datesProductAll,
-    datesCustomerAll: programming.datesCustomerAll,
-    dataOutcommingsByEntry: outcomming.dataOutcommingsByEntry
-}))*/
 export default class TableOutComming extends PureComponent {
     state = { 
         currentRecord: "",
@@ -32,16 +21,6 @@ export default class TableOutComming extends PureComponent {
         });
         
         this.props.getOutcommingByEntry(oc,this.props.productKey);
-        /*this.props.dispatch({
-            type: 'outcomming/getOutcommingsByEntry',
-            payload: {
-                payload: {
-                 Authorization: sessionStorage.getItem('idToken'),
-                 idOutcomming : oc,
-                 productKey : this.props.productKey
-                }
-             },
-        });*/
     };
     showDrawerCompo = (id) => {
         this.props.onShowCompositionData(id);
