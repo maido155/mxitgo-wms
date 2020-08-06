@@ -458,7 +458,7 @@ class GeneralProgramming extends PureComponent {
                             </Button>
                         </div>}>
                     <Card>
-                        <Spin tip={"Cargando..."} spinning={loading}>
+                        <Spin tip={formatMessage({id: "general.loading"})} spinning={loading}>
                             <div align="right">
                                 
                                 <TableProgramming datesPrograming={datesPrograming} cancelProgramming={this.cancelProgramming} showEditDrawer={this.showEditDrawer} showVisualizar={this.showVisualizar}/>

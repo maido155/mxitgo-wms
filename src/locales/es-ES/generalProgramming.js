@@ -32,5 +32,6 @@ export default {
     'general.modal-verify-programming-message': 'Programación existente',
     'general.modal-verify-programming-description': 'Hemos encontrado una programación con la misma fecha. Por favor intente de nuevo',
     'general.modal-visualize': 'Visualizar',
-    'general.table.New': 'Nuevo'
+    'general.table.New': 'Nuevo',
+    'general.loading':'Cargando...'
 }

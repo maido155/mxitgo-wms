@@ -215,7 +215,7 @@ export default class UsersLayout extends PureComponent {
         return(
             <PageHeaderWrapper>
                 <Card>
-                    <Spin tip={"Cargando..."} spinning={loading}>
+                    <Spin tip={formatMessage({id: "usersModule.loading"})} spinning={loading}>
                         <ModalNewUser 
                             visible={this.state.visible} 
                             cancel={this.handleCancel} 

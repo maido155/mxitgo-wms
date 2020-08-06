@@ -249,7 +249,19 @@ const NewLine = Form.create()(
                                 )}
                             </Form.Item>
                             {productsAll.map(item => (
-                                <Form.Item label={item.productName}>
+                                <Form.Item label={
+                                    item.productName === 'Premium'
+                                    ? formatMessage({ id: 'shipping.tablecomponent.label.premium'})
+                                    : item.productName === 'Gold'
+                                        ? formatMessage({ id: 'shipping.tablecomponent.label.gold'})
+                                        : item.productName === 'Segunda'
+                                            ? formatMessage({ id: 'shipping.tablecomponent.label.second'})
+                                            : item.productName === 'Mano'
+                                                 ? formatMessage({ id: 'shipping.tablecomponent.label.hand'})
+                                                 :item.productName === 'Dedo'
+                                                    ? formatMessage({ id: 'shipping.tablecomponent.label.finger'})
+                                                    : formatMessage({ id: 'shipping.tablecomponent.label.no-label'})
+                                }>
                                     {getFieldDecorator(item.productName,{initialValue: item.quantityEdit})
                                     (<InputNumber min={0} max={500} style={{ width: '100%' }} />)}
                                 </Form.Item>
