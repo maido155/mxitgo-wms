@@ -5,7 +5,7 @@ import { routerRedux } from 'dva/router';
 import { _ } from 'lodash';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
-import { Row, Col, Card, Tooltip, Typography, Progress, Form, DatePicker } from 'antd';
+import { Row, Col, Card, Tooltip, Typography, Progress, Form, DatePicker, Statistic,Icon, Divider } from 'antd';
 import { isMobile, isTablet } from "react-device-detect";
 import { formatMessage } from 'umi-plugin-react/locale';
 import 'moment/locale/en-au';
@@ -189,7 +189,41 @@ export default class Dashboard extends PureComponent {
     };
     return (
       <PageHeaderWrapper
-        
+        content={<div>
+          
+          <Card size="small" style={{textAlign:"center"}}  title="Totales">
+          
+          <Row type="flex" justify="center" align-content="center">
+              
+              <Col xs={8} sm={8} md={8} lg={8} xl={8} style={{textAlign: "center"}}>
+                
+                <Statistic title="Necesidad Gold" value={0} prefix={<Icon type="layout" theme="twoTone" twoToneColor="#ffd700" />} />
+
+
+                {/* <p>Necesidad Gold: </p>
+                <p><Title level={2}>{ {this.props.programmingTotalPRODUCT1} }</Title></p> */}
+                
+              </Col>
+              
+              <Col xs={8} sm={8} md={8} lg={8} xl={8} style={{textAlign: "center"}}>
+                
+                {/* <p>Necesidad Premium: </p> */}
+                {/* <p><Title level={2} >{/* {this.props.programmingTotalPRODUCT2} </Title></p> */}
+                <Statistic title="Necesidad Premium" value={0} prefix={<Icon type="layout" theme="twoTone" twoToneColor="#7fc07b" />} />
+              </Col>
+
+              <Col xs={8} sm={8} md={8} lg={8} xl={8} style={{textAlign: "center", padding:"0rem 2rem"}}>
+               
+                  <p>Total Necesidades: </p>
+                  <p><Title level={2}>{/* {this.props.programmingTotal.programmingTotal} */}</Title></p>
+                  <Tooltip  >
+                    <Progress percent={0} successPercent={0} showInfo={false} strokeWidth={10} />
+                  </Tooltip>
+                
+              </Col>
+          </Row>
+          </Card>
+        </div>}
         extra={
           <Form style={{paddingRight:"2rem"}} layout="inline" >
             <Form.Item {...formItemLayout} label={formatMessage({id: "general.calendar.week"})}>
