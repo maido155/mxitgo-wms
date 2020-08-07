@@ -37,6 +37,7 @@ export default {
     'usersModule.modal_deleted.yes': 'Si',
     'usersModule.modal_deleted.no': 'No',
     'usersModule.modal_deleted.message': '¿Estas seguro de eliminar a',
+    'usersModule.loading': 'Loading...'
 
 
 
