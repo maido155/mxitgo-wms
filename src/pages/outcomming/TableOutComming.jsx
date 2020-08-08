@@ -67,7 +67,7 @@ export default class TableOutComming extends PureComponent {
                 render: (record) => (
                   <span>
                       {
-                            record.status=="PENDING" ?
+                            record.status=="PENDING" && record.pallets!="0/0" && record.boxs!="0/0"  ?
                                 <Button type="primary" onClick={()=>{this.showDrawerAssig(record)}}> 
                                     <FormattedMessage id="outComming.button.assign"/>
                                 </Button>
@@ -107,7 +107,7 @@ export default class TableOutComming extends PureComponent {
                             recordKey= {this.state.recordKey}
                             visibleAssignProduct={this.props.visibleAssignProduct} 
                             setVisibleAssignProduct={this.props.setVisibleAssignProduct}
-                            dataOutcommingsByEntry={dataOutcommingsByEntry}
+                            dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
                         />
                         <CompositionOutComming
                             loading = {this.props.loading}

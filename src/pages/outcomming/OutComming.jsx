@@ -36,7 +36,8 @@ function disabledDate(current) {
     datesOutcomming:outcomming.datesOutcomming,
     shippingsByEntry:outcomming.shippingsByEntry,
     datesProductAll: programming.datesProductAll,
-    datesCustomerAll: programming.datesCustomerAll
+    datesCustomerAll: programming.datesCustomerAll,
+    dataOutcommingsByEntry: outcomming.dataOutcommingsByEntry
 }))
 export default class OutComming extends PureComponent {
     state = {
@@ -256,7 +257,7 @@ export default class OutComming extends PureComponent {
         console.log('Context--->', this);  
         console.log(this.props);
         let { datesProductAll, datesCustomerAll,shippingsByEntry} = this.props;
-        let {compositionData, datesOutcomming} = this.props.outcomming;
+        let {compositionData, datesOutcomming, dataOutcommingsByEntry} = this.props.outcomming;
         console.log(shippingsByEntry);
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 6 },md: { span: 6  },lg: { span: 6 },xl: { span: 6 }},
@@ -294,7 +295,8 @@ export default class OutComming extends PureComponent {
                                     loading = {this.props.loading} 
                                     compositionData={compositionData} 
                                     onShowCompositionData = {this.onShowCompositionData}
-                                    getOutcommingByEntry = {this.getOutcommingByEntry}/>
+                                    getOutcommingByEntry = {this.getOutcommingByEntry}
+                                    dataOutcommingsByEntry = {dataOutcommingsByEntry}/>
                             </Col>
                         </Row>
                         
