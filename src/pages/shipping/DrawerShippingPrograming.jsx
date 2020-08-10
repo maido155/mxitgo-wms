@@ -1,64 +1,51 @@
 import React, { PureComponent } from 'react';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
+import TableComponent from '../generalComponents/TableComponent';
 import Styles from './StylesShipping.css';
 import { Drawer, Button, Icon, Form, Row, Col, Divider, DatePicker, Input, message, Spin, Card } from 'antd';
-import TableComponent from '../generalComponents/TableComponent';
 import { isMobile } from 'react-device-detect';
-import NewLine from './NewLine';
 import { _ } from 'lodash';
+import NewLine from './NewLine';
 import moment from 'moment';
-function disabledDate(current) {
-    // Can not select days before today and today
-    return current && current < moment().endOf('day');
-  }
-
-
 
 const { TextArea } = Input;
+
+function disabledDate(current) {
+    return current && current < moment().endOf('day');
+}
+
 class DrawerShippingPrograming extends PureComponent {
-    state = {
+    state= {
         departureDate: '',
         deliveryDate: '',
         entryDate: '',
-        currentLoader: false,
-        datesGeneralNewLine: {},
         idShipping: "",
+        datesGeneralNewLine: {},
+        currentLoader: false,
     }
     saveFormRefNewLine = (formRef) => {
         this.formRefNewLine = formRef;
     }
     handleSubmitNewLine = (sLineMode, oState, oWarehouseData) => {
-
         /// Validate no duplicates for new lines
-
         var bDuplicate = false;
         if (sLineMode === "NEW") {
             var aWarehouse = this.props.warehouses;
-
             aWarehouse.forEach((oWarehouse, iIndex) => {
                 if (oWarehouse.center === oWarehouseData.warehouseLine.center) {
                     message.warning('No es posible agregar 2 lineas del mismo centro');
                     bDuplicate = true;
                 }
             });
-
-
         }
-
         if (!bDuplicate) {
-
             this.setState(oState);
             if (sLineMode === "NEW") {
-
                 this.props.insertWarehouse(oWarehouseData);
-
             } else {
                 this.props.replaceWarehouse(oWarehouseData);
             }
         }
-
-
-
     }
     handleSubmitShippingPrograming = e => {
         e.preventDefault();
@@ -79,17 +66,11 @@ class DrawerShippingPrograming extends PureComponent {
             values["products"] = this.props.products;
             values["warehouses"] = this.props.warehouseIds;
             values["comment"] = values.comment;
-            
-  
             if (this.props.warehouseIds.length == 0) {
                 message.warning('Agregar Nueva Línea');
                 return;
             }
-
-
             if(this.props.masterMode == "NEW"){
-   
-
             // values["idShipping"] = this.state.idShipping + date.getDate() + (date.getMonth() + 1) + date.getFullYear() + date.getHours() + date.getMinutes();
             values["idShipping"] = this.state.idShipping +
             ( date.getDate().toString().length === 1 ? "0"+date.getDate().toString() : date.getDate().toString() ) +
@@ -97,17 +78,12 @@ class DrawerShippingPrograming extends PureComponent {
             ( date.getFullYear().toString() )+
             ( date.getHours().toString().length === 1 ? "0"+date.getHours().toString() : date.getHours().toString() )+
             ( date.getMinutes().toString().length === 1 ? "0"+date.getMinutes().toString() : date.getMinutes().toString() );
-             console.log(values["idShipping"]);   
-
             }else{
-
             values["idShipping"] = this.props.oShippingItem.idShipping;
             values["deliveryDate"] == "" ? values["deliveryDate"] = this.props.oShippingItem.originalDeliveryDate : values["deliveryDate"]; 
             values["departureDate"] == "" ? values["departureDate"] = this.props.oShippingItem.originalDepartureDate : values["departureDate"]; 
             values["entryDate"] == "" ? values["entryDate"] = this.props.oShippingItem.originalEntryDate : values["entryDate"]; 
-
         }
-
             _self.props.saveShipping(values);
             this.props.form.resetFields();
         });
@@ -127,53 +103,44 @@ class DrawerShippingPrograming extends PureComponent {
             wrapperCol: { xs: { span: 24 }, sm: { span: 12 }, md: { span: 14 }, lg: { span: 14 }, xl: { span: 14 } }
         };
         const { getFieldDecorator } = this.props.form;
-        const { oShippingItem, warehouse, productsAll, masterMode} = this.props;
-
-
-
+        const { masterMode, productsAll, oShippingItem } = this.props;
+        //, warehouse
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
         this.setState({ currentLoader });
         if (this.props.isSuccess == true) {
-            
             if(this.props.masterMode == "NEW"){
-                
                 this.props.changedSuccess();
                 message.success('Se agregó con éxito');
-            
             }else{
-                
                 this.props.updateShippingSuccess();
                 message.success('Se editó con éxito');
-            
             }
-        
-        
         }
         if (this.props.close == true) {
-            this.props.onCloseShippingPrograming();
+            this.props.closeDrawerShipping();
             this.props.changedClose();
         }
         return (
             <div>
                 <NewLine
-                    visibleNewLine={this.props.visibleNewLine}
-                    onCloseNewLine={this.props.onCloseNewLine}
-                    wrappedComponentRef={this.saveFormRefNewLine}
-                    handleSubmitNewLine={this.handleSubmitNewLine}
+                    visibleNewLine={this.props.visibleNewLine}  
+                    closeNewLine={this.props.closeNewLine}  
+                    mode={this.props.mode}
+
                     lineData={this.props.lineData}
-                    products={this.props.products}
-                    lineMode={this.props.lineMode}
-                    warehouses={this.props.warehouses}
-                    warehouseIds={this.props.warehouseIds}
                     locationTreeData = {this.props.locationTreeData}
                     productsAll={productsAll}
+                    lineMode={this.props.lineMode}
+
+                    handleSubmitNewLine={this.handleSubmitNewLine}
+                    wrappedComponentRef={this.saveFormRefNewLine}
                 />
                 <Drawer
-                    title={ masterMode == "NEW" ? formatMessage({ id: 'shipping.drawershipping.label.title' }) : formatMessage({ id: 'shipping.drawershipping.label.title.edit' })}
+                    title={masterMode == "NEW" ? formatMessage({ id: 'shipping.drawershipping.label.title' }) : formatMessage({ id: 'shipping.drawershipping.label.title.edit' })}
                     width={isMobile ? "100%" : "80%"}
                     closable={true}
-                    onClose={this.props.onCloseShippingPrograming}
-                    visible={this.props.visibleShippingPrograming}
+                    onClose={this.props.closeDrawerShipping}
+                    visible={this.props.visibleDrawerShipping}
                     getContainer={isMobile ? false : true}
                     style={{
                         textAlign: 'left',
@@ -209,17 +176,17 @@ class DrawerShippingPrograming extends PureComponent {
                                     </Form.Item>
                                 </Col>
                             </Row>
-                            <Divider />
+                            <Divider/>
                             <Row type="flex" justify="center" >
                                 <Col span={19} className={Styles.adddrawerone}>
-                                    <Button type="primary" shape="circle" size="large" onClick={() => { this.props.showNewLine("NEW", {}) }}>
+                                    <Button type="primary" shape="circle" size="large" onClick={() => {this.props.showNewLine("NEW",{},"NEW||EDIT")}}>
                                         <Icon type="plus" />
                                     </Button>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col span={24} className={Styles.tabledrawerone}>
-                                    <TableComponent showNewLine={this.props.showNewLine} warehouse={this.props.warehouses} />
+                                    <TableComponent warehouse={this.props.warehouses} showNewLine={this.props.showNewLine}/>
                                 </Col>
                             </Row>
                         </Spin>
@@ -235,7 +202,7 @@ class DrawerShippingPrograming extends PureComponent {
                                 textAlign: 'right',
                             }}
                         >
-                            <Button type="danger" onClick={this.props.onCloseShippingPrograming} className={Styles.cancelarfooter}>
+                            <Button type="danger" className={Styles.cancelarfooter} onClick={this.props.closeDrawerShipping}>
                                 <FormattedMessage id="shipping.button.cancel" />
                             </Button>
                             <Button type="primary" htmlType="submit">

@@ -10,7 +10,7 @@ class TableComponent extends PureComponent {
   render(){
 
 
-    const { warehouse } = this.props;
+    const { warehouse, masterMode } = this.props;
     const columns = [
       {
           title: formatMessage({ id: 'shipping.tablecomponent.label.center' }),
@@ -55,7 +55,7 @@ class TableComponent extends PureComponent {
         width: isMobile ? 80 : 155,
         render: (record) => (
           <span>
-            <a onClick={()=>{this.props.showNewLine("EDIT" , record)}}>
+            <a onClick={()=>{masterMode == "CONF" ? this.props.showNewLineConfirm("CONF" , record, "CONF") : this.props.showNewLine("EDIT" , record, "NEW||EDIT")}}>
               { isMobile
                 ?<Icon type="edit" />
                 : <span><Icon type="edit" /><FormattedMessage id="shipping.label.table-shipping.edit"/></span>
