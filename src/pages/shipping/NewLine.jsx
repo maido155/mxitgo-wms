@@ -110,12 +110,18 @@ const NewLine = Form.create()(
                     _self.state.treeData.forEach((oTreedataState, iTreeDataIndex) => {
                         var bIsWarehouseInParent = false;
                         oTreedataState.childLevel1.forEach((oChildLevel, iChildLevelIndex) => {
-                            if (oChildLevel.key === _self.props.lineData.warehouseId) {
+                            if (oChildLevel.key === values.centro) {
                                 ThreeValues["childKey"] = oChildLevel.key;
                                 ThreeValues["childTitle"] = oChildLevel.title;
                                 ThreeValues["childValue"] = oChildLevel.value;
                                 bIsWarehouseInParent = true;
                             }
+                            // if (oChildLevel.key === _self.props.lineData.warehouseId) {
+                            //     ThreeValues["childKey"] = oChildLevel.key;
+                            //     ThreeValues["childTitle"] = oChildLevel.title;
+                            //     ThreeValues["childValue"] = oChildLevel.value;
+                            //     bIsWarehouseInParent = true;
+                            // }
                         });
                         if (bIsWarehouseInParent) {
                             ThreeValues["parentKey"] = oTreedataState.key;

@@ -43,7 +43,7 @@ class DrawerShippingPrograming extends PureComponent {
             if (sLineMode === "NEW") {
                 this.props.insertWarehouse(oWarehouseData);
             } else {
-                this.props.replaceWarehouse(oWarehouseData);
+                this.props.replaceWarehouse(oWarehouseData, this.props.lineData.warehouseId);
             }
         }
     }
@@ -172,7 +172,7 @@ class DrawerShippingPrograming extends PureComponent {
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-comments' })}>
-                                        {getFieldDecorator('comment')(<TextArea />)}
+                                        {getFieldDecorator('comment', { initialValue: oShippingItem.comments != undefined ? oShippingItem.comments[0].comment : ""})(<TextArea />)}
                                     </Form.Item>
                                 </Col>
                             </Row>
