@@ -106,10 +106,13 @@ class ShippingMaster extends PureComponent {
             payload
         });
     }
-    replaceWarehouse = (payload) => {
+    replaceWarehouse = (payload, origin) => {
         this.props.dispatch({
             type: 'shipping/replaceWarehouse',
-            payload
+            payload : {
+                payload,
+                origin
+            }
         });
     }
     saveShipping = (datesShipping) => {

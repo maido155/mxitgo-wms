@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import TableComponent from '../generalComponents/TableComponent';
-import TextArea from '../generalComponents/TextAreaComponent';
 import { Drawer, Form, Row, Col, Typography, Divider, Button, Icon, Input,DatePicker, AutoComplete,Spin, message } from 'antd';
 import {isMobile} from 'react-device-detect';
 import NewLine from './NewLine';
@@ -9,6 +8,7 @@ import Styles from './StylesShipping.css';
 import { _ } from 'lodash';
 
 const { Text } = Typography;
+const { TextArea } = Input;
 
 class ConfirmationShipping extends PureComponent {
     state={
@@ -173,7 +173,7 @@ class ConfirmationShipping extends PureComponent {
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-comments' })}>
-                                        {getFieldDecorator('comment')(<TextArea />)}
+                                        {getFieldDecorator('comment',{ initialValue: oShippingItem.comments != undefined ? oShippingItem.comments[0].comment : ""})(<TextArea />)}
                                     </Form.Item>
                                 </Col>
                             </Row>
