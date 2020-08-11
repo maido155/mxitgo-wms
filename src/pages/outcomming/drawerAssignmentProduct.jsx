@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import Table from './TableAssignment';
 import { _ } from 'lodash'; 
 import { Drawer,Button, Form, InputNumber, Input} from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
@@ -12,13 +11,11 @@ export default class DrawerAssignmentProduct extends PureComponent {
     state = {
         pallets: 0,
         box: 0,
-        isFirstTime: true,
+        //isFirstTime: true,
         // newBoxValue: 0,
         currentValuePallet: 0,
         currentValueBox: 0
     }
-
-    componentDidMount() {}
 
     onChangeQuantityPallet = (e) => {
         let quantityBoxes = this.handleChangePallet();
@@ -116,7 +113,7 @@ export default class DrawerAssignmentProduct extends PureComponent {
         payload.status = _this.props.currentOutcomming.status;
         payload.skProduct = _this.props.currentOutcomming.skProduct;
         payload.skCustomer = _this.props.currentOutcomming.skCustomer;
-        payload.skShipping = _this.props.currentShipping.pedido;
+        payload.skShipping = _this.props.currentShipping.shipment;
         payload.box = _this.state.currentValueBox;
         payload.pallet = _this.state.currentValuePallet;        
 
@@ -125,7 +122,7 @@ export default class DrawerAssignmentProduct extends PureComponent {
     }
 
     setCurrentValues = (pallets, box) => {
-        if (this.state.isFirstTime && pallets !== undefined) {
+        //if (this.state.isFirstTime && pallets !== undefined) {
             this.setState({
                 pallets,
                 box,
@@ -133,11 +130,11 @@ export default class DrawerAssignmentProduct extends PureComponent {
                 originalBox: box,
                 isFirstTime: false
             });
-        }
+        //}
     }
 
     render() {
-        this.setCurrentValues(this.props.currentItem.cajasde, this.props.currentItem.palletsde);
+        this.setCurrentValues(this.props.currentShipping.availables_pallets, this.props.currentShipping.availables_boxes);
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 8 },lg: { span: 8 },xl: { span: 6 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 12 },md: { span: 12 },lg: { span: 12 },xl: { span: 14 }}

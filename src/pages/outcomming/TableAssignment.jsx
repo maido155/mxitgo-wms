@@ -58,48 +58,28 @@ export default class TableAssignment extends PureComponent {
             width: isMobile ? 100 : 100,
             render: (record) => (
               <span>
-                  <a onClick={ () => {this.showDrawerAssigProduct(record)} }><FormattedMessage id="outComming.label.tableassignment-assign"/></a>   
-                  <DrawerAssignment postOutcomming= {this.props.postOutcomming} datesProductAll = {this.props.datesProductAll} currentItem={this.state.currentItem} visible={this.props.visibleAssignProduct} onClose={this.onDrawerAssigProduct} currentOutcomming={this.props.currentOutcomming} currentShipping={record}/>     
+                  { record.availables_pallets==0&&record.availables_boxes==0
+                    ?<a disabled onClick={ () => {this.showDrawerAssigProduct(record)} }><FormattedMessage id="outComming.label.tableassignment-assign"/></a>
+                    :<a onClick={ () => {this.showDrawerAssigProduct(record)} }><FormattedMessage id="outComming.label.tableassignment-assign"/></a>
+                  }   
+                  <DrawerAssignment 
+                          postOutcomming= {this.props.postOutcomming} 
+                          datesProductAll = {this.props.datesProductAll} 
+                          visible={this.props.visibleAssignProduct} 
+                          onClose={this.onDrawerAssigProduct} 
+                          currentOutcomming={this.props.currentOutcomming} 
+                          currentShipping={this.state.currentItem}/>     
               </span>
             )
         }
       ];
-      const data = [
-        {
-            key: '1',
-            pedido: 'SH-TE1001120201',
-            palletsto: 3,
-            cajasto: 150,
-            palletsde: 150,
-            cajasde: 6
-        },
-        {
-            key: '2',
-            pedido: 'SH-TE1001120202',
-            palletsto: 10,
-            cajasto: 500,
-            palletsde: 100,
-            cajasde: 2
-        },
-        {
-            key: '3',
-            pedido: 'SH-TE1001120203',
-            palletsto: 12,
-            cajasto: 600,
-            palletsde: 600,
-            cajasde: 12
-        },
-        {
-            key: '4',
-            pedido: 'SH-TE1001120204',
-            palletsto: 15,
-            cajasto: 900,
-            palletsde: 900,
-            cajasde: 15
-        }
-      ];
         return (
-            <Table columns={columns} dataSource={dataOutcommingsByEntry} scroll={isMobile ? {x: 860}: {x: 840}} pagination={false}/>
+            <Table 
+                loading = {this.props.loading} 
+                columns={columns} 
+                dataSource={dataOutcommingsByEntry} 
+                scroll={isMobile ? {x: 860}: {x: 840}} 
+                pagination={false}/>
         );            
     }
 }
