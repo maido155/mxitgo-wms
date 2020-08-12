@@ -11,20 +11,6 @@ import { connect } from 'dva';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
 function disabledDate(current) {
-    mulInputs = {
-        palletOne: 0,
-        palletTwo: 0,
-        palletThree: 0,
-        palletFour: 0,
-        palletFive: 0
-    }
-    sumInputs = {
-        boxOne: 0,
-        boxTwo: 0,
-        boxThree: 0,
-        boxFour: 0,
-        boxFive: 0
-    }
     let dateMonday = moment(current).isoWeekday(1);
     let dateThursday = moment(current).isoWeekday(2);
     let dateTuesday = moment(current).isoWeekday(4);
@@ -43,22 +29,6 @@ function disabledDate(current) {
     }
 }
 
-var mulInputs = {
-    palletOne: 0,
-    palletTwo: 0,
-    palletThree: 0,
-    palletFour: 0,
-    palletFive: 0
-} 
-var sumInputs = {
-    boxOne: 0, 
-    boxTwo: 0,
-    boxThree: 0,
-    boxFour: 0,
-    boxFive: 0
-}
-
-
 @connect(({ outcomming, programming, loading }) => ({
     outcomming,
     programming,
@@ -66,7 +36,8 @@ var sumInputs = {
     datesOutcomming:outcomming.datesOutcomming,
     shippingsByEntry:outcomming.shippingsByEntry,
     datesProductAll: programming.datesProductAll,
-    datesCustomerAll: programming.datesCustomerAll
+    datesCustomerAll: programming.datesCustomerAll,
+    dataOutcommingsByEntry: outcomming.dataOutcommingsByEntry
 }))
 export default class OutComming extends PureComponent {
     state = {
@@ -101,17 +72,6 @@ export default class OutComming extends PureComponent {
                 }
              },
         });
-
-        // this.props.dispatch({
-        //     type: 'outcomming/getOutcomming',
-        //     payload: { Product: "PRODUCT-1",Customer: "CUSTOMER-2", DateFrom: "2020-06-25T00:00:00.000Z", DateTo: "2020-06-30T00:00:00.000Z"}
-        // })
-        
-        // this.props.dispatch({
-        //     type: 'outcomming/getShippingsByEntry',
-        //     payload: {"WMS-1-PK": "WMS-OC-a692c465-a228-4df7-997b-bd65a924d4fa","WMS-1-SK": "SH-a692c465-a228-4df7-997b-bd65a924d4fa"}
-        // })
-        
     };
 
     isEmpty=(str)=>{
@@ -257,6 +217,19 @@ export default class OutComming extends PureComponent {
         }); 
     }
 
+    getOutcommingByEntry = (key,productKey) => {
+        this.props.dispatch({
+            type: 'outcomming/getOutcommingsByEntry',
+            payload: {
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken'),
+                 idOutcomming : key,
+                 productKey : productKey
+                }
+             },
+        });
+    };
+
     onChangeProd = (id) => {
         console.log(id)
 
@@ -284,14 +257,12 @@ export default class OutComming extends PureComponent {
         console.log('Context--->', this);  
         console.log(this.props);
         let { datesProductAll, datesCustomerAll,shippingsByEntry} = this.props;
-        let {compositionData, datesOutcomming} = this.props.outcomming;
+        let {compositionData, datesOutcomming, dataOutcommingsByEntry} = this.props.outcomming;
         console.log(shippingsByEntry);
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 6 },md: { span: 6  },lg: { span: 6 },xl: { span: 6 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 18 },md: { span: 18 },lg: { span: 18 },xl: { span: 18 }}
-        };
-
-        
+        };        
 
         return (
             <div>
@@ -304,13 +275,28 @@ export default class OutComming extends PureComponent {
                         datesCustomerAll={datesCustomerAll}
                         
                     />}>
-                    <Card>
-                    
-                        
-                            
+                    <Card>  
                         <Row type="flex" justify="center">
                             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                                <TableOutComming productDesc={this.state.productDesc} productKey={this.state.product} visibleAssignProduct={this.state.visibleAssignProduct} setVisibleAssignProduct={this.setVisibleAssignProduct} visibleAssign={this.state.visibleAssign} setVisibleAssign={this.setVisibleAssign} visibleCompo={this.state.visibleCompo} setVisibleCompo={this.setVisibleCompo} restartOutcomming= {(payload)=>{this.restartOutcomming(payload,this)}} postOutcomming= {(payload)=>{this.postOutcomming(payload,this)}} datesProductAll = {datesProductAll} datesOutcomming = {datesOutcomming} onConfirm = {this.onConfirm} loading = {this.props.loading} compositionData={compositionData} onShowCompositionData = {this.onShowCompositionData}/>
+                                <TableOutComming 
+                                    productDesc={this.state.productDesc} 
+                                    productKey={this.state.product} 
+                                    visibleAssignProduct={this.state.visibleAssignProduct} 
+                                    setVisibleAssignProduct={this.setVisibleAssignProduct} 
+                                    visibleAssign={this.state.visibleAssign} 
+                                    setVisibleAssign={this.setVisibleAssign} 
+                                    visibleCompo={this.state.visibleCompo} 
+                                    setVisibleCompo={this.setVisibleCompo} 
+                                    restartOutcomming= {(payload)=>{this.restartOutcomming(payload,this)}} 
+                                    postOutcomming= {(payload)=>{this.postOutcomming(payload,this)}} 
+                                    datesProductAll = {datesProductAll} 
+                                    datesOutcomming = {datesOutcomming} 
+                                    onConfirm = {this.onConfirm} 
+                                    loading = {this.props.loading} 
+                                    compositionData={compositionData} 
+                                    onShowCompositionData = {this.onShowCompositionData}
+                                    getOutcommingByEntry = {this.getOutcommingByEntry}
+                                    dataOutcommingsByEntry = {dataOutcommingsByEntry}/>
                             </Col>
                         </Row>
                         

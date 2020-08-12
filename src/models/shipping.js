@@ -1,5 +1,4 @@
-
-import { confirmShipping,saveShipping, updateShipping, getShipping, getLocations, fetchShippingAll, fetchProductAll,getShippingDetail,fetchOperatorAll,deleteShipping } from '../services/api';
+import { confirmShipping, saveShipping, updateShipping, getShipping, getLocations, fetchShippingAll, fetchProductAll, getShippingDetail, fetchOperatorAll, deleteShipping } from '../services/api';
 
 
 import moment from 'moment';
@@ -16,7 +15,8 @@ export default {
         locationTreeData: [],
         datesShipping: [],
         productsAll: [],
-        operatorAll: []
+        operatorAll: [],
+        disabledLocation: false
     },
     effects: {
 
@@ -168,9 +168,12 @@ export default {
                 payload: responseShippingAll,
             });
         },
-
-
-
+        * removeWarehouse({ payload }, { call, put }) {
+            yield put({
+                type: 'removeWarehouseReducer',
+                payload: payload.payload,
+            });
+        },
     },
 
     reducers: {
@@ -234,24 +237,33 @@ export default {
         replaceWarehouseReducer(state, action) {
 
             var aWarehouse = state.warehouses;
+            var products = state.products;
+            let pos = aWarehouse.map(function(data) { return data.warehouseId; }).indexOf(action.payload.origin);
+            aWarehouse.splice(pos, 1);
+            products.splice(pos, 1);
+
             var newArray = [];
             var newArrayProducts = [];
 
-            aWarehouse.forEach((oWarehouse, iIndex) => {
-                if (oWarehouse.warehouseId === action.payload.warehouseLine.warehouseId) {
-                    newArrayProducts.push(action.payload.products);
-                    newArray.push(action.payload.warehouseLine);
-                } else {
-                    newArrayProducts.push(state.products[iIndex]);
-                    newArray.push(oWarehouse);
-                }
-            });
-
+            newArray = [action.payload.payload.warehouseLine, ...aWarehouse];
+            newArrayProducts = [action.payload.payload.products, ...products];
 
             return {
                 ...state,
                 warehouses: newArray,
                 products: newArrayProducts
+            }
+        },
+        removeWarehouseReducer(state, action) {
+            var aWarehouse = state.warehouses;
+            var products = state.products;
+            let pos = aWarehouse.map(function(data) { return data.warehouseId; }).indexOf(action.payload.payload.warehouseId);
+            aWarehouse.splice(pos, 1);
+            products.splice(pos, 1);
+            return {
+                ...state,
+                warehouses: aWarehouse,
+                products: products
             }
         },
         setWarehouseReducer(state, action) {
@@ -309,16 +321,9 @@ export default {
                 aWarehouseData.push(oLineItem);
             };
 
-            /// convert date properties to moment
-
-            oItem.originalDepartureDate = new moment(oItem.departureDate);
-            oItem.originalDeliveryDate = new moment(oItem.deliveryDate);
-            oItem.originalEntryDate = new moment(oItem.entryDate);
-
-            oItem.departureDate = new moment(oItem.departureDate);
-            oItem.deliveryDate = new moment(oItem.deliveryDate);
-            oItem.entryDate = new moment(oItem.entryDate);
-
+            oItem.originalDepartureDate = oItem.departureDate;
+            oItem.originalDeliveryDate = oItem.deliveryDate;
+            oItem.originalEntryDate = oItem.entryDate;
 
             return {
                 ...state,
@@ -337,7 +342,7 @@ export default {
 
 
 
-            
+
             /// convert date properties to moment
 
             oItem.originalDepartureDate = new moment(oItem.departureDate);
@@ -401,7 +406,6 @@ export default {
                 oShippingItem: { products: [], id: "" },
                 datesShipping: action.payload
             }
-        },
-
+        }
     },
 }

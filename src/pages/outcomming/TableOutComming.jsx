@@ -5,20 +5,7 @@ import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import AssignmentOutComming from './AssignmentOutComming';
 import CompositionOutComming from './CompositionOutComming';
 import {isMobile} from 'react-device-detect';
-import { connect } from 'dva';
 
-
-
-@connect(({ outcomming, programming, loading }) => ({
-    outcomming,
-    programming,
-    loading: loading.models.outcomming,
-    datesOutcomming:outcomming.datesOutcomming,
-    shippingsByEntry:outcomming.shippingsByEntry,
-    datesProductAll: programming.datesProductAll,
-    datesCustomerAll: programming.datesCustomerAll,
-    dataOutcommingsByEntry: outcomming.dataOutcommingsByEntry
-}))
 export default class TableOutComming extends PureComponent {
     state = { 
         currentRecord: "",
@@ -33,18 +20,7 @@ export default class TableOutComming extends PureComponent {
           recordKey: oc,
         });
         
-        this.props.dispatch({
-            type: 'outcomming/getOutcommingsByEntry',
-            payload: {
-                payload: {
-                 Authorization: sessionStorage.getItem('idToken'),
-                 idOutcomming : oc,
-                 productKey : this.props.productKey
-                }
-             },
-        });
-
-
+        this.props.getOutcommingByEntry(oc,this.props.productKey);
     };
     showDrawerCompo = (id) => {
         this.props.onShowCompositionData(id);
@@ -58,7 +34,7 @@ export default class TableOutComming extends PureComponent {
         this.props.setVisibleCompo(true);
     };
     render() {
-        let {dataOutcommingsByEntry} = this.props.outcomming;
+        let {dataOutcommingsByEntry} = this.props;
         const { datesOutcomming } = this.props;
         console.log("TableOutComming");
         console.log(dataOutcommingsByEntry);
@@ -91,7 +67,7 @@ export default class TableOutComming extends PureComponent {
                 render: (record) => (
                   <span>
                       {
-                            record.status=="PENDING" ?
+                            record.status=="PENDING" && record.pallets!="0/0" && record.boxs!="0/0"  ?
                                 <Button type="primary" onClick={()=>{this.showDrawerAssig(record)}}> 
                                     <FormattedMessage id="outComming.button.assign"/>
                                 </Button>
@@ -99,9 +75,14 @@ export default class TableOutComming extends PureComponent {
                                 <FormattedMessage id="outComming.button.assign"/>
                             </Button>}
                         <Divider type="vertical" />
-                        <Button onClick={()=>{this.showDrawerCompo(record.key)}}>
-                            <FormattedMessage id="outComming.button.composition"/>
-                        </Button>
+                        { record.key=="" 
+                            ?<Button disabled onClick={()=>{this.showDrawerCompo(record.key)}}>
+                                <FormattedMessage id="outComming.button.composition"/>
+                             </Button>
+                            :<Button onClick={()=>{this.showDrawerCompo(record.key)}}>
+                                <FormattedMessage id="outComming.button.composition"/>
+                             </Button>                                       
+                        }    
                         <Divider type="vertical" />
                         { record.key=="" 
                             ? <Checkbox defaultChecked={false} disabled onChange={()=>{this.props.onConfirm(record)}}>Confirm</Checkbox>
@@ -115,6 +96,7 @@ export default class TableOutComming extends PureComponent {
                                 </span> 
                         }      
                         <AssignmentOutComming 
+                            loading = {this.props.loading}
                             productDesc = {this.props.productDesc}
                             datesProductAll = {this.props.datesProductAll}
                             visibleOne={this.props.visibleAssign}
@@ -125,7 +107,7 @@ export default class TableOutComming extends PureComponent {
                             recordKey= {this.state.recordKey}
                             visibleAssignProduct={this.props.visibleAssignProduct} 
                             setVisibleAssignProduct={this.props.setVisibleAssignProduct}
-                            dataOutcommingsByEntry={dataOutcommingsByEntry}
+                            dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
                         />
                         <CompositionOutComming
                             loading = {this.props.loading}
