@@ -22,9 +22,26 @@ class DrawerShippingPrograming extends PureComponent {
         idShipping: "",
         datesGeneralNewLine: {},
         currentLoader: false,
+        removeLocation: false,
+        whName: "",
     }
     saveFormRefNewLine = (formRef) => {
         this.formRefNewLine = formRef;
+    }
+    newLineSelect = (newLine) => {
+        let dataLocations = this.props.locationTreeData;
+        let whSelect = dataLocations.filter(function(data){
+            for (var i = 0; i < data.childLevel1.length; i++) {
+                if (data.childLevel1[i].key == newLine) {
+                    return data;
+                }
+            }
+        })
+        this.setState({whName: whSelect});
+    }
+    newLineCancelSelect = () => {
+        this.setState({whName: ""});
+        this.props.closeNewLine();
     }
     handleSubmitNewLine = (sLineMode, oState, oWarehouseData) => {
         /// Validate no duplicates for new lines
@@ -49,6 +66,7 @@ class DrawerShippingPrograming extends PureComponent {
     }
     handleSubmitShippingPrograming = e => {
         e.preventDefault();
+        this.setState({whName: ""})
         let _self = this;
         this.props.form.validateFields((err, values) => {
             if (err) {
@@ -56,16 +74,27 @@ class DrawerShippingPrograming extends PureComponent {
             }
             var date = new Date();
             values["createdBy"] = localStorage.getItem('userName');
-            values["date"] = moment().format("YYYY-MM-DD");
-            values["deliveryDate"] = this.state.deliveryDate;
-            values["departureDate"] = this.state.departureDate;
-            values["entryDate"] = this.state.entryDate;
-            values["dateNew"] = this.state.datesGeneralNewLine.dateCreated;
+            values["date"] = moment().format("YYYY-MM-DD") + "T00:00:00.000Z";
+            values["deliveryDate"] = moment(this.state.deliveryDate).format("YYYY-MM-DD") + "T00:00:00.000Z";
+            values["departureDate"] = moment(this.state.departureDate).format("YYYY-MM-DD") + "T00:00:00.000Z";
+            values["entryDate"] = moment(this.state.entryDate).format("YYYY-MM-DD") + "T00:00:00.000Z";
+            values["dateNew"] = moment(this.state.datesGeneralNewLine.dateCreated).format("YYYY-MM-DD") + "T00:00:00.000Z";
             values["createdByNew"] = this.state.datesGeneralNewLine.createdByNew;
             values["destination"] = "Central de abastos"
             values["products"] = this.props.products;
             values["warehouses"] = this.props.warehouseIds;
             values["comment"] = values.comment;
+
+            let whareHouse = this.props.locationTreeData;
+            let whSelect = whareHouse.filter(function(data) { //-- Add
+                for (var i = 0; i < data.childLevel1.length; i++) {
+                    if (data.childLevel1[i].key == values.warehouses[0]) {
+                        return data;
+                    }
+                }
+            })
+            values["warehousesSelect"] = whSelect;
+
             if (this.props.warehouseIds.length == 0) {
                 message.warning('Agregar Nueva Línea');
                 return;
@@ -89,13 +118,13 @@ class DrawerShippingPrograming extends PureComponent {
         });
     }
     onDepartureDate = (value, dateString) => {
-        this.setState({ departureDate: dateString })
+        this.setState({ departureDate: value })
     }
     onDeliveryDate = (value, dateString) => {
-        this.setState({ deliveryDate: dateString })
+        this.setState({ deliveryDate: value })
     }
     onEntryDate = (value, dateString) => {
-        this.setState({ entryDate: dateString })
+        this.setState({ entryDate: value })
     }
     render() {
         const formItemLayout = {
@@ -103,8 +132,7 @@ class DrawerShippingPrograming extends PureComponent {
             wrapperCol: { xs: { span: 24 }, sm: { span: 12 }, md: { span: 14 }, lg: { span: 14 }, xl: { span: 14 } }
         };
         const { getFieldDecorator } = this.props.form;
-        const { masterMode, productsAll, oShippingItem } = this.props;
-        //, warehouse
+        const { masterMode, productsAll, oShippingItem, warehouses, locationTreeData } = this.props;
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
         this.setState({ currentLoader });
         if (this.props.isSuccess == true) {
@@ -125,15 +153,20 @@ class DrawerShippingPrograming extends PureComponent {
                 <NewLine
                     visibleNewLine={this.props.visibleNewLine}  
                     closeNewLine={this.props.closeNewLine}  
+                    newLineCancelSelect={this.newLineCancelSelect}
                     mode={this.props.mode}
 
                     lineData={this.props.lineData}
-                    locationTreeData = {this.props.locationTreeData}
+                    locationTreeData = {locationTreeData}
                     productsAll={productsAll}
                     lineMode={this.props.lineMode}
+                    whName={this.state.whName}
+                    masterMode={masterMode}
+                    warehouses={warehouses}
 
                     handleSubmitNewLine={this.handleSubmitNewLine}
                     wrappedComponentRef={this.saveFormRefNewLine}
+                    newLineSelect={this.newLineSelect}
                 />
                 <Drawer
                     title={masterMode == "NEW" ? formatMessage({ id: 'shipping.drawershipping.label.title' }) : formatMessage({ id: 'shipping.drawershipping.label.title.edit' })}
@@ -152,21 +185,21 @@ class DrawerShippingPrograming extends PureComponent {
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-exit' })}>
                                         {getFieldDecorator('departureDate',
-                                            { initialValue: oShippingItem.departureDate, rules: [{ required: true, message: "Fecha no seleccionada" }] })
+                                            { initialValue: masterMode == "NEW" ? "" : moment(oShippingItem.departureDate, "YYYY-MM-DD") , rules: [{ required: true, message: "Fecha no seleccionada" }] })
                                             (<DatePicker style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onDepartureDate} />)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-arrival' })}>
                                         {getFieldDecorator('deliveryDate',
-                                            { initialValue: oShippingItem.deliveryDate, rules: [{ required: true, message: "Fecha no seleccionada" }] })
+                                            { initialValue: masterMode == "NEW" ? "" : moment(oShippingItem.deliveryDate, "YYYY-MM-DD") , rules: [{ required: true, message: "Fecha no seleccionada" }] })
                                             (<DatePicker style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onDeliveryDate} />)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-entry' })}>
                                         {getFieldDecorator('entryDate',
-                                            { initialValue: oShippingItem.entryDate, rules: [{ required: true, message: "Fecha no seleccionada" }] })
+                                            { initialValue: masterMode == "NEW" ? "" : moment(oShippingItem.entryDate, "YYYY-MM-DD") , rules: [{ required: true, message: "Fecha no seleccionada" }] })
                                             (<DatePicker style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onEntryDate} />)}
                                     </Form.Item>
                                 </Col>
@@ -186,7 +219,7 @@ class DrawerShippingPrograming extends PureComponent {
                             </Row>
                             <Row>
                                 <Col span={24} className={Styles.tabledrawerone}>
-                                    <TableComponent warehouse={this.props.warehouses} showNewLine={this.props.showNewLine}/>
+                                    <TableComponent warehouse={warehouses} showNewLine={this.props.showNewLine}/>
                                 </Col>
                             </Row>
                         </Spin>

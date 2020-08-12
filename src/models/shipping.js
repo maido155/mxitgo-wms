@@ -15,7 +15,8 @@ export default {
         locationTreeData: [],
         datesShipping: [],
         productsAll: [],
-        operatorAll: []
+        operatorAll: [],
+        disabledLocation: false
     },
     effects: {
 
@@ -172,7 +173,7 @@ export default {
                 type: 'removeWarehouseReducer',
                 payload: payload.payload,
             });
-        }
+        },
     },
 
     reducers: {
@@ -320,16 +321,9 @@ export default {
                 aWarehouseData.push(oLineItem);
             };
 
-            /// convert date properties to moment
-
-            oItem.originalDepartureDate = new moment(oItem.departureDate);
-            oItem.originalDeliveryDate = new moment(oItem.deliveryDate);
-            oItem.originalEntryDate = new moment(oItem.entryDate);
-
-            oItem.departureDate = new moment(oItem.departureDate);
-            oItem.deliveryDate = new moment(oItem.deliveryDate);
-            oItem.entryDate = new moment(oItem.entryDate);
-
+            oItem.originalDepartureDate = oItem.departureDate;
+            oItem.originalDeliveryDate = oItem.deliveryDate;
+            oItem.originalEntryDate = oItem.entryDate;
 
             return {
                 ...state,
@@ -412,7 +406,6 @@ export default {
                 oShippingItem: { products: [], id: "" },
                 datesShipping: action.payload
             }
-        },
-
+        }
     },
 }
