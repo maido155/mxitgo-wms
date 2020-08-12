@@ -153,7 +153,7 @@ const NewLine = Form.create()(
 
                 }
 
-
+                
                 var premium = values.Premium;
                 var finger = values.Dedo;
                 var gold = values.Gold;
@@ -164,11 +164,46 @@ const NewLine = Form.create()(
                     dateCreated: date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear(),
                     createdByNew: localStorage.getItem('userName'),
                 }
-
+                var objproducts = this.props.productsAll
+                var productsAllLine=[];
+                //let warehouseLine={ warehouseId, center, "premium": premium, "gold": gold, "second": second, "hand": hand, "finger": finger };
+                let objWarehouse = {};
+                objproducts.forEach(function(catProduct){
+                        objWarehouse[catProduct['WMS-1-SK']]  = values[catProduct['WMS-1-SK']];
+                });
+                objWarehouse['warehouseId']= warehouseId;
+                objWarehouse['center']= center;
                 //var warehouseIds = _self.props.warehouseIds;
-
-                var products = [{ product: "premium", "premium": "premium", amount: premium }, { product: "gold", "gold": "gold", amount: gold }, { product: "second", "second": "second", amount: second }, { product: "hand", "hand": "hand", amount: hand }, { product: "finger", "finger": "finger", amount: finger }];
-
+                objproducts.forEach(function(catProduct){
+                    let product={}
+                    product['product'] = catProduct['WMS-1-SK'];
+                    product['productName']= catProduct['productName'];
+                    product['amount'] = values[catProduct['WMS-1-SK']];
+                    productsAllLine.push(product);
+                });
+                /*
+                for(let i =0;i<productos.length;i++){
+                    let valor=productos[i]['WMS-1-SK'];
+                    switch(valor){
+                        case "PRODUCT-1":
+                            productsAllLine.push({product: productos[i]['WMS-1-SK'], amount: values['PRODUCT-1']})
+                            break;
+                            case "PRODUCT-2":
+                                productsAllLine.push({product: productos[i]['WMS-1-SK'], amount: values['PRODUCT-2']}) 
+                            break;
+                            case "PRODUCT-3":
+                                productsAllLine.push({product: productos[i]['WMS-1-SK'], amount: values['PRODUCT-3']}) 
+                            break;
+                            case "PRODUCT-4":
+                                productsAllLine.push({product: productos[i]['WMS-1-SK'], amount: values['PRODUCT-4']}) 
+                            break;
+                            case "PRODUCT-5":
+                                productsAllLine.push({product: productos[i]['WMS-1-SK'], amount: values['PRODUCT-5']}) 
+                                    break;
+                    }
+                    
+                 
+                }*/
                 //products = [..._self.props.products, products];
 
 
@@ -182,8 +217,8 @@ const NewLine = Form.create()(
                     //this.setState({ idShipping, datesGeneralNewLine, products, warehouseName });
                     //_self.props.replaceWarehouse({ uiKey: warehouseUIKey, warehouseId, center: warehouse, "premium": premium, "gold": gold, "second": second, "hand": hand, "finger": finger });
                 }
-
-                _self.props.handleSubmitNewLine(_self.props.lineMode, { idShipping, datesGeneralNewLine }, { warehouseLine: { warehouseId, center, "premium": premium, "gold": gold, "second": second, "hand": hand, "finger": finger }, products: products });
+            
+                _self.props.handleSubmitNewLine(_self.props.lineMode, { idShipping, datesGeneralNewLine }, { objWarehouse,products:productsAllLine});
 
 
 
@@ -250,7 +285,7 @@ const NewLine = Form.create()(
                             </Form.Item>
                             {productsAll.map(item => (
                                 <Form.Item label={item.productName}>
-                                    {getFieldDecorator(item.productName,{initialValue: item.quantityEdit})
+                                    {getFieldDecorator(item['WMS-1-SK'],{initialValue: item.quantityEdit === undefined ? 0 : item.quantityEdit})
                                     (<InputNumber min={0} max={500} style={{ width: '100%' }} />)}
                                 </Form.Item>
                             ))}

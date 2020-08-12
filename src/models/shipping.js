@@ -206,9 +206,9 @@ export default {
             }
         },
         saveWarehouseReducer(state, action) {
-            const datesWarehouse = [...state.warehouses, action.payload.warehouseLine];
+            const datesWarehouse = [...state.warehouses, action.payload.objWarehouse];
             const products = [...state.products, action.payload.products];
-            const warehouseIds = [...state.warehouseIds, action.payload.warehouseLine.warehouseId]
+            const warehouseIds = [...state.warehouseIds, action.payload.objWarehouse.warehouseId]
             return {
                 ...state,
                 warehouses: datesWarehouse,
