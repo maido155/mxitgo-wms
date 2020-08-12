@@ -6,6 +6,7 @@ import {isMobile} from 'react-device-detect';
 import NewLine from './NewLine';
 import Styles from './StylesShipping.css';
 import { _ } from 'lodash';
+import moment from 'moment';
 
 const { Text } = Typography;
 const { TextArea } = Input;
@@ -19,9 +20,21 @@ class ConfirmationShipping extends PureComponent {
         entryDate: '',
         datesGeneralNewLine: {},
         idShipping: "", 
+        whName: "",
     }
     saveFormRefNewLine = (formRef) => {
         this.formRefNewLine = formRef;
+    }
+    newLineSelect = (newLine) => {
+        let dataLocations = this.props.locationTreeData;
+        let whSelect = dataLocations.filter(function(data){
+            for (var i = 0; i < data.childLevel1.length; i++) {
+                if (data.childLevel1[i].key == newLine) {
+                    return data;
+                }
+            }
+        })
+        this.setState({whName: whSelect});
     }
     onDepartureDate = (value, dateString) => {
         this.setState({ departureDate: dateString })
@@ -100,7 +113,7 @@ class ConfirmationShipping extends PureComponent {
             wrapperCol: {xs: { span: 24 },sm: { span: 12 },md: { span: 14 },lg: { span: 14 },xl: { span: 14  }}
         };
         const { getFieldDecorator } = this.props.form;
-        const { oShippingItem, operatorAll} = this.props;
+        const { oShippingItem, operatorAll, warehouses, masterMode} = this.props;
         const { phoneOperator }= this.state;
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
         this.setState({ currentLoader });
@@ -130,9 +143,13 @@ class ConfirmationShipping extends PureComponent {
                     warehouseIds={this.props.warehouseIds}
                     lineData={this.props.lineData}
                     lineMode={this.props.lineMode}
+                    whName={this.state.whName}
+                    masterMode={masterMode}
+                    warehouses={warehouses}
                     locationTreeData={this.props.locationTreeData}
                     wrappedComponentRef={this.saveFormRefNewLine}
                     handleSubmitNewLine={this.handleSubmitNewLine}
+                    newLineSelect={this.newLineSelect}
                 />
                 <Drawer
                     title={formatMessage({ id: 'shipping.shippingconfirmation.title' })}
@@ -153,21 +170,21 @@ class ConfirmationShipping extends PureComponent {
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-exit' })}>
                                         {getFieldDecorator('departureDate',
-                                            { initialValue: oShippingItem.departureDate, rules: [{ required: true, message: "Fecha no seleccionada" }] })
+                                            { initialValue: moment(oShippingItem.departureDate, "YYYY-MM-DD"), rules: [{ required: true, message: "Fecha no seleccionada" }] })
                                             (<DatePicker style={{ width: '100%' }} onChange={this.onDepartureDate} />)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-arrival' })}>
                                         {getFieldDecorator('deliveryDate',
-                                            { initialValue: oShippingItem.deliveryDate, rules: [{ required: true, message: "Fecha no seleccionada" }] })
+                                            { initialValue: moment(oShippingItem.deliveryDate, "YYYY-MM-DD"), rules: [{ required: true, message: "Fecha no seleccionada" }] })
                                             (<DatePicker style={{ width: '100%' }} onChange={this.onDeliveryDate} />)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-entry' })}>
                                         {getFieldDecorator('entryDate',
-                                            { initialValue: oShippingItem.entryDate, rules: [{ required: true, message: "Fecha no seleccionada" }] })
+                                            { initialValue: moment(oShippingItem.entryDate, "YYYY-MM-DD"), rules: [{ required: true, message: "Fecha no seleccionada" }] })
                                             (<DatePicker style={{ width: '100%' }} onChange={this.onEntryDate} />)}
                                     </Form.Item>
                                 </Col>
@@ -187,7 +204,7 @@ class ConfirmationShipping extends PureComponent {
                             </Row>
                             <Row>
                                 <Col span={24} className={Styles.tabledrawerone}>
-                                    <TableComponent warehouse={this.props.warehouses} showNewLineConfirm={this.props.showNewLineConfirm} masterMode={this.props.masterMode}/>
+                                    <TableComponent warehouse={warehouses} showNewLineConfirm={this.props.showNewLineConfirm} masterMode={this.props.masterMode}/>
                                 </Col>
                             </Row>
                             <Row className={Styles.lastcolumn}>

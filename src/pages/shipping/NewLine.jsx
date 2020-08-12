@@ -3,6 +3,7 @@ import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import Styles from './StylesShipping.css';
 import { Drawer, Button, Form, InputNumber, TreeSelect, message } from 'antd';
 import { isMobile } from 'react-device-detect';
+import moment from 'moment'; //add
 import { _ } from 'lodash';
 
 const { TreeNode } = TreeSelect;
@@ -12,65 +13,57 @@ const NewLine = Form.create()(
         state = {
             e: [],
             whNew: [],
-            treeData: [
-                {
-                    title: 'Chiapas',
-                    value: 'CHI',
-                    key: '0-0',
-                    childLevel1: [
-                        {
-                            title: 'La Escondida',
-                            value: 'WH-1',
-                            key: 'WH-1'
-                        }
-                    ]
-                },
-                {
-                    title: 'Tabasco',
-                    value: 'TAB',
-                    key: '0-1',
-                    childLevel1: [
-                        {
-                            title: 'El Muelle',
-                            value: 'WH-2',
-                            key: 'WH-2',
-                        },
-                        {
-                            title: 'El Buscado',
-                            value: 'WH-3',
-                            key: 'WH-3',
-                        },
-                    ],
-                },
-            ]
         };
 
         onSelect = (selectedKeys, e) => {
             this.setState({ e });
+            this.props.newLineSelect(selectedKeys);
         }
         renderTreeNode = (treeData) => {
+            const { whName, masterMode, warehouses, locationTreeData } = this.props;
+            if(masterMode == "EDIT" && warehouses.length != 0){
+                var whNameEdit = locationTreeData.filter(function(data){
+                    for(var i = 0; i < data.childLevel1.length; i++){
+                        return data.childLevel1[i].key == warehouses[0].warehouseId;
+                    }
+                });
+            }
+            if(masterMode == "CONF" && warehouses.length != 0){
+                var whNameEdit = locationTreeData.filter(function(data){
+                    for(var i = 0; i < data.childLevel1.length; i++){
+                        return data.childLevel1[i].key == warehouses[0].warehouseId;
+                    }
+                });
+            }
+            var validationLocation = ""
+            if(warehouses == undefined || warehouses.length == 0){
+                validationLocation = whName;
+            }else{
+                if(masterMode == "NEW"){
+                    validationLocation = whName;
+                }else{
+                    validationLocation = whNameEdit;
+                }
+            }
             let treeNode = [];
             if (treeData && treeData.length > 0) {
-
                 treeData.map((ele, index) => {
                     treeNode.push(
-                        <TreeNode value={ele.value} title={ele.title} key={ele.key}>
-                            {this.renderChild1(ele)}
+                        <TreeNode value={ele.value} title={ele.title} key={ele.key} disabled={validationLocation == "" || validationLocation == undefined ? false : ele.key != validationLocation[0].key}>
+                            {this.renderChild1(ele, validationLocation)}
                         </TreeNode>
                     );
                 });
-
-
             }
             return treeNode;
         }
-        renderChild1 = (element) => {
+        renderChild1 = (element, validationLocation) => {
             let childLevel1 = [];
             if (element.childLevel1) {
                 element.childLevel1.map((item, i) => {
                     childLevel1.push(
-                        <TreeNode parentTitle={element.title} parentValue={element.value} parentKey={element.key}
-                            value={item.value} title={item.title} key={item.key}>
+                        <TreeNode parentTitle={element.title} parentValue={element.value} parentKey={element.key} value={item.value} title={item.title} 
+                            key={item.key} disabled={validationLocation == "" || validationLocation == undefined ? false : validationLocation[0].childLevel1.length == 1 ? item.key != validationLocation[0].childLevel1[0].key : item.key != validationLocation[0].childLevel1[0].key && item.key != validationLocation[0].childLevel1[1].key}>
                             {this.renderChild2(item)}
                         </TreeNode>
                     );
@@ -107,7 +100,7 @@ const NewLine = Form.create()(
                     var idShipping = _self.state.e.props.parentValue;
                 } else {
                     var ThreeValues = {};
-                    _self.state.treeData.forEach((oTreedataState, iTreeDataIndex) => {
+                    _self.props.locationTreeData.forEach((oTreedataState, iTreeDataIndex) => {
                         var bIsWarehouseInParent = false;
                         oTreedataState.childLevel1.forEach((oChildLevel, iChildLevelIndex) => {
                             if (oChildLevel.key === values.centro) {
@@ -116,12 +109,6 @@ const NewLine = Form.create()(
                                 ThreeValues["childValue"] = oChildLevel.value;
                                 bIsWarehouseInParent = true;
                             }
-                            // if (oChildLevel.key === _self.props.lineData.warehouseId) {
-                            //     ThreeValues["childKey"] = oChildLevel.key;
-                            //     ThreeValues["childTitle"] = oChildLevel.title;
-                            //     ThreeValues["childValue"] = oChildLevel.value;
-                            //     bIsWarehouseInParent = true;
-                            // }
                         });
                         if (bIsWarehouseInParent) {
                             ThreeValues["parentKey"] = oTreedataState.key;
@@ -140,7 +127,7 @@ const NewLine = Form.create()(
                 var second = values.Segunda;
                 var date = new Date();
                 var datesGeneralNewLine = {
-                    dateCreated: date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear(),
+                    dateCreated: moment().format(),
                     createdByNew: localStorage.getItem('userName'),
                 }
                 //var warehouseIds = _self.props.warehouseIds;
@@ -168,8 +155,7 @@ const NewLine = Form.create()(
                 labelCol: { xs: { span: 24 }, sm: { span: 8 }, md: { span: 8 }, lg: { span: 8 }, xl: { span: 6 } },
                 wrapperCol: { xs: { span: 24 }, sm: { span: 12 }, md: { span: 12 }, lg: { span: 12 }, xl: { span: 14 } }
             };
-            var { lineData, mode, productsAll } = this.props;
-            //handleSubmitNewLine
+            var { lineData, mode, productsAll, whName } = this.props;
             if (typeof lineData == "undefined") {
                 lineData = {};
             }
@@ -181,6 +167,9 @@ const NewLine = Form.create()(
                 }
             }
             const { getFieldDecorator } = this.props.form;
+            if(whName == "" || whName == undefined){
+                this.props.form.resetFields();
+            }
             return (
                 <div>
                     { productsAll !== undefined && productsAll.length !== 0 &&
@@ -188,7 +177,7 @@ const NewLine = Form.create()(
                             title={formatMessage({ id: 'shipping.newline.label.title' })}
                             width={isMobile ? "100%" : "50%"}
                             closable={true}
-                            onClose={mode == "NEW||EDIT" ? this.props.closeNewLine : this.props.closeNewLineConfirm}
+                            onClose={mode == "NEW||EDIT" ? this.props.newLineCancelSelect : this.props.closeNewLineConfirm}
                             visible={mode == "NEW||EDIT" ? this.props.visibleNewLine : this.props.visibleNewLineConfirm}
                         >
                             <Form {...formItemLayout} className={Styles.formnweline}>
@@ -237,7 +226,7 @@ const NewLine = Form.create()(
                                         textAlign: 'right',
                                     }}
                                 >
-                                    <Button type="danger" className={Styles.cancelarfooter} onClick={mode == "NEW||EDIT" ? this.props.closeNewLine : this.props.closeNewLineConfirm}>
+                                    <Button type="danger" className={Styles.cancelarfooter} onClick={mode == "NEW||EDIT" ? this.props.newLineCancelSelect : this.props.closeNewLineConfirm}>
                                         <FormattedMessage id="shipping.button.cancel" />
                                     </Button>
                                     <Button type="primary" onClick={this.handleSubmitLine}>

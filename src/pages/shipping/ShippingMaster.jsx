@@ -36,7 +36,7 @@ function disabledDate(current) {
     close: shipping.close,
     datesShipping: shipping.datesShipping,
     productsAll: shipping.productsAll,
-    operatorAll: shipping.operatorAll
+    operatorAll: shipping.operatorAll,
 }))
 
 class ShippingMaster extends PureComponent {
@@ -50,6 +50,7 @@ class ShippingMaster extends PureComponent {
         lineData: {},
         lineMode: "NEW",
         visibleModalProduct: false,
+        removeLocation: false
     }
     componentDidMount() {
         this.props.dispatch({
@@ -136,7 +137,8 @@ class ShippingMaster extends PureComponent {
                             dateNew: datesShipping.dateNew,
                             createdByNew: datesShipping.createdByNew,
                             idShipping: datesShipping.idShipping,
-                            Authorization: sessionStorage.getItem('idToken')
+                            Authorization: sessionStorage.getItem('idToken'),
+                            locations: datesShipping.warehousesSelect
                         }
                     }
                 }
