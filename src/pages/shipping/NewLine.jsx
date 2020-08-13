@@ -35,15 +35,18 @@ const NewLine = Form.create()(
                     }
                 });
             }
+            if(masterMode == "NEW" && warehouses.length != 0){
+                var whNameEdit = locationTreeData.filter(function(data){
+                    for(var i = 0; i < data.childLevel1.length; i++){
+                        return data.childLevel1[i].key == warehouses[0].warehouseId;
+                    }
+                });
+            }
             var validationLocation = ""
             if(warehouses == undefined || warehouses.length == 0){
                 validationLocation = whName;
             }else{
-                if(masterMode == "NEW"){
-                    validationLocation = whName;
-                }else{
-                    validationLocation = whNameEdit;
-                }
+                validationLocation = whNameEdit;
             }
             let treeNode = [];
             if (treeData && treeData.length > 0) {
