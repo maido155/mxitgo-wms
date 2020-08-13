@@ -5,9 +5,10 @@ import { routerRedux } from 'dva/router';
 import { _ } from 'lodash';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
-import { Row, Col, Card, Tooltip, Typography, Progress, Form, DatePicker, Statistic,Icon, Divider } from 'antd';
+import { Row, Col, Card, Tooltip, Typography, Progress, Form, DatePicker, Statistic,Icon, Steps } from 'antd';
 import { isMobile, isTablet } from "react-device-detect";
 import { formatMessage } from 'umi-plugin-react/locale';
+import  StepsDashBoard from './Steps/StepsDashBoard';
 import 'moment/locale/en-au';
 import GridDashboard from './GridDashboard';
 const { Text, Title } = Typography; 
@@ -119,6 +120,14 @@ export default class Dashboard extends PureComponent {
     
 
   };
+  
+
+  getNumberDay=()=>{
+    var dt= new Date();
+    let aWeek=[3,4,5,6,0,1,2];
+    return aWeek.findIndex( item=> item ==  dt.getDay())
+    
+  }
 
 
 
@@ -149,49 +158,16 @@ export default class Dashboard extends PureComponent {
   render() {
 
     let { datesProductAll} = this.props;
-    /* if (isMobile) {
-      return (
-        <PageHeaderWrapper extra={<span>Test</span>}>
-          <Card>
-            <div>
-              <Row type="flex" justify="center">
-                <Col span={24} style={{ textAlign: "center" }}>
-                  <h3>Semana:</h3>
-                </Col>
-                <Col span={24} >
-                  <DatePicker  onChange={this.onPickerChange}/>
-                </Col>
-
-                
-              </Row>
-            </div>
-            <Divider />
-            <div>
-              <Row type="flex" justify="right">
-                <Col span={5} style={{ textAlign: "center" }}>
-                </Col>
-                <Col span={15} style={{ textAlign: "center", margin: "1rem" }}>
-                  <RadioGroupComponent  onChange={this.onRadioChange}/>
-                </Col>
-              </Row>
-            </div>
-            <Divider />
-            <div>
-              <GridDashboard  Monday = {this.props.dashboard.Monday} Tuesday = {this.props.dashboard.Tuesday} Wednesday = {this.props.dashboard.Wednesday} Thursday = {this.props.dashboard.Thursday} Friday = {this.props.dashboard.Friday} Saturday = {this.props.dashboard.Saturday} Sunday = {this.props.dashboard.Sunday} programmingTotal = {this.props.dashboard.programmingTotal}  programmingTotalPRODUCT1={this.props.dashboard.programmingTotalPRODUCT1} programmingTotalPRODUCT2={this.props.dashboard.programmingTotalPRODUCT2} xs={12} sm={12} md={8} lg={6} xl={3} txs={15} tsm={10} tmd={8} tlg={7} txl={6} dataTwo={3} dataThree={3} dataFour={3} dataFive={130} dataSix={200} dataSeven={15} />
-            </div>
-          </Card>
-        </PageHeaderWrapper>
-      );
-    } */
     const formItemLayout = {
       labelCol: { xs: { span: 24 }, sm: { span: 9 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 9 } },
       wrapperCol: { xs: { span: 24 }, sm: { span: 15 }, md: { span: 15 }, lg: { span: 15 }, xl: { span: 15 } }
     };
+
     return (
       <PageHeaderWrapper
         content={<div>
           
-          <Card size="small" style={{textAlign:"center"}}  title="Totales">
+          <Card type="inner" size="small" style={{textAlign:"center"}}  title="Totales">
           
           <Row type="flex" justify="center" align-content="center">
               
@@ -246,10 +222,12 @@ export default class Dashboard extends PureComponent {
 
           </Form>
         }>
-        <Card>
+        <Card type="inner" style={{textAlign:"center"}}  title="Product: Gold">
           
           <div>
-            <GridDashboard  
+          <StepsDashBoard currentDay={this.getNumberDay()} />
+          
+            {/* <GridDashboard  
             Monday = {this.props.dashboard.Monday} 
             Tuesday = {this.props.dashboard.Tuesday} 
             Wednesday = {this.props.dashboard.Wednesday} 
@@ -265,7 +243,7 @@ export default class Dashboard extends PureComponent {
             dataThree={4} 
             dataFour={2} 
             dataFive={150} 
-            dataSix={200} />
+            dataSix={200} /> */}
           </div>
         </Card>
       </PageHeaderWrapper>
