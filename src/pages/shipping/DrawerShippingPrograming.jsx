@@ -75,9 +75,9 @@ class DrawerShippingPrograming extends PureComponent {
             var date = new Date();
             values["createdBy"] = localStorage.getItem('userName');
             values["date"] = moment().format("YYYY-MM-DD") + "T00:00:00.000Z";
-            values["deliveryDate"] = moment(this.state.deliveryDate).format("YYYY-MM-DD") + "T00:00:00.000Z";
-            values["departureDate"] = moment(this.state.departureDate).format("YYYY-MM-DD") + "T00:00:00.000Z";
-            values["entryDate"] = moment(this.state.entryDate).format("YYYY-MM-DD") + "T00:00:00.000Z";
+            values["deliveryDate"] = this.state.deliveryDate == "" ? moment(values.deliveryDate).format("YYYY-MM-DD") + "T00:00:00.000Z" : moment(this.state.deliveryDate).format("YYYY-MM-DD") + "T00:00:00.000Z";
+            values["departureDate"] = this.state.departureDate == "" ? moment(values.departureDate).format("YYYY-MM-DD") + "T00:00:00.000Z" : moment(this.state.departureDate).format("YYYY-MM-DD") + "T00:00:00.000Z";
+            values["entryDate"] = this.state.entryDate == "" ? moment(values.entryDate).format("YYYY-MM-DD") + "T00:00:00.000Z" : moment(this.state.entryDate).format("YYYY-MM-DD") + "T00:00:00.000Z";
             values["dateNew"] = moment(this.state.datesGeneralNewLine.dateCreated).format("YYYY-MM-DD") + "T00:00:00.000Z";
             values["createdByNew"] = this.state.datesGeneralNewLine.createdByNew;
             values["destination"] = "Central de abastos"
@@ -88,8 +88,14 @@ class DrawerShippingPrograming extends PureComponent {
             let whareHouse = this.props.locationTreeData;
             let whSelect = whareHouse.filter(function(data) { //-- Add
                 for (var i = 0; i < data.childLevel1.length; i++) {
-                    if (data.childLevel1[i].key == values.warehouses[0]) {
-                        return data;
+                    if(Array.isArray(values.warehouses)){
+                        if (data.childLevel1[i].key == values.warehouses[0]) {
+                            return data;
+                        }
+                    }else{
+                        if (data.childLevel1[i].key == values.warehouses) {
+                            return data;
+                        }
                     }
                 }
             })
