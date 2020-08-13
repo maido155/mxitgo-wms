@@ -24,21 +24,27 @@ const NewLine = Form.create()(
             if(masterMode == "EDIT" && warehouses.length != 0){
                 var whNameEdit = locationTreeData.filter(function(data){
                     for(var i = 0; i < data.childLevel1.length; i++){
-                        return data.childLevel1[i].key == warehouses[0].warehouseId;
+                        if(data.childLevel1[i].key == warehouses[0].warehouseId){
+                            return data.childLevel1[i].key == warehouses[0].warehouseId;
+                        }
                     }
                 });
             }
             if(masterMode == "CONF" && warehouses.length != 0){
                 var whNameEdit = locationTreeData.filter(function(data){
                     for(var i = 0; i < data.childLevel1.length; i++){
-                        return data.childLevel1[i].key == warehouses[0].warehouseId;
+                        if(data.childLevel1[i].key == warehouses[0].warehouseId){
+                            return data.childLevel1[i].key == warehouses[0].warehouseId;
+                        }
                     }
                 });
             }
             if(masterMode == "NEW" && warehouses.length != 0){
                 var whNameEdit = locationTreeData.filter(function(data){
                     for(var i = 0; i < data.childLevel1.length; i++){
-                        return data.childLevel1[i].key == warehouses[0].warehouseId;
+                        if(data.childLevel1[i].key == warehouses[0].warehouseId){
+                            return data.childLevel1[i].key == warehouses[0].warehouseId;
+                        }
                     }
                 });
             }
