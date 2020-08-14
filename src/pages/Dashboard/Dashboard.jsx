@@ -62,7 +62,7 @@ export default class Dashboard extends PureComponent {
 
   state = {
     currentSelectedDate : "2020-07-08",
-    currentSelectedProduct: "PRODUCT-2",
+    currentSelectedProduct: "",
     currentCustomer : "CUSTOMER-1",
     products: ["PRODUCT-1", "PRODUCT-2"]
   };
@@ -147,7 +147,7 @@ export default class Dashboard extends PureComponent {
   }
 
 
-  onRadioChange  = (oEvent) => {
+  onProductChange  = (oEvent) => {
 
       this.setState({currentSelectedProduct: oEvent})
 
@@ -206,7 +206,7 @@ export default class Dashboard extends PureComponent {
               <DatePicker format="YYYY-MM-DD" disabledDate={disabledDate} onChange={this.onPickerChange}/>
             </Form.Item>
             <Form.Item {...formItemLayout} label={formatMessage({id: "general.button-product.product"})}>
-              <RadioGroupComponent datesProductAll={datesProductAll} handleProduct={this.onRadioChange}/>
+              <RadioGroupComponent datesProductAll={datesProductAll} handleProduct={this.onProductChange}/>
             </Form.Item>
 
             {/* <div>
@@ -222,7 +222,7 @@ export default class Dashboard extends PureComponent {
 
           </Form>
         }>
-        <Card type="inner" style={{textAlign:"center"}}  title="Product: Gold">
+        <Card type="inner" style={{textAlign:"center"}}  title={`Product: ${this.state.currentSelectedProduct}`}>
           
           <div>
           <StepsDashBoard currentDay={this.getNumberDay()} />
