@@ -49,7 +49,7 @@ class DrawerShippingPrograming extends PureComponent {
         if (sLineMode === "NEW") {
             var aWarehouse = this.props.warehouses;
             aWarehouse.forEach((oWarehouse, iIndex) => {
-                if (oWarehouse.center === oWarehouseData.warehouseLine.center) {
+                if (oWarehouse.center === oWarehouseData.objWarehouse.center) {
                     message.warning('No es posible agregar 2 lineas del mismo centro');
                     bDuplicate = true;
                 }

@@ -139,9 +139,29 @@ const NewLine = Form.create()(
                     dateCreated: moment().format(),
                     createdByNew: localStorage.getItem('userName'),
                 }
-                //var warehouseIds = _self.props.warehouseIds;
-                var products = [{ product: "premium", "premium": "premium", amount: premium }, { product: "gold", "gold": "gold", amount: gold }, { product: "second", "second": "second", amount: second }, { product: "hand", "hand": "hand", amount: hand }, { product: "finger", "finger": "finger", amount: finger }];
-                //products = [..._self.props.products, products];
+
+
+
+                /***********************************************/
+                var objproducts = this.props.productsAll
+                var productsAllLine=[];
+                let objWarehouse = {};
+                objproducts.forEach(function(catProduct){
+                        objWarehouse[catProduct['WMS-1-SK']]  = values[catProduct['WMS-1-SK']];
+                });
+                objWarehouse['warehouseId']= warehouseId;
+                objWarehouse['center']= center;
+                objproducts.forEach(function(catProduct){
+                    let product={}
+                    product['product'] = catProduct['WMS-1-SK'];
+                    product['productName']= catProduct['productName'];
+                    product['amount'] = values[catProduct['WMS-1-SK']];
+                    productsAllLine.push(product);
+                });
+                /***********************************************/
+
+
+
                 if (_self.props.lineMode === "NEW") {
                     //warehouseIds.push(warehouseId);
                     //this.setState({ idShipping, datesGeneralNewLine, products, warehouseName });
@@ -150,7 +170,7 @@ const NewLine = Form.create()(
                     //this.setState({ idShipping, datesGeneralNewLine, products, warehouseName });
                     //_self.props.replaceWarehouse({ uiKey: warehouseUIKey, warehouseId, center: warehouse, "premium": premium, "gold": gold, "second": second, "hand": hand, "finger": finger });
                 }
-                _self.props.handleSubmitNewLine(_self.props.lineMode, { idShipping, datesGeneralNewLine }, { warehouseLine: { warehouseId, center, "premium": premium, "gold": gold, "second": second, "hand": hand, "finger": finger }, products: products });
+                _self.props.handleSubmitNewLine(_self.props.lineMode, { idShipping, datesGeneralNewLine }, { objWarehouse,products:productsAllLine});
                 _self.props.form.resetFields();
                 if(this.props.mode == "NEW||EDIT"){
                     _self.props.closeNewLine();
@@ -169,10 +189,25 @@ const NewLine = Form.create()(
                 lineData = {};
             }
             let products = [];
-            products.push(lineData.finger, lineData.second, lineData.premium, lineData.gold, lineData.hand);
+            for(const prop in lineData){
+                let produ = {
+                    "quantity": lineData[prop],
+                    "name": prop
+                }
+                products.push(produ)
+            }
             if(productsAll != undefined){
+                let iProduct = productsAll.map(function(data){
+                    for(var i = 0; i < products.length; i++){
+                        if(data["WMS-1-SK"] == products[i].name){
+                            data["quantityEdit"] = products[i].quantity;
+                        }
+                    }
+                })
+            }
+            if(products.length == 0){
                 for(var i = 0; i < productsAll.length; i++){
-                    productsAll[i]["quantityEdit"] = products[i];
+                    productsAll[i]["quantityEdit"] = undefined
                 }
             }
             const { getFieldDecorator } = this.props.form;
@@ -219,7 +254,7 @@ const NewLine = Form.create()(
                                                         ? formatMessage({ id: 'shipping.tablecomponent.label.finger'})
                                                         : formatMessage({ id: 'shipping.tablecomponent.label.no-label'})
                                     }>
-                                        {getFieldDecorator(item.productName,{initialValue: item.quantityEdit})
+                                        {getFieldDecorator(item['WMS-1-SK'],{initialValue: item.quantityEdit === undefined ? 0 : item.quantityEdit})
                                         (<InputNumber min={0} max={500} style={{ width: '100%' }} />)}
                                     </Form.Item>
                                 ))}

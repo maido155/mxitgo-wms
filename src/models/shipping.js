@@ -209,9 +209,9 @@ export default {
             }
         },
         saveWarehouseReducer(state, action) {
-            const datesWarehouse = [...state.warehouses, action.payload.warehouseLine];
+            const datesWarehouse = [...state.warehouses, action.payload.objWarehouse];
             const products = [...state.products, action.payload.products];
-            const warehouseIds = [...state.warehouseIds, action.payload.warehouseLine.warehouseId]
+            const warehouseIds = [...state.warehouseIds, action.payload.objWarehouse.warehouseId]
             return {
                 ...state,
                 warehouses: datesWarehouse,
@@ -245,14 +245,14 @@ export default {
             var newArray = [];
             var newArrayProducts = [];
 
-            newArray = [action.payload.payload.warehouseLine, ...aWarehouse];
+            newArray = [action.payload.payload.objWarehouse, ...aWarehouse];
             newArrayProducts = [action.payload.payload.products, ...products];
 
             return {
                 ...state,
                 warehouses: newArray,
                 products: newArrayProducts,
-                warehouseIds: action.payload.payload.warehouseLine.warehouseId
+                warehouseIds: action.payload.payload.objWarehouse.warehouseId
             }
         },
         removeWarehouseReducer(state, action) {
