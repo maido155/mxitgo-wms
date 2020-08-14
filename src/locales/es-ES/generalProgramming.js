@@ -8,16 +8,16 @@ export default {
     'general.modal.clear': 'Limpiar',
     'general.modal.accept': 'Guardar',
     'general.modal-label.boxes': 'Cajas',
-    'general.modal-label.pallets': 'Pallets',
+    'general.modal-label.pallets': 'Tarima', //add
     'general.table.week': 'Semana',
     'general.table.products': 'Productos',
     'general.table.client': 'Cliente',
     'general.table.boxes': 'Cajas',
-    'general.table.pallets': 'Pallets',
-    'general.table.status': 'Status',
+    'general.table.pallets': 'Tarima',
+    'general.table.status': 'Estatus', //add
     'general.table.actions': 'Acciones',
     'general.table.actions-mobil': 'Acciones',
-    'menu.Programación General': 'Programacion General',
+    'menu.Programación General': 'Programación General',
     'general.table.kingproduct': 'Tipo de producto',
     'general.table.edit': 'Editar',
     'general.table.delete': 'Eliminar',
@@ -33,5 +33,5 @@ export default {
     'general.modal-verify-programming-description': 'Hemos encontrado una programación con la misma fecha. Por favor intente de nuevo',
     'general.modal-visualize': 'Visualizar',
     'general.table.New': 'Nuevo',
-    'general.loading':'Cargando...'
+    'general.loading': 'Cargando...'
 }
