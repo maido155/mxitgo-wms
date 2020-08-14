@@ -365,18 +365,18 @@ export async function customerGet(payload) {
     });
 }
 
-export async function updateShipping(payload) {
+export async function updateShipping({ payload }) {
     return request(`${ANT_DESIGN_PRO_TARGET}/shipping`, {
         method: 'PUT',
-        headers: { 'Authorization': payload.Authorization },
-        body: JSON.stringify(payload)
+        headers: { 'Authorization': payload.POST.Authorization },
+        body: JSON.stringify(payload.POST)
     });
 }
-export async function confirmShipping({payload}) {
+export async function confirmShipping({ payload }) {
     return request(`${ANT_DESIGN_PRO_TARGET}/shipping`, {
         method: 'POST',
-        headers: { 'Authorization': payload.Authorization },
-        body: JSON.stringify(payload)
+        headers: { 'Authorization': payload.POST.Authorization },
+        body: JSON.stringify(payload.POST)
     });
 }
 
@@ -484,9 +484,9 @@ export async function getDay(payload) {
 
 export async function fetchShippingAll({ payload }) {
     console.log(payload)
-    return request(`${ANT_DESIGN_PRO_TARGET}/shipping/all?payload=${JSON.stringify(payload)}`, {
+    return request(`${ANT_DESIGN_PRO_TARGET}/shipping/all?payload=${JSON.stringify(payload.POST)}`, {
         method: 'GET',
-        headers: { 'Authorization': payload.Authorization },
+        headers: { 'Authorization': payload.POST.Authorization },
     });
 }
 
@@ -508,7 +508,7 @@ export async function fetchOperatorAll({ payload }) {
 export async function deleteShipping(payload) {
     return request(`${ANT_DESIGN_PRO_TARGET}/shipping`, {
         method: 'DELETE',
-        headers: {  'content-type': 'application/json', 'Authorization': payload.Authorization },
+        headers: { 'content-type': 'application/json', 'Authorization': payload.Authorization },
         body: JSON.stringify(payload)
     });
 }
@@ -519,5 +519,3 @@ export async function getOutcommingsByEntry(payload) {
         headers: { 'Authorization': payload.Authorization }
     });
 }
-
-

@@ -79,12 +79,12 @@ class ShippingMaster extends PureComponent {
         })
     }
     onChangeWeek=(date,dateString)=>{
-        var since = moment(dateString);
-        var until = moment(dateString);
+        var since = moment(dateString)
+        var until = moment(dateString)
         until.add(6, 'days');
         let dateFrom = "";
         if (date !== null) {
-            dateFrom= `${since.format("YYYY-MM-DD")}`; //date[0].toISOString();
+            dateFrom= `${since.format("YYYY-MM-DD") + "T00:00:00.000Z"}`; //date[0].toISOString();
         } else {
             dateFrom = '';
         }
@@ -95,8 +95,10 @@ class ShippingMaster extends PureComponent {
             type: 'shipping/getShippingAll',
             payload: {
                 payload: {
-                 Authorization: sessionStorage.getItem('idToken'),
-                 initialDate: dateFrom
+                    POST: {
+                        Authorization: sessionStorage.getItem('idToken'),
+                        initialDate: dateFrom
+                    }
                 }
             },
         });
@@ -123,6 +125,7 @@ class ShippingMaster extends PureComponent {
                 payload: {
                     payload: {
                         POST: {
+                            initialDate: this.state.dateFrom,
                             typeCondition: "New",
                             isMasterModified: true,
                             comment: datesShipping.comment,
@@ -147,22 +150,27 @@ class ShippingMaster extends PureComponent {
             this.props.dispatch({
                 type: 'shipping/updateShipping',
                 payload: {
-                    typeCondition: "New",
-                    isMasterModified: true,
-                    comment: datesShipping.comment,
-                    createdBy: datesShipping.createdBy,
-                    date: datesShipping.date,
-                    departureDate: datesShipping.departureDate,
-                    deliveryDate: datesShipping.deliveryDate,
-                    entryDate: datesShipping.entryDate,
-                    destination: datesShipping.destination,
-                    products: datesShipping.products,
-                    skWh: datesShipping.warehouses,
-                    dateNew: datesShipping.dateNew,
-                    createdByNew: datesShipping.createdByNew,
-                    idShipping: datesShipping.idShipping,
-                    Authorization: sessionStorage.getItem('idToken'),
-                    locations: datesShipping.warehousesSelect
+                    payload: {
+                        POST: {
+                            initialDate: this.state.dateFrom,
+                            typeCondition: "New",
+                            isMasterModified: true,
+                            comment: datesShipping.comment,
+                            createdBy: datesShipping.createdBy,
+                            date: datesShipping.date,
+                            departureDate: datesShipping.departureDate,
+                            deliveryDate: datesShipping.deliveryDate,
+                            entryDate: datesShipping.entryDate,
+                            destination: datesShipping.destination,
+                            products: datesShipping.products,
+                            skWh: datesShipping.warehouses,
+                            dateNew: datesShipping.dateNew,
+                            createdByNew: datesShipping.createdByNew,
+                            idShipping: datesShipping.idShipping,
+                            Authorization: sessionStorage.getItem('idToken'),
+                            locations: datesShipping.warehousesSelect
+                        }
+                    }
                 }
             })
         }
@@ -179,25 +187,27 @@ class ShippingMaster extends PureComponent {
                 type: 'shipping/confirmShipping',
                 payload: {
                     payload: {
-                        typeCondition: "Confirmed",
-                        isMasterModified: true,
-                        comment: datesShipping.comment,
-                        createdBy: datesShipping.createdBy,
-                        date: datesShipping.date,
-                        departureDate: datesShipping.departureDate,
-                        deliveryDate: datesShipping.deliveryDate,
-                        entryDate: datesShipping.entryDate,
-                        destination: datesShipping.destination,
-                        products: datesShipping.products,
-                        skWh: datesShipping.warehouses,
-                        dateNew: datesShipping.dateNew,
-                        createdByNew: datesShipping.createdByNew,
-                        pk: datesShipping.idShipping,
-                        sk: datesShipping.idShipping.substr(4,14),
-                        operator: datesShipping.operator,
-                        phone: datesShipping.phone,
-                        initialDate: _self.state.dateFrom,
-                        Authorization: sessionStorage.getItem('idToken')
+                        POST: {
+                            typeCondition: "Confirmed",
+                            isMasterModified: true,
+                            comment: datesShipping.comment,
+                            createdBy: datesShipping.createdBy,
+                            date: datesShipping.date,
+                            departureDate: datesShipping.departureDate,
+                            deliveryDate: datesShipping.deliveryDate,
+                            entryDate: datesShipping.entryDate,
+                            destination: datesShipping.destination,
+                            products: datesShipping.products,
+                            skWh: datesShipping.warehouses,
+                            dateNew: datesShipping.dateNew,
+                            createdByNew: datesShipping.createdByNew,
+                            pk: datesShipping.idShipping,
+                            sk: datesShipping.idShipping.substr(4),
+                            operator: datesShipping.operator,
+                            phone: datesShipping.phone,
+                            initialDate: _self.state.dateFrom,
+                            Authorization: sessionStorage.getItem('idToken')
+                        }
                     }
                 }
             })
@@ -397,6 +407,7 @@ class ShippingMaster extends PureComponent {
                                         replaceWarehouse={this.replaceWarehouse}
                                         confirmShipping={this.confirmShipping}
                                         masterMode={this.state.masterMode}
+                                        products={products}
                                         
 
                                         //Props Drawer New Line

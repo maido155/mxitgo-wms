@@ -90,6 +90,13 @@ export default {
                 type: 'updateShippingReducer',
                 payload: response,
             });
+            const responseGetAll = yield call(fetchShippingAll, payload);
+            console.log(responseGetAll);
+            console.log(responseGetAll);
+            yield put({
+                type: 'queryGetShippingAll',
+                payload: responseGetAll,
+            });
         },
         * getShipping({ payload }, { call, put }) {
             const response = yield call(getShipping, payload);
@@ -281,13 +288,13 @@ export default {
         updateShippingReducer(state, action) {
             return {
                 ...state,
-                datesShipping: action.payload,
-                warehouses: [],
-                warehouseIds: [],
+                // datesShipping: action.payload,
+                // warehouses: [],
+                // warehouseIds: [],
                 isSuccess: true,
                 close: false,
-                oShippingItem: { products: [], id: "" },
-                products: []
+                // oShippingItem: { products: [], id: "" },
+                // products: []
             }
         },
         confirmShippingReducer(state, action) {
