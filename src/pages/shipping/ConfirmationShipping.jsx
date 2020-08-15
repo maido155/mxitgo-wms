@@ -36,6 +36,10 @@ class ConfirmationShipping extends PureComponent {
         })
         this.setState({whName: whSelect});
     }
+    newLineCancelSelect = () => {
+        this.setState({whName: ""});
+        this.props.closeNewLine();
+    }
     onDepartureDate = (value, dateString) => {
         this.setState({ departureDate: dateString })
     }
@@ -57,7 +61,7 @@ class ConfirmationShipping extends PureComponent {
         if (sLineMode === "NEW") {
             var aWarehouse = this.props.warehouses;
             aWarehouse.forEach((oWarehouse, iIndex) => {
-                if (oWarehouse.center === oWarehouseData.warehouseLine.center) {
+                if (oWarehouse.center === oWarehouseData.objWarehouse.center) {
                     message.warning('No es posible agregar 2 lineas del mismo centro');
                     bDuplicate = true;
                 }
@@ -68,7 +72,7 @@ class ConfirmationShipping extends PureComponent {
             if (sLineMode === "NEW") {
                 this.props.insertWarehouse(oWarehouseData);
             } else {
-                this.props.replaceWarehouse(oWarehouseData);
+                this.props.replaceWarehouse(oWarehouseData, this.props.lineData.warehouseId);
             }
         }
     }
@@ -81,23 +85,43 @@ class ConfirmationShipping extends PureComponent {
             }
             var date = new Date();
             values["createdBy"] = localStorage.getItem('userName');
-            values["date"] = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
-            values["deliveryDate"] = this.state.deliveryDate;
-            values["departureDate"] = this.state.departureDate;
-            values["entryDate"] = this.state.entryDate;
-            values["dateNew"] = this.state.datesGeneralNewLine.dateCreated;
+            values["date"] = moment().format("YYYY-MM-DD") + "T00:00:00.000Z";
+            values["deliveryDate"] = this.state.deliveryDate == "" ? moment(values.deliveryDate).format("YYYY-MM-DD") + "T00:00:00.000Z" : moment(this.state.deliveryDate).format("YYYY-MM-DD") + "T00:00:00.000Z";
+            values["departureDate"] = this.state.departureDate == "" ? moment(values.departureDate).format("YYYY-MM-DD") + "T00:00:00.000Z" : moment(this.state.departureDate).format("YYYY-MM-DD") + "T00:00:00.000Z";
+            values["entryDate"] = this.state.entryDate == "" ? moment(values.entryDate).format("YYYY-MM-DD") + "T00:00:00.000Z" : moment(this.state.entryDate).format("YYYY-MM-DD") + "T00:00:00.000Z";
+            values["dateNew"] = moment(this.state.datesGeneralNewLine.dateCreated).format("YYYY-MM-DD") + "T00:00:00.000Z";
             values["createdByNew"] = this.state.datesGeneralNewLine.createdByNew;
             values["destination"] = "Central de abastos"
+            console.log(this.props.products);
             values["products"] = this.props.products;
             values["warehouses"] = this.props.warehouseIds;
             values["comment"] = values.comment;
+
+            let whareHouse = this.props.locationTreeData;
+            let whSelect = whareHouse.filter(function(data) { //-- Add
+                for (var i = 0; i < data.childLevel1.length; i++) {
+                    if(Array.isArray(values.warehouses)){
+                        if (data.childLevel1[i].key == values.warehouses[0]) {
+                            return data;
+                        }
+                    }else{
+                        if (data.childLevel1[i].key == values.warehouses) {
+                            return data;
+                        }
+                    }
+                }
+            })
+            values["warehousesSelect"] = whSelect;
+            
             if (this.props.warehouseIds.length == 0) {
                 message.warning('Agregar Nueva Línea');
                 return;
             }
+            console.log(this.props.masterMode);
             if(this.props.masterMode == "NEW"){
             values["idShipping"] = this.state.idShipping + date.getDate() + (date.getMonth() + 1) + date.getFullYear() + date.getHours() + date.getMinutes();
             }else{
+                console.log(this.props.oShippingItem.idShipping);
             values["idShipping"] = this.props.oShippingItem.idShipping;
             values["deliveryDate"] == "" ? values["deliveryDate"] = this.props.oShippingItem.originalDeliveryDate : values["deliveryDate"]; 
             values["departureDate"] == "" ? values["departureDate"] = this.props.oShippingItem.originalDepartureDate : values["departureDate"]; 
@@ -150,6 +174,7 @@ class ConfirmationShipping extends PureComponent {
                     wrappedComponentRef={this.saveFormRefNewLine}
                     handleSubmitNewLine={this.handleSubmitNewLine}
                     newLineSelect={this.newLineSelect}
+                    newLineCancelSelect={this.newLineCancelSelect}
                 />
                 <Drawer
                     title={formatMessage({ id: 'shipping.shippingconfirmation.title' })}
@@ -210,7 +235,7 @@ class ConfirmationShipping extends PureComponent {
                             <Row className={Styles.lastcolumn}>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.driver' })}>
-                                    {getFieldDecorator('operator',
+                                    {getFieldDecorator('operator',{initialValue: oShippingItem.Operator == undefined ? "" : oShippingItem.Operator},
                                     {rules: [{ required: true, message: "Operador no seleccionado" }]}) 
                                         (<AutoComplete
                                             dataSource={nameOperator}
@@ -224,7 +249,7 @@ class ConfirmationShipping extends PureComponent {
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.phone' })}>
                                     {getFieldDecorator('phone',
-                                    { initialValue: phoneOperator})
+                                    { initialValue: oShippingItem.phoneOperator == undefined ? phoneOperator : oShippingItem.phoneOperator})
                                         (<Input />
                                     )}
                                     </Form.Item>

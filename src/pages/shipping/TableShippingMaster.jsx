@@ -246,6 +246,7 @@ class TableShippingMaster extends PureComponent {
           replaceWarehouse={this.props.replaceWarehouse}
           masterMode={this.props.masterMode}
           confirmShipping={this.props.confirmShipping}
+          products={this.props.products}
 
           //Props New Line
           visibleNewLineConfirm={this.props.visibleNewLineConfirm}
