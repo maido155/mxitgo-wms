@@ -39,7 +39,7 @@ class TableComponent extends PureComponent {
     });
   }
   render(){
-    const { warehouse, masterMode } = this.props;
+    const { warehouse, masterMode, oShippingItem } = this.props;
     const columns = [
       {
           title: formatMessage({ id: 'shipping.tablecomponent.label.center' }),
@@ -84,19 +84,56 @@ class TableComponent extends PureComponent {
         width: isMobile ? 80 : 155,
         render: (record) => (
           <span>
-            <a onClick={()=>{masterMode == "CONF" ? this.props.showNewLineConfirm("CONF" , record, "CONF") : this.props.showNewLine("EDIT" , record, "NEW||EDIT")}}>
-              { isMobile
-                ?<Icon type="edit" />
-                : <span><Icon type="edit" /><FormattedMessage id="shipping.label.table-shipping.edit"/></span>
-              }
-            </a>
-            <Divider type="vertical" />
-            <a onClick={()=>{this.showDeleteConfirm(record)}} type="dashed">
-              { isMobile
-                ?<Icon type="delete"/>
-                : <span><Icon type="delete"/><FormattedMessage id="shipping.label.table-shipping.delete"/></span>
-              }
-            </a>
+            { masterMode == undefined 
+              ?
+                <span>
+                  <a onClick={()=>{masterMode == "CONF" ? this.props.showNewLineConfirm("CONF" , record, "CONF") : this.props.showNewLine("EDIT" , record, "NEW||EDIT")}}>
+                    { isMobile
+                      ? <Icon type="edit"/>
+                      : <span><Icon type="edit"/> <FormattedMessage id="shipping.label.table-shipping.edit"/></span>
+                    }
+                  </a>
+                  <Divider type="vertical" />
+                  <a onClick={()=>{this.showDeleteConfirm(record)}} type="dashed">
+                    { isMobile
+                      ?<Icon type="delete"/>
+                      : <span><Icon type="delete"/><FormattedMessage id="shipping.label.table-shipping.delete"/></span>
+                    }
+                  </a>
+                </span>
+              :
+                <span>
+                  <a onClick={()=>{masterMode == "CONF" ? this.props.showNewLineConfirm("CONF" , record, "CONF") : this.props.showNewLine("EDIT" , record, "NEW||EDIT")}}>
+                    { isMobile
+                      ? oShippingItem == undefined 
+                        ? <Icon type="edit"/>
+                        : oShippingItem.Operator == undefined
+                          ? <Icon type="edit"/>
+                          : oShippingItem.Operator == ""
+                            ? <Icon type="edit"/>
+                            : <Icon type="eye"/>
+                      :oShippingItem == undefined 
+                        ? <span><Icon type="edit"/> <FormattedMessage id="shipping.label.table-shipping.edit"/></span>
+                        : oShippingItem.Operator == undefined
+                          ? <span><Icon type="edit"/> <FormattedMessage id="shipping.label.table-shipping.edit"/></span>
+                          : oShippingItem.Operator == ""
+                            ? <span><Icon type="edit"/> <FormattedMessage id="shipping.label.table-shipping.edit"/></span>
+                            : <span><Icon type="eye"/> <FormattedMessage id="shipping.label.table-shipping.show"/></span>
+                    }
+                  </a>
+                  { oShippingItem == undefined || oShippingItem.Operator == undefined || oShippingItem.Operator == "" &&
+                    <span>
+                      <Divider type="vertical"/>
+                        <a onClick={()=>{this.showDeleteConfirm(record)}} type="dashed">
+                          { isMobile
+                            ?<Icon type="delete"/>
+                            : <span><Icon type="delete"/><FormattedMessage id="shipping.label.table-shipping.delete"/></span>
+                          }
+                        </a>
+                    </span>
+                  }
+                </span>
+            }
           </span>
         ),
       }

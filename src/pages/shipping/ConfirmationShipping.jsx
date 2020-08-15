@@ -170,6 +170,7 @@ class ConfirmationShipping extends PureComponent {
                     whName={this.state.whName}
                     masterMode={masterMode}
                     warehouses={warehouses}
+                    oShippingItem={oShippingItem}
                     locationTreeData={this.props.locationTreeData}
                     wrappedComponentRef={this.saveFormRefNewLine}
                     handleSubmitNewLine={this.handleSubmitNewLine}
@@ -196,46 +197,48 @@ class ConfirmationShipping extends PureComponent {
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-exit' })}>
                                         {getFieldDecorator('departureDate',
                                             { initialValue: moment(oShippingItem.departureDate, "YYYY-MM-DD"), rules: [{ required: true, message: "Fecha no seleccionada" }] })
-                                            (<DatePicker style={{ width: '100%' }} onChange={this.onDepartureDate} />)}
+                                            (<DatePicker style={{ width: '100%' }} onChange={this.onDepartureDate} disabled={oShippingItem.Operator == "" ? false : true}/>)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-arrival' })}>
                                         {getFieldDecorator('deliveryDate',
                                             { initialValue: moment(oShippingItem.deliveryDate, "YYYY-MM-DD"), rules: [{ required: true, message: "Fecha no seleccionada" }] })
-                                            (<DatePicker style={{ width: '100%' }} onChange={this.onDeliveryDate} />)}
+                                            (<DatePicker style={{ width: '100%' }} onChange={this.onDeliveryDate} disabled={oShippingItem.Operator == "" ? false : true}/>)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-entry' })}>
                                         {getFieldDecorator('entryDate',
                                             { initialValue: moment(oShippingItem.entryDate, "YYYY-MM-DD"), rules: [{ required: true, message: "Fecha no seleccionada" }] })
-                                            (<DatePicker style={{ width: '100%' }} onChange={this.onEntryDate} />)}
+                                            (<DatePicker style={{ width: '100%' }} onChange={this.onEntryDate} disabled={oShippingItem.Operator == "" ? false : true}/>)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-comments' })}>
-                                        {getFieldDecorator('comment',{ initialValue: oShippingItem.comments != undefined ? oShippingItem.comments[0].comment : ""})(<TextArea />)}
+                                        {getFieldDecorator('comment',{ initialValue: oShippingItem.comments != undefined ? oShippingItem.comments[0].comment : ""})(<TextArea disabled={oShippingItem.Operator == "" ? false : true}/>)}
                                     </Form.Item>
                                 </Col>
                             </Row>
                             <Divider />
-                            <Row type="flex" justify="center" >
-                                <Col span={19} className={Styles.adddrawerone}>
-                                    <Button type="primary" shape="circle" size="large" onClick={() => {this.props.showNewLineConfirm("NEW",{},"CONF")}}> 
-                                        <Icon type="plus"/>
-                                    </Button>
-                                </Col>
-                            </Row>
+                            { oShippingItem.Operator == "" &&
+                                <Row type="flex" justify="center" >
+                                    <Col span={19} className={Styles.adddrawerone}>
+                                        <Button type="primary" shape="circle" size="large" onClick={() => {this.props.showNewLineConfirm("NEW",{},"CONF")}}> 
+                                            <Icon type="plus"/>
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            }
                             <Row>
                                 <Col span={24} className={Styles.tabledrawerone}>
-                                    <TableComponent warehouse={warehouses} showNewLineConfirm={this.props.showNewLineConfirm} masterMode={this.props.masterMode}/>
+                                    <TableComponent warehouse={warehouses} showNewLineConfirm={this.props.showNewLineConfirm} masterMode={this.props.masterMode} oShippingItem={oShippingItem}/>
                                 </Col>
                             </Row>
                             <Row className={Styles.lastcolumn}>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.driver' })}>
-                                    {getFieldDecorator('operator',{initialValue: oShippingItem.Operator == undefined ? "" : oShippingItem.Operator},
+                                    {getFieldDecorator('operator',{initialValue: oShippingItem.Operator == "" ? "" : oShippingItem.Operator},
                                     {rules: [{ required: true, message: "Operador no seleccionado" }]}) 
                                         (<AutoComplete
                                             dataSource={nameOperator}
@@ -243,6 +246,7 @@ class ConfirmationShipping extends PureComponent {
                                                 option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                                             }
                                             onSelect={this.onSelect}
+                                            disabled={oShippingItem.Operator == "" ? false : true}
                                         />)}
                                     </Form.Item>
                                 </Col>
@@ -250,7 +254,7 @@ class ConfirmationShipping extends PureComponent {
                                     <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.phone' })}>
                                     {getFieldDecorator('phone',
                                     { initialValue: oShippingItem.phoneOperator == undefined ? phoneOperator : oShippingItem.phoneOperator})
-                                        (<Input />
+                                        (<Input disabled={oShippingItem.Operator == "" ? false : true}/>
                                     )}
                                     </Form.Item>
                                 </Col>
@@ -271,9 +275,11 @@ class ConfirmationShipping extends PureComponent {
                             <Button type="danger" className={Styles.cancelarfooter} onClick={this.props.closeConfirmation}>
                                 <FormattedMessage id="shipping.button.cancel"/>
                             </Button>
-                            <Button type="primary" htmlType="submit">
-                                <FormattedMessage id="shipping.button.conf"/>
-                            </Button>    
+                            { oShippingItem.Operator == "" &&
+                                <Button type="primary" htmlType="submit">
+                                    <FormattedMessage id="shipping.button.conf"/>
+                                </Button>    
+                            }
                         </div>
                     </Form>
                 </Drawer>
