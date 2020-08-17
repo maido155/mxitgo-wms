@@ -6,69 +6,63 @@ import { formatMessage } from 'umi-plugin-react/locale';
 const columns = [
     {
       title: formatMessage({ id: 'shipping.label.table-shipping.id' }),
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'idShipping',
+      key: 'idShipping',
       width: 110,
     },
     {
       title: formatMessage({ id: 'shipping.label.table-shipping.ubication' }),
-      dataIndex: 'ubicacion',
-      key: 'ubicacion',
+      dataIndex: 'destinity',
+      key: 'destinity',
       width: 100,
     },
     {
       title: formatMessage({ id: 'shipping.label.table-shipping.output' }),
-      dataIndex: 'salida',
-      key: 'salida',
+      dataIndex: 'departureDate',
+      key: 'departureDate',
       width: 100,
     },
     
     {
       title: formatMessage({ id: 'shipping.label.table-shipping.arrival' }),
-      dataIndex: 'llegada',
-      key: 'llegada',
+      dataIndex: 'deliveryDate',
+      key: 'deliveryDate',
       width: 100,
     },
     
     {
       title: formatMessage({ id: 'shipping.label.table-shipping.entry' }),
-      dataIndex: 'entrada',
-      key: 'entrada',
+      dataIndex: 'entryDate',
+      key: 'entryDate',
       width: 100,
     },
     
     {
       title: formatMessage({ id: 'shipping.shippingconfirmation.driver' }),
-      dataIndex: 'chofer',
-      key: 'chofer',
+      dataIndex: 'Operator',
+      key: 'Operator',
       width: 100,
     },
-  ];
-  
-  const data = [
-   {
-        id: 'TE10112801',
-        ubicacion: 'Teapa',
-        premium: 1200,
-        gold: 38,
-        segunda: 39,
-        mano: 79,
-        dedo: 800,
-        salida: 'Mie 13-07',
-        llegada: 'Jue 14-07',
-        entrada: 'Vie 15-07',
-        chofer: 'Ramòn',
-      },
-     
-  ];
+  ]; 
 
-  class tableModalEntry extends PureComponent {
-      
-    render() {
-        return (
-          <Table columns={columns} dataSource={data} scroll={{x: 'max-content'}} pagination={false}/>  
-        );
-        
-    }      
-  }
+class tableModalEntry extends PureComponent {
+  render() {
+    const { oShippingItem } = this.props;
+    if(oShippingItem.idShipping != undefined){
+      var data = [{
+        idShipping: oShippingItem.idShipping,
+        destinity: oShippingItem.destinity,
+        deliveryDate: oShippingItem.deliveryDate.substr(0,10),
+        entryDate: oShippingItem.entryDate.substr(0,10),
+        departureDate: oShippingItem.departureDate.substr(0,10),
+        Operator: oShippingItem.Operator
+      }]
+    }else{
+      var data = [];
+    }
+    return (
+      <Table columns={columns} dataSource={data} scroll={{x: 'max-content'}} pagination={false}/>  
+    );     
+  }      
+}
   export default tableModalEntry;
