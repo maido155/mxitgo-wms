@@ -7,7 +7,7 @@ export default {
     'outComming.label.tabs-one': 'Vallejo',
     'outComming.label.tabs-two': 'Cuauhtitlan',
     'outComming.label.tabs-three': 'Reparto',
-    'outComming.label.table-pallets': 'Pallets asignados/requeridos',
+    'outComming.label.table-pallets': 'Tarima asignados/requeridos', //add
     'outComming.label.table-boxes': 'Cajas asignados/requeridos',
     'outComming.button.assign': 'Asignar',
     'outComming.button.composition': 'Ver composición',
@@ -19,15 +19,15 @@ export default {
     'outComming.button.ok-assignment-outcomming': 'Aceptar',
     'outComming.button.close-assignment-outcomming': 'Cerrar',
     'outComming.label.tableassignment-order': 'Envíos',
-    'outComming.label.tableassignment-pallets-re': 'Pallets recibidos (Total)',
+    'outComming.label.tableassignment-pallets-re': 'Tarima recibidos (Total)', //add
     'outComming.label.tableassignment-boxes-re': 'Cajas recibidos (Total)',
-    'outComming.label.tableassignment-pallets-di': 'Pallets disponibles',
+    'outComming.label.tableassignment-pallets-di': 'Tarima disponibles', //add
     'outComming.label.tableassignment-boxes-di': 'Cajas disponibles',
     'outComming.label.tableassignment-assign': 'Asignar',
     'outComming.label.composition-outcomming': 'Ver composición',
     'outComming.button.composition-outcomming-assing': 'Asignación',
     'outComming.button.composition-outcomming-ok': 'Aceptar',
-    'outComming.button.composition-outcomming-pallets-ass': 'Pallets asignados',
+    'outComming.button.composition-outcomming-pallets-ass': 'Tarima asignados',
     'outComming.button.composition-outcomming-boxes-ass': 'Cajas asignados',
     'outComming.label.table-status': 'Estado',
     'menu.Salidas': 'Salidas'

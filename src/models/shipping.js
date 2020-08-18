@@ -15,7 +15,8 @@ export default {
         locationTreeData: [],
         datesShipping: [],
         productsAll: [],
-        operatorAll: []
+        operatorAll: [],
+        disabledLocation: false
     },
     effects: {
 
@@ -88,6 +89,13 @@ export default {
             yield put({
                 type: 'updateShippingReducer',
                 payload: response,
+            });
+            const responseGetAll = yield call(fetchShippingAll, payload);
+            console.log(responseGetAll);
+            console.log(responseGetAll);
+            yield put({
+                type: 'queryGetShippingAll',
+                payload: responseGetAll,
             });
         },
         * getShipping({ payload }, { call, put }) {
@@ -172,7 +180,7 @@ export default {
                 type: 'removeWarehouseReducer',
                 payload: payload.payload,
             });
-        }
+        },
     },
 
     reducers: {
@@ -208,9 +216,9 @@ export default {
             }
         },
         saveWarehouseReducer(state, action) {
-            const datesWarehouse = [...state.warehouses, action.payload.warehouseLine];
+            const datesWarehouse = [...state.warehouses, action.payload.objWarehouse];
             const products = [...state.products, action.payload.products];
-            const warehouseIds = [...state.warehouseIds, action.payload.warehouseLine.warehouseId]
+            const warehouseIds = [...state.warehouseIds, action.payload.objWarehouse.warehouseId]
             return {
                 ...state,
                 warehouses: datesWarehouse,
@@ -244,25 +252,30 @@ export default {
             var newArray = [];
             var newArrayProducts = [];
 
-            newArray = [action.payload.payload.warehouseLine, ...aWarehouse];
+            newArray = [action.payload.payload.objWarehouse, ...aWarehouse];
             newArrayProducts = [action.payload.payload.products, ...products];
 
             return {
                 ...state,
                 warehouses: newArray,
-                products: newArrayProducts
+                products: newArrayProducts,
+                warehouseIds: action.payload.payload.objWarehouse.warehouseId
             }
         },
         removeWarehouseReducer(state, action) {
             var aWarehouse = state.warehouses;
             var products = state.products;
+            var warehouse = state.warehouseIds;
             let pos = aWarehouse.map(function(data) { return data.warehouseId; }).indexOf(action.payload.payload.warehouseId);
             aWarehouse.splice(pos, 1);
             products.splice(pos, 1);
+            warehouse.splice(pos, 1);
+            const warehouseIds = [...state.warehouseIds, action.payload.payload.warehouseId]
             return {
                 ...state,
                 warehouses: aWarehouse,
-                products: products
+                products: products,
+                warehouseIds: warehouse
             }
         },
         setWarehouseReducer(state, action) {
@@ -275,13 +288,13 @@ export default {
         updateShippingReducer(state, action) {
             return {
                 ...state,
-                datesShipping: action.payload,
-                warehouses: [],
-                warehouseIds: [],
+                // datesShipping: action.payload,
+                // warehouses: [],
+                // warehouseIds: [],
                 isSuccess: true,
                 close: false,
-                oShippingItem: { products: [], id: "" },
-                products: []
+                // oShippingItem: { products: [], id: "" },
+                // products: []
             }
         },
         confirmShippingReducer(state, action) {
@@ -320,16 +333,9 @@ export default {
                 aWarehouseData.push(oLineItem);
             };
 
-            /// convert date properties to moment
-
-            oItem.originalDepartureDate = new moment(oItem.departureDate);
-            oItem.originalDeliveryDate = new moment(oItem.deliveryDate);
-            oItem.originalEntryDate = new moment(oItem.entryDate);
-
-            oItem.departureDate = new moment(oItem.departureDate);
-            oItem.deliveryDate = new moment(oItem.deliveryDate);
-            oItem.entryDate = new moment(oItem.entryDate);
-
+            oItem.originalDepartureDate = oItem.departureDate;
+            oItem.originalDeliveryDate = oItem.deliveryDate;
+            oItem.originalEntryDate = oItem.entryDate;
 
             return {
                 ...state,
@@ -412,7 +418,6 @@ export default {
                 oShippingItem: { products: [], id: "" },
                 datesShipping: action.payload
             }
-        },
-
+        }
     },
 }

@@ -39,7 +39,7 @@ class TableComponent extends PureComponent {
     });
   }
   render(){
-    const { warehouse, masterMode } = this.props;
+    const { warehouse, masterMode, oShippingItem } = this.props;
     const columns = [
       {
           title: formatMessage({ id: 'shipping.tablecomponent.label.center' }),
@@ -48,33 +48,33 @@ class TableComponent extends PureComponent {
           width: isMobile ? 170 : 200,
       },
       {
-          title: formatMessage({ id: 'shipping.tablecomponent.label.premium' }),
-          dataIndex: 'premium',
-          key:'premium',
-          width: isMobile ? 90 : 100,
+        title: formatMessage({ id: 'shipping.tablecomponent.label.premium' }),
+        dataIndex: 'PRODUCT-2',
+        key:'PRODUCT-2',
+        width: isMobile ? 90 : 100,
       },
       {
           title: formatMessage({ id: 'shipping.tablecomponent.label.gold' }),
-          dataIndex: 'gold',
-          key:'gold',
+          dataIndex: 'PRODUCT-1',
+          key:'PRODUCT-1',
           width: isMobile ? 90 : 100,
       },
       {
           title: formatMessage({ id: 'shipping.tablecomponent.label.second' }),
-          dataIndex: 'second',
-          key:'second',
+          dataIndex: 'PRODUCT-3',
+          key:'PRODUCT-3',
           width: isMobile ? 90 : 100,
       },
       {
           title: formatMessage({ id: 'shipping.tablecomponent.label.hand' }),
-          dataIndex: 'hand',
-          key:'hand',
+          dataIndex: 'PRODUCT-5',
+          key:'PRODUCT-5',
           width: isMobile ? 90 : 100,
       },
       {
           title: formatMessage({ id: 'shipping.tablecomponent.label.finger' }),
-          dataIndex: 'finger',
-          key:'finger',
+          dataIndex: 'PRODUCT-4',
+          key:'PRODUCT-4',
           width: isMobile ? 90 : 100,
       },
       {
@@ -84,19 +84,56 @@ class TableComponent extends PureComponent {
         width: isMobile ? 80 : 155,
         render: (record) => (
           <span>
-            <a onClick={()=>{masterMode == "CONF" ? this.props.showNewLineConfirm("CONF" , record, "CONF") : this.props.showNewLine("EDIT" , record, "NEW||EDIT")}}>
-              { isMobile
-                ?<Icon type="edit" />
-                : <span><Icon type="edit" /><FormattedMessage id="shipping.label.table-shipping.edit"/></span>
-              }
-            </a>
-            <Divider type="vertical" />
-            <a onClick={()=>{this.showDeleteConfirm(record)}} type="dashed">
-              { isMobile
-                ?<Icon type="delete"/>
-                : <span><Icon type="delete"/><FormattedMessage id="shipping.label.table-shipping.delete"/></span>
-              }
-            </a>
+            { masterMode == undefined 
+              ?
+                <span>
+                  <a onClick={()=>{masterMode == "CONF" ? this.props.showNewLineConfirm("CONF" , record, "CONF") : this.props.showNewLine("EDIT" , record, "NEW||EDIT")}}>
+                    { isMobile
+                      ? <Icon type="edit"/>
+                      : <span><Icon type="edit"/> <FormattedMessage id="shipping.label.table-shipping.edit"/></span>
+                    }
+                  </a>
+                  <Divider type="vertical" />
+                  <a onClick={()=>{this.showDeleteConfirm(record)}} type="dashed">
+                    { isMobile
+                      ?<Icon type="delete"/>
+                      : <span><Icon type="delete"/><FormattedMessage id="shipping.label.table-shipping.delete"/></span>
+                    }
+                  </a>
+                </span>
+              :
+                <span>
+                  <a onClick={()=>{masterMode == "CONF" ? this.props.showNewLineConfirm("CONF" , record, "CONF") : this.props.showNewLine("EDIT" , record, "NEW||EDIT")}}>
+                    { isMobile
+                      ? oShippingItem == undefined 
+                        ? <Icon type="edit"/>
+                        : oShippingItem.Operator == undefined
+                          ? <Icon type="edit"/>
+                          : oShippingItem.Operator == ""
+                            ? <Icon type="edit"/>
+                            : <Icon type="eye"/>
+                      :oShippingItem == undefined 
+                        ? <span><Icon type="edit"/> <FormattedMessage id="shipping.label.table-shipping.edit"/></span>
+                        : oShippingItem.Operator == undefined
+                          ? <span><Icon type="edit"/> <FormattedMessage id="shipping.label.table-shipping.edit"/></span>
+                          : oShippingItem.Operator == ""
+                            ? <span><Icon type="edit"/> <FormattedMessage id="shipping.label.table-shipping.edit"/></span>
+                            : <span><Icon type="eye"/> <FormattedMessage id="shipping.label.table-shipping.show"/></span>
+                    }
+                  </a>
+                  { oShippingItem == undefined || oShippingItem.Operator == undefined || oShippingItem.Operator == "" &&
+                    <span>
+                      <Divider type="vertical"/>
+                        <a onClick={()=>{this.showDeleteConfirm(record)}} type="dashed">
+                          { isMobile
+                            ?<Icon type="delete"/>
+                            : <span><Icon type="delete"/><FormattedMessage id="shipping.label.table-shipping.delete"/></span>
+                          }
+                        </a>
+                    </span>
+                  }
+                </span>
+            }
           </span>
         ),
       }

@@ -11,6 +11,7 @@ export default {
     'shipping.label.table-shipping.status': 'Status',
     'shipping.label.table-shipping.actions': 'Actions',
     'shipping.label.table-shipping.edit': 'Edit',
+    'shipping.label.table-shipping.show': 'Show',
     'shipping.label.table-shipping.confirm': 'Confirm',
     'shipping.label.table-shipping.delete': 'Delete',
     'shipping.label.table-shipping.entry': 'Entry',
@@ -26,7 +27,7 @@ export default {
     'shipping.tablecomponent.label.second': 'Second',
     'shipping.tablecomponent.label.hand': 'Hand',
     'shipping.tablecomponent.label.finger': 'Finger',
-    'shipping.tablecomponent.label.no-label':'no label',
+    'shipping.tablecomponent.label.no-label': 'no label',
     'shipping.tablecomponent.label.actions': 'Actions',
     'shipping.newline.label.title': 'New line',
     'shipping.treeselect.label.select': 'Select',
@@ -52,10 +53,10 @@ export default {
     'shipping.modal-delete': 'Are you sure you want to cancel this shipping?',
     'shipping.modal-delete-yes': 'Yes',
     'shipping.modal-delete-no': 'No',
-    'shipping.label.table-shipping.status.new':'NEW',
-    'shipping.label.table-shipping.status.entry':'ENTRY',
-    'shipping.label.table-shipping.status.confirmed':'CONFIRMED',
-    'shipping.label.table-shipping.status.no-status':'NO STATUS',
+    'shipping.label.table-shipping.status.new': 'New',
+    'shipping.label.table-shipping.status.entry': 'Entry',
+    'shipping.label.table-shipping.status.confirmed': 'Confirmed',
+    'shipping.label.table-shipping.status.no-status': 'No status',
     'shipping.modal.detail-table.title': 'Detail',
     'shipping.modal.detail-table.shipping': 'Shipping',
     'shipping.modal.detail-table.day': 'Day',
@@ -65,6 +66,6 @@ export default {
     'shipping.modal.detail-table.entry': 'Entry',
     'shipping.modal.detail-table.missing': 'Missing',
     'shipping.loading': 'Loading...'
-   
+
 
 };
