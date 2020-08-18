@@ -1,13 +1,15 @@
 import React, { PureComponent } from 'react';
 import { FormattedMessage,formatMessage } from 'umi-plugin-react/locale';
 import ModalProductTable from '../generalComponents/ModalProductTable';
-import { Card, Button, Icon, Form, Row, Col, Divider, Spin, DatePicker } from 'antd';
+import { Card, Button, Icon, Form, Row, Col, Divider, Spin, DatePicker, Modal } from 'antd'; //ADD
 import TableShippingMaster from './TableShippingMaster';
 import DrawerShipping from './DrawerShippingPrograming';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import moment from 'moment';
 import { _ } from 'lodash';
 import { connect } from 'dva';
+
+const { confirm } = Modal; //ADD
 
 function disabledDate(current) {
     let dateMonday = moment(current).isoWeekday(1);
@@ -50,7 +52,8 @@ class ShippingMaster extends PureComponent {
         lineData: {},
         lineMode: "NEW",
         visibleModalProduct: false,
-        removeLocation: false
+        removeLocation: false,
+        visibleEntry: false
     }
     componentDidMount() {
         this.props.dispatch({
@@ -216,12 +219,10 @@ class ShippingMaster extends PureComponent {
            return;
         }
     }
-    deleteShipping = (shipping) => {
-        let idShipping = shipping["WMS-1-PK"];
+    deleteShipping = (shipping) => { //ADD
         let _self = this;
         confirm({
             title: formatMessage({ id: 'shipping.modal-delete' }),
-            // content: 'Some descriptions',
             okText: formatMessage({ id: 'shipping.modal-delete-yes' }),
             okType: 'danger',
             cancelText: formatMessage({ id: 'shipping.modal-delete-no' }),
@@ -230,11 +231,13 @@ class ShippingMaster extends PureComponent {
                 _self.props.dispatch({
                     type: 'shipping/deleteShipping',
                     payload: {
-                        'WMS-1-PK': idShipping,
                         payload: {
-                            initialDate: _self.state.dateFrom,
-                        },
-                        Authorization: sessionStorage.getItem('idToken')
+                            POST:{
+                                'WMS-1-PK': shipping,
+                                initialDate: _self.state.dateFrom,
+                                Authorization: sessionStorage.getItem('idToken')
+                            }
+                        }
                     }
                 })
             }, 
@@ -321,6 +324,16 @@ class ShippingMaster extends PureComponent {
             type: 'shipping/changedClose',
             payload: {}
         })
+    }
+    showEntry = (shipping, status) => {
+        this.props.dispatch({
+            type: 'shipping/getShipping',
+            payload: { id: shipping, status: status}
+        })
+        this.setState({ visibleEntry: true})
+    }
+    closeEntry = () => {
+        this.setState({ visibleEntry: false})
     }
     render() {
         const formItemLayout = {
@@ -420,6 +433,14 @@ class ShippingMaster extends PureComponent {
 
                                         showModalProduct={this.showModalProduct}
                                         datesTableShipping={datesShipping}
+
+                                        //props Table shipping
+                                        deleteShipping={this.deleteShipping} //ADD SABADO
+
+                                        //props entry
+                                        visibleEntry={this.state.visibleEntry}
+                                        showEntry= {this.showEntry}
+                                        closeEntry={this.closeEntry}
                                     />
                                 </Spin>
                             </Col>

@@ -184,7 +184,7 @@ const NewLine = Form.create()(
                 labelCol: { xs: { span: 24 }, sm: { span: 8 }, md: { span: 8 }, lg: { span: 8 }, xl: { span: 6 } },
                 wrapperCol: { xs: { span: 24 }, sm: { span: 12 }, md: { span: 12 }, lg: { span: 12 }, xl: { span: 14 } }
             };
-            var { lineData, mode, productsAll, whName } = this.props;
+            var { lineData, mode, productsAll, whName, oShippingItem } = this.props;
             if (typeof lineData == "undefined") {
                 lineData = {};
             }
@@ -235,6 +235,7 @@ const NewLine = Form.create()(
                                             allowClear
                                             treeDefaultExpandAll
                                             onSelect={this.onSelect}
+                                            disabled={oShippingItem.Operator == undefined ? false : oShippingItem.Operator == "" ? false : true}
                                         >
                                             {this.renderTreeNode(this.props.locationTreeData)}
                                         </TreeSelect>
@@ -255,7 +256,7 @@ const NewLine = Form.create()(
                                                         : formatMessage({ id: 'shipping.tablecomponent.label.no-label'})
                                     }>
                                         {getFieldDecorator(item['WMS-1-SK'],{initialValue: item.quantityEdit === undefined ? 0 : item.quantityEdit})
-                                        (<InputNumber min={0} max={500} style={{ width: '100%' }} />)}
+                                        (<InputNumber min={0} max={500} style={{ width: '100%' }} disabled={oShippingItem.Operator == undefined ? false : oShippingItem.Operator == "" ? false : true} />)}
                                     </Form.Item>
                                 ))}
                                 <div
@@ -273,9 +274,17 @@ const NewLine = Form.create()(
                                     <Button type="danger" className={Styles.cancelarfooter} onClick={mode == "NEW||EDIT" ? this.props.newLineCancelSelect : this.props.closeNewLineConfirm}>
                                         <FormattedMessage id="shipping.button.cancel" />
                                     </Button>
-                                    <Button type="primary" onClick={this.handleSubmitLine}>
-                                        <FormattedMessage id="shipping.button.add" />
-                                    </Button>
+                                    { oShippingItem.Operator == undefined
+                                        ?   <Button type="primary" onClick={this.handleSubmitLine}>
+                                                <FormattedMessage id="shipping.button.add" />
+                                            </Button>
+                                        : oShippingItem.Operator == ""
+                                            ?
+                                                <Button type="primary" onClick={this.handleSubmitLine}>   
+                                                    <FormattedMessage id="shipping.button.add" />
+                                                </Button>
+                                            : <a></a>
+                                    }
                                 </div>
                             </Form>
                         </Drawer>

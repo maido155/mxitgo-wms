@@ -43,6 +43,10 @@ class DrawerShippingPrograming extends PureComponent {
         this.setState({whName: ""});
         this.props.closeNewLine();
     }
+    drawerCancelSelect = () => {
+        this.setState({whName: ""});
+        this.props.closeDrawerShipping();
+    }
     handleSubmitNewLine = (sLineMode, oState, oWarehouseData) => {
         /// Validate no duplicates for new lines
         var bDuplicate = false;
@@ -161,7 +165,7 @@ class DrawerShippingPrograming extends PureComponent {
                     closeNewLine={this.props.closeNewLine}  
                     newLineCancelSelect={this.newLineCancelSelect}
                     mode={this.props.mode}
-
+                    oShippingItem={oShippingItem}
                     lineData={this.props.lineData}
                     locationTreeData = {locationTreeData}
                     productsAll={productsAll}
@@ -178,7 +182,7 @@ class DrawerShippingPrograming extends PureComponent {
                     title={masterMode == "NEW" ? formatMessage({ id: 'shipping.drawershipping.label.title' }) : formatMessage({ id: 'shipping.drawershipping.label.title.edit' })}
                     width={isMobile ? "100%" : "80%"}
                     closable={true}
-                    onClose={this.props.closeDrawerShipping}
+                    onClose={this.drawerCancelSelect}
                     visible={this.props.visibleDrawerShipping}
                     getContainer={isMobile ? false : true}
                     style={{
@@ -241,7 +245,7 @@ class DrawerShippingPrograming extends PureComponent {
                                 textAlign: 'right',
                             }}
                         >
-                            <Button type="danger" className={Styles.cancelarfooter} onClick={this.props.closeDrawerShipping}>
+                            <Button type="danger" className={Styles.cancelarfooter} onClick={this.drawerCancelSelect}>
                                 <FormattedMessage id="shipping.button.cancel" />
                             </Button>
                             <Button type="primary" htmlType="submit">

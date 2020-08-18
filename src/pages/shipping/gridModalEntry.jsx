@@ -3,29 +3,7 @@ import { List, Icon } from 'antd';
 import DrawerProducts from './drawerEntryProducts';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 
-const dataSource = [
-    {
-        name: <FormattedMessage id='shipping.tablecomponent.label.premium'/>,
-        quantities: '1200'
 
-    }, 
-    {
-        name: <FormattedMessage id='shipping.tablecomponent.label.gold'/>,
-        quantities: '38'
-    },
-    {
-        name: <FormattedMessage id='shipping.tablecomponent.label.second'/>,
-        quantities: '39'
-    },
-    {
-        name: <FormattedMessage id='shipping.tablecomponent.label.hand'/>,
-        quantities: '79'
-    },
-    {
-        name: <FormattedMessage id='shipping.tablecomponent.label.finger'/>,
-        quantities: '800'
-    }
-]
 class gridModalEntry extends React.Component {
     state = { visisbleProducts: false };
 
@@ -40,8 +18,31 @@ class gridModalEntry extends React.Component {
         visisbleProducts: false,
       });
     };
-
     render() {
+        const { oShippingItem } = this.props;
+        const dataSource = [
+            {
+                name: <FormattedMessage id='shipping.tablecomponent.label.premium'/>,
+                quantities: oShippingItem == undefined || oShippingItem.products.length == 0 ? 0 : oShippingItem.products[0][2].amount
+        
+            }, 
+            {
+                name: <FormattedMessage id='shipping.tablecomponent.label.gold'/>,
+                quantities: oShippingItem == undefined || oShippingItem.products.length == 0 ? 0 : oShippingItem.products[0][3].amount
+            },
+            {
+                name: <FormattedMessage id='shipping.tablecomponent.label.second'/>,
+                quantities: oShippingItem == undefined || oShippingItem.products.length == 0 ? 0 : oShippingItem.products[0][1].amount
+            },
+            {
+                name: <FormattedMessage id='shipping.tablecomponent.label.hand'/>,
+                quantities: oShippingItem == undefined || oShippingItem.products.length == 0 ? 0 : oShippingItem.products[0][4].amount
+            },
+            {
+                name: <FormattedMessage id='shipping.tablecomponent.label.finger'/>,
+                quantities: oShippingItem == undefined || oShippingItem.products.length == 0 ? 0 : oShippingItem.products[0][0].amount
+            }
+        ]
         return (
             <div>
             <List
