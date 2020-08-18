@@ -28,15 +28,17 @@ function disabledDate(current) {
     }
 }
 
-@connect(({ shipping, loading }) => ({
+@connect(({ products,operator,shipping, loading }) => ({
     shipping,
+    operator,
+    products,
     loading: loading.models.shipping,
     warehouses: shipping.warehouses,
     isSuccess: shipping.isSuccess,
     close: shipping.close,
     datesShipping: shipping.datesShipping,
-    productsAll: shipping.productsAll,
-    operatorAll: shipping.operatorAll,
+    productsAll: products.productsAll,
+    operatorAll: operator.operatorAll,
 }))
 
 class ShippingMaster extends PureComponent {
@@ -50,11 +52,12 @@ class ShippingMaster extends PureComponent {
         lineData: {},
         lineMode: "NEW",
         visibleModalProduct: false,
-        removeLocation: false
+        removeLocation: false,
+        currentLoader: false,
     }
     componentDidMount() {
         this.props.dispatch({
-            type: 'shipping/getLocations',
+            type: 'operator/getLocations',
             payload: {
                 payload: {
                  Authorization: sessionStorage.getItem('idToken')
@@ -62,7 +65,7 @@ class ShippingMaster extends PureComponent {
             },
         }); 
         this.props.dispatch({
-            type: 'shipping/getProducts',
+            type: 'products/getProducts',
             payload: {
                 payload: {
                  Authorization: sessionStorage.getItem('idToken')
@@ -70,7 +73,7 @@ class ShippingMaster extends PureComponent {
             },
         });
         this.props.dispatch({
-            type: 'shipping/getOperators',
+            type: 'operator/getOperators',
             payload: {
                 payload: {
                  Authorization: sessionStorage.getItem('idToken')
@@ -327,8 +330,11 @@ class ShippingMaster extends PureComponent {
             labelCol: { xs: { span: 24 }, sm: { span: 7 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 5 } },
             wrapperCol: { xs: { span: 24 }, sm: { span: 14 }, md: { span: 15 }, lg: { span: 15 }, xl: { span: 15 } }
         };
-        const { locationTreeData, warehouses, warehouseIds, oShippingItem, products } = this.props.shipping;
+        const {  warehouses, warehouseIds, oShippingItem, products } = this.props.shipping;
+        const {locationTreeData}= this.props.operator;
         const { productsAll, loading, isSuccess, close, datesShipping, operatorAll } = this.props;
+        let currentLoader = this.props.loading === undefined ? false : this.props.loading;
+        this.setState({ currentLoader });
         return (
             <div>
                 <DrawerShipping 
@@ -387,7 +393,7 @@ class ShippingMaster extends PureComponent {
                     <Card>
                         <Row>
                             <Col span={24}>
-                                <Spin tip={formatMessage({id: "shipping.loading"})} spinning={loading}>
+                                <Spin tip={formatMessage({id: "shipping.loading"})} spinning={this.state.currentLoader}>
                                     <TableShippingMaster
                                         //Props Drawer Shipping(Edit)
                                         showDrawerShipping={this.showDrawerShipping} 
