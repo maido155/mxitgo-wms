@@ -245,6 +245,11 @@ class TableShippingMaster extends PureComponent {
           masterMode={this.props.masterMode}
           confirmShipping={this.props.confirmShipping}
           products={this.props.products}
+          close={this.props.close}
+          isSuccess={this.props.isSuccess}
+          changedSuccess={this.props.changedSuccess}
+          changedClose={this.props.changedClose}
+          updateShippingSuccess={this.props.updateShippingSuccess}
 
           //Props New Line
           visibleNewLineConfirm={this.props.visibleNewLineConfirm}

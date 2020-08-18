@@ -183,6 +183,8 @@ class ShippingMaster extends PureComponent {
     }
     confirmShipping = (datesShipping) => {
         let _self = this;
+        console.log(this.state.dateFrom);
+        console.log(_self.state.dateFrom)
         console.log(datesShipping);
         let operators = this.props.operatorAll;
         let existsOperator = operators.filter(function(data){
@@ -211,7 +213,7 @@ class ShippingMaster extends PureComponent {
                             sk: datesShipping.idShipping.substr(4),
                             operator: datesShipping.operator,
                             phone: datesShipping.phone,
-                            initialDate: _self.state.dateFrom,
+                            initialDate: this.state.dateFrom,
                             Authorization: sessionStorage.getItem('idToken')
                         }
                     }
@@ -299,6 +301,9 @@ class ShippingMaster extends PureComponent {
     }
     closeDrawerShipping = () => {
         this.setState({ visibleDrawerShipping: false})
+    }
+    onCloseConfirmationShipping=() => {
+        this.setState({ visibleConfirmation: false})
     }
     showNewLine = (sLineStatus, record, mode) => {
         this.setState({ visibleNewLine: true, mode: mode, lineData: record, lineMode: sLineStatus})
@@ -415,8 +420,11 @@ class ShippingMaster extends PureComponent {
                                         visibleConfirmation={this.state.visibleConfirmation}
                                         showConfirmation={this.showConfirmation}
                                         closeConfirmation={this.closeConfirmation}
+                                        onCloseConfirmationShipping={this.onCloseConfirmationShipping}
                                         oShippingItem={oShippingItem}
                                         loading={loading}
+                                        isSuccess={isSuccess}
+                                        close={close}
                                         operatorAll={operatorAll}
                                         warehouses={warehouses}
                                         warehouseIds={warehouseIds}
@@ -427,6 +435,9 @@ class ShippingMaster extends PureComponent {
                                         confirmShipping={this.confirmShipping}
                                         masterMode={this.state.masterMode}
                                         products={products}
+                                        changedSuccess={this.changedSuccess}
+                                        updateShippingSuccess={this.updateShippingSuccess}
+                                        changedClose={this.changedClose}
                                         
 
                                         //Props Drawer New Line

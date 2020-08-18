@@ -207,7 +207,7 @@ const NewLine = Form.create()(
             }
             if(products.length == 0){
                 for(var i = 0; i < productsAll.length; i++){
-                    productsAll[i]["quantityEdit"] = undefined
+                    productsAll[i]["quantityEdit"] = 0
                 }
             }
             const { getFieldDecorator } = this.props.form;
@@ -255,7 +255,7 @@ const NewLine = Form.create()(
                                                         ? formatMessage({ id: 'shipping.tablecomponent.label.finger'})
                                                         : formatMessage({ id: 'shipping.tablecomponent.label.no-label'})
                                     }>
-                                        {getFieldDecorator(item['WMS-1-SK'],{initialValue: item.quantityEdit === undefined ? 0 : item.quantityEdit})
+                                        {getFieldDecorator(item['WMS-1-SK'],{initialValue: item.quantityEdit })
                                         (<InputNumber min={0} max={500} style={{ width: '100%' }} disabled={oShippingItem.Operator == undefined ? false : oShippingItem.Operator == "" ? false : true} />)}
                                     </Form.Item>
                                 ))}
