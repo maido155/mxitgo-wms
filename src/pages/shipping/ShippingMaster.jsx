@@ -246,6 +246,30 @@ class ShippingMaster extends PureComponent {
             },
         });
     }
+    saveEntryShipping = (entry) => {
+        let _self = this;
+        this.props.dispatch({
+            type: 'shipping/saveEntry',
+            payload: {
+                payload: {
+                    POST: {
+                        initialDate: this.state.dateFrom,
+                        typeCondition: "entry",
+                        isMasterModified: true,
+                        comment: entry.textEntry,
+                        createdBy: entry.createdBy,
+                        date: entry.date,
+                        products: entry.products,
+                        pkWh: entry["WMS-1-PK"],
+                        skWh: entry["WMS-1-SK"],
+                        picture: entry.urlImageGeneral,
+                        Authorization: sessionStorage.getItem('idToken'),
+
+                    }
+                }
+            }
+        });
+    }
     openNotificationWithIcon = type => {
         notification[type]({
             message: formatMessage({ id: 'shipping.notification.operator' }),
@@ -441,6 +465,7 @@ class ShippingMaster extends PureComponent {
                                         visibleEntry={this.state.visibleEntry}
                                         showEntry= {this.showEntry}
                                         closeEntry={this.closeEntry}
+                                        saveEntryShipping={this.saveEntryShipping}
                                     />
                                 </Spin>
                             </Col>

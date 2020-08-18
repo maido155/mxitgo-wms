@@ -259,6 +259,7 @@ class TableShippingMaster extends PureComponent {
           closeEntry={this.props.closeEntry}
           loading={this.props.loading}
           oShippingItem={this.props.oShippingItem}
+          saveEntryShipping={this.props.saveEntryShipping}
         />
         <Table size="small" rowSelection={rowSelection} columns={columns} dataSource={datesTableShipping} scroll={isMobile ? { x: 1300 } : { x: 1350 }} pagination={false} />
       </div>
