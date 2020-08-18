@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { Table, Icon, Divider, Typography, Button } from 'antd';
 import ConfirmationDrawer from './ConfirmationShipping';
+import Entry from './drawerEntry'; //ADD
 import { isMobile } from 'react-device-detect';
 import Styles from './StylesShipping.css';
 import moment from 'moment';
@@ -115,7 +116,7 @@ class TableShippingMaster extends PureComponent {
         title: formatMessage({ id: 'shipping.label.table-shipping.actions' }),
         key: 'action',
         fixed: 'right',
-        width: isMobile ? 100 : 430,
+        width: isMobile ? 100 : 470,
         render: (record) => (
           <a>
             {record.status == "NEW"
@@ -135,15 +136,14 @@ class TableShippingMaster extends PureComponent {
                     }
                   </Button>
                   <Divider type="vertical"/>
-                    <a onClick={()=>{deleteShipping(record)}}>
-                        {isMobile
-                            ? <Icon type="delete"/>
-                            : <span><Icon type="delete"/><FormattedMessage id="general.table.delete"/></span>
-
-                        }
-                    </a >
+                  <Button type="link" onClick={()=>{deleteShipping(record["WMS-1-PK"])}}>
+                      {isMobile
+                        ? <Icon type="delete"/>
+                        : <span><Icon type="delete"/><FormattedMessage id="general.table.delete"/></span>
+                      }
+                    </Button>
                   <Divider type="vertical"/>
-                  <Button type="link" onClick={() => {this.showEntry(record["WMS-1-PK"], record.status)}} disabled={true}>
+                  <Button type="link" onClick={() => {this.props.showEntry(record["WMS-1-PK"], record.status)}} disabled={true}>
                     {isMobile
                       ? <Icon type="form" />
                       : <a><Icon type="form" /> <FormattedMessage id="shipping.label.table-shipping.entry" /></a>
@@ -167,15 +167,14 @@ class TableShippingMaster extends PureComponent {
                       }
                     </Button>
                     <Divider type="vertical"/>
-                    <a onClick={()=>{deleteShipping(record)}}>
-                        {isMobile
-                            ? <Icon type="delete"/>
-                            : <span><Icon type="delete"/><FormattedMessage id="general.table.delete"/></span>
-
-                        }
-                    </a >
+                    <Button type="link" onClick={()=>{deleteShipping(record["WMS-1-PK"])}} disabled={true}>
+                      {isMobile
+                        ? <Icon type="delete"/>
+                        : <span><Icon type="delete"/><FormattedMessage id="general.table.delete"/></span>
+                      }
+                    </Button>
                     <Divider type="vertical"/>
-                    <Button type="link" onClick={() => {this.showEntry(record["WMS-1-PK"], record.status)}}>
+                    <Button type="link" onClick={() => {this.props.showEntry(record["WMS-1-PK"], record.status)}}>
                       {isMobile
                         ? <Icon type="form" />
                         : <a><Icon type="form" /> <FormattedMessage id="shipping.label.table-shipping.entry" /></a>
@@ -198,15 +197,14 @@ class TableShippingMaster extends PureComponent {
                       }
                     </Button>
                     <Divider type="vertical"/>
-                    <a onClick={()=>{deleteShipping(record)}}>
-                          {isMobile
-                              ? <Icon type="delete"/>
-                              : <span><Icon type="delete"/><FormattedMessage id="general.table.delete"/></span>
-
-                          }
-                      </a >
+                    <Button type="link" onClick={()=>{deleteShipping(record["WMS-1-PK"])}} disabled={true}>
+                      {isMobile
+                        ? <Icon type="delete"/>
+                        : <span><Icon type="delete"/><FormattedMessage id="general.table.delete"/></span>
+                      }
+                    </Button>
                     <Divider type="vertical"/>
-                    <Button type="link" onClick={() => {this.showEntry(record["WMS-1-PK"], record.status)}}>
+                    <Button type="link" onClick={() => {this.props.showEntry(record["WMS-1-PK"], record.status)}}>
                       {isMobile
                         ? <Icon type="form" />
                         : <a><Icon type="form" /> <FormattedMessage id="shipping.label.table-shipping.entry" /></a>
@@ -255,6 +253,12 @@ class TableShippingMaster extends PureComponent {
           mode={this.props.mode}
           productsAll={this.props.productsAll}
           locationTreeData={this.props.locationTreeData}
+        />
+        <Entry
+          visibleEntry={this.props.visibleEntry}
+          closeEntry={this.props.closeEntry}
+          loading={this.props.loading}
+          oShippingItem={this.props.oShippingItem}
         />
         <Table size="small" rowSelection={rowSelection} columns={columns} dataSource={datesTableShipping} scroll={isMobile ? { x: 1300 } : { x: 1350 }} pagination={false} />
       </div>
