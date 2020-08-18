@@ -4,7 +4,7 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { _ } from 'lodash';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import RadioGroupComponent from '../generalComponents/RadioGroupComponent';
+import SelectProduct from '../generalComponents/SelectProduct';
 import { Row, Col, Card, Tooltip, Typography, Progress, Form, DatePicker, Statistic,Icon, Steps } from 'antd';
 import { isMobile, isTablet } from "react-device-detect";
 import { formatMessage } from 'umi-plugin-react/locale';
@@ -63,11 +63,17 @@ export default class Dashboard extends PureComponent {
   state = {
     currentSelectedDate : "2020-07-08",
     currentSelectedProduct: "",
+    currentSelectedProductDesc:"",
     currentCustomer : "CUSTOMER-1",
     products: ["PRODUCT-1", "PRODUCT-2"]
   };
 
   selectionMade = (product, customer, startDate) => {
+
+    if( product === "" || customer ==="" || startDate ==="")
+    {
+      return;
+    }
     
     this.props.dispatch({
       type: 'dashboard/getWeekProgrammingTotals',
@@ -147,11 +153,15 @@ export default class Dashboard extends PureComponent {
   }
 
 
-  onProductChange  = (oEvent) => {
+  onProductChange  = (value,key) => {
 
-      this.setState({currentSelectedProduct: oEvent})
+      this.setState(
+        {
+          currentSelectedProduct: value,
+          currentSelectedProductDesc:key.props.children
+        })
 
-      this.selectionMade(oEvent, this.state.currentCustomer, this.state.currentSelectedDate);
+      this.selectionMade(value, this.state.currentCustomer, this.state.currentSelectedDate);
 
   }
 
@@ -206,7 +216,7 @@ export default class Dashboard extends PureComponent {
               <DatePicker format="YYYY-MM-DD" disabledDate={disabledDate} onChange={this.onPickerChange}/>
             </Form.Item>
             <Form.Item {...formItemLayout} label={formatMessage({id: "general.button-product.product"})}>
-              <RadioGroupComponent datesProductAll={datesProductAll} handleProduct={this.onProductChange}/>
+              <SelectProduct datesProductAll={datesProductAll} handleProduct={this.onProductChange}/>
             </Form.Item>
 
             {/* <div>
@@ -222,10 +232,10 @@ export default class Dashboard extends PureComponent {
 
           </Form>
         }>
-        <Card type="inner" style={{textAlign:"center"}}  title={`Product: ${this.state.currentSelectedProduct}`}>
+        <Card type="inner" style={{textAlign:"center"}}  title={`Product: ${this.state.currentSelectedProductDesc}`}>
           
           <div>
-          <StepsDashBoard currentDay={this.getNumberDay()} />
+          <StepsDashBoard currentDay={this.getNumberDay()} data={this.props.dashboard} />
           
             {/* <GridDashboard  
             Monday = {this.props.dashboard.Monday} 

@@ -6,8 +6,16 @@ import { FormattedMessage} from 'umi-plugin-react/locale';
 const { Step } = Steps;
 
 class StepDayWeek extends PureComponent {
-  
+  getTotal=(dataPerDay)=>{
+    return dataPerDay.planned+dataPerDay.confirmed+dataPerDay.cancelled;
+
+  }
   render() {
+
+    const {dataPerDay} = this.props;
+    console.log(dataPerDay);
+
+    
       
         return (
 
@@ -18,20 +26,20 @@ class StepDayWeek extends PureComponent {
               description={ <div>
                           <div style={{display:"flex"}}>
                                 <div>Total:</div>
-                                <div style={{textAlign:"right",flexGrow:4}} ><h2>35</h2></div>
+              <div style={{textAlign:"right",flexGrow:4}} ><h2>{this.getTotal(dataPerDay)}</h2></div>
                             </div>
                             <Progress percent={50} showInfo={false} />
                             <div style={{display:"flex"}}>
                                 <div> <i> Planeados:</i></div>
-                                <div style={{textAlign:"right",flexGrow:4}} ><b>10</b></div>
+                                <div style={{textAlign:"right",flexGrow:4}} ><b>{dataPerDay.planned}</b></div>
                             </div>
                             <div style={{display:"flex"}}>
                               <div><i>Confirmados:</i> </div>
-                              <div style={{textAlign:"right",flexGrow:4}}><b>20</b></div>
+                              <div style={{textAlign:"right",flexGrow:4}}><b>{dataPerDay.confirmed}</b></div>
                             </div>
                             <div style={{display:"flex"}}>
                               <div><i> Cancelados:</i></div>
-                              <div style={{textAlign:"right",flexGrow:4}}><b>5</b></div>
+                              <div style={{textAlign:"right",flexGrow:4}}><b>{dataPerDay.cancelled}</b></div>
                             </div>
                             
                             </div>} />
