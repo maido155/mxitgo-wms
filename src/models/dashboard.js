@@ -68,6 +68,14 @@ export default {
 
     },
     effects: {
+
+        * init({ payload }, { call, put }) {
+            yield put({
+                type: 'reducerInit',
+                payload: {},
+            });
+        },
+
         * getWeekProgrammingTotals({ payload }, { call, put }) {
 
 

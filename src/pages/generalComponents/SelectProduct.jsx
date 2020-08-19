@@ -4,7 +4,7 @@ import {  Form, Select} from 'antd';
 import { _ } from 'lodash';
 import { Radio } from 'antd';
 
-export default class RadioGroupComponent extends PureComponent{
+export default class SelectProduct extends PureComponent{
     render(){
         const formItemLayout = {
             labelCol: { xs: { span: 24 }, sm: { span: 9 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 9 } },
