@@ -16,7 +16,7 @@ class GridDashboard extends PureComponent {
         return (
         <div>
 
-          <Row type="flex" justify="space-around">
+          {/* <Row type="flex" justify="space-around">
               <Col span={6}></Col>
               <Col span={12}><Title level={4}>Totales</Title></Col>
           </Row>
@@ -45,10 +45,10 @@ class GridDashboard extends PureComponent {
                   </Tooltip>
                 </Card>
               </Col>
-          </Row>
+          </Row> */}
         
           
-          <Divider/>
+          {/* <Divider/> */}
           <Row type="flex" justify="space-around">
          
               <Col xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
