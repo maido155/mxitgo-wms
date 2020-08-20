@@ -13,7 +13,7 @@ class StepsDashBoard extends PureComponent {
       
         return (
         <div>
-          <Steps   type="navigation" size="small"  current={currentDay}>
+          <Steps   type="navigation" current={currentDay}>
             <StepDayWeek dataPerDay={data["Wednesday"]} title="Miércoles &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />
             <StepDayWeek dataPerDay={data["Thursday"]} title=" &nbsp; Jueves &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "/>
             <StepDayWeek dataPerDay={data["Friday"]}  title="Viernes &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/>
