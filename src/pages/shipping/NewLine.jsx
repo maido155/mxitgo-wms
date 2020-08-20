@@ -179,40 +179,33 @@ const NewLine = Form.create()(
                 }
             });
         }
+        getNewLineEdit = (item,lineData) => {
+            let products = [];
+            if(Object.keys(lineData).length != 0){
+                for(const prop in lineData){
+                    let produ = {
+                        "quantity": lineData[prop],
+                        "name": prop
+                    }
+                    products.push(produ)
+                }
+                let getWarehouse = products.filter(function(data){
+                    return data.name == item["WMS-1-SK"];
+                })
+                item["quantityEdit"] = getWarehouse[0].quantity;
+                return item.quantityEdit
+            }
+            return 0
+        }
         render() {
             const formItemLayout = {
                 labelCol: { xs: { span: 24 }, sm: { span: 8 }, md: { span: 8 }, lg: { span: 8 }, xl: { span: 6 } },
                 wrapperCol: { xs: { span: 24 }, sm: { span: 12 }, md: { span: 12 }, lg: { span: 12 }, xl: { span: 14 } }
             };
             var { lineData, mode, productsAll, whName, oShippingItem } = this.props;
+            const { getFieldDecorator } = this.props.form;
             if (typeof lineData == "undefined") {
                 lineData = {};
-            }
-            let products = [];
-            for(const prop in lineData){
-                let produ = {
-                    "quantity": lineData[prop],
-                    "name": prop
-                }
-                products.push(produ)
-            }
-            if(productsAll != undefined){
-                let iProduct = productsAll.map(function(data){
-                    for(var i = 0; i < products.length; i++){
-                        if(data["WMS-1-SK"] == products[i].name){
-                            data["quantityEdit"] = products[i].quantity;
-                        }
-                    }
-                })
-            }
-            if(products.length == 0){
-                for(var i = 0; i < productsAll.length; i++){
-                    productsAll[i]["quantityEdit"] = undefined
-                }
-            }
-            const { getFieldDecorator } = this.props.form;
-            if(whName == "" || whName == undefined){
-                this.props.form.resetFields();
             }
             return (
                 <div>
@@ -255,8 +248,8 @@ const NewLine = Form.create()(
                                                         ? formatMessage({ id: 'shipping.tablecomponent.label.finger'})
                                                         : formatMessage({ id: 'shipping.tablecomponent.label.no-label'})
                                     }>
-                                        {getFieldDecorator(item['WMS-1-SK'],{initialValue: item.quantityEdit === undefined ? 0 : item.quantityEdit})
-                                        (<InputNumber min={0} max={500} style={{ width: '100%' }} disabled={oShippingItem.Operator == undefined ? false : oShippingItem.Operator == "" ? false : true} />)}
+                                        {getFieldDecorator(item['WMS-1-SK'],{initialValue: this.getNewLineEdit(item,lineData)})
+                                        (<InputNumber min={0} max={500} style={{ width: '100%' }}/>)}
                                     </Form.Item>
                                 ))}
                                 <div
