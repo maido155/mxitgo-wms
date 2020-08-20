@@ -138,7 +138,9 @@ class drawerEntry extends PureComponent {
             values["products"] = products;
             values["WMS-1-PK"] = oShippingItem.idShipping
             values["WMS-1-SK"] = oShippingItem.idShipping.substr(4)
+            values["skWh"] = oShippingItem.warehouse
             this.props.saveEntryShipping(values);
+            this.props.form.resetFields();
         });
     }
     productsEntry = (products) => {
@@ -201,7 +203,11 @@ class drawerEntry extends PureComponent {
         this.setState({
           visisbleProducts: false,
         });
-      };
+    };
+    onCloseDrawerPrincipal = () => {
+        this.setState({ imageUrl: ""})
+        this.props.closeEntry();
+    }
     render() {
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 24 },md: { span: 9 },lg: { span: 8 },xl: { span: 7 }},
@@ -217,6 +223,19 @@ class drawerEntry extends PureComponent {
         const { oShippingItem } = this.props;
         const { dataSource, imageUrl } = this.state;
         this.setState({ currentLoader });
+        if (this.props.isSuccess == true) {
+            if(this.props.masterMode == "NEW"){
+                this.props.changedSuccess();
+                message.success('Se agregó con éxito');
+            }else{
+                this.props.updateShippingSuccess();
+                message.success('Se editó con éxito');
+            }
+        }
+        if (this.props.close == true) {
+            this.props.closeEntry();
+            this.props.changedClose();
+        }
       return (
         <div>
             <Drawer
@@ -246,7 +265,8 @@ class drawerEntry extends PureComponent {
                             </Col>
                             <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                 <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.comments' })}>
-                                    {getFieldDecorator('textEntry',{ rules: [{ required: true, message: "as" }]})(<TextArea/>)}
+                                    {getFieldDecorator('textEntry',{ initialValue:  oShippingItem == undefined || oShippingItem.commentEntry == undefined ? "" : oShippingItem.commentEntry, 
+                                    rules: [{ required: true, message: "as" }]})(<TextArea disabled={oShippingItem == undefined || oShippingItem.commentEntry == undefined ? false : true}/>)}
                                 </Form.Item>
                                 <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.photo' })}>
                                     <Upload
@@ -256,8 +276,14 @@ class drawerEntry extends PureComponent {
                                         showUploadList={false}
                                         beforeUpload={beforeUpload}
                                         onChange={this.handleChange}
+                                        disabled={oShippingItem == undefined || oShippingItem.commentEntry == undefined ? false : true}
                                     >
-                                        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                                        { oShippingItem == undefined || oShippingItem.commentEntry == undefined ?
+                                            imageUrl ? 
+                                                <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/> 
+                                                : uploadButton
+                                            : <img src={oShippingItem.picture} alt="avatar" style={{ width: '100%' }}/>
+                                        }
                                     </Upload> 
                                 </Form.Item>
                             </Col>
@@ -275,12 +301,14 @@ class drawerEntry extends PureComponent {
                         textAlign: 'right',
                         }}
                     >
-                        <Button onClick={this.props.closeEntry} style={{ marginRight: 8 }} type="danger">
+                        <Button onClick={this.onCloseDrawerPrincipal} style={{ marginRight: 8 }} type="danger">
                             <FormattedMessage id="shipping.button.cancel"/>
                         </Button>
-                        <Button type="primary" htmlType="submit">
-                            <FormattedMessage id="shipping.button.conf"/>
-                        </Button>
+                        { oShippingItem == undefined || oShippingItem.commentEntry == undefined &&
+                            <Button type="primary" htmlType="submit">
+                                <FormattedMessage id="shipping.button.conf"/>
+                            </Button>
+                        }
                     </div>
                 </Form>
             </Drawer>

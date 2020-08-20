@@ -254,14 +254,15 @@ class ShippingMaster extends PureComponent {
                 payload: {
                     POST: {
                         initialDate: this.state.dateFrom,
-                        typeCondition: "entry",
+                        typeCondition: "Entry",
                         isMasterModified: true,
                         comment: entry.textEntry,
                         createdBy: entry.createdBy,
                         date: entry.date,
                         products: entry.products,
-                        pkWh: entry["WMS-1-PK"],
-                        skWh: entry["WMS-1-SK"],
+                        pk: entry["WMS-1-PK"],
+                        sk: entry["WMS-1-SK"],
+                        skWh: entry.skWh,
                         picture: entry.urlImageGeneral,
                         Authorization: sessionStorage.getItem('idToken'),
 
@@ -349,10 +350,10 @@ class ShippingMaster extends PureComponent {
             payload: {}
         })
     }
-    showEntry = (shipping, status) => {
+    showEntry = (shipping) => {
         this.props.dispatch({
             type: 'shipping/getShipping',
-            payload: { id: shipping, status: status}
+            payload: { id: shipping, status: "Entry"}
         })
         this.setState({ visibleEntry: true})
     }
@@ -466,6 +467,12 @@ class ShippingMaster extends PureComponent {
                                         showEntry= {this.showEntry}
                                         closeEntry={this.closeEntry}
                                         saveEntryShipping={this.saveEntryShipping}
+                                        changedSuccess={this.changedSuccess}
+                                        updateShippingSuccess={this.updateShippingSuccess}
+                                        closeDrawerShipping={this.closeDrawerShipping}
+                                        close={close}
+                                        isSuccess={isSuccess}
+                                        changedClose={this.changedClose}
                                     />
                                 </Spin>
                             </Col>

@@ -23,6 +23,8 @@ function beforeUpload(file) {
         return isJpgOrPng && isLt2M;
 }
 
+var disabledInputs = false;
+
 class drawerEntryProducts extends PureComponent {
     state = {
         loading: false,
@@ -61,11 +63,61 @@ class drawerEntryProducts extends PureComponent {
             this.props.onCancel();
         });
     }
+    typeProductName = (data) => {
+        const { typeProduct } = this.props;
+        if(data.commentEntry != undefined){
+            if(data.products.length != 0){
+                var getProducto = data.products[0].filter(function(data){
+                    return data.product == typeProduct;
+                })
+                disabledInputs = true;
+                return getProducto.length == 0 ? "" : getProducto[0].amount
+            }
+        }else{
+            disabledInputs = false;
+            return ""
+        }
+    }
+    typeTemName = (data) => {
+        const { typeProduct } = this.props;
+        if(data.commentEntry != undefined){
+            if(data.products.length != 0){
+                var getProducto = data.products[0].filter(function(data){
+                    return data.product == typeProduct;
+                })
+                disabledInputs = true;
+                return getProducto.length == 0 ? "" : getProducto[0].temp
+            }
+        }else{
+            disabledInputs = false;
+            return ""
+        }
+    }
+    typePictureName = (data, uploadButton) => {
+        const { typeProduct } = this.props;
+        const { imageUrl } = this.state;
+        if(data.commentEntry != undefined){
+            if(data.products.length != 0){
+                var getProducto = data.products[0].filter(function(data){
+                    return data.product == typeProduct;
+                })
+                disabledInputs = true;
+                return getProducto.length == 0 ? imageUrl ?
+                    <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/>
+                    : uploadButton
+                :<img src={getProducto[0].picture} alt="avatar" style={{ width: '100%' }}/>
+            }
+        }else{
+            disabledInputs = false;
+            return imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/> : uploadButton
+        }
+    }
     render() {
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 24 },md: { span: 8 },lg: { span: 8 },xl: { span: 6 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 24 },md: { span: 12 },lg: { span: 12 },xl: { span: 14 }}
         };
+        const { oShippingItem, typeProduct } = this.props;
         const { getFieldDecorator } = this.props.form;
         const uploadButton = (
             <div>
@@ -84,10 +136,12 @@ class drawerEntryProducts extends PureComponent {
             >
                 <Form {...formItemLayout} onSubmit={this.handleEntryProduct} style={{marginTop: "5rem"}} >
                     <Form.Item label={formatMessage({ id: 'shipping.entryProducts.amounts' })}>
-                        {getFieldDecorator('entryProduct',{rules: [{ required: true, message: "Fecha no seleccionada" }] })(<InputNumber style={{ width: "100%"}}/>)}
+                        {getFieldDecorator('entryProduct',{ initialValue: this.typeProductName(oShippingItem), 
+                        rules: [{ required: true, message: "Fecha no seleccionada" }] })(<InputNumber style={{ width: "100%"}} disabled={disabledInputs}/>)}
                     </Form.Item>
                     <Form.Item label={formatMessage({ id: 'shipping.entryProducts.temperature' })}>
-                    {getFieldDecorator('temperatureProduct',{rules: [{ required: true, message: "Fecha no seleccionada" }] })(<Input/>)}
+                        {getFieldDecorator('temperatureProduct',{ initialValue: this.typeTemName(oShippingItem),
+                        rules: [{ required: true, message: "Fecha no seleccionada" }] })(<Input disabled={disabledInputs}/>)}
                     </Form.Item>
                     <Form.Item label={formatMessage({ id: 'shipping.entryProducts.photo' })}>
                         <Upload
@@ -95,11 +149,11 @@ class drawerEntryProducts extends PureComponent {
                             listType="picture-card"
                             className="avatar-uploader"
                             showUploadList={false}
-                            // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                             beforeUpload={beforeUpload}
                             onChange={this.handleChange}
+                            disabled={disabledInputs}
                         >
-                            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                            {this.typePictureName(oShippingItem, uploadButton)}
                         </Upload>
                     </Form.Item>
                     <div
@@ -117,9 +171,11 @@ class drawerEntryProducts extends PureComponent {
                         <Button onClick={this.props.onCancel} style={{ marginRight: 8 }} type="danger">
                             Cancelar
                         </Button>
-                        <Button type="primary" htmlType="submit">
-                            Programar
-                        </Button>
+                        { oShippingItem == undefined || oShippingItem.commentEntry == undefined &&
+                            <Button type="primary" htmlType="submit">
+                                Programar
+                            </Button>
+                        }
                     </div>
                 </Form>
             </Drawer>
