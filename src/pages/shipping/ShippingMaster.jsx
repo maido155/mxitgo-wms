@@ -246,6 +246,31 @@ class ShippingMaster extends PureComponent {
             },
         });
     }
+    saveEntryShipping = (entry) => {
+        let _self = this;
+        this.props.dispatch({
+            type: 'shipping/saveEntry',
+            payload: {
+                payload: {
+                    POST: {
+                        initialDate: this.state.dateFrom,
+                        typeCondition: "Entry",
+                        isMasterModified: true,
+                        comment: entry.textEntry,
+                        createdBy: entry.createdBy,
+                        date: entry.date,
+                        products: entry.products,
+                        pk: entry["WMS-1-PK"],
+                        sk: entry["WMS-1-SK"],
+                        skWh: entry.skWh,
+                        picture: entry.urlImageGeneral,
+                        Authorization: sessionStorage.getItem('idToken'),
+
+                    }
+                }
+            }
+        });
+    }
     openNotificationWithIcon = type => {
         notification[type]({
             message: formatMessage({ id: 'shipping.notification.operator' }),
@@ -325,10 +350,10 @@ class ShippingMaster extends PureComponent {
             payload: {}
         })
     }
-    showEntry = (shipping, status) => {
+    showEntry = (shipping) => {
         this.props.dispatch({
             type: 'shipping/getShipping',
-            payload: { id: shipping, status: status}
+            payload: { id: shipping, status: "Entry"}
         })
         this.setState({ visibleEntry: true})
     }
@@ -441,6 +466,13 @@ class ShippingMaster extends PureComponent {
                                         visibleEntry={this.state.visibleEntry}
                                         showEntry= {this.showEntry}
                                         closeEntry={this.closeEntry}
+                                        saveEntryShipping={this.saveEntryShipping}
+                                        changedSuccess={this.changedSuccess}
+                                        updateShippingSuccess={this.updateShippingSuccess}
+                                        closeDrawerShipping={this.closeDrawerShipping}
+                                        close={close}
+                                        isSuccess={isSuccess}
+                                        changedClose={this.changedClose}
                                     />
                                 </Spin>
                             </Col>
