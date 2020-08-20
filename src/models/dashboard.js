@@ -4,70 +4,78 @@ export default {
     namespace: 'dashboard',
     state: {
 
-        programmingTotalPRODUCT1: 0,
-        programmingTotalPRODUCT2: 0,
+        programmingTotalPRODUCT1: "",
+        programmingTotalPRODUCT2: "",
 
-        programmingTotal: { programmingTotal: 0, new: 0, cancelled: 0, confirmed: 0 },
+        programmingTotal: { total: "", new: "", cancelled: "", confirmed: "" },
         Monday: {
-            programmed: 0,
-            planned: 0,
-            confirmed: 0,
-            cancelled: 0,
-            plannedPercentage: 0,
-            confirmedPercentage: 0
+            programmed: "",
+            planned: "",
+            confirmed: "",
+            cancelled: "",
+            plannedPercentage: "",
+            confirmedPercentage: ""
         },
         Tuesday: {
-            programmed: 0,
-            planned: 0,
-            confirmed: 0,
-            cancelled: 0,
-            plannedPercentage: 0,
-            confirmedPercentage: 0
+            programmed: "",
+            planned: "",
+            confirmed: "",
+            cancelled: "",
+            plannedPercentage: "",
+            confirmedPercentage: ""
         },
         Wednesday: {
-            programmed: 0,
-            planned: 0,
-            confirmed: 0,
-            cancelled: 0,
-            plannedPercentage: 0,
-            confirmedPercentage: 0
+            programmed: "",
+            planned: "",
+            confirmed: "",
+            cancelled: "",
+            plannedPercentage: "",
+            confirmedPercentage: ""
         },
         Thursday: {
-            programmed: 0,
-            planned: 0,
-            confirmed: 0,
-            cancelled: 0,
-            plannedPercentage: 0,
-            confirmedPercentage: 0
+            programmed: "",
+            planned: "",
+            confirmed: "",
+            cancelled: "",
+            plannedPercentage: "",
+            confirmedPercentage: ""
         },
         Friday: {
-            programmed: 0,
-            planned: 0,
-            confirmed: 0,
-            cancelled: 0,
-            plannedPercentage: 0,
-            confirmedPercentage: 0
+            programmed: "",
+            planned: "",
+            confirmed: "",
+            cancelled: "",
+            plannedPercentage: "",
+            confirmedPercentage: ""
         },
         Saturday: {
-            programmed: 0,
-            planned: 0,
-            confirmed: 0,
-            cancelled: 0,
-            plannedPercentage: 0,
-            confirmedPercentage: 0
+            programmed: "",
+            planned: "",
+            confirmed: "",
+            cancelled: "",
+            plannedPercentage: "",
+            confirmedPercentage: ""
         },
         Sunday: {
-            programmed: 0,
-            planned: 0,
-            confirmed: 0,
-            cancelled: 0,
-            plannedPercentage: 0,
-            confirmedPercentage: 0
+            programmed: "",
+            planned: "",
+            confirmed: "",
+            cancelled: "",
+            plannedPercentage: "",
+            confirmedPercentage: ""
         }
 
 
     },
     effects: {
+
+        * init({ payload }, { call, put }) {
+            yield put({
+                type: 'reducerInit',
+                payload: {},
+            });
+        },
+
         * getWeekProgrammingTotals({ payload }, { call, put }) {
 
 

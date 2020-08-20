@@ -159,6 +159,22 @@ export default {
                 payload: payload.payload,
             });
         },
+        * saveEntry({ payload }, { call, put }) {
+            const response = yield call(saveShipping, payload);
+            console.log(response);
+            console.log(response);
+            yield put({
+                type: 'saveShippingReducer',
+                payload: response,
+            });
+            const responseGetAll = yield call(fetchShippingAll, payload);
+            console.log(responseGetAll);
+            console.log(responseGetAll);
+            yield put({
+                type: 'queryGetShippingAll',
+                payload: responseGetAll,
+            });
+        }
     },
 
     reducers: {

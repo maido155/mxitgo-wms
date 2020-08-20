@@ -61,25 +61,27 @@ export default class TableAssignment extends PureComponent {
                   { record.availables_pallets==0&&record.availables_boxes==0
                     ?<a disabled onClick={ () => {this.showDrawerAssigProduct(record)} }><FormattedMessage id="outComming.label.tableassignment-assign"/></a>
                     :<a onClick={ () => {this.showDrawerAssigProduct(record)} }><FormattedMessage id="outComming.label.tableassignment-assign"/></a>
-                  }   
-                  <DrawerAssignment 
-                          postOutcomming= {this.props.postOutcomming} 
-                          datesProductAll = {this.props.datesProductAll} 
-                          visible={this.props.visibleAssignProduct} 
-                          onClose={this.onDrawerAssigProduct} 
-                          currentOutcomming={this.props.currentOutcomming} 
-                          currentShipping={this.state.currentItem}/>     
+                  }  
               </span>
             )
         }
       ];
         return (
+          <div>
+            <DrawerAssignment 
+                          postOutcomming= {this.props.postOutcomming} 
+                          datesProductAll = {this.props.datesProductAll} 
+                          visible={this.props.visibleAssignProduct} 
+                          onClose={this.onDrawerAssigProduct} 
+                          currentOutcomming={this.props.currentOutcomming} 
+                          currentShipping={this.state.currentItem}/>  
             <Table 
                 loading = {this.props.loading} 
                 columns={columns} 
                 dataSource={dataOutcommingsByEntry} 
                 scroll={isMobile ? {x: 860}: {x: 840}} 
                 pagination={false}/>
+          </div>
         );            
     }
 }

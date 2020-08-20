@@ -3,36 +3,7 @@ import { Row, Form, DatePicker, Select,Col} from 'antd';
 import { formatMessage } from 'umi-plugin-react/locale';
 import moment from 'moment';
 
-
-var mulInputs = {
-    palletOne: 0,
-    palletTwo: 0,
-    palletThree: 0,
-    palletFour: 0,
-    palletFive: 0
-} 
-var sumInputs = {
-    boxOne: 0, 
-    boxTwo: 0,
-    boxThree: 0,
-    boxFour: 0,
-    boxFive: 0
-}
 function disabledDate(current) {
-    mulInputs = {
-        palletOne: 0,
-        palletTwo: 0,
-        palletThree: 0,
-        palletFour: 0,
-        palletFive: 0
-    }
-    sumInputs = {
-        boxOne: 0,
-        boxTwo: 0,
-        boxThree: 0,
-        boxFour: 0,
-        boxFive: 0
-    }
     let dateMonday = moment(current).isoWeekday(1);
     let dateThursday = moment(current).isoWeekday(2);
     let dateTuesday = moment(current).isoWeekday(4);
@@ -52,15 +23,7 @@ function disabledDate(current) {
 }
 
 class FilterFormOutcomingForm extends PureComponent {
-    state = {
-        pallets: 0,
-        box: 0,
-        isFirstTime: true,
-        // newBoxValue: 0,
-        currentValuePallet: 0,
-        currentValueBox: 0
-    }
-
+    
     componentDidMount() {}
 
     render() {
@@ -75,26 +38,8 @@ class FilterFormOutcomingForm extends PureComponent {
                 <span>loading...</span>
             );
         } 
-       /*  const menuProduct = (
-            <Menu onClick={(e)=>{this.handleProduct(e,this)}}>
-
-                {this.props.datesProductAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.productName}</Menu.Item>))}
-
-            </Menu>
-          );
-
-          const menuClient = (
-            <Menu onClick={(e)=>{this.handleClient(e,this)}} >
-                {this.props.datesCustomerAll.map(item => (<Menu.Item key={item["WMS-1-SK"]}>{item.clientName}</Menu.Item>))}
-            </Menu>
-          ); */
-
         
         return (
-            
-
-                
-                
                 <Form style={{paddingRight:"2rem"}} layout="inline" >    
                         <Form.Item {...formItemLayout} label={formatMessage({id: "general.calendar.week"})}>
                             <DatePicker format="YYYY-MM-DD" style={{ width: 120 }} 

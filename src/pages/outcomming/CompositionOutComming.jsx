@@ -10,10 +10,9 @@ export default class CompositionOutComming extends PureComponent {
     state ={
         visibleAssign: false,
     }
-    showDrawerAssig = () => {
-
-
-        this.setState({
+    showDrawerAssig = (_this) => {
+        _this.props.getOutcommingByEntry(_this.props.currentOutcomming.key,_this.props.productKey); 
+        _this.setState({
           visibleAssign: true,
         });
     };
@@ -49,15 +48,28 @@ export default class CompositionOutComming extends PureComponent {
                             borderRadius: '0 0 4px 4px',
                         }}
                     >
-                        <Button style={{marginRight: 8,}} onClick={this.showDrawerAssig}>
+                        <Button style={{marginRight: 8,}} onClick={()=>{this.showDrawerAssig(this)}}>
                             <FormattedMessage id="outComming.button.composition-outcomming-assing"/>
                         </Button>
                         <Button onClick={this.props.closeTwo} type="primary">
-                            <FormattedMessage id="outComming.button.composition-outcomming-ok"/>
+                            <FormattedMessage id="outComming.button.close-assignment-outcomming"/>
                         </Button>
                     </div>
                 </Drawer>
-                <Assignment visibleOne={this.state.visibleAssign} closeOne={this.onDrawerAssig}/>
+                <Assignment 
+                    loading = {this.props.loading}
+                    productDesc = {this.props.productDesc}
+                    datesProductAll = {this.props.datesProductAll}
+                    visibleOne={this.state.visibleAssign} 
+                    currentOutcomming={this.props.currentOutcomming}
+                    closeOne={this.onDrawerAssig}
+                    postOutcomming= {this.props.postOutcomming}
+                    restartOutcomming= {this.props.restartOutcomming}
+                    recordKey= {this.props.recordKey}
+                    visibleAssignProduct={this.props.visibleAssignProduct} 
+                    setVisibleAssignProduct={this.props.setVisibleAssignProduct}
+                    dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
+                />
             </div>
         );            
     }
