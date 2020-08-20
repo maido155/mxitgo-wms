@@ -10,25 +10,6 @@ import FilterFormOutcoming from './FilterFormOutcoming';
 import { connect } from 'dva';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
-function disabledDate(current) {
-    let dateMonday = moment(current).isoWeekday(1);
-    let dateThursday = moment(current).isoWeekday(2);
-    let dateTuesday = moment(current).isoWeekday(4);
-    let dateFriday = moment(current).isoWeekday(5);
-    let dateSaturday = moment(current).isoWeekday(6);
-    let dateSunday = moment(current).isoWeekday(7);
-    let dateAll = moment(current).format('dddd DD MMMM');
-    let compareMonday = moment(dateMonday).format('dddd DD MMMM');
-    let compareThursday = moment(dateThursday).format('dddd DD MMMM');
-    let compareTuesday = moment(dateTuesday).format('dddd DD MMMM');
-    let compareFriday = moment(dateFriday).format('dddd DD MMMM');
-    let compareSaturday = moment(dateSaturday).format('dddd DD MMMM');
-    let compareSunday = moment(dateSunday).format('dddd DD MMMM');
-    if(dateAll === compareMonday || dateAll === compareThursday || dateAll === compareTuesday || dateAll === compareFriday || dateAll === compareSaturday || dateAll === compareSunday){
-        return true;
-    }
-}
-
 @connect(({ outcomming, programming, loading }) => ({
     outcomming,
     programming,

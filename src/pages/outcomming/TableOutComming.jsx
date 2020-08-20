@@ -22,16 +22,20 @@ export default class TableOutComming extends PureComponent {
         
         this.props.getOutcommingByEntry(oc,this.props.productKey);
     };
-    showDrawerCompo = (id) => {
+    showDrawerCompo = (id, item) => {
+        let oc = item.key;
+        this.setState({
+          currentRecord: item,
+          recordKey: oc,
+        });
         this.props.onShowCompositionData(id);
-
         this.props.setVisibleCompo(true);
     };
     onCloseDrawerAssig = () => {
         this.props.setVisibleAssign(false);
     };
     onCloseDrawerCompo = () => {
-        this.props.setVisibleCompo(true);
+        this.props.setVisibleCompo(false);
     };
     render() {
         let {dataOutcommingsByEntry} = this.props;
@@ -76,10 +80,10 @@ export default class TableOutComming extends PureComponent {
                             </Button>}
                         <Divider type="vertical" />
                         { record.key=="" 
-                            ?<Button disabled onClick={()=>{this.showDrawerCompo(record.key)}}>
+                            ?<Button disabled onClick={()=>{this.showDrawerCompo(record.key, record)}}>
                                 <FormattedMessage id="outComming.button.composition"/>
                              </Button>
-                            :<Button onClick={()=>{this.showDrawerCompo(record.key)}}>
+                            :<Button onClick={()=>{this.showDrawerCompo(record.key, record)}}>
                                 <FormattedMessage id="outComming.button.composition"/>
                              </Button>                                       
                         }    
@@ -94,34 +98,48 @@ export default class TableOutComming extends PureComponent {
                                 }
                                     
                                 </span> 
-                        }      
-                        <AssignmentOutComming 
-                            loading = {this.props.loading}
-                            productDesc = {this.props.productDesc}
-                            datesProductAll = {this.props.datesProductAll}
-                            visibleOne={this.props.visibleAssign}
-                            currentOutcomming={this.state.currentRecord}
-                            closeOne={this.onCloseDrawerAssig}
-                            postOutcomming= {this.props.postOutcomming}
-                            restartOutcomming= {this.props.restartOutcomming}
-                            recordKey= {this.state.recordKey}
-                            visibleAssignProduct={this.props.visibleAssignProduct} 
-                            setVisibleAssignProduct={this.props.setVisibleAssignProduct}
-                            dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
-                        />
-                        <CompositionOutComming
-                            loading = {this.props.loading}
-                            compositionData = {this.props.compositionData}
-                            visibleTwo={this.props.visibleCompo}
-                            closeTwo={this.onCloseDrawerCompo}
-                        />
+                        }
                   </span>
                 ),
             }
         ];
                    
         return (
-            <Table loading = {this.props.loading} columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
+            <div>
+                <AssignmentOutComming 
+                        loading = {this.props.loading}
+                        productDesc = {this.props.productDesc}
+                        datesProductAll = {this.props.datesProductAll}
+                        visibleOne={this.props.visibleAssign}
+                        currentOutcomming={this.state.currentRecord}
+                        closeOne={this.onCloseDrawerAssig}
+                        postOutcomming= {this.props.postOutcomming}
+                        restartOutcomming= {this.props.restartOutcomming}
+                        recordKey= {this.state.recordKey}
+                        visibleAssignProduct={this.props.visibleAssignProduct} 
+                        setVisibleAssignProduct={this.props.setVisibleAssignProduct}
+                        dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
+                />
+                <CompositionOutComming
+                    loading = {this.props.loading}
+                    compositionData = {this.props.compositionData}
+                    visibleTwo={this.props.visibleCompo}
+                    closeTwo={this.onCloseDrawerCompo}
+                    //Properties for drawer Assign
+                    productKey = {this.props.productKey}
+                    productDesc = {this.props.productDesc}
+                    datesProductAll = {this.props.datesProductAll}
+                    currentOutcomming={this.state.currentRecord}
+                    postOutcomming= {this.props.postOutcomming}
+                    restartOutcomming= {this.props.restartOutcomming}
+                    recordKey= {this.state.recordKey}
+                    visibleAssignProduct={this.props.visibleAssignProduct} 
+                    setVisibleAssignProduct={this.props.setVisibleAssignProduct}
+                    dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
+                    getOutcommingByEntry={this.props.getOutcommingByEntry}
+                />
+                <Table loading = {this.props.loading} columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
+            </div>
         );            
     }
 }
