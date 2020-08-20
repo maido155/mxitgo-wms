@@ -21,15 +21,16 @@ class StepDayWeek extends PureComponent {
 
 
             <Steps.Step {...this.props}
-            style={{width:"50%"}}
+              style={{width:"50%"}}
               icon={<Icon theme="twoTone" twoToneColor="#244999" type="calendar" />} 
               title={this.props.title}
               description={ <div>
                           <div style={{display:"flex"}}>
-                                <div>Total:</div>
+                                <div>Total:1000</div>
               <div style={{textAlign:"right",flexGrow:4}} ><h2>{this.getTotal(dataPerDay)}</h2></div>
                             </div>
-                            <Progress percent={dataPerDay.plannedPercentage} successPercent={dataPerDay.confirmedPercentage} showInfo={false} />
+                           <Progress percent={dataPerDay.plannedPercentage} successPercent={dataPerDay.confirmedPercentage} showInfo={false} />
+                           
                             <div style={{display:"flex"}}>
                                 <div> <i> Planeados:</i></div>
                                 <div style={{textAlign:"right",flexGrow:4}} ><b>{dataPerDay.planned}</b></div>
@@ -39,7 +40,7 @@ class StepDayWeek extends PureComponent {
                               <div style={{textAlign:"right",flexGrow:4}}><b>{dataPerDay.confirmed}</b></div>
                             </div>
                             <div style={{display:"flex"}}>
-                              <div><i> Cancelados:</i></div>
+                              <div><i> Faltantes:</i></div>
                               <div style={{textAlign:"right",flexGrow:4}}><b>{dataPerDay.cancelled}</b></div>
                             </div>
                             
