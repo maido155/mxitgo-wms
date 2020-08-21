@@ -55,6 +55,14 @@ class ConfirmationShipping extends PureComponent {
         })
         this.setState({phoneOperator: phoneOperator[0].operators.phone})
     }
+    nameOperatorSelect = (operator) => {
+        let nameOperator = operator.map(function(data){
+            if(data.operators.name != ""){
+                return data.operators.name;
+            }
+        });
+        return nameOperator
+    }
     handleSubmitNewLine = (sLineMode, oState, oWarehouseData) => {
         /// Validate no duplicates for new lines
         var bDuplicate = false;
@@ -141,9 +149,6 @@ class ConfirmationShipping extends PureComponent {
         const { phoneOperator }= this.state;
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
         this.setState({ currentLoader });
-        let nameOperator = operatorAll.map(function(data){
-            return data.operators.name;
-        });
         if (this.props.isSuccess == true) {
             if(this.props.masterMode == "NEW"){
                 this.props.changedSuccess();
@@ -238,10 +243,9 @@ class ConfirmationShipping extends PureComponent {
                             <Row className={Styles.lastcolumn}>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.driver' })}>
-                                    {getFieldDecorator('operator',{initialValue: oShippingItem.Operator == "" ? "" : oShippingItem.Operator},
-                                    {rules: [{ required: true, message: "Operador no seleccionado" }]}) 
+                                    {getFieldDecorator('operator',{ initialValue: oShippingItem.Operator == "" ? "" : oShippingItem.Operator, rules: [{ required: true, message: "Operador no seleccionado" }]}) 
                                         (<AutoComplete
-                                            dataSource={nameOperator}
+                                            dataSource={this.nameOperatorSelect(operatorAll)}
                                             filterOption={(inputValue, option) =>
                                                 option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                                             }

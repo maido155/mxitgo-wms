@@ -107,32 +107,34 @@ class drawerEntry extends PureComponent {
     };
     handleEntry = e => {
         e.preventDefault();
-        const { imageUrl } = this.state;
+        // const { imageUrl } = this.state;
         const { oShippingItem } = this.props;
         this.props.form.validateFields((err, values) => {
             if (err) {
                 return;
             }
-            if(imageUrl == undefined){
-                console.log("mensaje imagen");
-                return;
-            }
+            // if(imageUrl == undefined){
+            //     console.log("mensaje imagen");
+            //     return;
+            // }
             var products = [];
             for(var i = 0; i < productsEdit.length; i++){
-                if(productsEdit[i].temperature != "" && productsEdit[i].urlImage != ""){
+                //&& productsEdit[i].urlImage != ""
+                if(productsEdit[i].temperature != ""){
                     var product = {
                         amount: productsEdit[i].quantities,
                         product: productsEdit[i].id,
                         productName: productsEdit[i].nameProduct,
                         temp: productsEdit[i].temperature,
-                        picture: productsEdit[i].urlImage
+                        // picture: productsEdit[i].urlImage
                     }
                     products.push(product)
                 }else{
-                    console.log("mensaje datos");
+                    console.log("mensaje datos" + productsEdit[i] + "falta temperatura");
+                    return;
                 }
             }
-            values["urlImageGeneral"] = imageUrl;
+            // values["urlImageGeneral"] = imageUrl;
             values["createdBy"] = localStorage.getItem('userName'),
             values["date"] = moment().format("YYYY-MM-DD") + "T00:00:00.000Z";
             values["products"] = products;
@@ -140,6 +142,18 @@ class drawerEntry extends PureComponent {
             values["WMS-1-SK"] = oShippingItem.idShipping.substr(4)
             values["skWh"] = oShippingItem.warehouse
             this.props.saveEntryShipping(values);
+            const { dataProduct } = this.state;
+            let productsCancel = [];
+            for(var i = 0; i < dataProduct.length; i++){
+                let data = {
+                    id: dataProduct[i].id,
+                    quantities: 0,
+                    temperature: "",
+                    urlImage: "",
+                }
+                productsCancel.push(data);
+            }
+            this.setState({dataProduct: productsCancel})
             this.props.form.resetFields();
         });
     }
@@ -187,7 +201,7 @@ class drawerEntry extends PureComponent {
         let newState = Object.assign({}, this.state);
         newState.dataProduct[getProduct].quantities = dataProducts.entryProduct;
         newState.dataProduct[getProduct].temperature = dataProducts.temperatureProduct;
-        newState.dataProduct[getProduct].urlImage = dataProducts.urlImage;
+        // newState.dataProduct[getProduct].urlImage = dataProducts.urlImage;
         this.setState({ 
             dataProduct : newState.dataProduct,
         })
@@ -205,7 +219,19 @@ class drawerEntry extends PureComponent {
         });
     };
     onCloseDrawerPrincipal = () => {
-        this.setState({ imageUrl: ""})
+        const { dataProduct } = this.state;
+        let productsCancel = [];
+        for(var i = 0; i < dataProduct.length; i++){
+            let data = {
+                id: dataProduct[i].id,
+                quantities: 0,
+                temperature: "",
+                urlImage: "",
+            }
+            productsCancel.push(data);
+        }
+        this.setState({ imageUrl: "", dataProduct: productsCancel})
+        this.props.form.resetFields();
         this.props.closeEntry();
     }
     render() {
@@ -241,7 +267,7 @@ class drawerEntry extends PureComponent {
             <Drawer
                 title={formatMessage({ id: 'shipping.shippingEntry.title' })}
                 width={isMobile ? "100%" : "70%"}
-                onClose={this.props.closeEntry}
+                onClose={this.onCloseDrawerPrincipal}
                 visible={this.props.visibleEntry}
                 bodyStyle={{ paddingBottom: 80 }}
                 getContainer={isMobile ? false : true} 
@@ -278,12 +304,13 @@ class drawerEntry extends PureComponent {
                                         onChange={this.handleChange}
                                         disabled={oShippingItem == undefined || oShippingItem.commentEntry == undefined ? false : true}
                                     >
-                                        { oShippingItem == undefined || oShippingItem.commentEntry == undefined ?
+                                        <img src={""} alt="avatar" style={{ width: '100%' }}/>
+                                        {/* { oShippingItem == undefined || oShippingItem.commentEntry == undefined ?
                                             imageUrl ? 
                                                 <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/> 
                                                 : uploadButton
                                             : <img src={oShippingItem.picture} alt="avatar" style={{ width: '100%' }}/>
-                                        }
+                                        } */}
                                     </Upload> 
                                 </Form.Item>
                             </Col>

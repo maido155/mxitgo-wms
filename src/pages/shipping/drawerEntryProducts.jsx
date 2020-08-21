@@ -47,16 +47,16 @@ class drawerEntryProducts extends PureComponent {
 
     handleEntryProduct = e => {
         e.preventDefault();
-        const { imageUrl } = this.state;
+        // const { imageUrl } = this.state;
         this.props.form.validateFields((err, values) => {
             if (err) {
                 return;
             }
-            if(imageUrl == undefined){
-                console.log("mensaje imagen");
-                return;
-            }
-            values["urlImage"] = imageUrl;
+            // if(imageUrl == undefined){
+            //     console.log("mensaje imagen");
+            //     return;
+            // }
+            // values["urlImage"] = imageUrl;
             this.props.handleProduct(values);
             this.props.form.resetFields();
             this.setState({imageUrl: undefined})
@@ -153,7 +153,8 @@ class drawerEntryProducts extends PureComponent {
                             onChange={this.handleChange}
                             disabled={disabledInputs}
                         >
-                            {this.typePictureName(oShippingItem, uploadButton)}
+                            <img src={""} alt="avatar" style={{ width: '100%' }}/>
+                            {/* {this.typePictureName(oShippingItem, uploadButton)} */}
                         </Upload>
                     </Form.Item>
                     <div
