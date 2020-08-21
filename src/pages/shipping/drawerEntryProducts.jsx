@@ -14,11 +14,11 @@ function getBase64(img, callback) {
 function beforeUpload(file) {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
-        message.error('You can only upload JPG/PNG file!');
+        message.error(<FormattedMessage id='shipping.drawerEntry.messageErrorJPG'/>);
     }
         const isLt2M = file.size / 1024 / 1024 < 2;
     if (!isLt2M) {
-        message.error('Image must smaller than 2MB!');
+        message.error(<FormattedMessage id='shipping.drawerEntry.messageErrorSize'/>);
     }
         return isJpgOrPng && isLt2M;
 }
@@ -46,7 +46,7 @@ class drawerEntryProducts extends PureComponent {
     };
     openNotificationWithImage = (type) => {
         notification[type]({
-            message: 'Tiene que ingresar una foto', //I18N*****************************************************************
+            message: <FormattedMessage id='shipping.drawerEntry.messagePhoto'/>, //I18N*****************************************************************
           });
     }
     handleEntryProduct = e => {
@@ -145,11 +145,11 @@ class drawerEntryProducts extends PureComponent {
                 <Form {...formItemLayout} onSubmit={this.handleEntryProduct} style={{marginTop: "5rem"}} >
                     <Form.Item label={formatMessage({ id: 'shipping.entryProducts.amounts' })}>
                         {getFieldDecorator('entryProduct',{ initialValue: this.typeProductName(oShippingItem), 
-                        rules: [{ required: true, message: "Fecha no seleccionada" }] })(<InputNumber style={{ width: "100%"}} disabled={disabledInputs}/>)}
+                        rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.amountMissing'/> }] })(<InputNumber style={{ width: "100%"}} disabled={disabledInputs}/>)}
                     </Form.Item>
                     <Form.Item label={formatMessage({ id: 'shipping.entryProducts.temperature' })}>
                         {getFieldDecorator('temperatureProduct',{ initialValue: this.typeTemName(oShippingItem),
-                        rules: [{ required: true, message: "Fecha no seleccionada" }] })(<Input disabled={disabledInputs}/>)}
+                        rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.temperatureMissing'/> }] })(<Input disabled={disabledInputs}/>)}
                     </Form.Item>
                     <Form.Item label={formatMessage({ id: 'shipping.entryProducts.photo' })}>
                         <Upload
@@ -178,11 +178,11 @@ class drawerEntryProducts extends PureComponent {
                         }}
                     >
                         <Button onClick={this.onCloseDrawer} style={{ marginRight: 8 }} type="danger">
-                            Cancelar 
+                            <FormattedMessage id="shipping.button.cancel"/> 
                         </Button>
                         { oShippingItem == undefined || oShippingItem.commentEntry == undefined &&
                             <Button type="primary" htmlType="submit">
-                                Programar
+                                <FormattedMessage id="shipping.entryProduct.button.progra"/>
                             </Button>
                         }
                     </div>

@@ -65,7 +65,26 @@ export default {
     'shipping.modal.detail-table.confirmed': 'Confirmed',
     'shipping.modal.detail-table.entry': 'Entry',
     'shipping.modal.detail-table.missing': 'Missing',
-    'shipping.loading': 'Loading...'
+    'shipping.loading': 'Loading...',
+    'shipping.drawerEntry.messageTemperature': 'You have to add the temperature to the product ',
+    'shipping.drawerEntry.messagePhoto': 'You have to add a photo',
+    'shipping.drawerEntry.messageSuccessEdit': 'Edited successfully',
+    'shipping.drawerEntry.messageSuccessNew': 'Created successfully',
+    'shipping.drawerEntry.messageComment': 'You have to add a comment',
+    'shipping.entryProduct.button.progra': 'Programing',
+    'shipping.drawerEntry.messageErrorJPG': 'You can only upload JPG/PNG file!',
+    'shipping.drawerEntry.messageErrorSize': 'Image must smaller than 2MB!',
+    'shipping.drawerEntry.dateMissing': 'Date missing',
+    'shipping.drawerEntry.temperatureMissing': 'You have to add the temperature to the product',
+    'shipping.drawerEntry.amountMissing': 'You have to add an amount',
+    'shipping.drawerEntry.messageWarningNewLine':'You have to add new line',
+    'shipping.drawerConfirm.messageWarningCenter': 'It is not possible to add 2 lines from the same center',
+    'shipping.newLine.missingValue': 'You have to add a value',
+    'shipping.newLine.missingCenter': 'You have to add a center',
+    'shipping.newLine.messageWarningCenter': 'You have to add a center',
+    'shipping.gridModalEntry.amount':'Amount: ',
+    'shipping.drawerEntry.operatorMissing':'You have to select a driver',
+    'shipping.confirm.phoneMissing':'You have to add a phone'
 
 
 };

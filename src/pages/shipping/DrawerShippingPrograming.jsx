@@ -54,7 +54,7 @@ class DrawerShippingPrograming extends PureComponent {
             var aWarehouse = this.props.warehouses;
             aWarehouse.forEach((oWarehouse, iIndex) => {
                 if (oWarehouse.center === oWarehouseData.objWarehouse.center) {
-                    message.warning('No es posible agregar 2 lineas del mismo centro'); //I18N *****************************************************************************************************
+                    message.warning(<FormattedMessage id='shipping.drawerConfirm.messageWarningCenter'/>); //I18N *****************************************************************************************************
                     bDuplicate = true;
                 }
             });
@@ -106,7 +106,7 @@ class DrawerShippingPrograming extends PureComponent {
             values["warehousesSelect"] = whSelect;
 
             if (this.props.warehouseIds.length == 0) {
-                message.warning('Agregar Nueva Línea'); //I18N *****************************************************************************************************
+                message.warning(<FormattedMessage id='shipping.drawerEntry.messageWarningNewLine'/>); //I18N *****************************************************************************************************
                 return;
             }
             if(this.props.masterMode == "NEW"){
@@ -139,7 +139,7 @@ class DrawerShippingPrograming extends PureComponent {
     messageSuccess= () => {
         if(this.state.isFistValue){
             this.setState({isFistValue: false})
-            message.success('Se agregó con éxito'); //I18N *****************************************************************************************************
+            message.success(<FormattedMessage id='shipping.drawerEntry.messageSuccessNew'/>); //I18N *****************************************************************************************************
             
         }else{
             return 0
@@ -148,7 +148,7 @@ class DrawerShippingPrograming extends PureComponent {
     messageChanngedSuccess= () => {
         if(this.state.isFistValue){
             this.setState({isFistValue: false})
-            message.success('Se editó con éxito'); //I18N *****************************************************************************************************
+            message.success(<FormattedMessage id='shipping.drawerEntry.messageSuccessEdit'/>); //I18N *****************************************************************************************************
             
         }else{
             return 0
@@ -214,21 +214,21 @@ class DrawerShippingPrograming extends PureComponent {
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-exit' })}>
                                         {getFieldDecorator('departureDate',
-                                            { initialValue: masterMode == "NEW" ? "" : moment(oShippingItem.departureDate, "YYYY-MM-DD") , rules: [{ required: true, message: "Fecha no seleccionada" }] })
+                                            { initialValue: masterMode == "NEW" ? "" : moment(oShippingItem.departureDate, "YYYY-MM-DD") , rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.dateMissing'/> }] })
                                             (<DatePicker style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onDepartureDate} />)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-arrival' })}>
                                         {getFieldDecorator('deliveryDate',
-                                            { initialValue: masterMode == "NEW" ? "" : moment(oShippingItem.deliveryDate, "YYYY-MM-DD") , rules: [{ required: true, message: "Fecha no seleccionada" }] })
+                                            { initialValue: masterMode == "NEW" ? "" : moment(oShippingItem.deliveryDate, "YYYY-MM-DD") , rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.dateMissing'/> }] })
                                             (<DatePicker style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onDeliveryDate} />)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-entry' })}>
                                         {getFieldDecorator('entryDate',
-                                            { initialValue: masterMode == "NEW" ? "" : moment(oShippingItem.entryDate, "YYYY-MM-DD") , rules: [{ required: true, message: "Fecha no seleccionada" }] })
+                                            { initialValue: masterMode == "NEW" ? "" : moment(oShippingItem.entryDate, "YYYY-MM-DD") , rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.dateMissing'/> }] })
                                             (<DatePicker style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onEntryDate} />)}
                                     </Form.Item>
                                 </Col>

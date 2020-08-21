@@ -71,7 +71,7 @@ class ConfirmationShipping extends PureComponent {
             var aWarehouse = this.props.warehouses;
             aWarehouse.forEach((oWarehouse, iIndex) => {
                 if (oWarehouse.center === oWarehouseData.objWarehouse.center) {
-                    message.warning('No es posible agregar 2 lineas del mismo centro'); //I18N *****************************************************************************************************
+                    message.warning(<FormattedMessage id='shipping.drawerConfirm.messageWarningCenter'/>); //I18N *****************************************************************************************************
                     bDuplicate = true;
                 }
             });
@@ -122,7 +122,7 @@ class ConfirmationShipping extends PureComponent {
             values["warehousesSelect"] = whSelect;
             
             if (this.props.warehouseIds.length == 0) {
-                message.warning('Agregar Nueva Línea'); //I18N *****************************************************************************************************
+                message.warning(<FormattedMessage id='shipping.drawerEntry.messageWarningNewLine'/>); //I18N *****************************************************************************************************
                 return;
             }
             if(this.props.masterMode == "NEW"){
@@ -142,7 +142,7 @@ class ConfirmationShipping extends PureComponent {
     messageChanngedSuccess= () => {
         if(this.state.isFistValue){
             this.setState({isFistValue: false})
-            message.success('Se editó con éxito'); //I18N *****************************************************************************************************
+            message.success(<FormattedMessage id='shipping.drawerEntry.messageSuccessEdit'/>); //I18N *****************************************************************************************************
             
         }else{
             return 0
@@ -208,21 +208,21 @@ class ConfirmationShipping extends PureComponent {
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-exit' })}>
                                         {getFieldDecorator('departureDate',
-                                            { initialValue: moment(oShippingItem.departureDate, "YYYY-MM-DD"), rules: [{ required: true, message: "Fecha no seleccionada" }] })
+                                            { initialValue: moment(oShippingItem.departureDate, "YYYY-MM-DD"), rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.dateMissing'/> }] })
                                             (<DatePicker style={{ width: '100%' }} onChange={this.onDepartureDate} disabled={oShippingItem.Operator == "" ? false : true}/>)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-arrival' })}>
                                         {getFieldDecorator('deliveryDate',
-                                            { initialValue: moment(oShippingItem.deliveryDate, "YYYY-MM-DD"), rules: [{ required: true, message: "Fecha no seleccionada" }] })
+                                            { initialValue: moment(oShippingItem.deliveryDate, "YYYY-MM-DD"), rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.dateMissing'/> }] })
                                             (<DatePicker style={{ width: '100%' }} onChange={this.onDeliveryDate} disabled={oShippingItem.Operator == "" ? false : true}/>)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-entry' })}>
                                         {getFieldDecorator('entryDate',
-                                            { initialValue: moment(oShippingItem.entryDate, "YYYY-MM-DD"), rules: [{ required: true, message: "Fecha no seleccionada" }] })
+                                            { initialValue: moment(oShippingItem.entryDate, "YYYY-MM-DD"), rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.dateMissing'/> }] })
                                             (<DatePicker style={{ width: '100%' }} onChange={this.onEntryDate} disabled={oShippingItem.Operator == "" ? false : true}/>)}
                                     </Form.Item>
                                 </Col>
@@ -250,7 +250,7 @@ class ConfirmationShipping extends PureComponent {
                             <Row className={Styles.lastcolumn}>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.driver' })}>
-                                    {getFieldDecorator('operator',{ initialValue: oShippingItem.Operator == "" ? "" : oShippingItem.Operator, rules: [{ required: true, message: "Operador no seleccionado" }]}) 
+                                    {getFieldDecorator('operator',{ initialValue: oShippingItem.Operator == "" ? "" : oShippingItem.Operator, rules: [{ required: true, message: <FormattedMessage id='shipping.confirm.operatorMissing'/> }]}) 
                                         (<AutoComplete
                                             dataSource={this.nameOperatorSelect(operatorAll)}
                                             filterOption={(inputValue, option) =>

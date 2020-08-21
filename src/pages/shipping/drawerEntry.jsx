@@ -159,12 +159,12 @@ class drawerEntry extends PureComponent {
     }
     openNotificationWithIcon = (type, producto) => {
         notification[type]({
-            message: 'El producto ' +  producto + ' tiene que tener una temperatura', //I18N*****************************************************************
+            message: <FormattedMessage id='shipping.drawerEntry.messageTemperature'/> +  producto , //I18N*****************************************************************
           });
     }
     openNotificationWithImage = (type) => {
         notification[type]({
-            message: 'Tiene que ingresar una foto', //I18N*****************************************************************
+            message: <FormattedMessage id='shipping.drawerEntry.messagePhoto'/>, //I18N*****************************************************************
           });
     }
     productsEntry = (products) => {
@@ -262,10 +262,10 @@ class drawerEntry extends PureComponent {
         if (this.props.isSuccess == true) {
             if(this.props.masterMode == "NEW"){
                 this.props.changedSuccess();
-                message.success('Se agregó con éxito'); //I18N *****************************************************************************************************
+                message.success(<FormattedMessage id='shipping.drawerEntry.messageSuccessNew'/>); //I18N *****************************************************************************************************
             }else{
                 this.props.updateShippingSuccess();
-                message.success('Se editó con éxito'); //I18N *****************************************************************************************************
+                message.success(<FormattedMessage id='shipping.drawerEntry.messageSuccessEdit'/>); //I18N *****************************************************************************************************
             }
         }
         if (this.props.close == true) {
@@ -303,7 +303,7 @@ class drawerEntry extends PureComponent {
                             <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                 <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.comments' })}>
                                     {getFieldDecorator('textEntry',{ initialValue:  oShippingItem == undefined || oShippingItem.commentEntry == undefined ? "" : oShippingItem.commentEntry, 
-                                    rules: [{ required: true, message: "TIENE QUE DEJAR UN COMENTARIO" }]})(<TextArea disabled={oShippingItem == undefined || oShippingItem.commentEntry == undefined ? false : true}/>)}
+                                    rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.messageComment'/> }]})(<TextArea disabled={oShippingItem == undefined || oShippingItem.commentEntry == undefined ? false : true}/>)}
                                 </Form.Item>
                                 <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.photo' })}>
                                     <Upload
