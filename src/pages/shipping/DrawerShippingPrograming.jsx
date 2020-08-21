@@ -136,6 +136,24 @@ class DrawerShippingPrograming extends PureComponent {
     onEntryDate = (value, dateString) => {
         this.setState({ entryDate: value })
     }
+    messageSuccess= () => {
+        if(this.state.isFistValue){
+            this.setState({isFistValue: false})
+            message.success('Se agregó con éxito');
+            
+        }else{
+            return 0
+        }
+    }
+    messageChanngedSuccess= () => {
+        if(this.state.isFistValue){
+            this.setState({isFistValue: false})
+            message.success('Se editó con éxito');
+            
+        }else{
+            return 0
+        }
+    }
     render() {
         const formItemLayout = {
             labelCol: { xs: { span: 24 }, sm: { span: 8 }, md: { span: 6 }, lg: { span: 8 }, xl: { span: 6 } },
@@ -148,10 +166,10 @@ class DrawerShippingPrograming extends PureComponent {
         if (this.props.isSuccess == true) {
             if(this.props.masterMode == "NEW"){
                 this.props.changedSuccess();
-                message.success('Se agregó con éxito');
+                this.messageSuccess();
             }else{
                 this.props.updateShippingSuccess();
-                message.success('Se editó con éxito');
+                this.messageChanngedSuccess();
             }
         }
         if (this.props.close == true) {

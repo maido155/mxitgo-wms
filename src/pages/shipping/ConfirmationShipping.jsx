@@ -21,6 +21,7 @@ class ConfirmationShipping extends PureComponent {
         datesGeneralNewLine: {},
         idShipping: "", 
         whName: "",
+        isFistValue: true
     }
     saveFormRefNewLine = (formRef) => {
         this.formRefNewLine = formRef;
@@ -137,7 +138,18 @@ class ConfirmationShipping extends PureComponent {
         }
             _self.props.confirmShipping(values);
             this.props.form.resetFields();
+            
         });
+    }
+    
+    messageChanngedSuccess= () => {
+        if(this.state.isFistValue){
+            this.setState({isFistValue: false})
+            message.success('Se editó con éxito');
+            
+        }else{
+            return 0
+        }
     }
     render(){
         const formItemLayout = {
@@ -145,21 +157,18 @@ class ConfirmationShipping extends PureComponent {
             wrapperCol: {xs: { span: 24 },sm: { span: 12 },md: { span: 14 },lg: { span: 14 },xl: { span: 14  }}
         };
         const { getFieldDecorator } = this.props.form;
-        const { oShippingItem, operatorAll, warehouses, masterMode} = this.props;
+        const { oShippingItem, operatorAll, warehouses, masterMode, isSuccess, close} = this.props;
         const { phoneOperator }= this.state;
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
         this.setState({ currentLoader });
         if (this.props.isSuccess == true) {
-            if(this.props.masterMode == "NEW"){
-                this.props.changedSuccess();
-                message.success('Se agregó con éxito');
-            }else{
+           
                 this.props.updateShippingSuccess();
-                message.success('Se editó con éxito');
-            }
+                this.messageChanngedSuccess();
+            
         }
-        if (this.props.close == true) {
-            this.props.onCloseConfirmationShipping();
+        if (close == true) {
+            this.props.closeConfirmation();
             this.props.changedClose();
         }
         return(

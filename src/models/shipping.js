@@ -1,4 +1,4 @@
-import { confirmShipping, saveShipping, updateShipping, getShipping, getLocations, fetchShippingAll, fetchProductAll, getShippingDetail, fetchOperatorAll, deleteShipping } from '../services/api';
+import { confirmShipping, saveShipping, updateShipping, getShipping,  fetchShippingAll,  getShippingDetail, deleteShipping } from '../services/api';
 
 
 import moment from 'moment';
@@ -127,29 +127,7 @@ export default {
                 payload: payload,
             });
         },
-        * getLocations({ payload }, { call, put }) {
-            const response = yield call(getLocations, payload);
-            console.log(response);
-            yield put({
-                type: 'getLocationsReducer',
-                payload: response,
-            });
-        },
-        * getProducts({ payload }, { call, put }) {
-            const response = yield call(fetchProductAll, payload);
-            yield put({
-                type: 'getProductsReducer',
-                payload: response,
-            });
-        },
-
-        * getOperators({ payload }, { call, put }) {
-            const response = yield call(fetchOperatorAll, payload);
-            yield put({
-                type: 'getOperatorReducer',
-                payload: response,
-            });
-        },
+        
 
         * deleteShipping({ payload }, { call, put }) {
             const response = yield call(deleteShipping, payload);
@@ -226,9 +204,16 @@ export default {
             }
         },
         saveShippingReducer(state, action) {
-            return {
-                ...state,
-                isSuccess: true
+            if(action.payload.message==="Success"){
+                return {
+                    ...state,
+                    isSuccess: true
+                }
+            }else{
+                return{
+                    ...state,
+                    isSuccess: false
+                }
             }
         },
         saveWarehouseReducer(state, action) {
@@ -306,33 +291,25 @@ export default {
             }
         },
         updateShippingReducer(state, action) {
-            return {
-                ...state,
-                // datesShipping: action.payload,
-                // warehouses: [],
-                // warehouseIds: [],
-                isSuccess: true,
-                close: false,
-                // oShippingItem: { products: [], id: "" },
-                // products: []
+            if(action.payload.message==="Success"){
+                return {
+                    ...state,
+                    // datesShipping: action.payload,
+                    // warehouses: [],
+                    // warehouseIds: [],
+                    isSuccess: true,
+                    close: false,
+                    // oShippingItem: { products: [], id: "" },
+                    // products: []
+                }
             }
         },
         confirmShippingReducer(state, action) {
-            return {
+            if(action.payload.message==="Success"){
+                return {
                 ...state,
                 isSuccess: true
-            }
-        },
-        getProductsReducer(state, action) {
-            return {
-                ...state,
-                productsAll: action.payload.Items
-            }
-        },
-        getOperatorReducer(state, action) {
-            return {
-                ...state,
-                operatorAll: action.payload
+                }
             }
         },
         getShippingReducer(state, action) {
@@ -401,37 +378,6 @@ export default {
             }
         },
 
-        getLocationsReducer(state, action) {
-
-
-            action.payload
-
-            var aTreeData = [];
-
-            action.payload.forEach((aLocation) => {
-
-
-                var aWarehouses = [];
-
-
-                aLocation[0].warehouses.forEach((oWarehouse) => {
-
-                    var sValue = oWarehouse.PK.replace("WMS-", "");
-
-                    aWarehouses.push({ title: oWarehouse.center, value: sValue, key: sValue });
-                });
-
-                aTreeData.push({ title: aLocation[0].name, value: aLocation[0].shortName, key: aLocation[0].shortName, childLevel1: aWarehouses });
-
-
-            });
-
-
-            return {
-                ...state,
-                locationTreeData: aTreeData
-            }
-        },
         deleteShippingReducer(state, action) {
             return {
                 ...state,

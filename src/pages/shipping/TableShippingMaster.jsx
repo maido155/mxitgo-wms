@@ -57,42 +57,42 @@ class TableShippingMaster extends PureComponent {
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.premium' }),
-        dataIndex: 'amount',
+        dataIndex: 'PRODUCT-2',
         width: isMobile ? 130 : 100,
         render: (text, record) => (
-        <Text type={this.dates(record.products[0].planned,record.products[0].confirmed)} onClick={() => { this.props.showModalProduct(record,record.products[0].product)}} className={Styles.producto}>{record.products[0].planned}/{record.products[0].confirmed}</Text>
+        <Text type={this.dates(record.products[2].planned,record.products[2].confirmed)} onClick={() => { this.props.showModalProduct(record,record.products[2].product)}} className={Styles.producto}>{record.products[2].planned}/{record.products[2].confirmed}</Text>
         )
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.gold' }),
-        dataIndex: 'amount',
+        dataIndex: 'PRODUCT-1',
         width: isMobile ? 110 : 100,
-        render: (text, record) => (
-                <Text type={this.dates(record.products[1].planned,record.products[1].confirmed)} onClick={() => { this.props.showModalProduct(record,record.products[1].product)}} className={Styles.producto}>{record.products[1].planned}/{record.products[1].confirmed}</Text>
-        )
-      },
-      {
-        title: formatMessage({ id: 'shipping.label.table-shipping.second' }),
-        dataIndex: 'amount',
-        width: isMobile ? 130 : 100,
-        render: (text, record) => (
-                <Text type={this.dates(record.products[2].planned,record.products[2].confirmed)} onClick={() => { this.props.showModalProduct(record,record.products[2].product)}} className={Styles.producto}>{record.products[2].planned}/{record.products[2].confirmed}</Text>
-        )
-      },
-      {
-        title: formatMessage({ id: 'shipping.label.table-shipping.hand' }),
-        dataIndex: 'amount',
-        width: isMobile ? 120 : 100,
         render: (text, record) => (
                 <Text type={this.dates(record.products[3].planned,record.products[3].confirmed)} onClick={() => { this.props.showModalProduct(record,record.products[3].product)}} className={Styles.producto}>{record.products[3].planned}/{record.products[3].confirmed}</Text>
         )
       },
       {
-        title: formatMessage({ id: 'shipping.label.table-shipping.finger' }),
-        dataIndex: 'amount',
+        title: formatMessage({ id: 'shipping.label.table-shipping.second' }),
+        dataIndex: 'PRODUCT-3',
+        width: isMobile ? 130 : 100,
+        render: (text, record) => (
+                <Text type={this.dates(record.products[1].planned,record.products[1].confirmed)} onClick={() => { this.props.showModalProduct(record,record.products[1].product)}} className={Styles.producto}>{record.products[1].planned}/{record.products[1].confirmed}</Text>
+        )
+      },
+      {
+        title: formatMessage({ id: 'shipping.label.table-shipping.hand' }),
+        dataIndex: 'PRODUCT-5',
         width: isMobile ? 120 : 100,
         render: (text, record) => (
-          <Text type={this.dates(record.products[4].planned,record.products[4].confirmed)} onClick={() => { this.props.showModalProduct(record,record.products[4].product)}} className={Styles.producto}>{record.products[4].planned}/{record.products[4].confirmed}</Text>
+                <Text type={this.dates(record.products[4].planned,record.products[4].confirmed)} onClick={() => { this.props.showModalProduct(record,record.products[4].product)}} className={Styles.producto}>{record.products[4].planned}/{record.products[4].confirmed}</Text>
+        )
+      },
+      {
+        title: formatMessage({ id: 'shipping.label.table-shipping.finger' }),
+        dataIndex: 'PRODUCT-4',
+        width: isMobile ? 120 : 100,
+        render: (text, record) => (
+          <Text type={this.dates(record.products[0].planned,record.products[0].confirmed)} onClick={() => { this.props.showModalProduct(record,record.products[0].product)}} className={Styles.producto}>{record.products[0].planned}/{record.products[0].confirmed}</Text>
         )
       },
       {
@@ -245,6 +245,11 @@ class TableShippingMaster extends PureComponent {
           masterMode={this.props.masterMode}
           confirmShipping={this.props.confirmShipping}
           products={this.props.products}
+          close={this.props.close}
+          isSuccess={this.props.isSuccess}
+          changedSuccess={this.props.changedSuccess}
+          changedClose={this.props.changedClose}
+          updateShippingSuccess={this.props.updateShippingSuccess}
 
           //Props New Line
           visibleNewLineConfirm={this.props.visibleNewLineConfirm}
