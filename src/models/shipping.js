@@ -246,21 +246,25 @@ export default {
 
             var aWarehouse = state.warehouses;
             var products = state.products;
+            var warehouseId = state.warehouseIds;
             let pos = aWarehouse.map(function(data) { return data.warehouseId; }).indexOf(action.payload.origin);
             aWarehouse.splice(pos, 1);
             products.splice(pos, 1);
+            warehouseId.splice(pos, 1)
 
             var newArray = [];
             var newArrayProducts = [];
+            var newArrayWarehouseId = [];
 
             newArray = [action.payload.payload.objWarehouse, ...aWarehouse];
             newArrayProducts = [action.payload.payload.products, ...products];
+            newArrayWarehouseId = [action.payload.payload.objWarehouse.warehouseId, ...warehouseId];
 
             return {
                 ...state,
                 warehouses: newArray,
                 products: newArrayProducts,
-                warehouseIds: action.payload.payload.objWarehouse.warehouseId
+                warehouseIds: newArrayWarehouseId
             }
         },
         removeWarehouseReducer(state, action) {

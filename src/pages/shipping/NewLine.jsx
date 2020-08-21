@@ -197,6 +197,14 @@ const NewLine = Form.create()(
             }
             return 0
         }
+        cancelNewLine = () => {
+            this.props.form.resetFields();
+            this.props.newLineCancelSelect();
+        }
+        cancelNewLineCon = () => {
+            this.props.form.resetFields();
+            this.props.closeNewLineConfirm();
+        }
         render() {
             const formItemLayout = {
                 labelCol: { xs: { span: 24 }, sm: { span: 8 }, md: { span: 8 }, lg: { span: 8 }, xl: { span: 6 } },
@@ -214,12 +222,12 @@ const NewLine = Form.create()(
                             title={formatMessage({ id: 'shipping.newline.label.title' })}
                             width={isMobile ? "100%" : "50%"}
                             closable={true}
-                            onClose={mode == "NEW||EDIT" ? this.props.newLineCancelSelect : this.props.closeNewLineConfirm}
+                            onClose={mode == "NEW||EDIT" ? () => {this.cancelNewLine()} : () => {this.cancelNewLineCon()}}
                             visible={mode == "NEW||EDIT" ? this.props.visibleNewLine : this.props.visibleNewLineConfirm}
                         >
                             <Form {...formItemLayout} className={Styles.formnweline}>
                                 <Form.Item label={formatMessage({ id: 'shipping.tablecomponent.label.center' })}>
-                                    {getFieldDecorator('centro',{ initialValue: lineData.warehouseId, rules: [{ required: true, message: "Centro no seleccionado" }] })
+                                    {getFieldDecorator('centro',{ initialValue: lineData.warehouseId == undefined ? "" : lineData.warehouseId, rules: [{ required: true, message: "Centro no seleccionado" }] })
                                         (<TreeSelect
                                             showSearch
                                             style={{ width: '100%' }}
@@ -264,7 +272,7 @@ const NewLine = Form.create()(
                                         textAlign: 'right',
                                     }}
                                 >
-                                    <Button type="danger" className={Styles.cancelarfooter} onClick={mode == "NEW||EDIT" ? this.props.newLineCancelSelect : this.props.closeNewLineConfirm}>
+                                    <Button type="danger" className={Styles.cancelarfooter} onClick={mode == "NEW||EDIT" ? () => {this.cancelNewLine()} : () => {this.cancelNewLineCon()}}>
                                         <FormattedMessage id="shipping.button.cancel" />
                                     </Button>
                                     { oShippingItem.Operator == undefined
