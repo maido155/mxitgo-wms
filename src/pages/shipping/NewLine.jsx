@@ -101,7 +101,7 @@ const NewLine = Form.create()(
                 if (_self.props.lineMode === "NEW") {
                     //// Get values from Three control
                     if (_self.state.e.props.parentTitle == undefined) {
-                        message.warning('Tiene que agregar un centro'); //I18N *****************************************************************************************************
+                        message.warning(<FormattedMessage id='shipping.newLine.messageWarningCenter'/>); //I18N *****************************************************************************************************
                         return;
                     }
                     var center = _self.state.e.props.parentTitle + '-' + _self.state.e.props.title;
@@ -227,7 +227,7 @@ const NewLine = Form.create()(
                         >
                             <Form {...formItemLayout} className={Styles.formnweline}>
                                 <Form.Item label={formatMessage({ id: 'shipping.tablecomponent.label.center' })}>
-                                    {getFieldDecorator('centro',{ initialValue: lineData.warehouseId == undefined ? "" : lineData.warehouseId, rules: [{ required: true, message: "Centro no seleccionado" }] })
+                                    {getFieldDecorator('centro',{ initialValue: lineData.warehouseId == undefined ? "" : lineData.warehouseId, rules: [{ required: true, message: <FormattedMessage id="shipping.newLine.missingCenter" /> }] })
                                         (<TreeSelect
                                             showSearch
                                             style={{ width: '100%' }}
@@ -256,7 +256,7 @@ const NewLine = Form.create()(
                                                         ? formatMessage({ id: 'shipping.tablecomponent.label.finger'})
                                                         : formatMessage({ id: 'shipping.tablecomponent.label.no-label'})
                                     }>
-                                        {getFieldDecorator(item['WMS-1-SK'],{initialValue: this.getNewLineEdit(item,lineData),rules: [{ required: true, message: "insertar valor" }] })
+                                        {getFieldDecorator(item['WMS-1-SK'],{initialValue: this.getNewLineEdit(item,lineData),rules: [{ required: true, message: <FormattedMessage id="shipping.newLine.missingValue" /> }] })
                                         (<InputNumber min={0} max={500}  style={{ width: '100%' }} disabled={oShippingItem.Operator == undefined ? false : oShippingItem.Operator == "" ? false : true}/>)}
                                     </Form.Item>
                                 ))}

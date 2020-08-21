@@ -19,7 +19,7 @@ class gridModalEntry extends React.Component {
                     bordered
                     renderItem={item => (
                     <List.Item key={item.id}actions={[<a onClick={() => {this.drawerProductInformation(item.id)}} key={`a-${item.id}`}><Icon type="eye"/></a>,]}>
-                        <List.Item.Meta title={item.name} description={'Cantidad: ' + item.quantities}/> 
+                        <List.Item.Meta title={item.name} description={<FormattedMessage id='shipping.gridModalEntry.amount'/> + item.quantities}/> 
                     </List.Item>
                     )}
                 />

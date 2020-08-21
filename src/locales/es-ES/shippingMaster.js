@@ -66,6 +66,28 @@ export default {
     'shipping.modal.detail-table.confirmed': 'Confirmado',
     'shipping.modal.detail-table.entry': 'Entrada',
     'shipping.modal.detail-table.missing': 'Faltante',
-    'shipping.loading': 'Cargando...'
+    'shipping.loading': 'Cargando...',
+    'shipping.drawerEntry.messageTemperature': 'Tiene que agregar la temperatura al producto ',
+    'shipping.drawerEntry.messagePhoto': 'Tiene que ingresar una foto',
+    'shipping.drawerEntry.messageSuccessEdit': 'Se editó con éxito',
+    'shipping.drawerEntry.messageSuccessNew': 'Se agregó con éxito',
+    'shipping.drawerEntry.messageComment': 'Tiene que agregar un comentario',
+    'shipping.entryProduct.button.progra': 'Programar',
+    'shipping.drawerEntry.messageErrorJPG': 'Solo acepta imagenes JPG/PNG!',
+    'shipping.drawerEntry.messageErrorSize': 'El tamaño de la imagen debe ser menor a 2MB!',
+    'shipping.drawerEntry.dateMissing': 'Fecha no seleccionada',
+    'shipping.drawerEntry.temperatureMissing': 'Tiene que agregar la temperatura al producto',
+    'shipping.drawerEntry.amountMissing': 'Tiene que agregar la cantidad',
+    'shipping.drawerEntry.messageWarningNewLine':'Agregar nueva línea',
+    'shipping.drawerConfirm.messageWarningCenter': 'No es posible agregar 2 lineas del mismo centro',
+    'shipping.newLine.missingValue': 'Tiene que agregar un valor',
+    'shipping.newLine.missingCenter': 'Tiene que agregar un centro',
+    'shipping.newLine.messageWarningCenter': 'Tiene que agregar un centro',
+    'shipping.gridModalEntry.amount':'Cantidad: ',
+    'shipping.confirm.operatorMissing':'Operador no seleccionado',
+    'shipping.confirm.phoneMissing':'Tiene que agregar un telefono'
+
+
+
 
 };
