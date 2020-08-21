@@ -204,9 +204,16 @@ export default {
             }
         },
         saveShippingReducer(state, action) {
-            return {
-                ...state,
-                isSuccess: true
+            if(action.payload.message==="Success"){
+                return {
+                    ...state,
+                    isSuccess: true
+                }
+            }else{
+                return{
+                    ...state,
+                    isSuccess: false
+                }
             }
         },
         saveWarehouseReducer(state, action) {
@@ -280,21 +287,25 @@ export default {
             }
         },
         updateShippingReducer(state, action) {
-            return {
-                ...state,
-                // datesShipping: action.payload,
-                // warehouses: [],
-                // warehouseIds: [],
-                isSuccess: true,
-                close: false,
-                // oShippingItem: { products: [], id: "" },
-                // products: []
+            if(action.payload.message==="Success"){
+                return {
+                    ...state,
+                    // datesShipping: action.payload,
+                    // warehouses: [],
+                    // warehouseIds: [],
+                    isSuccess: true,
+                    close: false,
+                    // oShippingItem: { products: [], id: "" },
+                    // products: []
+                }
             }
         },
         confirmShippingReducer(state, action) {
-            return {
+            if(action.payload.message==="Success"){
+                return {
                 ...state,
                 isSuccess: true
+                }
             }
         },
         getShippingReducer(state, action) {

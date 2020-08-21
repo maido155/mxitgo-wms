@@ -21,6 +21,7 @@ class ConfirmationShipping extends PureComponent {
         datesGeneralNewLine: {},
         idShipping: "", 
         whName: "",
+        isFistValue: true
     }
     saveFormRefNewLine = (formRef) => {
         this.formRefNewLine = formRef;
@@ -140,6 +141,16 @@ class ConfirmationShipping extends PureComponent {
             
         });
     }
+    
+    messageChanngedSuccess= () => {
+        if(this.state.isFistValue){
+            this.setState({isFistValue: false})
+            message.success('Se editó con éxito');
+            
+        }else{
+            return 0
+        }
+    }
     render(){
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 6 },lg: { span: 8 },xl: { span: 6 }},
@@ -151,13 +162,10 @@ class ConfirmationShipping extends PureComponent {
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
         this.setState({ currentLoader });
         if (this.props.isSuccess == true) {
-            if(this.props.masterMode == "NEW"){
-                this.props.changedSuccess();
-                message.success('Se agregó con éxito');
-            }else{
+           
                 this.props.updateShippingSuccess();
-                message.success('Se editó con éxito');
-            }
+                this.messageChanngedSuccess();
+            
         }
         if (close == true) {
             this.props.closeConfirmation();

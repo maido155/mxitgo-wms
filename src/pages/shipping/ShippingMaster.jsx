@@ -30,10 +30,11 @@ function disabledDate(current) {
     }
 }
 
-@connect(({ products,operator,shipping, loading }) => ({
+@connect(({ locations,products,operator,shipping, loading }) => ({
     shipping,
     operator,
     products,
+    locations,
     loading: loading.models.shipping,
     warehouses: shipping.warehouses,
     isSuccess: shipping.isSuccess,
@@ -60,7 +61,7 @@ class ShippingMaster extends PureComponent {
     }
     componentDidMount() {
         this.props.dispatch({
-            type: 'operator/getLocations',
+            type: 'locations/getLocations',
             payload: {
                 payload: {
                  Authorization: sessionStorage.getItem('idToken')
@@ -374,7 +375,7 @@ class ShippingMaster extends PureComponent {
             wrapperCol: { xs: { span: 24 }, sm: { span: 14 }, md: { span: 15 }, lg: { span: 15 }, xl: { span: 15 } }
         };
         const {  warehouses, warehouseIds, oShippingItem, products } = this.props.shipping;
-        const {locationTreeData}= this.props.operator;
+        const {locationTreeData}= this.props.locations;
         const { productsAll, loading, isSuccess, close, datesShipping, operatorAll } = this.props;
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
         this.setState({ currentLoader });
