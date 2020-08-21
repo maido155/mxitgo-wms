@@ -315,7 +315,9 @@ class drawerEntry extends PureComponent {
                                         onChange={this.handleChange}
                                         disabled={oShippingItem == undefined || oShippingItem.commentEntry == undefined ? false : true}
                                     >
-                                        <img src={""} alt="avatar" style={{ width: '100%' }}/>
+                                        {/* <img src={""} alt="avatar" style={{ width: '100%' }}/> */}
+
+                                        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
                                         {/* { oShippingItem == undefined || oShippingItem.commentEntry == undefined ?
                                             imageUrl ? 
                                                 <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/> 
