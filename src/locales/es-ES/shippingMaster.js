@@ -61,7 +61,7 @@ export default {
     'shipping.modal.detail-table.title': 'Detalle',
     'shipping.modal.detail-table.shipping': 'Envío',
     'shipping.modal.detail-table.day': 'Día',
-    'shipping.modal.detail-table.product': 'Product',
+    'shipping.modal.detail-table.product': 'Producto',
     'shipping.modal.detail-table.planned': 'Planeado',
     'shipping.modal.detail-table.confirmed': 'Confirmado',
     'shipping.modal.detail-table.entry': 'Entrada',
