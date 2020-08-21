@@ -41,7 +41,7 @@ export default {
     'shipping.shippingconfirmation.phone': 'Telefono',
     'menu.Maestro de envíos': 'Maestro de envíos',
     'shipping.label.table-shipping.id': 'Id',
-    'shipping.label.table-shipping.ubication': 'Ubicacion',
+    'shipping.label.table-shipping.ubication': 'Ubicación',
     'shipping.label.table-shipping.output': 'Salida',
     'shipping.shippingNew.title': 'Nueva entrada',
     'shipping.shippingconfirmation.comments': 'Comentarios',
@@ -78,14 +78,14 @@ export default {
     'shipping.drawerEntry.dateMissing': 'Fecha no seleccionada',
     'shipping.drawerEntry.temperatureMissing': 'Tiene que agregar la temperatura al producto',
     'shipping.drawerEntry.amountMissing': 'Tiene que agregar la cantidad',
-    'shipping.drawerEntry.messageWarningNewLine':'Agregar nueva línea',
+    'shipping.drawerEntry.messageWarningNewLine': 'Agregar nueva línea',
     'shipping.drawerConfirm.messageWarningCenter': 'No es posible agregar 2 lineas del mismo centro',
     'shipping.newLine.missingValue': 'Tiene que agregar un valor',
     'shipping.newLine.missingCenter': 'Tiene que agregar un centro',
     'shipping.newLine.messageWarningCenter': 'Tiene que agregar un centro',
-    'shipping.gridModalEntry.amount':'Cantidad: ',
-    'shipping.confirm.operatorMissing':'Operador no seleccionado',
-    'shipping.confirm.phoneMissing':'Tiene que agregar un telefono'
+    'shipping.gridModalEntry.amount': 'Cantidad: ',
+    'shipping.confirm.operatorMissing': 'Operador no seleccionado',
+    'shipping.confirm.phoneMissing': 'Tiene que agregar un telefono'
 
 
 

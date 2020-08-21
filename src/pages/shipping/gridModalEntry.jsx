@@ -18,8 +18,14 @@ class gridModalEntry extends React.Component {
                     dataSource={this.props.productsEntry(dataSource)}
                     bordered
                     renderItem={item => (
-                    <List.Item key={item.id}actions={[<a onClick={() => {this.drawerProductInformation(item.id)}} key={`a-${item.id}`}><Icon type="eye"/></a>,]}>
-                        <List.Item.Meta title={item.name} description={<FormattedMessage id='shipping.gridModalEntry.amount'/> + item.quantities}/> 
+                    <List.Item key={item.id} 
+                    actions={
+                        item.quantitiesCaptured == 0
+                        ? [<a onClick={() => {this.drawerProductInformation(item.id)}} key={`a-${item.id}`}><Icon type="eye"/></a>]
+                        : [<a onClick={() => {this.drawerProductInformation(item.id)}} key={`a-${item.id}`}><Icon type="eye"/></a>, <a><Icon type="check"/></a>]
+                    }>
+                        <List.Item.Meta title={item.name} 
+                            description={<div><FormattedMessage id='shipping.gridModalEntry.amount'/>{item.quantities}<br />Captured: {item.quantitiesCaptured} </div>  }/> 
                     </List.Item>
                     )}
                 />
