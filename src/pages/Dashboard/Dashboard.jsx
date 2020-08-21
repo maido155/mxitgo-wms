@@ -82,7 +82,7 @@ export default class Dashboard extends PureComponent {
 
     startDate=`${startDate}T00:00:00.000Z`;
     
-    this.props.dispatch({
+    /* this.props.dispatch({
       type: 'dashboard/getWeekProgrammingTotals',
       payload: {
         product,
@@ -101,7 +101,7 @@ export default class Dashboard extends PureComponent {
         products: this.state.products,
         Authorization: sessionStorage.getItem('idToken')
       }
-    });
+    }); */
 
 
 
@@ -145,6 +145,37 @@ export default class Dashboard extends PureComponent {
     
   }
 
+  getTotals=(product,customer,startDate)=>{
+    if( product === "" || customer ==="" || startDate ==="")
+    {
+      return;
+    }
+
+    startDate=`${startDate}T00:00:00.000Z`;
+    
+    this.props.dispatch({
+      type: 'dashboard/getWeekProgrammingTotals',
+      payload: {
+        product,
+        customer,
+        startDate,
+        Authorization: sessionStorage.getItem('idToken')
+      }
+    });
+
+
+    this.props.dispatch({
+      type: 'dashboard/dashboardGetMasterTotal',
+      payload: {
+        startDate,
+        customer,
+        products: this.state.products,
+        Authorization: sessionStorage.getItem('idToken')
+      }
+    });
+    
+  }
+
 
 
   onPickerChange = (oEvent) => {
@@ -154,9 +185,16 @@ export default class Dashboard extends PureComponent {
       //PRODUCT-2|CUSTOMER-1
 
 
-      this.setState({currentSelectedDate: oEvent.format("YYYY-MM-DD")})
+      this.setState(
+        {
+          currentSelectedDate: oEvent.format("YYYY-MM-DD")
+        },() => {
+          this.getTotals(this.state.currentSelectedProduct, this.state.currentCustomer, oEvent.format("YYYY-MM-DD"))
+        }
+      )
+     
 
-      this.selectionMade(this.state.currentSelectedProduct, this.state.currentCustomer, oEvent.format("YYYY-MM-DD"));
+      //this.selectionMade(this.state.currentSelectedProduct, this.state.currentCustomer, oEvent.format("YYYY-MM-DD"));
 
 
     
@@ -171,8 +209,9 @@ export default class Dashboard extends PureComponent {
           currentSelectedProductDesc:key.props.children
         },() => {
           this.selectionMade(value, this.state.currentCustomer, this.state.currentSelectedDate);
-        })
 
+        })
+        
       
 
   }
@@ -230,15 +269,11 @@ export default class Dashboard extends PureComponent {
           </Spin>
         </div>}
         extra={
-          <Form style={{paddingRight:"2rem"}} layout="inline" >
+          <Form  layout="inline" >
             <Form.Item {...formItemLayout} label={formatMessage({id: "general.calendar.week"})}>
               <DatePicker format="YYYY-MM-DD" disabledDate={disabledDate} onChange={this.onPickerChange}/>
             </Form.Item>
-            <Form.Item {...formItemLayout} label={formatMessage({id: "general.button-product.product"})}>
-              <SelectProduct 
-              datesProductAll={datesProductAll} 
-              handleProduct={this.onProductChange}/>
-            </Form.Item>
+            
 
             {/* <div>
               <Row type="flex" justify="space-between">
@@ -253,7 +288,18 @@ export default class Dashboard extends PureComponent {
 
           </Form>
         }>
-        <Card type="inner" style={{textAlign:"center"}}  title={`Product: ${this.state.currentSelectedProductDesc}`}>
+        <Card type="inner" 
+              style={{textAlign:"center"}}  
+              
+              extra={
+                  <div>
+                  <span>{formatMessage({id: "general.button-product.product"})}: &nbsp;</span>
+                  <SelectProduct 
+                  datesProductAll={datesProductAll} 
+                  handleProduct={this.onProductChange}/>
+                  </div>
+                
+              }>
           
         <Spin spinning={this.state.loading}>
           <StepsDashBoard currentDay={this.getNumberDay()} data={dashboard} />
