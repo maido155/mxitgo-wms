@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { FormattedMessage,formatMessage } from 'umi-plugin-react/locale';
 import ModalProductTable from '../generalComponents/ModalProductTable';
-import { Card, Button, Icon, Form, Row, Col, Divider, Spin, DatePicker, Modal } from 'antd'; //ADD
+import { Card, Button, Icon, Form, Row, Col, Divider, Spin, DatePicker, Modal, notification } from 'antd'; //ADD
 import TableShippingMaster from './TableShippingMaster';
 import DrawerShipping from './DrawerShippingPrograming';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
@@ -306,6 +306,11 @@ class ShippingMaster extends PureComponent {
             visibleModalProduct: false,
         });
     };
+    showMessage = (type, message) => {
+        notification[type]({
+            message
+        });
+    }
     /*****************************************************************/
     showDrawerShipping = (masterMode, oItem) => {
         if(masterMode == "EDIT"){
@@ -410,6 +415,7 @@ class ShippingMaster extends PureComponent {
                     changedSuccess={this.changedSuccess}
                     updateShippingSuccess={this.updateShippingSuccess}
                     changedClose={this.changedClose}
+                    showMessage={this.showMessage}
                 />
                 <ModalProductTable
                     visibleModalProduct={this.state.visibleModalProduct}
@@ -438,6 +444,7 @@ class ShippingMaster extends PureComponent {
                                     <TableShippingMaster
                                         //Props Drawer Shipping(Edit)
                                         showDrawerShipping={this.showDrawerShipping} 
+                                        showMessage={this.showMessage}
 
                                         //Props Confirmation
                                         visibleConfirmation={this.state.visibleConfirmation}

@@ -71,7 +71,6 @@ class ConfirmationShipping extends PureComponent {
             var aWarehouse = this.props.warehouses;
             aWarehouse.forEach((oWarehouse, iIndex) => {
                 if (oWarehouse.center === oWarehouseData.objWarehouse.center) {
-                    message.warning(<FormattedMessage id='shipping.drawerConfirm.messageWarningCenter'/>); //I18N *****************************************************************************************************
                     bDuplicate = true;
                 }
             });
@@ -83,6 +82,8 @@ class ConfirmationShipping extends PureComponent {
             } else {
                 this.props.replaceWarehouse(oWarehouseData, this.props.lineData.warehouseId);
             }
+        }else{
+            this.props.showMessage('warning', formatMessage({id:'shipping.drawerEntry.messageWarningNewLine'}));
         }
     }
     handleSubmitShippingPrograming = e => {
