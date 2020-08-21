@@ -12,13 +12,14 @@ class gridModalEntry extends React.Component {
     render() {
         const { dataSource, oShippingItem } = this.props;
         return (
+            //I18N ***************************************************************************************************** Cantidad en linea 22
             <div>
                 <List
                     dataSource={this.props.productsEntry(dataSource)}
                     bordered
                     renderItem={item => (
                     <List.Item key={item.id}actions={[<a onClick={() => {this.drawerProductInformation(item.id)}} key={`a-${item.id}`}><Icon type="eye"/></a>,]}>
-                        <List.Item.Meta title={item.name} description={'Cantidad: ' + item.quantities}/>
+                        <List.Item.Meta title={item.name} description={'Cantidad: ' + item.quantities}/> 
                     </List.Item>
                     )}
                 />

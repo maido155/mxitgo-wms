@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
-import { Drawer, Button, Form, InputNumber,Upload, Icon, message, Input } from 'antd';
+import { Drawer, Button, Form, InputNumber,Upload, Icon, message, Input, notification } from 'antd';
 import {isMobile} from 'react-device-detect';
 import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
 
@@ -44,7 +44,11 @@ class drawerEntryProducts extends PureComponent {
           );
         }
     };
-
+    openNotificationWithImage = (type) => {
+        notification[type]({
+            message: 'Tiene que ingresar una foto', //I18N*****************************************************************
+          });
+    }
     handleEntryProduct = e => {
         e.preventDefault();
         // const { imageUrl } = this.state;
@@ -53,7 +57,7 @@ class drawerEntryProducts extends PureComponent {
                 return;
             }
             // if(imageUrl == undefined){
-            //     console.log("mensaje imagen");
+            //     this.openNotificationWithImage();
             //     return;
             // }
             // values["urlImage"] = imageUrl;
@@ -112,6 +116,10 @@ class drawerEntryProducts extends PureComponent {
             return imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/> : uploadButton
         }
     }
+    onCloseDrawer = () => {
+        this.props.form.resetFields();
+        this.props.onCancel();
+    }
     render() {
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 24 },md: { span: 8 },lg: { span: 8 },xl: { span: 6 }},
@@ -130,7 +138,7 @@ class drawerEntryProducts extends PureComponent {
             <Drawer
                 title={formatMessage({ id: 'shipping.entryProducts.title' })}
                 width={isMobile ? "100%" : "40%"}
-                onClose={this.props.onCancel}
+                onClose={this.onCloseDrawer}
                 visible={this.props.visibleDrawer}
                 bodyStyle={{ paddingBottom: 80 }}
             >
@@ -169,8 +177,8 @@ class drawerEntryProducts extends PureComponent {
                         textAlign: 'right',
                         }}
                     >
-                        <Button onClick={this.props.onCancel} style={{ marginRight: 8 }} type="danger">
-                            Cancelar
+                        <Button onClick={this.onCloseDrawer} style={{ marginRight: 8 }} type="danger">
+                            Cancelar 
                         </Button>
                         { oShippingItem == undefined || oShippingItem.commentEntry == undefined &&
                             <Button type="primary" htmlType="submit">
@@ -182,6 +190,7 @@ class drawerEntryProducts extends PureComponent {
             </Drawer>
         </div>
       );
+      //I18N ***************************************************************************************************** CANCELAR Y PROGRAMAR BOTONES Y FECHAS NO SELECCIONADAS
     }
   }
 export default Form.create()(drawerEntryProducts);

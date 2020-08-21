@@ -101,7 +101,7 @@ const NewLine = Form.create()(
                 if (_self.props.lineMode === "NEW") {
                     //// Get values from Three control
                     if (_self.state.e.props.parentTitle == undefined) {
-                        message.warning('Tiene que agregar un centro');
+                        message.warning('Tiene que agregar un centro'); //I18N *****************************************************************************************************
                         return;
                     }
                     var center = _self.state.e.props.parentTitle + '-' + _self.state.e.props.title;
@@ -257,7 +257,7 @@ const NewLine = Form.create()(
                                                         : formatMessage({ id: 'shipping.tablecomponent.label.no-label'})
                                     }>
                                         {getFieldDecorator(item['WMS-1-SK'],{initialValue: this.getNewLineEdit(item,lineData),rules: [{ required: true, message: "insertar valor" }] })
-                                        (<InputNumber min={0} max={500}  style={{ width: '100%' }}/>)}
+                                        (<InputNumber min={0} max={500}  style={{ width: '100%' }} disabled={oShippingItem.Operator == undefined ? false : oShippingItem.Operator == "" ? false : true}/>)}
                                     </Form.Item>
                                 ))}
                                 <div
