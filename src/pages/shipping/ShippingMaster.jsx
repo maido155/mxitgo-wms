@@ -184,9 +184,6 @@ class ShippingMaster extends PureComponent {
     }
     confirmShipping = (datesShipping) => {
         let _self = this;
-        console.log(this.state.dateFrom);
-        console.log(_self.state.dateFrom)
-        console.log(datesShipping);
         let operators = this.props.operatorAll;
         let existsOperator = operators.filter(function(data){
             return data.operators.phone == datesShipping.phone && data.operators.name != datesShipping.operator;
@@ -233,7 +230,7 @@ class ShippingMaster extends PureComponent {
             okType: 'danger',
             cancelText: formatMessage({ id: 'shipping.modal-delete-no' }),
             onOk(){
-                console.log('Deleting..........');
+                console.log('Deleting..........'); //I18N *****************************************************************************************************
                 _self.props.dispatch({
                     type: 'shipping/deleteShipping',
                     payload: {
@@ -248,7 +245,7 @@ class ShippingMaster extends PureComponent {
                 })
             }, 
             onCancel() {
-              console.log('Deleting shipping cancelled');
+              console.log('Deleting shipping cancelled'); //I18N *****************************************************************************************************
             },
         });
     }

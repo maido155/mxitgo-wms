@@ -54,7 +54,7 @@ class DrawerShippingPrograming extends PureComponent {
             var aWarehouse = this.props.warehouses;
             aWarehouse.forEach((oWarehouse, iIndex) => {
                 if (oWarehouse.center === oWarehouseData.objWarehouse.center) {
-                    message.warning('No es posible agregar 2 lineas del mismo centro');
+                    message.warning('No es posible agregar 2 lineas del mismo centro'); //I18N *****************************************************************************************************
                     bDuplicate = true;
                 }
             });
@@ -106,7 +106,7 @@ class DrawerShippingPrograming extends PureComponent {
             values["warehousesSelect"] = whSelect;
 
             if (this.props.warehouseIds.length == 0) {
-                message.warning('Agregar Nueva Línea');
+                message.warning('Agregar Nueva Línea'); //I18N *****************************************************************************************************
                 return;
             }
             if(this.props.masterMode == "NEW"){
@@ -139,7 +139,7 @@ class DrawerShippingPrograming extends PureComponent {
     messageSuccess= () => {
         if(this.state.isFistValue){
             this.setState({isFistValue: false})
-            message.success('Se agregó con éxito');
+            message.success('Se agregó con éxito'); //I18N *****************************************************************************************************
             
         }else{
             return 0
@@ -148,7 +148,7 @@ class DrawerShippingPrograming extends PureComponent {
     messageChanngedSuccess= () => {
         if(this.state.isFistValue){
             this.setState({isFistValue: false})
-            message.success('Se editó con éxito');
+            message.success('Se editó con éxito'); //I18N *****************************************************************************************************
             
         }else{
             return 0
@@ -176,6 +176,7 @@ class DrawerShippingPrograming extends PureComponent {
             this.props.closeDrawerShipping();
             this.props.changedClose();
         }
+        //I18N ***************************************************************************************************** FECHAS NO SELECCIONADAS
         return (
             <div>
                 <NewLine

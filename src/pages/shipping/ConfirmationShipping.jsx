@@ -71,7 +71,7 @@ class ConfirmationShipping extends PureComponent {
             var aWarehouse = this.props.warehouses;
             aWarehouse.forEach((oWarehouse, iIndex) => {
                 if (oWarehouse.center === oWarehouseData.objWarehouse.center) {
-                    message.warning('No es posible agregar 2 lineas del mismo centro');
+                    message.warning('No es posible agregar 2 lineas del mismo centro'); //I18N *****************************************************************************************************
                     bDuplicate = true;
                 }
             });
@@ -101,7 +101,6 @@ class ConfirmationShipping extends PureComponent {
             values["dateNew"] = moment(this.state.datesGeneralNewLine.dateCreated).format("YYYY-MM-DD") + "T00:00:00.000Z";
             values["createdByNew"] = this.state.datesGeneralNewLine.createdByNew;
             values["destination"] = "Central de abastos"
-            console.log(this.props.products);
             values["products"] = this.props.products;
             values["warehouses"] = this.props.warehouseIds;
             values["comment"] = values.comment;
@@ -123,14 +122,12 @@ class ConfirmationShipping extends PureComponent {
             values["warehousesSelect"] = whSelect;
             
             if (this.props.warehouseIds.length == 0) {
-                message.warning('Agregar Nueva Línea');
+                message.warning('Agregar Nueva Línea'); //I18N *****************************************************************************************************
                 return;
             }
-            console.log(this.props.masterMode);
             if(this.props.masterMode == "NEW"){
             values["idShipping"] = this.state.idShipping + date.getDate() + (date.getMonth() + 1) + date.getFullYear() + date.getHours() + date.getMinutes();
             }else{
-                console.log(this.props.oShippingItem.idShipping);
             values["idShipping"] = this.props.oShippingItem.idShipping;
             values["deliveryDate"] == "" ? values["deliveryDate"] = this.props.oShippingItem.originalDeliveryDate : values["deliveryDate"]; 
             values["departureDate"] == "" ? values["departureDate"] = this.props.oShippingItem.originalDepartureDate : values["departureDate"]; 
@@ -145,7 +142,7 @@ class ConfirmationShipping extends PureComponent {
     messageChanngedSuccess= () => {
         if(this.state.isFistValue){
             this.setState({isFistValue: false})
-            message.success('Se editó con éxito');
+            message.success('Se editó con éxito'); //I18N *****************************************************************************************************
             
         }else{
             return 0
@@ -171,6 +168,7 @@ class ConfirmationShipping extends PureComponent {
             this.props.closeConfirmation();
             this.props.changedClose();
         }
+        //I18N ***************************************************************************************************** FECHAS NO SELECCIONADAS Y OPERADOR  LINEA 214 221 228 25
         return(
             <div>
                 <NewLine

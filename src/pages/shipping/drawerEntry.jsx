@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
-import { Drawer,Button, Row, Col, Form, Input, Upload, Icon, message, Spin} from 'antd';
+import { Drawer,Button, Row, Col, Form, Input, Upload, Icon, message, Spin, notification} from 'antd';
 import TableModal from './tableModalEntry';
 import GridModal from './gridModalEntry';
 import {isMobile} from 'react-device-detect';
@@ -114,7 +114,7 @@ class drawerEntry extends PureComponent {
                 return;
             }
             // if(imageUrl == undefined){
-            //     console.log("mensaje imagen");
+            //     this.openNotificationWithImage();
             //     return;
             // }
             var products = [];
@@ -130,7 +130,7 @@ class drawerEntry extends PureComponent {
                     }
                     products.push(product)
                 }else{
-                    console.log("mensaje datos" + productsEdit[i] + "falta temperatura");
+                    this.openNotificationWithIcon(productsEdit[i])
                     return;
                 }
             }
@@ -156,6 +156,16 @@ class drawerEntry extends PureComponent {
             this.setState({dataProduct: productsCancel})
             this.props.form.resetFields();
         });
+    }
+    openNotificationWithIcon = (type, producto) => {
+        notification[type]({
+            message: 'El producto ' +  producto + ' tiene que tener una temperatura', //I18N*****************************************************************
+          });
+    }
+    openNotificationWithImage = (type) => {
+        notification[type]({
+            message: 'Tiene que ingresar una foto', //I18N*****************************************************************
+          });
     }
     productsEntry = (products) => {
         const { oShippingItem } = this.props;
@@ -252,16 +262,17 @@ class drawerEntry extends PureComponent {
         if (this.props.isSuccess == true) {
             if(this.props.masterMode == "NEW"){
                 this.props.changedSuccess();
-                message.success('Se agregó con éxito');
+                message.success('Se agregó con éxito'); //I18N *****************************************************************************************************
             }else{
                 this.props.updateShippingSuccess();
-                message.success('Se editó con éxito');
+                message.success('Se editó con éxito'); //I18N *****************************************************************************************************
             }
         }
         if (this.props.close == true) {
             this.props.closeEntry();
             this.props.changedClose();
         }
+        //I18N ******************************************* COMENTARIO LINEA 306
       return (
         <div>
             <Drawer
@@ -292,7 +303,7 @@ class drawerEntry extends PureComponent {
                             <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                 <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.comments' })}>
                                     {getFieldDecorator('textEntry',{ initialValue:  oShippingItem == undefined || oShippingItem.commentEntry == undefined ? "" : oShippingItem.commentEntry, 
-                                    rules: [{ required: true, message: "as" }]})(<TextArea disabled={oShippingItem == undefined || oShippingItem.commentEntry == undefined ? false : true}/>)}
+                                    rules: [{ required: true, message: "TIENE QUE DEJAR UN COMENTARIO" }]})(<TextArea disabled={oShippingItem == undefined || oShippingItem.commentEntry == undefined ? false : true}/>)}
                                 </Form.Item>
                                 <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.photo' })}>
                                     <Upload
