@@ -161,7 +161,7 @@ class drawerEntryProducts extends PureComponent {
                             onChange={this.handleChange}
                             disabled={disabledInputs}
                         >
-                            <img src={""} alt="avatar" style={{ width: '100%' }}/>
+                            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
                             {/* {this.typePictureName(oShippingItem, uploadButton)} */}
                         </Upload>
                     </Form.Item>
