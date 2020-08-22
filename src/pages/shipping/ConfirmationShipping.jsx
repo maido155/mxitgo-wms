@@ -83,7 +83,7 @@ class ConfirmationShipping extends PureComponent {
                 this.props.replaceWarehouse(oWarehouseData, this.props.lineData.warehouseId);
             }
         }else{
-            this.props.showMessage('warning', formatMessage({id:'shipping.drawerEntry.messageWarningNewLine'}));
+            this.props.showMessage('warning', formatMessage({id:'shipping.drawerConfirm.messageWarningCenter'}));
         }
     }
     handleSubmitShippingPrograming = e => {
@@ -123,7 +123,7 @@ class ConfirmationShipping extends PureComponent {
             values["warehousesSelect"] = whSelect;
             
             if (this.props.warehouseIds.length == 0) {
-                message.warning(<FormattedMessage id='shipping.drawerEntry.messageWarningNewLine'/>); //I18N *****************************************************************************************************
+                message.warning(<FormattedMessage id='shipping.drawerEntry.messageWarningCenter'/>); //I18N *****************************************************************************************************
                 return;
             }
             if(this.props.masterMode == "NEW"){
@@ -140,15 +140,7 @@ class ConfirmationShipping extends PureComponent {
         });
     }
     
-    messageChanngedSuccess= () => {
-        if(this.state.isFistValue){
-            this.setState({isFistValue: false})
-            message.success(<FormattedMessage id='shipping.drawerEntry.messageSuccessEdit'/>); //I18N *****************************************************************************************************
-            
-        }else{
-            return 0
-        }
-    }
+    
     render(){
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 6 },lg: { span: 8 },xl: { span: 6 }},
@@ -159,12 +151,7 @@ class ConfirmationShipping extends PureComponent {
         const { phoneOperator }= this.state;
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
         this.setState({ currentLoader });
-        if (this.props.isSuccess == true) {
-           
-                this.props.updateShippingSuccess();
-                this.messageChanngedSuccess();
-            
-        }
+       
         if (close == true) {
             this.props.closeConfirmation();
             this.props.changedClose();

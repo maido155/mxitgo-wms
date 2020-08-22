@@ -25,7 +25,7 @@ class gridModalEntry extends React.Component {
                         : [<a onClick={() => {this.drawerProductInformation(item.id)}} key={`a-${item.id}`}><Icon type="eye"/></a>, <a><Icon type="check"/></a>]
                     }>
                         <List.Item.Meta title={item.name} 
-                            description={<div><FormattedMessage id='shipping.gridModalEntry.amount'/>{item.quantities}<br />Captured: {item.quantitiesCaptured} </div>  }/> 
+                            description={<div><FormattedMessage id='shipping.gridModalEntry.amount'/>{item.quantities}<br /><FormattedMessage id='shipping.gridModalEntry.captured'/> {item.quantitiesCaptured} </div>  }/> 
                     </List.Item>
                     )}
                 />

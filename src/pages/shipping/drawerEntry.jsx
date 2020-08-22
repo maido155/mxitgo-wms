@@ -263,15 +263,7 @@ class drawerEntry extends PureComponent {
         const { oShippingItem } = this.props;
         const { dataSource, imageUrl } = this.state;
         this.setState({ currentLoader });
-        if (this.props.isSuccess == true) {
-            if(this.props.masterMode == "NEW"){
-                this.props.changedSuccess();
-                message.success(<FormattedMessage id='shipping.drawerEntry.messageSuccessNew'/>); //I18N *****************************************************************************************************
-            }else{
-                this.props.updateShippingSuccess();
-                message.success(<FormattedMessage id='shipping.drawerEntry.messageSuccessEdit'/>); //I18N *****************************************************************************************************
-            }
-        }
+        
         if (this.props.close == true) {
             this.props.closeEntry();
             this.props.changedClose();
