@@ -308,7 +308,7 @@ class drawerEntry extends PureComponent {
                             <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                 <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.comments' })}>
                                     {getFieldDecorator('textEntry',{ initialValue:  oShippingItem == undefined || oShippingItem.commentEntry == undefined ? "" : oShippingItem.commentEntry, 
-                                    rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.messageComment'/> }]})(<TextArea disabled={oShippingItem == undefined || oShippingItem.commentEntry == undefined ? false : true}/>)}
+                                    rules: [{ required: false, message: <FormattedMessage id='shipping.drawerEntry.messageComment'/> }]})(<TextArea disabled={oShippingItem == undefined || oShippingItem.commentEntry == undefined ? false : true}/>)}
                                 </Form.Item>
                                 <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.photo' })}>
                                     <Upload
