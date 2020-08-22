@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { FormattedMessage,formatMessage } from 'umi-plugin-react/locale';
 import ModalProductTable from '../generalComponents/ModalProductTable';
-import { Card, Button, Icon, Form, Row, Col, Divider, Spin, DatePicker, Modal, message } from 'antd'; //ADD
+import { Card, Button, Icon, Form, Row, Col, Divider, Spin, DatePicker, Modal, notification, message } from 'antd'; //ADD
 import TableShippingMaster from './TableShippingMaster';
 import DrawerShipping from './DrawerShippingPrograming';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
@@ -38,6 +38,9 @@ function disabledDate(current) {
     loading: loading.models.shipping,
     warehouses: shipping.warehouses,
     isSuccess: shipping.isSuccess,
+    isSuccessEdit: shipping.isSuccessEdit,
+    isSuccessConfirm: shipping.isSuccessConfirm,
+    isSuccessEntry: shipping.isSuccessEntry,
     close: shipping.close,
     datesShipping: shipping.datesShipping,
     productsAll: products.productsAll,
@@ -306,6 +309,11 @@ class ShippingMaster extends PureComponent {
             visibleModalProduct: false,
         });
     };
+    showMessage = (type, message) => {
+        notification[type]({
+            message
+        });
+    }
     /*****************************************************************/
     showDrawerShipping = (masterMode, oItem) => {
         if(masterMode == "EDIT"){
@@ -372,21 +380,21 @@ class ShippingMaster extends PureComponent {
             this.changedSuccess();
         }
     }
-    isEdited = (success) => {
-        if(success){
-            message.success(formatMessage({id:'shipping.drawerEntry.messageSuccessNew'}) );
+    isEdited = (successEdit) => {
+        if(successEdit){
+            message.success(formatMessage({id:'shipping.drawerEntry.messageSuccessEdit'}) );
             this.changedSuccess();
         }
     }
-    isConfirmed = (success) => {
-        if(success){
-            message.success(formatMessage({id:'shipping.drawerEntry.messageSuccessNew'}) );
+    isConfirmed = (successConfirm) => {
+        if(successConfirm){
+            message.success(formatMessage({id:'shipping.drawerEntry.messageSuccessConfirm'}) );
             this.changedSuccess();
         }
     }
-    isEntry = (success) => {
-        if(success){
-            message.success(formatMessage({id:'shipping.drawerEntry.messageSuccessNew'}) );
+    isEntry = (successEntry) => {
+        if(successEntry){
+            message.success(formatMessage({id:'shipping.drawerEntry.messageSuccessEntry'}) );
             this.changedSuccess();
         }
     }
@@ -438,6 +446,7 @@ class ShippingMaster extends PureComponent {
                     changedSuccess={this.changedSuccess}
                     updateShippingSuccess={this.updateShippingSuccess}
                     changedClose={this.changedClose}
+                    showMessage={this.showMessage}
                 />
                 <ModalProductTable
                     visibleModalProduct={this.state.visibleModalProduct}
@@ -466,6 +475,7 @@ class ShippingMaster extends PureComponent {
                                     <TableShippingMaster
                                         //Props Drawer Shipping(Edit)
                                         showDrawerShipping={this.showDrawerShipping} 
+                                        showMessage={this.showMessage}
 
                                         //Props Confirmation
                                         visibleConfirmation={this.state.visibleConfirmation}

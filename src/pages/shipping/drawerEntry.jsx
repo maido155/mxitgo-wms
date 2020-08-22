@@ -122,7 +122,7 @@ class drawerEntry extends PureComponent {
                 //&& productsEdit[i].urlImage != ""
                 if(productsEdit[i].temperature != ""){
                     var product = {
-                        amount: productsEdit[i].quantities,
+                        amount: productsEdit[i].quantitiesCaptured,
                         product: productsEdit[i].id,
                         productName: productsEdit[i].nameProduct,
                         temp: productsEdit[i].temperature,
@@ -130,7 +130,7 @@ class drawerEntry extends PureComponent {
                     }
                     products.push(product)
                 }else{
-                    this.openNotificationWithIcon(productsEdit[i])
+                    this.openNotificationWithIcon('warning',productsEdit[i])
                     return;
                 }
             }
@@ -159,7 +159,9 @@ class drawerEntry extends PureComponent {
     }
     openNotificationWithIcon = (type, producto) => {
         notification[type]({
-            message: <FormattedMessage id='shipping.drawerEntry.messageTemperature'/> +  producto , //I18N*****************************************************************
+            message: <span>
+                <FormattedMessage id='shipping.drawerEntry.messageTemperature'/> {producto}
+            </span> , //I18N*****************************************************************
           });
     }
     openNotificationWithImage = (type) => {
@@ -178,20 +180,22 @@ class drawerEntry extends PureComponent {
                         if(products[i].id == oShippingItem.products[0][k].product && products[i].id == dataProduct[j].id){
                             if(dataProduct[j].quantities == 0){
                                 var dataProdu = {
-                                    quantities: oShippingItem.products[0][k].amount,
+                                    quantitiesCaptured: dataProduct[j].quantities,
                                     id: products[i].id,
                                     name: products[i].name,
                                     temperature: "",
                                     urlImage: "",
+                                    quantities: oShippingItem.products[0][k].amount
                                 }
                             }else{
                                 var dataProdu = {
-                                    quantities: dataProduct[j].quantities,
+                                    quantitiesCaptured: dataProduct[j].quantities,
                                     id: products[i].id,
                                     name: products[i].name,
                                     nameProduct: oShippingItem.products[0][k].productName,
                                     temperature: dataProduct[j].temperature,
-                                    urlImage: dataProduct[j].urlImage
+                                    urlImage: dataProduct[j].urlImage,
+                                    quantities: oShippingItem.products[0][k].amount
                                 }
                             }
                             productsList.push(dataProdu);
@@ -290,12 +294,13 @@ class drawerEntry extends PureComponent {
                                     showDrawerProducts={this.showDrawerProducts}
                                     visisbleProducts={this.state.visisbleProducts}
                                     onCloseProducts={this.onCloseProducts}
+                                    dataProduct={this.state.dataProduct}
                                 />
                             </Col>
                             <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                 <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.comments' })}>
                                     {getFieldDecorator('textEntry',{ initialValue:  oShippingItem == undefined || oShippingItem.commentEntry == undefined ? "" : oShippingItem.commentEntry, 
-                                    rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.messageComment'/> }]})(<TextArea disabled={oShippingItem == undefined || oShippingItem.commentEntry == undefined ? false : true}/>)}
+                                    rules: [{ required: false, message: <FormattedMessage id='shipping.drawerEntry.messageComment'/> }]})(<TextArea disabled={oShippingItem == undefined || oShippingItem.commentEntry == undefined ? false : true}/>)}
                                 </Form.Item>
                                 <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.photo' })}>
                                     <Upload
@@ -307,7 +312,9 @@ class drawerEntry extends PureComponent {
                                         onChange={this.handleChange}
                                         disabled={oShippingItem == undefined || oShippingItem.commentEntry == undefined ? false : true}
                                     >
-                                        <img src={""} alt="avatar" style={{ width: '100%' }}/>
+                                        {/* <img src={""} alt="avatar" style={{ width: '100%' }}/> */}
+
+                                        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
                                         {/* { oShippingItem == undefined || oShippingItem.commentEntry == undefined ?
                                             imageUrl ? 
                                                 <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/> 

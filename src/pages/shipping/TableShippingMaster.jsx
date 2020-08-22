@@ -250,6 +250,7 @@ class TableShippingMaster extends PureComponent {
           changedSuccess={this.props.changedSuccess}
           changedClose={this.props.changedClose}
           updateShippingSuccess={this.props.updateShippingSuccess}
+          showMessage={this.props.showMessage}
 
           //Props New Line
           visibleNewLineConfirm={this.props.visibleNewLineConfirm}

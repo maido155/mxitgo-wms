@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import TableComponent from '../generalComponents/TableComponent';
 import Styles from './StylesShipping.css';
-import { Drawer, Button, Icon, Form, Row, Col, Divider, DatePicker, Input, message, Spin, Card } from 'antd';
+import { Drawer, Button, Icon, Form, Row, Col, Divider, DatePicker, Input, message, Spin, Card, notification } from 'antd';
 import { isMobile } from 'react-device-detect';
 import { _ } from 'lodash';
 import NewLine from './NewLine';
@@ -13,7 +13,6 @@ const { TextArea } = Input;
 function disabledDate(current) {
     return current && current < moment().endOf('day');
 }
-
 class DrawerShippingPrograming extends PureComponent {
     state= {
         departureDate: '',
@@ -54,7 +53,6 @@ class DrawerShippingPrograming extends PureComponent {
             var aWarehouse = this.props.warehouses;
             aWarehouse.forEach((oWarehouse, iIndex) => {
                 if (oWarehouse.center === oWarehouseData.objWarehouse.center) {
-                    message.warning(<FormattedMessage id='shipping.drawerConfirm.messageWarningCenter'/>); //I18N *****************************************************************************************************
                     bDuplicate = true;
                 }
             });
@@ -66,8 +64,11 @@ class DrawerShippingPrograming extends PureComponent {
             } else {
                 this.props.replaceWarehouse(oWarehouseData, this.props.lineData.warehouseId);
             }
+        }else{
+            this.props.showMessage('warning', formatMessage({id:'shipping.drawerEntry.messageWarningNewLine'}));
         }
     }
+
     handleSubmitShippingPrograming = e => {
         e.preventDefault();
         this.setState({whName: ""})
