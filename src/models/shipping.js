@@ -9,6 +9,9 @@ export default {
         warehouses: [],
         warehouseIds: [],
         isSuccess: false,
+        isSuccessEdit: false,
+        isSuccessConfirm: false,
+        isSuccessEntry: false,
         close: false,
         oShippingItem: { products: [], id: "" },
         products: [],
@@ -164,7 +167,7 @@ export default {
             console.log(response);
             console.log(response);
             yield put({
-                type: 'saveShippingReducer',
+                type: 'saveEntryReducer',
                 payload: response,
             });
             const responseGetAll = yield call(fetchShippingAll, payload);
@@ -174,7 +177,13 @@ export default {
                 type: 'queryGetShippingAll',
                 payload: responseGetAll,
             });
-        }
+        },
+        * updateValidation({ payload }, { call, put }) {
+            yield put({
+                type: 'queryValidation',
+                payload: {},
+            });
+        },
     },
 
     reducers: {
@@ -188,6 +197,14 @@ export default {
             return {
                 ...state,
                 datesShipping: action.payload
+            }
+        },
+        saveEntryReducer(state, action) {
+            if(action.payload.message==="Success"){
+                return {
+                    ...state,
+                    isSuccessEntry: true
+                }
             }
         },
         resetValuesReducer(state, action) {
@@ -231,6 +248,9 @@ export default {
             return {
                 ...state,
                 isSuccess: false,
+                isSuccessEdit: false,
+                isSuccessConfirm: false,
+                isSuccessEntry: false,
                 close: true
 
 
@@ -297,7 +317,7 @@ export default {
                     // datesShipping: action.payload,
                     // warehouses: [],
                     // warehouseIds: [],
-                    isSuccess: true,
+                    isSuccessEdit: true,
                     close: false,
                     // oShippingItem: { products: [], id: "" },
                     // products: []
@@ -308,7 +328,7 @@ export default {
             if(action.payload.message==="Success"){
                 return {
                 ...state,
-                isSuccess: true
+                isSuccessConfirm: true
                 }
             }
         },
@@ -384,6 +404,12 @@ export default {
                 oShippingItem: { products: [], id: "" },
                 datesShipping: action.payload
             }
-        }
+        },
+        queryValidation(state, action) {
+            return {
+                ...state,
+                isSuccess: false
+            }
+        },
     },
 }

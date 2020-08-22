@@ -139,15 +139,7 @@ class ConfirmationShipping extends PureComponent {
         });
     }
     
-    messageChanngedSuccess= () => {
-        if(this.state.isFistValue){
-            this.setState({isFistValue: false})
-            message.success(<FormattedMessage id='shipping.drawerEntry.messageSuccessEdit'/>); //I18N *****************************************************************************************************
-            
-        }else{
-            return 0
-        }
-    }
+    
     render(){
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 6 },lg: { span: 8 },xl: { span: 6 }},
@@ -158,12 +150,7 @@ class ConfirmationShipping extends PureComponent {
         const { phoneOperator }= this.state;
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
         this.setState({ currentLoader });
-        if (this.props.isSuccess == true) {
-           
-                this.props.updateShippingSuccess();
-                this.messageChanngedSuccess();
-            
-        }
+       
         if (close == true) {
             this.props.closeConfirmation();
             this.props.changedClose();

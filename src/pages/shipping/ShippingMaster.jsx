@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { FormattedMessage,formatMessage } from 'umi-plugin-react/locale';
 import ModalProductTable from '../generalComponents/ModalProductTable';
-import { Card, Button, Icon, Form, Row, Col, Divider, Spin, DatePicker, Modal } from 'antd'; //ADD
+import { Card, Button, Icon, Form, Row, Col, Divider, Spin, DatePicker, Modal, message } from 'antd'; //ADD
 import TableShippingMaster from './TableShippingMaster';
 import DrawerShipping from './DrawerShippingPrograming';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
@@ -366,6 +366,30 @@ class ShippingMaster extends PureComponent {
     closeEntry = () => {
         this.setState({ visibleEntry: false})
     }
+    isCreated = (success) => {
+        if(success){
+            message.success(formatMessage({id:'shipping.drawerEntry.messageSuccessNew'}) );
+            this.changedSuccess();
+        }
+    }
+    isEdited = (success) => {
+        if(success){
+            message.success(formatMessage({id:'shipping.drawerEntry.messageSuccessNew'}) );
+            this.changedSuccess();
+        }
+    }
+    isConfirmed = (success) => {
+        if(success){
+            message.success(formatMessage({id:'shipping.drawerEntry.messageSuccessNew'}) );
+            this.changedSuccess();
+        }
+    }
+    isEntry = (success) => {
+        if(success){
+            message.success(formatMessage({id:'shipping.drawerEntry.messageSuccessNew'}) );
+            this.changedSuccess();
+        }
+    }
     render() {
         const formItemLayout = {
             labelCol: { xs: { span: 24 }, sm: { span: 7 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 5 } },
@@ -373,9 +397,13 @@ class ShippingMaster extends PureComponent {
         };
         const {  warehouses, warehouseIds, oShippingItem, products } = this.props.shipping;
         const {locationTreeData}= this.props.locations;
-        const { productsAll, loading, isSuccess, close, datesShipping, operatorAll } = this.props;
+        const { productsAll, loading, isSuccess,isSuccessEdit,isSuccessConfirm,isSuccessEntry, close, datesShipping, operatorAll } = this.props;
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
         this.setState({ currentLoader });
+        this.isCreated(isSuccess);
+        this.isEdited(isSuccessEdit);
+        this.isConfirmed(isSuccessConfirm);
+        this.isEntry(isSuccessEntry);
         return (
             <div>
                 <DrawerShipping 
