@@ -65,7 +65,7 @@ class DrawerShippingPrograming extends PureComponent {
                 this.props.replaceWarehouse(oWarehouseData, this.props.lineData.warehouseId);
             }
         }else{
-            this.props.showMessage('warning', formatMessage({id:'shipping.drawerEntry.messageWarningNewLine'}));
+            this.props.showMessage('warning', formatMessage({id:'shipping.drawerConfirm.messageWarningCenter'}));
         }
     }
 

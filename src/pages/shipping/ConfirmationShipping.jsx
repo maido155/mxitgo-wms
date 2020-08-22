@@ -83,7 +83,7 @@ class ConfirmationShipping extends PureComponent {
                 this.props.replaceWarehouse(oWarehouseData, this.props.lineData.warehouseId);
             }
         }else{
-            this.props.showMessage('warning', formatMessage({id:'shipping.drawerEntry.messageWarningNewLine'}));
+            this.props.showMessage('warning', formatMessage({id:'shipping.drawerConfirm.messageWarningCenter'}));
         }
     }
     handleSubmitShippingPrograming = e => {
@@ -123,7 +123,7 @@ class ConfirmationShipping extends PureComponent {
             values["warehousesSelect"] = whSelect;
             
             if (this.props.warehouseIds.length == 0) {
-                message.warning(<FormattedMessage id='shipping.drawerEntry.messageWarningNewLine'/>); //I18N *****************************************************************************************************
+                message.warning(<FormattedMessage id='shipping.drawerEntry.messageWarningCenter'/>); //I18N *****************************************************************************************************
                 return;
             }
             if(this.props.masterMode == "NEW"){

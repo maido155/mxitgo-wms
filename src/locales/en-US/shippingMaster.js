@@ -42,7 +42,7 @@ export default {
     'menu.Maestro de envíos': 'Shipping Master',
     'shipping.label.table-shipping.id': 'Id',
     'shipping.label.table-shipping.ubication': 'Location',
-    'shipping.label.table-shipping.output': 'output',
+    'shipping.label.table-shipping.output': 'Shipping',
     'shipping.shippingconfirmation.comments': 'Comments',
     'shipping.shippingconfirmation.photo': 'Photo',
     'shipping.entryProducts.amounts': 'Amounts',
@@ -82,9 +82,11 @@ export default {
     'shipping.newLine.missingValue': 'You have to add a value',
     'shipping.newLine.missingCenter': 'You have to add a center',
     'shipping.newLine.messageWarningCenter': 'You have to add a center',
-    'shipping.gridModalEntry.amount':'Amount: ',
+    'shipping.gridModalEntry.amount':'Confirmed: ',
     'shipping.confirm.operatorMissing':'You have to select a driver',
-    'shipping.confirm.phoneMissing':'You have to add a phone'
-
+    'shipping.confirm.phoneMissing':'You have to add a phone',
+    'shipping.drawerEntry.messageSuccessConfirm': 'Confirmed successfully',
+    'shipping.drawerEntry.messageSuccessEntry': 'Entry successfully',
+    'shipping.gridModalEntry.captured': 'Captured'
 
 };
