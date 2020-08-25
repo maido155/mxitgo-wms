@@ -118,6 +118,7 @@ class drawerEntry extends PureComponent {
             //     return;
             // }
             var products = [];
+            var messageProduct = false;
             for(var i = 0; i < productsEdit.length; i++){
                 //&& productsEdit[i].urlImage != ""
                 if(productsEdit[i].temperature != ""){
@@ -130,9 +131,12 @@ class drawerEntry extends PureComponent {
                     }
                     products.push(product)
                 }else{
-                    this.openNotificationWithIcon('warning',productsEdit[i])
-                    return;
+                    messageProduct = true;
                 }
+            }
+            if(messageProduct == true){
+                this.props.showMessageFeatures('warning')
+                return;
             }
             // values["urlImageGeneral"] = imageUrl;
             values["createdBy"] = localStorage.getItem('userName'),
@@ -156,13 +160,6 @@ class drawerEntry extends PureComponent {
             this.setState({dataProduct: productsCancel})
             this.props.form.resetFields();
         });
-    }
-    openNotificationWithIcon = (type, producto) => {
-        notification[type]({
-            message: <span>
-                <FormattedMessage id='shipping.drawerEntry.messageTemperature'/> {producto}
-            </span> , //I18N*****************************************************************
-          });
     }
     openNotificationWithImage = (type) => {
         notification[type]({
