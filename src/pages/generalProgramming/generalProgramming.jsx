@@ -53,7 +53,8 @@ class GeneralProgramming extends PureComponent {
     }
     showNewDrawer = () => {
         this.setState({
-            visibleNewDrawer: true
+            visibleNewDrawer: true,
+            visualizar: false
         });
     };
     showVisualizar = (skVizualizar, client, product) => {

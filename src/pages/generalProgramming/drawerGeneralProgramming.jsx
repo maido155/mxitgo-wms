@@ -1143,9 +1143,11 @@ const DrawerGeneralProgramming  = Form.create()(
                             <Button type="danger" onClick={this.props.onCloseNewDrawer} style={{ marginRight: 8 }}>
                                 <FormattedMessage id="shipping.button.cancel"/>
                             </Button>
-                            <Button type="primary" onClick={() => {handleSubmit(dateIso, weekNewUntil)}}>
-                                <FormattedMessage id="general.modal.accept"/>
-                            </Button>
+                            {visualizar == false &&
+                                <Button type="primary" onClick={() => {handleSubmit(dateIso, weekNewUntil)}}>
+                                    <FormattedMessage id="general.modal.accept"/>
+                                </Button>
+                            }
                         </div>
                     </Form>
                 </Drawer>
