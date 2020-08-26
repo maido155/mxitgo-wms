@@ -4,9 +4,9 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
-import { FormattedMessage} from 'umi-plugin-react/locale';
+import { formatMessage} from 'umi-plugin-react/locale';
 
-
+/*
 const codeMessage = {
   200:'The server successfully returned the requested data.',
   201:'New or modified data is successful.',
@@ -24,6 +24,7 @@ const codeMessage = {
   503:'The service is unavailable, the server is temporarily overloaded or maintained.',
   504:'Gateway timeout.'
 };
+*/
 /**
  * 异常处理程序
  */
@@ -32,16 +33,25 @@ const errorHandler = error => {
   const { response } = error;
 
   if (response && response.status) {
-    const errorText = codeMessage[response.status] || response.statusText;
+    //const errorText = codeMessage[response.status] || response.statusText;
+    const errorText= formatMessage({
+      id: `request.error.${response.status}`,
+    });
     const { status, url } = response;
     notification.error({
-      message: `请求错误 ${status}: ${url}`,
+      message: `${formatMessage({
+        id: 'request.error.notification.title',
+      })} ${status}: ${url}`,
       description: errorText,
     });
   } else if (!response) {
     notification.error({
-      description: '您的网络发生异常，无法连接服务器',
-      message: '网络异常',
+     description:  formatMessage({
+        id: 'request.error.notification.description',
+      }) ,
+      message:  formatMessage({
+        id: 'request.error.notification.message',
+      }) ,
     });
   }
 

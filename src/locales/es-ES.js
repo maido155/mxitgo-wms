@@ -11,6 +11,7 @@ import shippingMaster from './es-ES/shippingMaster';
 import dashboard from './es-ES/dashboard';
 import generalProgramming from './es-ES/generalProgramming';
 import usersModule from './es-ES/usersModule';
+import request from './es-ES/request'
 
 export default {
     'navBar.lang': 'Idiomas',
@@ -35,5 +36,6 @@ export default {
     ...shippingMaster,
     ...dashboard,
     ...generalProgramming,
-    ...usersModule
+    ...usersModule,
+    ...request
 };

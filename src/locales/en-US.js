@@ -7,6 +7,7 @@ import accountSettings from './en-US/accountSettings';
 import settingDrawer from './en-US/settingDrawer';
 import settings from './en-US/settings';
 import outComming from './en-US/outComming';
+import request from './en-US/request';
 import shippingMaster from './en-US/shippingMaster';
 import dashboard from './en-US/dashboard';
 import usersModule from './en-US/usersModule';
@@ -26,6 +27,7 @@ export default {
     ...pwa,
     ...component,
     ...register,
+    ...request,
     ...accountSettings,
     ...outComming,
     ...shippingMaster,
