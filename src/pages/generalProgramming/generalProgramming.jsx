@@ -17,7 +17,9 @@ const { confirm } = Modal;
     datesCustomerAll: programming.datesCustomerAll,
     datesProductAll: programming.datesProductAll,
     editSuccess: programming.editSuccess,
-    postSuccess: programming.postSuccess
+    postSuccess: programming.postSuccess,
+    palletsEdit: programming.palletsEdit,
+    boxesEdit: programming.boxesEdit
 }))
 class GeneralProgramming extends PureComponent {
     state = { 
@@ -128,7 +130,6 @@ class GeneralProgramming extends PureComponent {
         })
         confirm({
             title: formatMessage({ id: 'general.modal-cancell' }),
-            // content: 'Some descriptions',
             okText: formatMessage({ id: 'general.modal-cancell-yes' }),
             okType: 'danger',
             cancelText: formatMessage({ id: 'general.modal-cancell-no' }),
@@ -171,7 +172,7 @@ class GeneralProgramming extends PureComponent {
         }
         return dateName
     }
-    handleSubmit = (data, weekUntil) => {
+    handleSubmit = (pallets, boxes, data, weekUntil, palletsEdit, boxesEdit) => {
         const form = this.formRefNewLine.props.form;
         var allProgramming = this.props.datesPrograming;
         var allProduct = this.props.datesProductAll;
@@ -198,38 +199,38 @@ class GeneralProgramming extends PureComponent {
                     status: "NEW",
                     startDate: moment(values.weekEdit).format("YYYY-MM-DD") + "T00:00:00.000Z",
                     endDate:  moment(dataWeek).format("YYYY-MM-DD") + "T00:00:00.000Z",
-                    idSkEdit: values.productEdit + "|" + values.customerEdit,
+                    idSkEdit: values.productNew + "|" + values.customerEdit,
                     idSk: this.props.datesGetProgramming[0].skProduct + "|" + this.props.datesGetProgramming[0].skCustomer,
                     idPk: "PR-" + moment(values.weekEdit).format("DDMMYY") + moment(dataAllWeek[6]).format("DDMMYY"),
                     idPkOri: this.state.pk,
                     dates: [
                         {
-                            box: values.boxOneEdit,
-                            pallet: values.palletOneEdit
+                            box: boxesEdit[0],
+                            pallet: palletsEdit[0]
                         },
                         {
-                            box: values.boxTwoEdit,
-                            pallet: values.palleTwoEdit
+                            box: boxesEdit[1],
+                            pallet: palletsEdit[1]
                         },
                         {
-                            box: values.boxThreeEdit,
-                            pallet: values.palleThreeEdit
+                            box: boxesEdit[2],
+                            pallet: palletsEdit[2]
                         },
                         {
-                            box: values.boxFourEdit,
-                            pallet: values.palleFourEdit
+                            box: boxesEdit[3],
+                            pallet: palletsEdit[3]
                         },
                         {
-                            box: values.boxFiveEdit,
-                            pallet: values.palleFiveEdit
+                            box: boxesEdit[4],
+                            pallet: palletsEdit[4]
                         },
                         {
-                            box: values.boxSixEdit,
-                            pallet: values.palleSixEdit
+                            box: boxesEdit[5],
+                            pallet: palletsEdit[5]
                         },
                         {
-                            box: values.boxSevenEdit,
-                            pallet: values.palleSevenEdit
+                            box: boxesEdit[6],
+                            pallet: palletsEdit[6]
                         }
                     ]
                 };
@@ -262,7 +263,6 @@ class GeneralProgramming extends PureComponent {
                         payload.dates[j]["date"] = dates[j]
                     }
                 }
-                console.log(payload);
                 this.props.dispatch({
                     type: 'programming/updateProgramming',
                     payload: {
@@ -280,7 +280,7 @@ class GeneralProgramming extends PureComponent {
                         }
                      },
                 });
-            })
+            });
         }else{
             form.validateFields((err, values) => {
                 if(err){
@@ -295,32 +295,32 @@ class GeneralProgramming extends PureComponent {
                     idPk: moment(values.weekNew).format("DDMMYY") + moment(weekUntil).format("DDMMYY"),
                     dates: [
                         {
-                            box: values.boxOneNew,
-                            pallet: values.palletOneNew
+                            box: boxes[0],
+                            pallet: pallets[0]
                         },
                         {
-                            box: values.boxTwoNew,
-                            pallet: values.palletTwoNew
+                            box: boxes[1],
+                            pallet: pallets[1]
                         },
                         {
-                            box: values.boxThreeNew,
-                            pallet: values.palletThreeNew
+                            box: boxes[2],
+                            pallet: pallets[2]
                         },
                         {
-                            box: values.boxFourNew,
-                            pallet: values.palletFourNew
+                            box: boxes[3],
+                            pallet: pallets[3]
                         },
                         {
-                            box: values.boxFiveNew,
-                            pallet: values.palletFiveNew
+                            box: boxes[4],
+                            pallet: pallets[4]
                         },
                         {
-                            box: values.boxSixNew,
-                            pallet: values.palletSixNew
+                            box: boxes[5],
+                            pallet: pallets[5]
                         },
                         {
-                            box: values.boxSevenNew,
-                            pallet: values.palletSevenNew
+                            box: boxes[6],
+                            pallet: pallets[6]
                         }
                     ]
                 };
@@ -400,7 +400,7 @@ class GeneralProgramming extends PureComponent {
         this.setState({ editSumBoxes: true })
     }
     render(){
-        const { datesPrograming, loading, datesGetProgramming, datesCustomerAll, datesProductAll, editSuccess, postSuccess } = this.props;
+        const { datesPrograming, loading, datesGetProgramming, datesCustomerAll, datesProductAll, editSuccess, postSuccess, boxesEdit, palletsEdit } = this.props;
         if(editSuccess){
             this.UpdateValidation();
             this.onCloseNewDrawer();
@@ -449,7 +449,9 @@ class GeneralProgramming extends PureComponent {
                    showeditSumPallet = {this.showeditSumPallet}
                    editSumBoxes = {this.state.editSumBoxes}
                    showeditSumBoxes = {this.showeditSumBoxes}
-                   visualizar={this.state.visualizar}
+                   visualizar = {this.state.visualizar}
+                   boxesEdit = {boxesEdit}
+                   palletsEdit = {palletsEdit}
                 />
                 <PageHeaderWrapper 
                     extra={
