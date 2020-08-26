@@ -4,7 +4,7 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
-import { FormattedMessage} from 'umi-plugin-react/locale';
+import { formatMessage} from 'umi-plugin-react/locale';
 
 
 const codeMessage = {
@@ -32,10 +32,15 @@ const errorHandler = error => {
   const { response } = error;
 
   if (response && response.status) {
-    const errorText = codeMessage[response.status] || response.statusText;
+    //const errorText = codeMessage[response.status] || response.statusText;
+    const errorText= formatMessage({
+      id: `request.error.${response.status}`,
+    });
     const { status, url } = response;
     notification.error({
-      message: `请求错误 ${status}: ${url}`,
+      message: `${formatMessage({
+        id: 'request.error.notification.title',
+      })} ${status}: ${url}`,
       description: errorText,
     });
   } else if (!response) {
