@@ -13,7 +13,9 @@ export default {
         editSuccess: false,
         showEdit: false,
         showNew: false,
-        postSuccess: false
+        postSuccess: false,
+        palletsEdit: [],
+        boxesEdit: []
     },
     effects: {
         * fetchProgrammingAll({ payload }, { call, put }) {
@@ -35,6 +37,10 @@ export default {
         },
         * getProgramming({ payload }, { call, put }) {
             const response = yield call(getProgramming, payload);
+            yield put({
+                type: 'queryGetProgrammingEdit',
+                payload: response,
+            });
             yield put({
                 type: 'queryGetProgramming',
                 payload: response,
@@ -175,6 +181,20 @@ export default {
             return {
                 ...state,
                 postSuccess: false,
+            }
+        },
+        queryGetProgrammingEdit(state, action) {
+            let products = action.payload[0].date;
+            let pallets = [];
+            let boxes = [];
+            for (var i = 0; i < products.length; i++) {
+                pallets.push(products[i].pallet);
+                boxes.push(products[i].box);
+            }
+            return {
+                ...state,
+                palletsEdit: pallets,
+                boxesEdit: boxes
             }
         }
 
