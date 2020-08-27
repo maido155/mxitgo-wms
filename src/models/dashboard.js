@@ -156,7 +156,6 @@ export default {
 
 
 
-            action.payload
             return {
                 ...state,
                 programmingTotal: action.payload

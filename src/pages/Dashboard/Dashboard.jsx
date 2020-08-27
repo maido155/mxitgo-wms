@@ -5,7 +5,7 @@ import { routerRedux } from 'dva/router';
 import { _ } from 'lodash';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import SelectProduct from '../generalComponents/SelectProduct';
-import { Row, Col, Card, Tooltip, Typography, Progress, Form, DatePicker, Statistic,Icon, Spin, Divider} from 'antd';
+import { Row, Col, Card, Tooltip, Typography, Progress, Form, DatePicker, Statistic,Icon, Spin, notification} from 'antd';
 import { isMobile, isTablet } from "react-device-detect";
 import { formatMessage } from 'umi-plugin-react/locale';
 import  StepsDashBoard from './Steps/StepsDashBoard';
@@ -70,38 +70,22 @@ export default class Dashboard extends PureComponent {
     currentSelectedProduct: "",
     currentSelectedProductDesc:"",
     currentCustomer : "CUSTOMER-2",
-    products: ["PRODUCT-1", "PRODUCT-2"]
+    products: ["PRODUCT-1", "PRODUCT-2"],
+    
   };
 
-  selectionMade = (product, customer, startDate) => {
+  selectionProduct = (product, customer, startDate) => {
 
     if( product === "" || customer ==="" || startDate ==="")
     {
+      notification["info"]({
+        message: "This option is not available",
+        description: "before continuing select a date",
+    });
       return;
     }
 
     startDate=`${startDate}T00:00:00.000Z`;
-    
-    /* this.props.dispatch({
-      type: 'dashboard/getWeekProgrammingTotals',
-      payload: {
-        product,
-        customer,
-        startDate,
-        Authorization: sessionStorage.getItem('idToken')
-      }
-    });
-
-
-    this.props.dispatch({
-      type: 'dashboard/dashboardGetMasterTotal',
-      payload: {
-        startDate,
-        customer,
-        products: this.state.products,
-        Authorization: sessionStorage.getItem('idToken')
-      }
-    }); */
 
 
 
@@ -145,30 +129,29 @@ export default class Dashboard extends PureComponent {
     
   }
 
-  getTotals=(product,customer,startDate)=>{
-    if( product === "" || customer ==="" || startDate ==="")
-    {
-      return;
-    }
+  getTotals=(startDate)=>{
+    if( startDate ==="") return;
 
     startDate=`${startDate}T00:00:00.000Z`;
+
+    for (const product of this.state.products) {
+      this.props.dispatch({
+        type: 'dashboard/getWeekProgrammingTotals',
+        payload: {
+          product,
+          startDate,
+          Authorization: sessionStorage.getItem('idToken')
+        }
+      });
+
+    }
     
-    this.props.dispatch({
-      type: 'dashboard/getWeekProgrammingTotals',
-      payload: {
-        product,
-        customer,
-        startDate,
-        Authorization: sessionStorage.getItem('idToken')
-      }
-    });
 
 
     this.props.dispatch({
       type: 'dashboard/dashboardGetMasterTotal',
       payload: {
         startDate,
-        customer,
         products: this.state.products,
         Authorization: sessionStorage.getItem('idToken')
       }
@@ -179,25 +162,9 @@ export default class Dashboard extends PureComponent {
 
 
   onPickerChange = (oEvent) => {
-
-      /// Get current product selection
-      /// Customer hardcoded
-      //PRODUCT-2|CUSTOMER-1
-
-
-      this.setState(
-        {
-          currentSelectedDate: oEvent.format("YYYY-MM-DD")
-        },() => {
-          this.getTotals(this.state.currentSelectedProduct, this.state.currentCustomer, oEvent.format("YYYY-MM-DD"))
-        }
-      )
-     
-
-      //this.selectionMade(this.state.currentSelectedProduct, this.state.currentCustomer, oEvent.format("YYYY-MM-DD"));
-
-
-    
+      this.setState({currentSelectedDate: oEvent.format("YYYY-MM-DD")},
+                      () => {this.getTotals(  oEvent.format("YYYY-MM-DD")) }
+                    )
   }
 
 
@@ -208,7 +175,7 @@ export default class Dashboard extends PureComponent {
           currentSelectedProduct: value,
           currentSelectedProductDesc:key.props.children
         },() => {
-          this.selectionMade(value, this.state.currentCustomer, this.state.currentSelectedDate);
+          this.selectionProduct(value,this.state.customer, this.state.currentSelectedDate);
 
         })
         
@@ -227,38 +194,23 @@ export default class Dashboard extends PureComponent {
 
     return (
       <PageHeaderWrapper
+      spin={this.state.loading}
         content={<div>
           <Spin spinning={this.state.loading}>
           <Card type="inner" size="small" style={{textAlign:"center"}}  title="Totales">
           
           <Row type="flex" justify="center" align-content="center">
-              
               <Col xs={12} sm={12} md={6} lg={9} xl={9} style={{textAlign: "center"}}>
-                
                 <Statistic title="Necesidad Gold" value={dashboard.programmingTotalPRODUCT1} prefix={<Icon type="layout" theme="twoTone" twoToneColor="#ffd700" />} />
-
-
-                {/* <p>Necesidad Gold: </p>
-                <p><Title level={2}>{ {this.props.programmingTotalPRODUCT1} }</Title></p> */}
-                
               </Col>
               
               <Col xs={12} sm={12} md={6} lg={9} xl={9} style={{textAlign: "center"}}>
-                
-                {/* <p>Necesidad Premium: </p> */}
-                {/* <p><Title level={2} >{/* {this.props.programmingTotalPRODUCT2} </Title></p> */}
                 <Statistic title="Necesidad Premium" value={dashboard.programmingTotalPRODUCT2} prefix={<Icon type="layout" theme="twoTone" twoToneColor="#7fc07b" />} />
               </Col>
               
 
               <Col xs={18} sm={18} md={6} lg={4} xl={4} style={{textAlign: "center", padding:"0rem 0rem 0rem 2rem"}}>
-               
-                  {/* <p>Total Necesidades: <b style={{fontSize:"1.5rem"}}>{dashboard.programmingTotal.total}</b> </p> */}
-                  <Statistic title="Total Necesidades" value={dashboard.programmingTotal.total}/>
-                  
-{/*                     <Progress percent={dashboard.programmingTotal.new} successPercent={dashboard.programmingTotal.confirmed} showInfo={false} strokeWidth={10} />
- */}                  
-                
+                  <Statistic title="Total Necesidades" value={dashboard.programmingTotal.programmingTotal}/>
               </Col>
 
               <Col xs={6} sm={6} md={6} lg={2} xl={2} style={{textAlign: "left"}}>
@@ -275,17 +227,7 @@ export default class Dashboard extends PureComponent {
             </Form.Item>
             
 
-            {/* <div>
-              <Row type="flex" justify="space-between">
-                <Col xs={24} sm={16} md={16} lg={16} xl={16}>
-                  
-                </Col>
-                <Col xs={24} sm={12} md={12} lg={12} xl={6}>
-                  
-                </Col>
-              </Row>
-            </div> */}
-
+       
           </Form>
         }>
         <Card type="inner" 
@@ -303,24 +245,6 @@ export default class Dashboard extends PureComponent {
           
         <Spin spinning={this.state.loading}>
           <StepsDashBoard currentDay={this.getNumberDay()} data={dashboard} />
-          
-            {/* <GridDashboard  
-            Monday = {this.props.dashboard.Monday} 
-            Tuesday = {this.props.dashboard.Tuesday} 
-            Wednesday = {this.props.dashboard.Wednesday} 
-            Thursday = {this.props.dashboard.Thursday} 
-            Friday = {this.props.dashboard.Friday} 
-            Saturday = {this.props.dashboard.Saturday} 
-            Sunday = {this.props.dashboard.Sunday} 
-            programmingTotal = {this.props.dashboard.programmingTotal} 
-            programmingTotalPRODUCT1={this.props.dashboard.programmingTotalPRODUCT1} 
-            programmingTotalPRODUCT2={this.props.dashboard.programmingTotalPRODUCT2} 
-            xs={24} sm={12} md={8} lg={6} xl={3} txs={15} tsm={10} tmd={8} tlg={7} txl={6} 
-            dataTwo={3} 
-            dataThree={4} 
-            dataFour={2} 
-            dataFive={150} 
-            dataSix={200} /> */}
           </Spin>
         </Card>
       </PageHeaderWrapper>

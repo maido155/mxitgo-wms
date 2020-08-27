@@ -27,7 +27,7 @@ class StepDayWeek extends PureComponent {
               description={ <div>
                           <div style={{display:"flex"}}>
                                 <div>Total:</div>
-              <div style={{textAlign:"right",flexGrow:4}} ><h2>{this.getTotal(dataPerDay)}</h2></div>
+              <div style={{textAlign:"right",flexGrow:4}} ><h2>{dataPerDay.programmed}</h2></div>
                             </div>
                             <Progress percent={dataPerDay.plannedPercentage} successPercent={dataPerDay.confirmedPercentage} showInfo={false} />
                             <div style={{display:"flex"}}>
