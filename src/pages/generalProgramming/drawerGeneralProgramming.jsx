@@ -145,8 +145,11 @@ const DrawerGeneralProgramming  = Form.create()(
                 boxes[position] = (numRound * quantityProduct);
                 this.setState({ inputsPallets: pallets, inputsBoxes: boxes})
             }else{
+                let result = numRound / quantityProduct;
+                let resultRound = Math.ceil(result)
                 boxes[position] = numRound;
-                this.setState({ inputsBoxes: boxes})
+                pallets[position] = resultRound;
+                this.setState({ inputsBoxes: boxes, inputsPallets: pallets})
             }
         }
         sumInputsPallets = (pallets) => {
@@ -201,8 +204,11 @@ const DrawerGeneralProgramming  = Form.create()(
                 boxesEdit[position] = (numRoundEdit * quantityProductEdit);
                 this.setState({ inputsPalletsEdit: palletsEdit, inputsBoxesEdit: boxesEdit})
             }else{
+                let result = numRoundEdit / quantityProductEdit;
+                let resultRound = Math.ceil(result);
                 boxesEdit[position] = numRoundEdit;
-                this.setState({ inputsBoxesEdit: boxesEdit})
+                palletsEdit[position] = resultRound;
+                this.setState({ inputsBoxesEdit: boxesEdit, inputsPalletsEdit: palletsEdit})
             }
         }
         chargerInputProducts = (boxes, pallet, datesProduct) => {
