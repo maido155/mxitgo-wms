@@ -109,7 +109,7 @@ class drawerEntry extends PureComponent {
         e.preventDefault();
         // const { imageUrl } = this.state;
         const { oShippingItem } = this.props;
-        this.props.form.validateFields((err, values) => {
+        this.props.form.validateFieldsAndScroll((err, values) => {
             if (err) {
                 return;
             }
@@ -276,7 +276,7 @@ class drawerEntry extends PureComponent {
                 bodyStyle={{ paddingBottom: 80 }}
                 getContainer={isMobile ? false : true} 
             >
-                <Form {...formItemLayout} onSubmit={this.handleEntry} className={Styles.comments}>
+                <Form {...formItemLayout} className={Styles.comments}>
                     <Spin spinning={this.state.currentLoader}>    
                         <TableModal 
                             oShippingItem={oShippingItem}
@@ -339,7 +339,7 @@ class drawerEntry extends PureComponent {
                             <FormattedMessage id="shipping.button.cancel"/>
                         </Button>
                         { oShippingItem == undefined || oShippingItem.commentEntry == undefined &&
-                            <Button type="primary" htmlType="submit">
+                            <Button type="primary" onClick={this.handleEntry}>
                                 <FormattedMessage id="shipping.button.conf"/>
                             </Button>
                         }
