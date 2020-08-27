@@ -262,7 +262,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                         <Col xs={24} sm={18} md={18} lg={18} xl={18}>
                                             <Form.Item label={formatMessage({id: "general.calendar.week"})}>
                                                 {getFieldDecorator('weekNew',{rules: [{ required: true, message: formatMessage({id: "general.modal-date"}) }]})
-                                                    (<DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onChange}/>)
+                                                    (<DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onChange} allowClear={false}/>)
                                                 }
                                             </Form.Item>
                                         </Col>
