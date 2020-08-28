@@ -145,8 +145,11 @@ const DrawerGeneralProgramming  = Form.create()(
                 boxes[position] = (numRound * quantityProduct);
                 this.setState({ inputsPallets: pallets, inputsBoxes: boxes})
             }else{
+                let result = numRound / quantityProduct;
+                let resultRound = Math.ceil(result)
                 boxes[position] = numRound;
-                this.setState({ inputsBoxes: boxes})
+                pallets[position] = resultRound;
+                this.setState({ inputsBoxes: boxes, inputsPallets: pallets})
             }
         }
         sumInputsPallets = (pallets) => {
@@ -201,8 +204,11 @@ const DrawerGeneralProgramming  = Form.create()(
                 boxesEdit[position] = (numRoundEdit * quantityProductEdit);
                 this.setState({ inputsPalletsEdit: palletsEdit, inputsBoxesEdit: boxesEdit})
             }else{
+                let result = numRoundEdit / quantityProductEdit;
+                let resultRound = Math.ceil(result);
                 boxesEdit[position] = numRoundEdit;
-                this.setState({ inputsBoxesEdit: boxesEdit})
+                palletsEdit[position] = resultRound;
+                this.setState({ inputsBoxesEdit: boxesEdit, inputsPalletsEdit: palletsEdit})
             }
         }
         chargerInputProducts = (boxes, pallet, datesProduct) => {
@@ -262,7 +268,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                         <Col xs={24} sm={18} md={18} lg={18} xl={18}>
                                             <Form.Item label={formatMessage({id: "general.calendar.week"})}>
                                                 {getFieldDecorator('weekNew',{rules: [{ required: true, message: formatMessage({id: "general.modal-date"}) }]})
-                                                    (<DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onChange}/>)
+                                                    (<DatePicker format="YYYY-MM-DD" style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onChange} allowClear={false}/>)
                                                 }
                                             </Form.Item>
                                         </Col>

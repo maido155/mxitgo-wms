@@ -223,7 +223,7 @@ export default class Dashboard extends PureComponent {
         extra={
           <Form  layout="inline" >
             <Form.Item {...formItemLayout} label={formatMessage({id: "general.calendar.week"})}>
-              <DatePicker format="YYYY-MM-DD" disabledDate={disabledDate} onChange={this.onPickerChange}/>
+              <DatePicker format="YYYY-MM-DD" disabledDate={disabledDate} onChange={this.onPickerChange} allowClear={false}/>
             </Form.Item>
             
 
