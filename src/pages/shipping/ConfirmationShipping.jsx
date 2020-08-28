@@ -66,6 +66,7 @@ class ConfirmationShipping extends PureComponent {
     }
     handleSubmitNewLine = (sLineMode, oState, oWarehouseData) => {
         /// Validate no duplicates for new lines
+        const { locationTreeData } = this.props;
         var bDuplicate = false;
         if (sLineMode === "NEW") {
             var aWarehouse = this.props.warehouses;
@@ -75,6 +76,7 @@ class ConfirmationShipping extends PureComponent {
                 }
             });
         }
+        oWarehouseData["locationTreeData"] = locationTreeData;
         if (!bDuplicate) {
             this.setState(oState);
             if (sLineMode === "NEW") {
