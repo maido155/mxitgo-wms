@@ -20,7 +20,8 @@ const NewLine = Form.create()(
             this.props.newLineSelect(selectedKeys);
         }
         renderTreeNode = (treeData) => {
-            const { whName, masterMode, warehouses, locationTreeData } = this.props;
+            const { disableWarehouse, whName, masterMode, warehouses, locationTreeData } = this.props;
+            var disable = disableWarehouse;
             if(masterMode == "EDIT" && warehouses.length != 0){
                 var whNameEdit = locationTreeData.filter(function(data){
                     for(var i = 0; i < data.childLevel1.length; i++){
@@ -29,7 +30,8 @@ const NewLine = Form.create()(
                         }
                     }
                 });
-            }
+                disable = whNameEdit;
+            }           
             if(masterMode == "CONF" && warehouses.length != 0){
                 var whNameEdit = locationTreeData.filter(function(data){
                     for(var i = 0; i < data.childLevel1.length; i++){
@@ -38,41 +40,38 @@ const NewLine = Form.create()(
                         }
                     }
                 });
-            }
-            if(masterMode == "NEW" && warehouses.length != 0){
-                var whNameEdit = locationTreeData.filter(function(data){
-                    for(var i = 0; i < data.childLevel1.length; i++){
-                        if(data.childLevel1[i].key == warehouses[0].warehouseId){
-                            return data.childLevel1[i].key == warehouses[0].warehouseId;
-                        }
-                    }
-                });
-            }
-            var validationLocation = ""
-            if(warehouses == undefined || warehouses.length == 0){
-                validationLocation = whName;
-            }else{
-                validationLocation = whNameEdit;
+                disable = whNameEdit;
             }
             let treeNode = [];
             if (treeData && treeData.length > 0) {
                 treeData.map((ele, index) => {
                     treeNode.push(
-                        <TreeNode value={ele.value} title={ele.title} key={ele.key} disabled={validationLocation == "" || validationLocation == undefined ? false : ele.key != validationLocation[0].key}>
-                            {this.renderChild1(ele, validationLocation)}
+                        <TreeNode value={ele.value} title={ele.title} key={ele.key} disabled={disable.length == 0 ? false : ele.key != disable[0].key}>
+                            {this.renderChild1(ele, disable)}
                         </TreeNode>
                     );
                 });
             }
             return treeNode;
         }
-        renderChild1 = (element, validationLocation) => {
+        disabledrenderChild1 = (data, item) => {
+            if(data.length == 0){
+                return false;
+            }else{
+                if(data[0].key != item.key){
+                    return true
+                }else{
+                    return false;
+                }
+            }
+        }
+        renderChild1 = (element, disable) => {
             let childLevel1 = [];
             if (element.childLevel1) {
                 element.childLevel1.map((item, i) => {
                     childLevel1.push(
                         <TreeNode parentTitle={element.title} parentValue={element.value} parentKey={element.key} value={item.value} title={item.title} 
-                            key={item.key} disabled={validationLocation == "" || validationLocation == undefined ? false : validationLocation[0].childLevel1.length == 1 ? item.key != validationLocation[0].childLevel1[0].key : item.key != validationLocation[0].childLevel1[0].key && item.key != validationLocation[0].childLevel1[1].key}>
+                            key={item.key} disabled={this.disabledrenderChild1(disable, element)}>
                             {this.renderChild2(item)}
                         </TreeNode>
                     );

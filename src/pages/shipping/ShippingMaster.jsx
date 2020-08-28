@@ -45,6 +45,7 @@ function disabledDate(current) {
     datesShipping: shipping.datesShipping,
     productsAll: products.productsAll,
     operatorAll: operator.operatorAll,
+    disableWarehouse: shipping.disableWarehouse
 }))
 
 class ShippingMaster extends PureComponent {
@@ -336,7 +337,7 @@ class ShippingMaster extends PureComponent {
         }
     }
     closeDrawerShipping = () => {
-        this.setState({ visibleDrawerShipping: false})
+        this.setState({ visibleDrawerShipping: false});
     }
     onCloseConfirmationShipping=() => {
         this.setState({ visibleConfirmation: false})
@@ -410,7 +411,7 @@ class ShippingMaster extends PureComponent {
         };
         const {  warehouses, warehouseIds, oShippingItem, products } = this.props.shipping;
         const {locationTreeData}= this.props.locations;
-        const { productsAll, loading, isSuccess,isSuccessEdit,isSuccessConfirm,isSuccessEntry, close, datesShipping, operatorAll } = this.props;
+        const { productsAll, loading, isSuccess,isSuccessEdit,isSuccessConfirm,isSuccessEntry, close, datesShipping, operatorAll, disableWarehouse } = this.props;
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
         this.setState({ currentLoader });
         this.isCreated(isSuccess);
@@ -436,6 +437,7 @@ class ShippingMaster extends PureComponent {
                     productsAll={productsAll}
                     lineData={this.state.lineData}
                     lineMode={this.state.lineMode}
+                    disableWarehouse={disableWarehouse}
 
                     //Props Drawer Shipping
                     warehouses={warehouses}
@@ -513,7 +515,8 @@ class ShippingMaster extends PureComponent {
                                         mode={this.state.mode}
                                         productsAll={productsAll}
                                         locationTreeData={locationTreeData}
-
+                                        disableWarehouse={disableWarehouse}
+                                        
                                         showModalProduct={this.showModalProduct}
                                         datesTableShipping={datesShipping}
 
