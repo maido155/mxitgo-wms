@@ -31,6 +31,7 @@ export default class OutComming extends PureComponent {
         visibleAssign: false, //flag for tableOutcooming
         visibleCompo: false, //flag for tableOutcooming
         visibleAssignProduct: false, //flag for Assign Product
+        currentShipping: {} //Current Shipping for Assign
     }
     
     componentDidMount() {
@@ -234,6 +235,18 @@ export default class OutComming extends PureComponent {
         })
     };
 
+    setDrawerAssignProduct=(record)=>{
+        this.setState({
+            currentShipping: record,
+            visibleAssignProduct: true
+        })
+    }
+
+    onCloseDrawerAssigProduct = () => {
+        this.setState({
+            visibleAssignProduct: false
+        })
+    }
     render() {
         console.log('Context--->', this);  
         console.log(this.props);
@@ -262,8 +275,6 @@ export default class OutComming extends PureComponent {
                                 <TableOutComming 
                                     productDesc={this.state.productDesc} 
                                     productKey={this.state.product} 
-                                    visibleAssignProduct={this.state.visibleAssignProduct} 
-                                    setVisibleAssignProduct={this.setVisibleAssignProduct} 
                                     visibleAssign={this.state.visibleAssign} 
                                     setVisibleAssign={this.setVisibleAssign} 
                                     visibleCompo={this.state.visibleCompo} 
@@ -277,7 +288,13 @@ export default class OutComming extends PureComponent {
                                     compositionData={compositionData} 
                                     onShowCompositionData = {this.onShowCompositionData}
                                     getOutcommingByEntry = {this.getOutcommingByEntry}
-                                    dataOutcommingsByEntry = {dataOutcommingsByEntry}/>
+                                    dataOutcommingsByEntry = {dataOutcommingsByEntry}
+
+                                    //Props for Assign Product Drawer
+                                    visibleAssignProduct={this.state.visibleAssignProduct} 
+                                    currentShipping={this.state.currentShipping}
+                                    onCloseDrawerAssigProduct={this.onCloseDrawerAssigProduct}
+                                    setDrawerAssignProduct={this.setDrawerAssignProduct}/>
                             </Col>
                         </Row>
                         

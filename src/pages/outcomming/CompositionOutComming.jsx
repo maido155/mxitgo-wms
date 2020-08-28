@@ -66,9 +66,13 @@ export default class CompositionOutComming extends PureComponent {
                     postOutcomming= {this.props.postOutcomming}
                     restartOutcomming= {this.props.restartOutcomming}
                     recordKey= {this.props.recordKey}
-                    visibleAssignProduct={this.props.visibleAssignProduct} 
-                    setVisibleAssignProduct={this.props.setVisibleAssignProduct}
                     dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
+                    
+                    //Props for Assign Product Drawer
+                    visibleAssignProduct={this.props.visibleAssignProduct} 
+                    currentShipping={this.props.currentShipping}
+                    onCloseDrawerAssigProduct={this.props.onCloseDrawerAssigProduct}
+                    setDrawerAssignProduct={this.props.setDrawerAssignProduct}
                 />
             </div>
         );            

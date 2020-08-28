@@ -1,56 +1,60 @@
 import React, { PureComponent } from 'react';
 import TableAssignment from './TableAssignment';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import { _ } from 'lodash'; 
-import { Drawer,Row, Col, Button, Icon, Divider } from 'antd';
-import {isMobile} from 'react-device-detect';
+import { _ } from 'lodash';
+import { Drawer, Row, Col, Button, Icon, Divider } from 'antd';
+import { isMobile } from 'react-device-detect';
 
 
-export default class AssignmentOutComming extends PureComponent {    
+export default class AssignmentOutComming extends PureComponent {
     onReset = (_this) => {
         _this.props.restartOutcomming(_this.props.currentOutcomming.key);
     }
     render() {
-        let {dataOutcommingsByEntry} = this.props;
+        let { dataOutcommingsByEntry } = this.props;
         console.log("AssignmentOutComming");
         console.log(dataOutcommingsByEntry);
         return (
             <Drawer
-                title={  `${ formatMessage({ id: 'outComming.label.assignment-outcomming' }) } -  ${ this.props.productDesc }  `} 
+                title={`${formatMessage({ id: 'outComming.label.assignment-outcomming' })} -  ${this.props.productDesc}  `}
                 placement="right"
                 width={isMobile ? "100%" : "70%"}
                 closable={true}
                 onClose={this.props.closeOne}
                 visible={this.props.visibleOne}
-                getContainer={false} 
+                getContainer={false}
             >
                 <Row type="flex" justify="center">
-                    <Col xs={24} sm={1} md={1} lg={1} xl={1} style={{textAlign: "center"}}>
+                    <Col xs={24} sm={1} md={1} lg={1} xl={1} style={{ textAlign: "center" }}>
                         <Icon type="shopping-cart" />
                     </Col>
-                    <Col xs={24} sm={12} md={9} lg={7} xl={5} style={{textAlign: "center"}}>
-                        <FormattedMessage id="outComming.label.products-assignment-outcomming"/>
+                    <Col xs={24} sm={12} md={9} lg={7} xl={5} style={{ textAlign: "center" }}>
+                        <FormattedMessage id="outComming.label.products-assignment-outcomming" />
                     </Col>
-                    <Col xs={24} sm={8} md={8} lg={6} xl={3} style={{textAlign: "center"}}>
-                        <Button 
-                            disabled={this.props.recordKey==""?true:false}
-                            type="danger" 
-                            onClick={()=>{this.onReset(this)}}>
-                                <FormattedMessage id="outComming.button.assignment-outcomming"/>
+                    <Col xs={24} sm={8} md={8} lg={6} xl={3} style={{ textAlign: "center" }}>
+                        <Button
+                            disabled={this.props.recordKey == "" ? true : false}
+                            type="danger"
+                            onClick={() => { this.onReset(this) }}>
+                            <FormattedMessage id="outComming.button.assignment-outcomming" />
                         </Button>
                     </Col>
                 </Row>
-                <Divider/>
+                <Divider />
                 <Row>
                     <Col span={24}>
-                        <TableAssignment 
-                            loading = {this.props.loading}
-                            postOutcomming= {this.props.postOutcomming} 
-                            datesProductAll = {this.props.datesProductAll} 
+                        <TableAssignment
+                            loading={this.props.loading}
+                            postOutcomming={this.props.postOutcomming}
+                            datesProductAll={this.props.datesProductAll}
                             currentOutcomming={this.props.currentOutcomming}
-                            visibleAssignProduct={this.props.visibleAssignProduct} 
-                            setVisibleAssignProduct={this.props.setVisibleAssignProduct}
                             dataOutcommingsByEntry={dataOutcommingsByEntry}
+
+                            //Props for Assign Product Drawer
+                            visibleAssignProduct={this.props.visibleAssignProduct}
+                            currentShipping={this.props.currentShipping}
+                            onCloseDrawerAssigProduct={this.props.onCloseDrawerAssigProduct}
+                            setDrawerAssignProduct={this.props.setDrawerAssignProduct}
                         />
                     </Col>
                 </Row>
@@ -68,10 +72,10 @@ export default class AssignmentOutComming extends PureComponent {
                     }}
                 >
                     <Button onClick={this.props.closeOne}>
-                        <FormattedMessage id="outComming.button.close-assignment-outcomming"/>
+                        <FormattedMessage id="outComming.button.close-assignment-outcomming" />
                     </Button>
                 </div>
             </Drawer>
-        );            
+        );
     }
 }

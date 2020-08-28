@@ -30,5 +30,9 @@ export default {
     'outComming.button.composition-outcomming-pallets-ass': 'Tarima asignados',
     'outComming.button.composition-outcomming-boxes-ass': 'Cajas asignados',
     'outComming.label.table-status': 'Estado',
+    'outComming.label.assignproduct-pallets-di': 'Tarima disponible', 
+    'outComming.label.assignproduct-boxes-di': 'Cajas disponible',
+    'outComming.label.assignproduct-pallets': 'Tarimas', 
+    'outComming.label.assignproduct-boxes': 'Cajas',
     'menu.Salidas': 'Salidas'
 };
