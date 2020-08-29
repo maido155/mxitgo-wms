@@ -143,6 +143,7 @@ export default class DrawerAssignmentProduct extends PureComponent {
                 onClose={this.props.onClose}
                 visible={this.props.visible}
                 afterVisibleChange={this.setCurrentValues()}
+                getContainer={isMobile ? false : true}
             >
                 <Form {...formItemLayout} style={{ marginTop: "5rem" }}>
                     <Form.Item label={formatMessage({ id: "outComming.label.assignproduct-pallets-di" })}>

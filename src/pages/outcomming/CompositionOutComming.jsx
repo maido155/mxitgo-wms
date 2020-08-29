@@ -31,7 +31,7 @@ export default class CompositionOutComming extends PureComponent {
                     closable={true}
                     onClose={this.props.closeTwo}
                     visible={this.props.visibleTwo}
-                    getContainer={false} 
+                    getContainer={isMobile ? false : true}
                 >
                     <TableCompostion loading = {this.props.loading} compositionData ={this.props.compositionData}/>
                     
@@ -48,10 +48,10 @@ export default class CompositionOutComming extends PureComponent {
                             borderRadius: '0 0 4px 4px',
                         }}
                     >
-                        <Button style={{marginRight: 8,}} onClick={()=>{this.showDrawerAssig(this)}}>
+                        <Button type="primary" style={{marginRight: 8,}} onClick={()=>{this.showDrawerAssig(this)}}>
                             <FormattedMessage id="outComming.button.composition-outcomming-assing"/>
                         </Button>
-                        <Button onClick={this.props.closeTwo} type="primary">
+                        <Button onClick={this.props.closeTwo} type="danger">
                             <FormattedMessage id="outComming.button.close-assignment-outcomming"/>
                         </Button>
                     </div>

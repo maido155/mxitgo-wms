@@ -66,7 +66,7 @@ export default class TableAssignment extends PureComponent {
           columns={columns}
           dataSource={dataOutcommingsByEntry}
           scroll={isMobile ? { x: 860 } : { x: 840 }}
-          pagination={false} />
+          pagination={{ responsive: true, size: 'small', defaultPageSize: 4,showSizeChanger: true, pageSizeOptions: ['10', '20', '50', '100']}} />
       </div>
     );
   }
