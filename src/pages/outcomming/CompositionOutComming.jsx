@@ -31,7 +31,7 @@ export default class CompositionOutComming extends PureComponent {
                     closable={true}
                     onClose={this.props.closeTwo}
                     visible={this.props.visibleTwo}
-                    getContainer={false} 
+                    getContainer={isMobile ? false : true}
                 >
                     <TableCompostion loading = {this.props.loading} compositionData ={this.props.compositionData}/>
                     
@@ -48,10 +48,10 @@ export default class CompositionOutComming extends PureComponent {
                             borderRadius: '0 0 4px 4px',
                         }}
                     >
-                        <Button style={{marginRight: 8,}} onClick={()=>{this.showDrawerAssig(this)}}>
+                        <Button type="primary" style={{marginRight: 8,}} onClick={()=>{this.showDrawerAssig(this)}}>
                             <FormattedMessage id="outComming.button.composition-outcomming-assing"/>
                         </Button>
-                        <Button onClick={this.props.closeTwo} type="primary">
+                        <Button onClick={this.props.closeTwo} type="danger">
                             <FormattedMessage id="outComming.button.close-assignment-outcomming"/>
                         </Button>
                     </div>
@@ -66,9 +66,13 @@ export default class CompositionOutComming extends PureComponent {
                     postOutcomming= {this.props.postOutcomming}
                     restartOutcomming= {this.props.restartOutcomming}
                     recordKey= {this.props.recordKey}
-                    visibleAssignProduct={this.props.visibleAssignProduct} 
-                    setVisibleAssignProduct={this.props.setVisibleAssignProduct}
                     dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
+                    
+                    //Props for Assign Product Drawer
+                    visibleAssignProduct={this.props.visibleAssignProduct} 
+                    currentShipping={this.props.currentShipping}
+                    onCloseDrawerAssigProduct={this.props.onCloseDrawerAssigProduct}
+                    setDrawerAssignProduct={this.props.setDrawerAssignProduct}
                 />
             </div>
         );            
