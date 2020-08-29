@@ -12,6 +12,6 @@ export default {
     'register.label.email': 'Correo Electrónico: ',
     'register.label.lastfam': 'Apellido Paterno: ',
     'register.label.phone': 'Telefono: ',
-    'menu.Configuración': 'Settings',
-    'menu.Configuración.Usuarios': 'Users'
+    'menu.Configuración': 'Configuración',
+    'menu.Configuración.Usuarios': 'Usuario'
 };
