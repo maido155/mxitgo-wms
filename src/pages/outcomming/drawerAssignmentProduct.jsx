@@ -141,7 +141,7 @@ export default class DrawerAssignmentProduct extends PureComponent {
         };
         return (
             <Drawer
-                title={'Asignación'}
+                title={<FormattedMessage id='outComming.drawerAssigment.title'/>}
                 placement="right"
                 width={isMobile ? "100%" : "50%"}
                 closable={true}
@@ -153,16 +153,16 @@ export default class DrawerAssignmentProduct extends PureComponent {
                 visible={this.props.visible}
             >
                 <Form {...formItemLayout} style={{marginTop: "5rem"}}>
-                    <Form.Item label={'Pallets disponibles'}>
+                    <Form.Item label={<FormattedMessage id='outComming.drawerAssigment.pallets-availables'/>}>
                         <Text>{this.state.pallets}</Text>
                     </Form.Item>
-                    <Form.Item label={'Cajas disponibles'}>
+                    <Form.Item label={<FormattedMessage id='outComming.drawerAssigment.boxes-availables'/>}>
                         <Text>{this.state.box}</Text> 
                     </Form.Item>
-                    <Form.Item label={'Pallets'}>
+                    <Form.Item label={<FormattedMessage id='outComming.drawerAssigment.pallets'/>}>
                         <InputNumber min={0} value={this.state.currentValuePallet} onChange={(e) => {this.onChangeQuantityPallet(e, this)}}/>
                     </Form.Item>
-                    <Form.Item label={'Cajas'}>
+                    <Form.Item label={<FormattedMessage id='outComming.drawerAssigment.boxes'/>}>
                         <InputNumber min={0} value={this.state.currentValueBox} onChange={(e) => {this.onChangeQuantityBox(e, this)}}/>
                     </Form.Item>
                     <div
@@ -182,10 +182,10 @@ export default class DrawerAssignmentProduct extends PureComponent {
                         isFirstTime: true
                     })
                     this.props.onClose((e, this))}} style={{ marginRight: 8 }} type="danger">
-                            Cancelar
+                            <FormattedMessage id='outComming.drawerAssigment.cancel'/>
                         </Button>
                         <Button onClick={()=>{this.onAccept(this)}} type="primary">
-                            Aceptar
+                        <FormattedMessage id='outComming.drawerAssigment.accept'/>
                         </Button>
                     </div>
                 </Form>

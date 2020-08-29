@@ -30,5 +30,12 @@ export default {
     'outComming.button.composition-outcomming-pallets-ass': 'Pallets assigned',
     'outComming.button.composition-outcomming-boxes-ass': 'Boxes assigned',
     'outComming.label.table-status':'Status',
-    'menu.Salidas': 'Outbounds'
+    'menu.Salidas': 'Outbounds',
+    'outComming.drawerAssigment.title':'Assignation',
+    'outComming.drawerAssigment.pallets-availables':'Pallets availables',
+    'outComming.drawerAssigment.boxes-availables':'Boxes availables',
+    'outComming.drawerAssigment.pallets':'Pallets',
+    'outComming.drawerAssigment.boxes':'Boxes',
+    'outComming.drawerAssigment.cancel':'Cancel',
+    'outComming.drawerAssigment.accept':'Accept'
 };

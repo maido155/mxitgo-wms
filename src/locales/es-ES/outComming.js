@@ -30,5 +30,13 @@ export default {
     'outComming.button.composition-outcomming-pallets-ass': 'Tarima asignados',
     'outComming.button.composition-outcomming-boxes-ass': 'Cajas asignados',
     'outComming.label.table-status': 'Estado',
-    'menu.Salidas': 'Salidas'
+    'menu.Salidas': 'Salidas',
+    'outComming.drawerAssigment.title':'Asignación',
+    'outComming.drawerAssigment.pallets-availables':'Tarima disponibles',
+    'outComming.drawerAssigment.boxes-availables':'Cajas disponibles',
+    'outComming.drawerAssigment.pallets':'Tarima',
+    'outComming.drawerAssigment.boxes':'Cajas',
+    'outComming.drawerAssigment.cancel':'Cancel',
+    'outComming.drawerAssigment.accept':'Aceptar'
+
 };
