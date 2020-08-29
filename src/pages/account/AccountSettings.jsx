@@ -35,15 +35,15 @@ class AccountSettings extends PureComponent{
                }
            },
        });
-       this.props.dispatch({
-            type: 'user/fetchAvatarUser',
-            payload: {
-                payload: {
-                    user: localStorage.getItem('email'),
-                    Authorization: sessionStorage.getItem('idToken')
-                }
-            },
-        });
+    //    this.props.dispatch({
+    //         type: 'user/fetchAvatarUser',
+    //         payload: {
+    //             payload: {
+    //                 user: localStorage.getItem('email'),
+    //                 Authorization: sessionStorage.getItem('idToken')
+    //             }
+    //         },
+    //     });
     }
 
     handleSubmit = e => {
@@ -61,7 +61,7 @@ class AccountSettings extends PureComponent{
           if (!err) {
             console.log('Received values of form: ', values);
             this.putDataUser(values);
-            this.saveAvatarUser(values);
+            // this.saveAvatarUser(values);
           }
         });
       };
@@ -92,24 +92,24 @@ class AccountSettings extends PureComponent{
         });
     }
 
-    saveAvatarUser = (values) => { 
-        this.props.dispatch({
-            type: 'user/saveAvatarUser',
-            payload: {
-                payload: {
-                    GET: {
-                        user: localStorage.getItem('email'),
-                        Authorization: sessionStorage.getItem('idToken')
-                    },
-                    POST: {
-                        urlImage: values.urlimage,
-                        user: localStorage.getItem('email'),
-                        Authorization: sessionStorage.getItem('idToken')
-                    }
-                },
-            },
-        });
-    }
+    // saveAvatarUser = (values) => { 
+    //     this.props.dispatch({
+    //         type: 'user/saveAvatarUser',
+    //         payload: {
+    //             payload: {
+    //                 GET: {
+    //                     user: localStorage.getItem('email'),
+    //                     Authorization: sessionStorage.getItem('idToken')
+    //                 },
+    //                 POST: {
+    //                     urlImage: values.urlimage,
+    //                     user: localStorage.getItem('email'),
+    //                     Authorization: sessionStorage.getItem('idToken')
+    //                 }
+    //             },
+    //         },
+    //     });
+    // }
 
     UpdateValidation = () => {
         this.props.dispatch({
