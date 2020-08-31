@@ -146,7 +146,7 @@ class AccountSettings extends PureComponent{
     render(){
 
         const formItemLayout = {
-            labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 6 },lg: { span: 8 },xl: { span: 7 }},
+            labelCol: {xs: { span: 24 },sm: { span: 8 },md: { span: 6 },lg: { span: 10 },xl: { span: 7 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 12 },md: { span: 14 },lg: { span: 14 },xl: { span: 14  }}
         };
 
@@ -211,7 +211,7 @@ class AccountSettings extends PureComponent{
                                         <Form.Item label={formatMessage({ id: 'register.label.lastmid' })}>
                                             {getFieldDecorator('middle_name',{ initialValue: userByEmail.middle_name,
                                                 rules: [{ required: true, message: <FormattedMessage id="register.mode.message.lastmid"/>}]})
-                                            (<Input disabled={localStorage.getItem('socialNetwork') == "true" ? true : false}/>)}
+                                            (<Input disabled={localStorage.getItem('socialNetwork') == "true" ? true : userByEmail.middle_name == undefined ? true : false}/>)}
                                         </Form.Item>
                                     </Col>
                                     <Col lg={12} xl={12}>
