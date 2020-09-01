@@ -126,15 +126,21 @@ export default class TableOutComming extends PureComponent {
                         postOutcomming= {this.props.postOutcomming}
                         restartOutcomming= {this.props.restartOutcomming}
                         recordKey= {this.state.recordKey}
-                        visibleAssignProduct={this.props.visibleAssignProduct} 
-                        setVisibleAssignProduct={this.props.setVisibleAssignProduct}
                         dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
+
+                        //Props for Assign Product Drawer
+                        visibleAssignProduct={this.props.visibleAssignProduct} 
+                        setVisibleAssignProduct={this.props.setVisibleAssignProduct} 
+                        currentShipping={this.props.currentShipping}
+                        onCloseDrawerAssigProduct={this.props.onCloseDrawerAssigProduct}
+                        setDrawerAssignProduct={this.props.setDrawerAssignProduct}
                 />
                 <CompositionOutComming
                     loading = {this.props.loading}
                     compositionData = {this.props.compositionData}
                     visibleTwo={this.props.visibleCompo}
                     closeTwo={this.onCloseDrawerCompo}
+
                     //Properties for drawer Assign
                     productKey = {this.props.productKey}
                     productDesc = {this.props.productDesc}
@@ -143,10 +149,14 @@ export default class TableOutComming extends PureComponent {
                     postOutcomming= {this.props.postOutcomming}
                     restartOutcomming= {this.props.restartOutcomming}
                     recordKey= {this.state.recordKey}
-                    visibleAssignProduct={this.props.visibleAssignProduct} 
-                    setVisibleAssignProduct={this.props.setVisibleAssignProduct}
                     dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
                     getOutcommingByEntry={this.props.getOutcommingByEntry}
+
+                    //Props for Assign Product Drawer
+                    visibleAssignProduct={this.props.visibleAssignProduct} 
+                    currentShipping={this.props.currentShipping}
+                    onCloseDrawerAssigProduct={this.props.onCloseDrawerAssigProduct}
+                    setDrawerAssignProduct={this.props.setDrawerAssignProduct}
                 />
                 <Table loading = {this.props.loading} columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
             </div>

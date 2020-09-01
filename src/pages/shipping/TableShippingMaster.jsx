@@ -22,7 +22,7 @@ class TableShippingMaster extends PureComponent {
     }
   }
   render() {
-    const { datesTableShipping, operatorAll, deleteShipping } = this.props;
+    const { datesTableShipping, operatorAll, deleteShipping, disableWarehouse } = this.props;
     let columns = [
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.id' }),
@@ -259,6 +259,7 @@ class TableShippingMaster extends PureComponent {
           mode={this.props.mode}
           productsAll={this.props.productsAll}
           locationTreeData={this.props.locationTreeData}
+          disableWarehouse={disableWarehouse}
         />
         <Entry
           visibleEntry={this.props.visibleEntry}
