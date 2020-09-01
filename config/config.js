@@ -168,7 +168,7 @@ export default {
         /*'layout-sider-background': '#244999'  */
     },
     define: {
-        // ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION: ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION || '',
+        ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION: ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION || '',
         // preview.pro.ant.design only do not use in your production ; preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
         ANT_DESIGN_PRO_TARGET: 'https://7m0bjzy1ul.execute-api.us-east-1.amazonaws.com/Stage',
         // ANT_DESIGN_PRO_TARGET: 'https://9j8ucg1yhj.execute-api.us-east-1.amazonaws.com/desarrollo'
