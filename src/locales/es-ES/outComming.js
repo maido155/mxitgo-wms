@@ -37,6 +37,11 @@ export default {
     'outComming.drawerAssigment.pallets':'Tarima',
     'outComming.drawerAssigment.boxes':'Cajas',
     'outComming.drawerAssigment.cancel':'Cancel',
-    'outComming.drawerAssigment.accept':'Aceptar'
+    'outComming.drawerAssigment.accept':'Aceptar',
+    'outComming.table.confirm':'Confirmar',
+    'outComming.table.confirmed':'Confirmado',
+    'outComming.label.table-outComming.status.pending': "PENDIENTE",
+    'outComming.label.table-outComming.status.confirmed':"CONFIRMADO",
+    'outComming.label.table-outComming.status.no-status':'SIN ESTATUS'
 
 };

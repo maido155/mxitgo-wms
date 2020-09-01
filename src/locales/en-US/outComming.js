@@ -37,5 +37,10 @@ export default {
     'outComming.drawerAssigment.pallets':'Pallets',
     'outComming.drawerAssigment.boxes':'Boxes',
     'outComming.drawerAssigment.cancel':'Cancel',
-    'outComming.drawerAssigment.accept':'Accept'
+    'outComming.drawerAssigment.accept':'Accept',
+    'outComming.table.confirm':'Confirm',
+    'outComming.table.confirmed':'Confirmed',
+    'outComming.label.table-outComming.status.pending': "PENDING",
+    'outComming.label.table-outComming.status.confirmed':"CONFIRMED",
+    'outComming.label.table-outComming.status.no-status':'NO STATUS'
 };

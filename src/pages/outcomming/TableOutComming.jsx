@@ -62,7 +62,17 @@ export default class TableOutComming extends PureComponent {
             {
                 title: formatMessage({ id: 'outComming.label.table-status' }),
                 dataIndex: 'status',
-                width: isMobile ? 100 : 130
+                width: isMobile ? 100 : 130,
+                render: (text, record) => (
+                    <span>
+                      {record.status === "PENDING"
+                        ? <FormattedMessage id="outComming.label.table-outComming.status.pending" />
+                        :  record.status === "CONFIRMED"
+                            ?<FormattedMessage id="outComming.label.table-outComing.status.confirmed" />
+                            : <FormattedMessage id="outComming.label.table-outComming.status.no-status" />
+                      } 
+                    </span>
+                )
             },
             {
                 title: '',
@@ -89,12 +99,12 @@ export default class TableOutComming extends PureComponent {
                         }    
                         <Divider type="vertical" />
                         { record.key=="" 
-                            ? <Checkbox defaultChecked={false} disabled onChange={()=>{this.props.onConfirm(record)}}>Confirm</Checkbox>
+                            ? <Checkbox defaultChecked={false} disabled onChange={()=>{this.props.onConfirm(record)}}><FormattedMessage id='outComming.table.confirm'/></Checkbox>
                             :   <span>
                                 {
                                     record.status=="PENDING"
-                                    ? <Checkbox onChange={()=>{this.props.onConfirm(record)} } > Confirm </Checkbox>
-                                    : <Checkbox disabled onChange={()=>{this.props.onConfirm(record)} } > Confirmed </Checkbox>
+                                    ? <Checkbox onChange={()=>{this.props.onConfirm(record)} } > <FormattedMessage id='outComming.table.confirm'/> </Checkbox>
+                                    : <Checkbox disabled onChange={()=>{this.props.onConfirm(record)} } > <FormattedMessage id='outComming.table.confirmed'/></Checkbox>
                                 }
                                     
                                 </span> 
