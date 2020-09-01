@@ -62,7 +62,17 @@ export default class TableOutComming extends PureComponent {
             {
                 title: formatMessage({ id: 'outComming.label.table-status' }),
                 dataIndex: 'status',
-                width: isMobile ? 100 : 130
+                width: isMobile ? 100 : 130,
+                render: (text, record) => (
+                    <span>
+                      {record.status === "PENDING"
+                        ? <FormattedMessage id="outComming.label.table-outComming.status.pending" />
+                        :  record.status === "CONFIRMED"
+                            ?<FormattedMessage id="outComming.label.table-outComing.status.confirmed" />
+                            : <FormattedMessage id="outComming.label.table-outComming.status.no-status" />
+                      } 
+                    </span>
+                )
             },
             {
                 title: '',
@@ -89,12 +99,12 @@ export default class TableOutComming extends PureComponent {
                         }    
                         <Divider type="vertical" />
                         { record.key=="" 
-                            ? <Checkbox defaultChecked={false} disabled onChange={()=>{this.props.onConfirm(record)}}>Confirm</Checkbox>
+                            ? <Checkbox defaultChecked={false} disabled onChange={()=>{this.props.onConfirm(record)}}><FormattedMessage id='outComming.table.confirm'/></Checkbox>
                             :   <span>
                                 {
                                     record.status=="PENDING"
-                                    ? <Checkbox onChange={()=>{this.props.onConfirm(record)} } > Confirm </Checkbox>
-                                    : <Checkbox disabled onChange={()=>{this.props.onConfirm(record)} } > Confirmed </Checkbox>
+                                    ? <Checkbox onChange={()=>{this.props.onConfirm(record)} } > <FormattedMessage id='outComming.table.confirm'/> </Checkbox>
+                                    : <Checkbox disabled onChange={()=>{this.props.onConfirm(record)} } > <FormattedMessage id='outComming.table.confirmed'/></Checkbox>
                                 }
                                     
                                 </span> 
@@ -116,15 +126,21 @@ export default class TableOutComming extends PureComponent {
                         postOutcomming= {this.props.postOutcomming}
                         restartOutcomming= {this.props.restartOutcomming}
                         recordKey= {this.state.recordKey}
-                        visibleAssignProduct={this.props.visibleAssignProduct} 
-                        setVisibleAssignProduct={this.props.setVisibleAssignProduct}
                         dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
+
+                        //Props for Assign Product Drawer
+                        visibleAssignProduct={this.props.visibleAssignProduct} 
+                        setVisibleAssignProduct={this.props.setVisibleAssignProduct} 
+                        currentShipping={this.props.currentShipping}
+                        onCloseDrawerAssigProduct={this.props.onCloseDrawerAssigProduct}
+                        setDrawerAssignProduct={this.props.setDrawerAssignProduct}
                 />
                 <CompositionOutComming
                     loading = {this.props.loading}
                     compositionData = {this.props.compositionData}
                     visibleTwo={this.props.visibleCompo}
                     closeTwo={this.onCloseDrawerCompo}
+
                     //Properties for drawer Assign
                     productKey = {this.props.productKey}
                     productDesc = {this.props.productDesc}
@@ -133,10 +149,14 @@ export default class TableOutComming extends PureComponent {
                     postOutcomming= {this.props.postOutcomming}
                     restartOutcomming= {this.props.restartOutcomming}
                     recordKey= {this.state.recordKey}
-                    visibleAssignProduct={this.props.visibleAssignProduct} 
-                    setVisibleAssignProduct={this.props.setVisibleAssignProduct}
                     dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
                     getOutcommingByEntry={this.props.getOutcommingByEntry}
+
+                    //Props for Assign Product Drawer
+                    visibleAssignProduct={this.props.visibleAssignProduct} 
+                    currentShipping={this.props.currentShipping}
+                    onCloseDrawerAssigProduct={this.props.onCloseDrawerAssigProduct}
+                    setDrawerAssignProduct={this.props.setDrawerAssignProduct}
                 />
                 <Table loading = {this.props.loading} columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
             </div>

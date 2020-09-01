@@ -3,7 +3,7 @@ import { _ } from 'lodash';
 import {isMobile} from 'react-device-detect';
 import { Drawer, Form, Row, Col, Input, Select, Button, Spin, message } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import Styles from './StyleUser.css';
+import Styles from './styleUser.css';
 
 const { Option } = Select;
 var numberPhone = "";

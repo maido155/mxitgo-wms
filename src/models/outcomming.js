@@ -49,23 +49,34 @@ export default {
         },
         * postOutcomming({ payload }, { call, put }) {
             const response = yield call(postOutcomming, payload);
-            //console.log(response);
             const responseOutcomming = yield call(getOutcomming, payload.payload);
-            //console.log(responseOutcomming);
-
             yield put({
                 type: 'postOutcommingReducer',
                 payload: responseOutcomming,
             });
+
+            const responseOCvsSH = yield call(getOutcommingsByEntry, payload);
+            console.log(responseOCvsSH);
+            yield put({
+                type: 'getOutcommingsByEntryReducer',
+                payload: responseOCvsSH,
+            });
         },
         * restartOutcomming({ payload }, { call, put }) {
-            const response = yield call(restartOutcomming, payload);
+            const response = yield call(restartOutcomming, payload.payload);
             console.log(response);
-            const responseOutcomming = yield call(getOutcomming, payload);
+            const responseOutcomming = yield call(getOutcomming, payload.payload);
             //console.log(responseOutcomming);
             yield put({
                 type: 'restartOutcommingReducer',
                 payload: responseOutcomming,
+            });
+
+            const responseOCvsSH = yield call(getOutcommingsByEntry, payload);
+            console.log(responseOCvsSH);
+            yield put({
+                type: 'getOutcommingsByEntryReducer',
+                payload: responseOCvsSH,
             });
         },
         * getOutcommingsByEntry({ payload }, { call, put }) {

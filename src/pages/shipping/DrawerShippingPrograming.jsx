@@ -48,6 +48,7 @@ class DrawerShippingPrograming extends PureComponent {
     }
     handleSubmitNewLine = (sLineMode, oState, oWarehouseData) => {
         /// Validate no duplicates for new lines
+        const { locationTreeData } = this.props;
         var bDuplicate = false;
         if (sLineMode === "NEW") {
             var aWarehouse = this.props.warehouses;
@@ -57,6 +58,7 @@ class DrawerShippingPrograming extends PureComponent {
                 }
             });
         }
+        oWarehouseData["locationTreeData"] = locationTreeData;
         if (!bDuplicate) {
             this.setState(oState);
             if (sLineMode === "NEW") {
@@ -144,7 +146,7 @@ class DrawerShippingPrograming extends PureComponent {
             wrapperCol: { xs: { span: 24 }, sm: { span: 12 }, md: { span: 14 }, lg: { span: 14 }, xl: { span: 14 } }
         };
         const { getFieldDecorator } = this.props.form;
-        const { masterMode, productsAll, oShippingItem, warehouses, locationTreeData } = this.props;
+        const { masterMode, productsAll, oShippingItem, warehouses, locationTreeData, disableWarehouse } = this.props;
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
         this.setState({ currentLoader });
         
@@ -168,6 +170,7 @@ class DrawerShippingPrograming extends PureComponent {
                     whName={this.state.whName}
                     masterMode={masterMode}
                     warehouses={warehouses}
+                    disableWarehouse={disableWarehouse}
 
                     handleSubmitNewLine={this.handleSubmitNewLine}
                     wrappedComponentRef={this.saveFormRefNewLine}

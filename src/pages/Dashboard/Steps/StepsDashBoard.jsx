@@ -13,14 +13,15 @@ class StepsDashBoard extends PureComponent {
       
         return (
         <div>
-          <Steps   type="navigation" current={currentDay}>
-            <StepDayWeek dataPerDay={data["Wednesday"]} title="Miércoles &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />
-            <StepDayWeek dataPerDay={data["Thursday"]} title=" &nbsp; Jueves &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "/>
-            <StepDayWeek dataPerDay={data["Friday"]}  title="Viernes &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/>
-            <StepDayWeek dataPerDay={data["Saturday"]} title="Sábado &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/>
-            <StepDayWeek dataPerDay={data["Sunday"]} title="Domingo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/>
-            <StepDayWeek dataPerDay={data["Monday"]} title="Lunes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/>
-            <StepDayWeek dataPerDay={data["Tuesday"]} title="&nbsp;Martes &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/>
+          
+          <Steps    size="default" type="navigation" current={currentDay}>
+            <StepDayWeek dataPerDay={data["Wednesday"]} title={<FormattedMessage id='dashboard.title.wednesday'/>} />
+            <StepDayWeek dataPerDay={data["Thursday"]} title={<FormattedMessage id='dashboard.title.thursday'/>}/>
+            <StepDayWeek dataPerDay={data["Friday"]}  title={<FormattedMessage id='dashboard.title.friday'/>}/>
+            <StepDayWeek dataPerDay={data["Saturday"]} title={<FormattedMessage id='dashboard.title.saturday'/>}/>
+            <StepDayWeek dataPerDay={data["Sunday"]} title={<FormattedMessage id='dashboard.title.sunday'/>}/>
+            <StepDayWeek dataPerDay={data["Monday"]} title={<FormattedMessage id='dashboard.title.monday'/>}/>
+            <StepDayWeek dataPerDay={data["Tuesday"]} title={<FormattedMessage id='dashboard.title.tuesday'/>}/>
             {/* <Step icon={<Icon type="calendar" />} title="Viernes" />
             <Step icon={<Icon type="calendar" />} title="Sábado" />
             <Step icon={<Icon type="calendar" />} title="Domingo" />

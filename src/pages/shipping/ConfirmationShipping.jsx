@@ -66,6 +66,7 @@ class ConfirmationShipping extends PureComponent {
     }
     handleSubmitNewLine = (sLineMode, oState, oWarehouseData) => {
         /// Validate no duplicates for new lines
+        const { locationTreeData } = this.props;
         var bDuplicate = false;
         if (sLineMode === "NEW") {
             var aWarehouse = this.props.warehouses;
@@ -75,6 +76,7 @@ class ConfirmationShipping extends PureComponent {
                 }
             });
         }
+        oWarehouseData["locationTreeData"] = locationTreeData;
         if (!bDuplicate) {
             this.setState(oState);
             if (sLineMode === "NEW") {
@@ -147,7 +149,7 @@ class ConfirmationShipping extends PureComponent {
             wrapperCol: {xs: { span: 24 },sm: { span: 12 },md: { span: 14 },lg: { span: 14 },xl: { span: 14  }}
         };
         const { getFieldDecorator } = this.props.form;
-        const { oShippingItem, operatorAll, warehouses, masterMode, isSuccess, close} = this.props;
+        const { oShippingItem, operatorAll, warehouses, masterMode, isSuccess, close, disableWarehouse } = this.props;
         const { phoneOperator }= this.state;
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
         this.setState({ currentLoader });
@@ -171,6 +173,7 @@ class ConfirmationShipping extends PureComponent {
                     masterMode={masterMode}
                     warehouses={warehouses}
                     oShippingItem={oShippingItem}
+                    disableWarehouse={disableWarehouse}
                     locationTreeData={this.props.locationTreeData}
                     wrappedComponentRef={this.saveFormRefNewLine}
                     handleSubmitNewLine={this.handleSubmitNewLine}

@@ -36,6 +36,8 @@ export default {
     'outComming.drawerAssigment.boxes-availables':'Cajas disponibles',
     'outComming.drawerAssigment.pallets':'Tarimas',
     'outComming.drawerAssigment.boxes':'Cajas',
+    'outComming.button.cancel-assignment-outcomming':'Cancel',
+    'outComming.button.ok-assignment-outcomming':'Aceptar',
     'outComming.table.confirm':'Confirmar',
     'outComming.table.confirmed':'Confirmado',
     'outComming.label.table-outComming.status.pending': "PENDIENTE",

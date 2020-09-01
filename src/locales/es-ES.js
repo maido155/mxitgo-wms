@@ -4,7 +4,7 @@ import menu from './es-ES/menu';
 import pwa from './es-ES/pwa';
 import register from './es-ES/register';
 import accountSettings from './es-ES/accountSettings';
-import settingDrawer from './es-Es/settingDrawer';
+import settingDrawer from './es-ES/settingDrawer';
 import settings from './es-ES/settings';
 import outComming from './es-ES/outComming';
 import shippingMaster from './es-ES/shippingMaster';
@@ -23,7 +23,7 @@ export default {
     'app.preview.down.block': 'Descarga esta página a tu proyecto local',
     'app.welcome.link.fetch-blocks': 'Bloquear todl',
     'app.welcome.link.block-list': 'Construye páginas rápidamente basados en desarrollo de bloque',
-  
+
     ...globalHeader,
     ...menu,
     ...settingDrawer,
