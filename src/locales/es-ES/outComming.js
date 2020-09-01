@@ -30,9 +30,18 @@ export default {
     'outComming.button.composition-outcomming-pallets-ass': 'Tarima asignados',
     'outComming.button.composition-outcomming-boxes-ass': 'Cajas asignados',
     'outComming.label.table-status': 'Estado',
-    'outComming.label.assignproduct-pallets-di': 'Tarima disponible', 
-    'outComming.label.assignproduct-boxes-di': 'Cajas disponible',
-    'outComming.label.assignproduct-pallets': 'Tarimas', 
-    'outComming.label.assignproduct-boxes': 'Cajas',
-    'menu.Salidas': 'Salidas'
+    'menu.Salidas': 'Salidas',
+    'outComming.drawerAssigment.title':'Asignación',
+    'outComming.drawerAssigment.pallets-availables':'Tarima disponibles',
+    'outComming.drawerAssigment.boxes-availables':'Cajas disponibles',
+    'outComming.drawerAssigment.pallets':'Tarima',
+    'outComming.drawerAssigment.boxes':'Cajas',
+    'outComming.button.cancel-assignment-outcomming':'Cancel',
+    'outComming.button.ok-assignment-outcomming':'Aceptar',
+    'outComming.table.confirm':'Confirmar',
+    'outComming.table.confirmed':'Confirmado',
+    'outComming.label.table-outComming.status.pending': "PENDIENTE",
+    'outComming.label.table-outComming.status.confirmed':"CONFIRMADO",
+    'outComming.label.table-outComming.status.no-status':'SIN ESTATUS'
+
 };

@@ -34,5 +34,17 @@ export default {
     'outComming.label.assignproduct-pallets': 'Pallets', 
     'outComming.label.assignproduct-boxes': 'Boxes',
     'outComming.label.table-status':'Status',
-    'menu.Salidas': 'Outbounds'
+    'menu.Salidas': 'Outbounds',
+    'outComming.drawerAssigment.title':'Assignation',
+    'outComming.drawerAssigment.pallets-availables':'Pallets availables',
+    'outComming.drawerAssigment.boxes-availables':'Boxes availables',
+    'outComming.drawerAssigment.pallets':'Pallets',
+    'outComming.drawerAssigment.boxes':'Boxes',
+    'outComming.button.cancel-assignment-outcomming':'Cancel',
+    'outComming.button.ok-assignment-outcomming':'Accept',
+    'outComming.table.confirm':'Confirm',
+    'outComming.table.confirmed':'Confirmed',
+    'outComming.label.table-outComming.status.pending': "PENDING",
+    'outComming.label.table-outComming.status.confirmed':"CONFIRMED",
+    'outComming.label.table-outComming.status.no-status':'NO STATUS'
 };

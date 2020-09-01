@@ -136,7 +136,7 @@ export default class DrawerAssignmentProduct extends PureComponent {
         };
         return (
             <Drawer
-                title={'Asignación'}
+                title={<FormattedMessage id='outComming.drawerAssigment.title'/>}
                 placement="right"
                 width={isMobile ? "100%" : "50%"}
                 closable={true}
@@ -145,18 +145,18 @@ export default class DrawerAssignmentProduct extends PureComponent {
                 afterVisibleChange={this.setCurrentValues()}
                 getContainer={isMobile ? false : true}
             >
-                <Form {...formItemLayout} style={{ marginTop: "5rem" }}>
-                    <Form.Item label={formatMessage({ id: "outComming.label.assignproduct-pallets-di" })}>
+                <Form {...formItemLayout} style={{marginTop: "5rem"}}>
+                    <Form.Item label={<FormattedMessage id='outComming.drawerAssigment.pallets-availables'/>}>
                         <Text>{this.state.pallets}</Text>
                     </Form.Item>
-                    <Form.Item label={formatMessage({ id: "outComming.label.assignproduct-boxes-di" })}>
-                        <Text>{this.state.box}</Text>
+                    <Form.Item label={<FormattedMessage id='outComming.drawerAssigment.boxes-availables'/>}>
+                        <Text>{this.state.box}</Text> 
                     </Form.Item>
-                    <Form.Item label={formatMessage({ id: "outComming.label.assignproduct-pallets" })}>
-                        <InputNumber min={0} value={this.state.currentValuePallet} onChange={(e) => { this.onChangeQuantityPallet(e, this) }} />
+                    <Form.Item label={<FormattedMessage id='outComming.drawerAssigment.pallets'/>}>
+                        <InputNumber min={0} value={this.state.currentValuePallet} onChange={(e) => {this.onChangeQuantityPallet(e, this)}}/>
                     </Form.Item>
-                    <Form.Item label={formatMessage({ id: "outComming.label.assignproduct-boxes" })}>
-                        <InputNumber min={0} value={this.state.currentValueBox} onChange={(e) => { this.onChangeQuantityBox(e, this) }} />
+                    <Form.Item label={<FormattedMessage id='outComming.drawerAssigment.boxes'/>}>
+                        <InputNumber min={0} value={this.state.currentValueBox} onChange={(e) => {this.onChangeQuantityBox(e, this)}}/>
                     </Form.Item>
                     <div
                         style={{
