@@ -8,13 +8,13 @@ export default {
     'general.modal.clear': 'Limpiar',
     'general.modal.accept': 'Guardar',
     'general.modal-label.boxes': 'Cajas',
-    'general.modal-label.pallets': 'Tarima', //add
+    'general.modal-label.pallets': 'Tarimas', 
     'general.table.week': 'Semana',
     'general.table.products': 'Productos',
     'general.table.client': 'Cliente',
     'general.table.boxes': 'Cajas',
-    'general.table.pallets': 'Tarima',
-    'general.table.status': 'Estatus', //add
+    'general.table.pallets': 'Tarimas',
+    'general.table.status': 'Estatus', 
     'general.table.actions': 'Acciones',
     'general.table.actions-mobil': 'Acciones',
     'menu.Programación General': 'Programación General',
