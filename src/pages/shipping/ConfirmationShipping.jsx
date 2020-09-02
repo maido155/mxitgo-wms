@@ -128,7 +128,7 @@ class ConfirmationShipping extends PureComponent {
                 message.warning(<FormattedMessage id='shipping.drawerEntry.messageWarningCenter'/>); //I18N *****************************************************************************************************
                 return;
             }
-            if(this.props.masterMode == "NEW"){
+            if(this.props.masterMode === "NEW"){
             values["idShipping"] = this.state.idShipping + date.getDate() + (date.getMonth() + 1) + date.getFullYear() + date.getHours() + date.getMinutes();
             }else{
             values["idShipping"] = this.props.oShippingItem.idShipping;

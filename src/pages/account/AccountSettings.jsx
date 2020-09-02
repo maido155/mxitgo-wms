@@ -50,7 +50,7 @@ class AccountSettings extends PureComponent{
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             let vali = localStorage.getItem('url');
-            if(vali == "undefined"){
+            if(vali === "undefined"){
                 message.error(formatMessage({ id: 'accountSettings.mode.message.err' }));
                 return;
             }else{

@@ -22,20 +22,20 @@ const NewLine = Form.create()(
         renderTreeNode = (treeData) => {
             const { disableWarehouse, whName, masterMode, warehouses, locationTreeData } = this.props;
             var disable = disableWarehouse;
-            if(masterMode == "EDIT" && warehouses.length != 0){
+            if(masterMode === "EDIT" && warehouses.length != 0){
                 var whNameEdit = locationTreeData.filter(function(data){
                     for(var i = 0; i < data.childLevel1.length; i++){
-                        if(data.childLevel1[i].key == warehouses[0].warehouseId){
+                        if(data.childLevel1[i].key === warehouses[0].warehouseId){
                             return data.childLevel1[i].key == warehouses[0].warehouseId;
                         }
                     }
                 });
                 disable = whNameEdit;
             }           
-            if(masterMode == "CONF" && warehouses.length != 0){
+            if(masterMode === "CONF" && warehouses.length != 0){
                 var whNameEdit = locationTreeData.filter(function(data){
                     for(var i = 0; i < data.childLevel1.length; i++){
-                        if(data.childLevel1[i].key == warehouses[0].warehouseId){
+                        if(data.childLevel1[i].key === warehouses[0].warehouseId){
                             return data.childLevel1[i].key == warehouses[0].warehouseId;
                         }
                     }
@@ -55,7 +55,7 @@ const NewLine = Form.create()(
             return treeNode;
         }
         disabledrenderChild1 = (data, item) => {
-            if(data.length == 0){
+            if(data.length === 0){
                 return false;
             }else{
                 if(data[0].key != item.key){
@@ -171,7 +171,7 @@ const NewLine = Form.create()(
                 }
                 _self.props.handleSubmitNewLine(_self.props.lineMode, { idShipping, datesGeneralNewLine }, { objWarehouse,products:productsAllLine});
                 _self.props.form.resetFields();
-                if(this.props.mode == "NEW||EDIT"){
+                if(this.props.mode === "NEW||EDIT"){
                     _self.props.closeNewLine();
                 }else{
                     _self.props.closeNewLineConfirm();

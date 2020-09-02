@@ -29,20 +29,20 @@ class ModalNewUser extends PureComponent{
     if (value && this.state.confirmDirty) {
       form.validateFields(['confirm'], { force: true });
     }
-    if(value == undefined || value == ""){
+    if(value === undefined || value === ""){
       callback();
       return;
     }
-    if(upperCase == false){
+    if(upperCase === false){
       callback(formatMessage({ id: 'usersModule.modal.password_uppercase' }))
     }
-    if(lowerCase == false){
+    if(lowerCase === false){
       callback(formatMessage({ id: 'usersModule.modal.password_lowercase' }))
     }
-    if(number == false){
+    if(number === false){
       callback(formatMessage({ id: 'usersModule.modal.password_number' }))
     }
-    if(character == false){
+    if(character === false){
       callback(formatMessage({ id: 'usersModule.modal.password_character' }))
     }
     if(value.length < 8){
@@ -62,7 +62,7 @@ class ModalNewUser extends PureComponent{
       }
       var phone_number = values.prefix + values.phone_number;
       values.phone_number = phone_number;
-      if(this.props.edit == false){
+      if(this.props.edit === false){
         _self.props.saveNewUser(values);
       }else{
         _self.props.updateNewUser(values);
@@ -75,15 +75,15 @@ class ModalNewUser extends PureComponent{
     const { edit, loading, saveUser, closeUser, dataUser, updateUser } = this.props;
     numberPhone = "";
     const number = dataUser.phone_number;
-    if(saveUser == true){
+    if(saveUser === true){
       this.props.changedSuccess();
       message.success(formatMessage({ id: 'usersModule.notification.success' }));
     }
-    if(closeUser == true){
+    if(closeUser === true){
       this.props.cancel();
       this.props.changedClosed();
     }
-    if(updateUser == true){
+    if(updateUser === true){
       this.props.changedSuccess();
       message.success(formatMessage({ id: 'usersModule.notification.edit' }));
     }

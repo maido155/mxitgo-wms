@@ -129,7 +129,7 @@ const DrawerGeneralProgramming  = Form.create()(
             let boxes = inputsBoxes;
             let pallets = inputsPallets
 
-            if(productSelect == undefined){
+            if(productSelect === undefined){
                 message.warning(formatMessage({ id: 'general.modal-product' }));
                 return;
             }
@@ -140,7 +140,7 @@ const DrawerGeneralProgramming  = Form.create()(
 
             quantityProduct = typeProduct[0].quantityBoxes;
 
-            if(type == 'pallet'){
+            if(type === 'pallet'){
                 pallets[position] = numRound;
                 boxes[position] = (numRound * quantityProduct);
                 this.setState({ inputsPallets: pallets, inputsBoxes: boxes})
@@ -199,7 +199,7 @@ const DrawerGeneralProgramming  = Form.create()(
 
             quantityProductEdit = typeProduct[0].quantityBoxes;
             
-            if(type == 'pallet'){
+            if(type === 'pallet'){
                 palletsEdit[position] = numRoundEdit;
                 boxesEdit[position] = (numRoundEdit * quantityProductEdit);
                 this.setState({ inputsPalletsEdit: palletsEdit, inputsBoxesEdit: boxesEdit})
