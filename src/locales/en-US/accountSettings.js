@@ -8,9 +8,9 @@ export default {
     'accountSettings.security.message.account': "Saving changes",
     'accountSettings.mode.message.err': "You need to add image",
     'register.label.name':'Name(s): ',
-    'register.label.lastmid':'Middle name: ',
+    'register.label.lastmid':'Maternal surname: ',
     'register.label.email':'Email: ',
-    'register.label.lastfam':'Last name: ',
+    'register.label.lastfam':'Paternal surname: ',
     'register.label.phone':'Phone: ',
     'menu.Configuración': 'Settings',
     'menu.Configuración.Usuarios': 'Users'
