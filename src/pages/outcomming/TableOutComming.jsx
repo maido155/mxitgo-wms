@@ -68,7 +68,7 @@ export default class TableOutComming extends PureComponent {
                       {record.status === "PENDING"
                         ? <FormattedMessage id="outComming.label.table-outComming.status.pending" />
                         :  record.status === "CONFIRMED"
-                            ?<FormattedMessage id="outComming.label.table-outComing.status.confirmed" />
+                            ?<FormattedMessage id="outComming.label.table-outComming.status.confirmed" />
                             : <FormattedMessage id="outComming.label.table-outComming.status.no-status" />
                       } 
                     </span>
