@@ -15,7 +15,6 @@ import { DownOutlined, UserOutlined } from '@ant-design/icons';
     programming,
     loading: loading.models.outcomming,
     datesOutcomming: outcomming.datesOutcomming,
-    shippingsByEntry: outcomming.shippingsByEntry,
     datesProductAll: programming.datesProductAll,
     datesCustomerAll: programming.datesCustomerAll,
     dataOutcommingsByEntry: outcomming.dataOutcommingsByEntry
@@ -237,11 +236,6 @@ export default class OutComming extends PureComponent {
         });
     };
 
-    onChangeProd = (id) => {
-        console.log(id)
-
-    };
-
     setVisibleAssign = (value) => {
         this.setState({
             visibleAssign: value
@@ -275,9 +269,8 @@ export default class OutComming extends PureComponent {
     render() {
         console.log('Context--->', this);
         console.log(this.props);
-        let { datesProductAll, datesCustomerAll, shippingsByEntry } = this.props;
+        let { datesProductAll, datesCustomerAll } = this.props;
         let { compositionData, datesOutcomming, dataOutcommingsByEntry } = this.props.outcomming;
-        console.log(shippingsByEntry);
         const formItemLayout = {
             labelCol: { xs: { span: 24 }, sm: { span: 6 }, md: { span: 6 }, lg: { span: 6 }, xl: { span: 6 } },
             wrapperCol: { xs: { span: 24 }, sm: { span: 18 }, md: { span: 18 }, lg: { span: 18 }, xl: { span: 18 } }
@@ -307,7 +300,7 @@ export default class OutComming extends PureComponent {
                                     restartOutcomming={(payload) => { this.restartOutcomming(payload, this) }}
                                     postOutcomming={(payload) => { this.postOutcomming(payload, this) }}
                                     datesProductAll={datesProductAll}
-                                    datesOutcomming={datesOutcomming}
+                                    datesTableOutcomming={datesOutcomming}
                                     onConfirm={this.onConfirm}
                                     loading={this.props.loading}
                                     compositionData={compositionData}

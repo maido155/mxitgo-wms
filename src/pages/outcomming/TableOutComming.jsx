@@ -38,10 +38,9 @@ export default class TableOutComming extends PureComponent {
         this.props.setVisibleCompo(false);
     };
     render() {
-        let {dataOutcommingsByEntry} = this.props;
-        const { datesOutcomming } = this.props;
+        let { datesTableOutcomming } = this.props;
         console.log("TableOutComming");
-        console.log(dataOutcommingsByEntry);
+        console.log(datesTableOutcomming);
 
         const columns = [
             {
@@ -158,7 +157,7 @@ export default class TableOutComming extends PureComponent {
                     onCloseDrawerAssigProduct={this.props.onCloseDrawerAssigProduct}
                     setDrawerAssignProduct={this.props.setDrawerAssignProduct}
                 />
-                <Table loading = {this.props.loading} columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
+                <Table loading = {this.props.loading} columns={columns} dataSource={datesTableOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
             </div>
         );            
     }
