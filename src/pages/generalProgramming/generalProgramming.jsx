@@ -39,18 +39,10 @@ class GeneralProgramming extends PureComponent {
            type: 'programming/fetchProgrammingAll',
            payload: {
                payload: {
-                Authorization: sessionStorage.getItem('idToken')
+                Authorization: sessionStorage.getItem('idToken'),
+                type: "Primary"
                }
             },
-        });
-        this.props.dispatch({
-            type: 'programming/fetchProductAll',
-            payload: {
-                payload: {
-                 Authorization: sessionStorage.getItem('idToken'),
-                 type: "Primary"
-                }
-             },
         });
     }
     showNewDrawer = () => {
