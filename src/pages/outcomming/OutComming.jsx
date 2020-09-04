@@ -181,7 +181,6 @@ export default class OutComming extends PureComponent {
 
 
     postOutcomming = (payload, context) => {
-
         this.props.dispatch({
             type: 'outcomming/postOutcomming',
             payload: {

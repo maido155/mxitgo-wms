@@ -39,14 +39,6 @@ export default {
                 payload: response,
             });
         },
-        * getShippingsByEntry({ payload }, { call, put }) {
-            const response = yield call(getShippingsByEntry, payload);
-            console.log(response);
-            yield put({
-                type: 'getShippingsByEntryReducer',
-                payload: response,
-            });
-        },
         * postOutcomming({ payload }, { call, put }) {
             const response = yield call(postOutcomming, payload);
             const responseOutcomming = yield call(getOutcomming, payload.payload);
@@ -107,12 +99,6 @@ export default {
                 ...state,
                 datesOutcomming: action.payload
             }
-        },
-        getShippingsByEntryReducer(state, action) {
-            return {
-                ...state,
-                datesOutcomming: action.payload
-        	}
         },
         postOutcommingReducer(state, action) {
             return {
