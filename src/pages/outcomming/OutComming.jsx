@@ -7,6 +7,8 @@ import moment from 'moment';
 import { Card, Form, Row, Col, DatePicker, Menu, Dropdown, Button, notification, Select, Divider, Spin } from 'antd';
 import TableOutComming from './TableOutComming';
 import FilterFormOutcoming from './FilterFormOutcoming';
+import AssignmentOutComming from './AssignmentOutComming';
+import CompositionOutComming from './CompositionOutComming';
 import { connect } from 'dva';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
@@ -30,7 +32,9 @@ export default class OutComming extends PureComponent {
         visibleAssign: false, //flag for tableOutcooming
         visibleCompo: false, //flag for tableOutcooming
         visibleAssignProduct: false, //flag for Assign Product
-        currentShipping: {} //Current Shipping for Assign
+        currentShipping: {}, //Current Shipping for Assign
+        currentOutbound: {}, //Current Selected Item from Table Outbound
+        outboundKey: "" //Current Outbound Key
     }
 
     componentDidMount() {
@@ -259,13 +263,43 @@ export default class OutComming extends PureComponent {
             currentShipping: record,
             visibleAssignProduct: true
         })
-    }
+    };
 
     onCloseDrawerAssigProduct = () => {
         this.setState({
             visibleAssignProduct: false
         })
-    }
+    };
+
+    showDrawerAssig = (item) => {
+        console.log("assign")
+        this.setVisibleAssign(true);
+        this.setState({
+          currentOutbound: item,
+          outboundKey: item.key
+        });
+        
+        this.getOutcommingByEntry(item.key,this.state.product);
+    };
+
+    onCloseDrawerAssig = () => {
+        this.setVisibleAssign(false);
+    };
+
+    showDrawerCompo = (id, item) => {
+        let oc = item.key;
+        this.setState({
+          currentOutbound: item,
+          outboundKey: oc,
+        });
+        this.onShowCompositionData(id);
+        this.setVisibleCompo(true);
+    };
+
+    onCloseDrawerCompo = () => {
+        this.setVisibleCompo(false);
+    };
+
     render() {
         console.log('Context--->', this);
         console.log(this.props);
@@ -278,6 +312,49 @@ export default class OutComming extends PureComponent {
 
         return (
             <div>
+                <AssignmentOutComming 
+                        loading = {this.props.loading}
+                        productDesc = {this.state.productDesc}
+                        datesProductAll = {datesProductAll}
+                        visibleOne={this.state.visibleAssign}
+                        currentOutcomming={this.state.currentOutbound}
+                        closeOne={this.onCloseDrawerAssig}
+                        postOutcomming= {(payload) => { this.postOutcomming(payload, this) }}
+                        restartOutcomming= {(payload) => { this.restartOutcomming(payload, this) }}
+                        recordKey= {this.state.outboundKey}
+                        dataOutcommingsByEntry={dataOutcommingsByEntry}
+                        productKey={this.state.product}
+
+                        //Props for Assign Product Drawer
+                        visibleAssignProduct={this.state.visibleAssignProduct} 
+                        setVisibleAssignProduct={this.setVisibleAssignProduct} 
+                        currentShipping={this.state.currentShipping}
+                        onCloseDrawerAssigProduct={this.onCloseDrawerAssigProduct}
+                        setDrawerAssignProduct={this.setDrawerAssignProduct}
+                />
+                <CompositionOutComming
+                    loading = {this.props.loading}
+                    compositionData = {compositionData}
+                    visibleTwo={this.state.visibleCompo}
+                    closeTwo={this.onCloseDrawerCompo}
+
+                    //Properties for drawer Assign
+                    productKey={this.state.product}
+                    productDesc = {this.state.productDesc}
+                    datesProductAll = {datesProductAll}
+                    currentOutcomming={this.state.currentOutbound}
+                    postOutcomming= {(payload) => { this.postOutcomming(payload, this) }}
+                    restartOutcomming= {(payload) => { this.restartOutcomming(payload, this) }}
+                    recordKey= {this.state.outboundKey}
+                    dataOutcommingsByEntry={dataOutcommingsByEntry}
+                    getOutcommingByEntry={this.getOutcommingByEntry}
+
+                    //Props for Assign Product Drawer
+                    visibleAssignProduct={this.state.visibleAssignProduct} 
+                    currentShipping={this.state.currentShipping}
+                    onCloseDrawerAssigProduct={this.onCloseDrawerAssigProduct}
+                    setDrawerAssignProduct={this.setDrawerAssignProduct}
+                />
                 <PageHeaderWrapper extra=
                     {<FilterFormOutcoming
                         onChangeWeek={this.onChangeWeek}
@@ -291,28 +368,15 @@ export default class OutComming extends PureComponent {
                         <Row type="flex" justify="center">
                             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                                 <TableOutComming
-                                    productDesc={this.state.productDesc}
-                                    productKey={this.state.product}
-                                    visibleAssign={this.state.visibleAssign}
-                                    setVisibleAssign={this.setVisibleAssign}
-                                    visibleCompo={this.state.visibleCompo}
-                                    setVisibleCompo={this.setVisibleCompo}
-                                    restartOutcomming={(payload) => { this.restartOutcomming(payload, this) }}
-                                    postOutcomming={(payload) => { this.postOutcomming(payload, this) }}
-                                    datesProductAll={datesProductAll}
                                     datesTableOutcomming={datesOutcomming}
                                     onConfirm={this.onConfirm}
                                     loading={this.props.loading}
-                                    compositionData={compositionData}
-                                    onShowCompositionData={this.onShowCompositionData}
-                                    getOutcommingByEntry={this.getOutcommingByEntry}
-                                    dataOutcommingsByEntry={dataOutcommingsByEntry}
 
-                                    //Props for Assign Product Drawer
-                                    visibleAssignProduct={this.state.visibleAssignProduct}
-                                    currentShipping={this.state.currentShipping}
-                                    onCloseDrawerAssigProduct={this.onCloseDrawerAssigProduct}
-                                    setDrawerAssignProduct={this.setDrawerAssignProduct} />
+                                    //Props for Show CompositionDrawer
+                                    showDrawerCompo={this.showDrawerCompo}
+
+                                    //Props for Show Assign Drawer
+                                    showDrawerAssig={this.showDrawerAssig} />
                             </Col>
                         </Row>
 
