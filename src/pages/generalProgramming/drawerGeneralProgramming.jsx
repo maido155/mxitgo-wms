@@ -187,7 +187,7 @@ const DrawerGeneralProgramming  = Form.create()(
             const form = this.props.form;
 
             let dataForm = form.getFieldsValue();
-            let productSelect = dataForm.productNew;
+            let productSelect = dataForm.productEdit;
             let quantityProductEdit = 0;
             let numRoundEdit = Math.round(value);
             let boxesEdit = inputsBoxesEdit;
@@ -238,6 +238,7 @@ const DrawerGeneralProgramming  = Form.create()(
             numberValidationOne = 0;
             numberValidation = 0;
             dataValidation = [];
+            this.props.form.resetFields();
             this.props.onCloseNewDrawer();
         }
         render(){
@@ -474,7 +475,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                                 <Col xs={0} sm={1} md={1} lg={1} xl={1}></Col>
                                                 <Col xs={24} sm={18} md={18} lg={18} xl={18}>
                                                     <Form.Item label={formatMessage({id: "general.button-product.product"})}>
-                                                        {getFieldDecorator('productNew',{initialValue: datesGetProgramming[0].skProduct, rules: [{ required: true, message: formatMessage({id: "general.modal-product"}) }]})
+                                                        {getFieldDecorator('productEdit',{initialValue: datesGetProgramming[0].skProduct, rules: [{ required: true, message: formatMessage({id: "general.modal-product"}) }]})
                                                             (<Select showSearch style={{ width: 200 }} placeholder="Select product" optionFilterProp="children" onChange={this.onChangeProd} style={{ width: '100%' }}
                                                                 onFocus={this.onFocusProd} onBlur={this.onBlurProd} onSearch={this.onSearchProd}filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}  disabled={edit == true ? true : false}
                                                             >
