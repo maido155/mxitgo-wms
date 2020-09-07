@@ -1,90 +1,74 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
-import { Table, Divider, Button, Checkbox  } from 'antd';
+import { Table, Button  } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import {isMobile} from 'react-device-detect';
+import AssignmentOutComming from './AssignmentOutComming';
+import CompositionOutComming from './CompositionOutComming'
 
 export default class TableOutComming extends PureComponent {
     render() {
-        let { datesTableOutcomming } = this.props;
-        console.log("TableOutComming");
-        console.log(datesTableOutcomming);
-
+      const { showAsignar, visibleAsignar, closeAsignar, visibleComposition, closeComposition, showComposition, closeAssignmentProduct, visibleAssignmentProduct, 
+              showAssignmentProduct, visibleAsignarComposition, condition } = this.props;
         const columns = [
+            { title: 'Name', dataIndex: 'name', key: 'name' },
+            { title: 'Age', dataIndex: 'age', key: 'age' },
+            { title: 'Address', dataIndex: 'address', key: 'address' },
             {
-                title: '',
-                dataIndex: 'date',
-                width: isMobile ? 100 : 130
+              title: 'Action',
+              dataIndex: '',
+              key: 'x',
+            render: () => 
+              <Button type="primary" onClick={()=>{showAsignar('tGeneral')}}> 
+                <FormattedMessage id="outComming.button.assign"/>
+              </Button>,
             },
             {
-                title: formatMessage({ id: 'outComming.label.table-pallets' }),
-                dataIndex: 'pallets',
-                width: isMobile ? 200 : 190
-            },
-            {
-                title: formatMessage({ id: 'outComming.label.table-boxes' }),
-                dataIndex: 'boxs',
-                width: isMobile ? 200 : 180
-            },
-            {
-                title: formatMessage({ id: 'outComming.label.table-status' }),
-                dataIndex: 'status',
-                width: isMobile ? 100 : 130,
-                render: (text, record) => (
-                    <span>
-                      {record.status === "PENDING"
-                        ? <FormattedMessage id="outComming.label.table-outComming.status.pending" />
-                        :  record.status === "CONFIRMED"
-                            ?<FormattedMessage id="outComming.label.table-outComming.status.confirmed" />
-                            : <FormattedMessage id="outComming.label.table-outComming.status.no-status" />
-                      } 
-                    </span>
-                )
-            },
-            {
-                title: '',
-                key: 'action',
-                width: isMobile ? 400 : 360,
-                render: (record) => (
-                  <span>
-                      {
-                            record.status=="PENDING" && record.pallets!="0/0" && record.boxs!="0/0"  ?
-                                <Button type="primary" onClick={()=>{this.props.showDrawerAssig(record)}}> 
-                                    <FormattedMessage id="outComming.button.assign"/>
-                                </Button>
-                                : <Button disabled type="primary" onClick={()=>{this.props.showDrawerAssig(record)}}> 
-                                <FormattedMessage id="outComming.button.assign"/>
-                            </Button>}
-                        <Divider type="vertical" />
-                        { record.key=="" 
-                            ?<Button disabled onClick={()=>{this.props.showDrawerCompo(record.key, record)}}>
-                                <FormattedMessage id="outComming.button.composition"/>
-                             </Button>
-                            :<Button onClick={()=>{this.props.showDrawerCompo(record.key, record)}}>
-                                <FormattedMessage id="outComming.button.composition"/>
-                             </Button>                                       
-                        }    
-                        <Divider type="vertical" />
-                        { record.key=="" 
-                            ? <Checkbox defaultChecked={false} disabled onChange={()=>{this.props.onConfirm(record)}}><FormattedMessage id='outComming.table.confirm'/></Checkbox>
-                            :   <span>
-                                {
-                                    record.status=="PENDING"
-                                    ? <Checkbox onChange={()=>{this.props.onConfirm(record)} } > <FormattedMessage id='outComming.table.confirm'/> </Checkbox>
-                                    : <Checkbox disabled onChange={()=>{this.props.onConfirm(record)} } > <FormattedMessage id='outComming.table.confirmed'/></Checkbox>
-                                }
-                                    
-                                </span> 
-                        }
-                  </span>
-                ),
-            }
+                title: 'Action2',
+                dataIndex: '',
+                key: 'y',
+                render: () =>
+                <Button type="danger" onClick={()=>{showComposition()}}> 
+                  <FormattedMessage id="outComming.button.assign"/>
+                </Button>,
+              },
         ];
-                   
-        return (
-            <div>
-                <Table loading = {this.props.loading} columns={columns} dataSource={datesTableOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
-            </div>
-        );            
+        const data = [
+            {
+              key: 1,
+              name: 'John Brown',
+              age: 32,
+              address: 'New York No. 1 Lake Park',
+              description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
+            },
+        ];
+        return(
+          <div>
+             <AssignmentOutComming
+              visibleAsignar={visibleAsignar}
+              closeAsignar={closeAsignar}
+
+              closeAssignmentProduct={closeAssignmentProduct}
+              showAssignmentProduct={showAssignmentProduct}
+              visibleAssignmentProduct={visibleAssignmentProduct}
+
+              condition={condition}
+            />
+            <CompositionOutComming
+              visibleComposition={visibleComposition}
+              closeComposition={closeComposition}
+
+              showAsignar={showAsignar}
+              visibleAsignarComposition={visibleAsignarComposition}
+              closeAsignar={closeAsignar}
+
+              closeAssignmentProduct={closeAssignmentProduct}
+              showAssignmentProduct={showAssignmentProduct}
+              visibleAssignmentProduct={visibleAssignmentProduct}
+
+              condition={condition}
+            />
+            <Table columns={columns} dataSource={data} pagination={false} size="small"/>
+          </div>
+        )
     }
 }
