@@ -21,7 +21,9 @@ export default class DrawerAssignmentProduct extends PureComponent {
         this.props.datesProductAll;
         let remaingQtyPallet = this.state.originalPallets;
         var remaingQtyBox = this.state.originalBox;
+        var origiBox = this.state.originalBox;
         var currentValuePallet = e;
+        var currentValueBox = 0;
 
         if (e === 0) {
             remaingQtyPallet;
@@ -31,6 +33,13 @@ export default class DrawerAssignmentProduct extends PureComponent {
 
             // Box - Updated Value
             remaingQtyBox = remaingQtyBox - (quantityBoxes * currentValuePallet);
+            currentValueBox = remaingQtyBox + (quantityBoxes * currentValuePallet)
+
+            if(remaingQtyBox < 0){
+                remaingQtyBox = 0;
+            }
+
+            
 
             if (Math.sign(remaingQtyPallet) === -1) {
                 remaingQtyPallet = 0;
@@ -40,7 +49,7 @@ export default class DrawerAssignmentProduct extends PureComponent {
 
         this.setState({
             pallets: remaingQtyPallet,
-            currentValueBox: quantityBoxes * currentValuePallet,
+            currentValueBox: currentValueBox,
             box: remaingQtyBox,
             currentValuePallet: currentValuePallet
         });
@@ -57,6 +66,7 @@ export default class DrawerAssignmentProduct extends PureComponent {
         if (e === 0) {
             remaingQtyBox;
             currentValueBox = 0;
+            currentValuePallet = 0;
         } else {
             currentValuePallet = Math.ceil(currentValueBox / quantityBoxes);
             remaingQtyPallet = remaingQtyPallet - currentValuePallet;
@@ -153,10 +163,10 @@ export default class DrawerAssignmentProduct extends PureComponent {
                         <Text>{this.state.box}</Text> 
                     </Form.Item>
                     <Form.Item label={<FormattedMessage id='outComming.drawerAssigment.pallets'/>}>
-                        <InputNumber min={0} value={this.state.currentValuePallet} onChange={(e) => {this.onChangeQuantityPallet(e, this)}}/>
+                        <InputNumber min={0} max={this.state.originalPallets} value={this.state.currentValuePallet} onChange={(e) => {this.onChangeQuantityPallet(e, this)}}/>
                     </Form.Item>
                     <Form.Item label={<FormattedMessage id='outComming.drawerAssigment.boxes'/>}>
-                        <InputNumber min={0} value={this.state.currentValueBox} onChange={(e) => {this.onChangeQuantityBox(e, this)}}/>
+                        <InputNumber min={0} max={this.state.originalBox} value={this.state.currentValueBox} onChange={(e) => {this.onChangeQuantityBox(e, this)}}/>
                     </Form.Item>
                     <div
                         style={{

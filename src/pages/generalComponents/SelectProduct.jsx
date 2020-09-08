@@ -15,6 +15,7 @@ export default class SelectProduct extends PureComponent{
                 <span> loading...</span>
             );
         }
+        let productsFilter=this.props.datesProductAll.filter(item=> item.type=="Primary")
         return(
             
                 <Select 
@@ -25,7 +26,7 @@ export default class SelectProduct extends PureComponent{
                         onSelect={this.props.handleProduct}
                         onFocus={this.onFocusProd} onBlur={this.onBlurProd} onSearch={this.onSearchProd} filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                     >
-                        {this.props.datesProductAll.map(item => (<Option key={item["WMS-1-SK"]} value={item["WMS-1-SK"]}>{item.productName}</Option>))}
+                        {productsFilter.map(item => (<Option key={item["WMS-1-SK"]} value={item["WMS-1-SK"]}>{item.productName}</Option>))}
                     </Select>
                 
             
