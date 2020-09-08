@@ -12,13 +12,12 @@ import CompositionOutComming from './CompositionOutComming';
 import { connect } from 'dva';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
-@connect(({ outcomming, programming, loading }) => ({
+@connect(({ outcomming, loading }) => ({
     outcomming,
-    programming,
     loading: loading.models.outcomming,
     datesOutcomming: outcomming.datesOutcomming,
-    datesProductAll: programming.datesProductAll,
-    datesCustomerAll: programming.datesCustomerAll,
+    datesProductAll: outcomming.datesProductAll,
+    datesCustomerAll: outcomming.datesCustomerAll,
     dataOutcommingsByEntry: outcomming.dataOutcommingsByEntry
 }))
 export default class OutComming extends PureComponent {
@@ -38,18 +37,8 @@ export default class OutComming extends PureComponent {
     }
 
     componentDidMount() {
-
         this.props.dispatch({
-            type: 'programming/fetchCustomerAll',
-            payload: {
-                payload: {
-                    Authorization: sessionStorage.getItem('idToken')
-                }
-            },
-        });
-
-        this.props.dispatch({
-            type: 'programming/fetchProductAll',
+            type: 'outcomming/fetchProductAll',
             payload: {
                 payload: {
                     Authorization: sessionStorage.getItem('idToken'),
@@ -57,7 +46,8 @@ export default class OutComming extends PureComponent {
                 }
             },
         });
-    };
+    }
+    
 
     isEmpty = (str) => {
         return (!str || 0 === str.length);
