@@ -1,6 +1,6 @@
 @import '~antd/es/style/themes/default.less';
 .dayContainer{
-    padding: 0.5rem 1rem !important;
+    padding: 0.5rem 1rem 0.5rem 1.5rem !important;
 }
 
 .dayContainer::after {
@@ -21,6 +21,9 @@
 .dayContainerLast{
     padding: 0.5rem 1rem !important;
 }
+.dayName{
+    font-size: 17px !important;
+}
 .dayContainer-last:after {
     content: none !important;
  }
@@ -28,4 +31,16 @@
     font-size: 1.5rem !important;
     position: relative !important;
     top: 3px;
+ }
+ .dayTotal{
+    padding-top: 0.5rem;
+    font-weight: 400 !important;
+    text-align: left !important;
+ }
+ .dayDetailContainer{
+    text-align: left !important;
+    padding-top:0.5rem;
+    line-height: 1.8;
+    font-weight: 400 !important;
+    font-style: italic !important;
  }
