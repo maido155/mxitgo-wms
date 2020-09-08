@@ -6,7 +6,7 @@ import {isMobile} from 'react-device-detect';
 
 export default class TableOutComming extends PureComponent {
     render() {
-        let { datesTableOutcomming } = this.props;
+        const { datesTableOutcomming } = this.props;
         console.log("TableOutComming");
         console.log(datesTableOutcomming);
 
@@ -14,6 +14,7 @@ export default class TableOutComming extends PureComponent {
             {
                 title: '',
                 dataIndex: 'date',
+                key:'date',
                 width: isMobile ? 100 : 130
             },
             {
@@ -43,7 +44,6 @@ export default class TableOutComming extends PureComponent {
             },
             {
                 title: '',
-                key: 'action',
                 width: isMobile ? 400 : 360,
                 render: (record) => (
                   <span>
@@ -83,7 +83,7 @@ export default class TableOutComming extends PureComponent {
                    
         return (
             <div>
-                <Table loading = {this.props.loading} columns={columns} dataSource={datesTableOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
+                <Table rowKey="uid" loading = {this.props.loading} columns={columns} dataSource={datesTableOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
             </div>
         );            
     }
