@@ -300,8 +300,16 @@ export default class OutComming extends PureComponent {
         };
 
         return (
-            <div>
-                <AssignmentOutComming 
+                <PageHeaderWrapper extra=
+                    {<FilterFormOutcoming
+                        onChangeWeek={this.onChangeWeek}
+                        handleProduct={this.handleProduct}
+                        handleClient={this.handleClient}
+                        datesProductAll={datesProductAll}
+                        datesCustomerAll={datesCustomerAll}
+
+                    />}>
+                        <AssignmentOutComming 
                         loading = {this.props.loading}
                         productDesc = {this.state.productDesc}
                         datesProductAll = {datesProductAll}
@@ -344,15 +352,6 @@ export default class OutComming extends PureComponent {
                     onCloseDrawerAssigProduct={this.onCloseDrawerAssigProduct}
                     setDrawerAssignProduct={this.setDrawerAssignProduct}
                 />
-                <PageHeaderWrapper extra=
-                    {<FilterFormOutcoming
-                        onChangeWeek={this.onChangeWeek}
-                        handleProduct={this.handleProduct}
-                        handleClient={this.handleClient}
-                        datesProductAll={datesProductAll}
-                        datesCustomerAll={datesCustomerAll}
-
-                    />}>
                     <Card>
                         <Row type="flex" justify="center">
                             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
@@ -371,7 +370,7 @@ export default class OutComming extends PureComponent {
 
                     </Card>
                 </PageHeaderWrapper>
-            </div>
+           
 
         );
     }

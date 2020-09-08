@@ -146,14 +146,14 @@ export default {
             return {
                 ...state,
                 postOutcommingSuccess: true,
-                datesOutcomming: []
+               // datesOutcomming: []
             }
         },
         restartOutcommingReducer(state, action) {
             return {
                 ...state,
                 restartOutcommingSuccess: true,
-                datesOutcomming: []
+               // datesOutcomming: []
             }
         },
         getOutcommingsByEntryReducer(state, action) {

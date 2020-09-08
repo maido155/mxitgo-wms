@@ -1,0 +1,31 @@
+@import '~antd/es/style/themes/default.less';
+.dayContainer{
+    padding: 0.5rem 1rem !important;
+}
+
+.dayContainer::after {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-top: -14px;
+    margin-left: -2px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-bottom: none;
+    border-left: none;
+    transform: rotate(45deg);
+    content: '';
+}
+.dayContainerLast{
+    padding: 0.5rem 1rem !important;
+}
+.dayContainer-last:after {
+    content: none !important;
+ }
+ .dayIcon{
+    font-size: 1.5rem !important;
+    position: relative !important;
+    top: 3px;
+ }
