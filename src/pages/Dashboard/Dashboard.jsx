@@ -34,10 +34,12 @@ function disabledDate (current) {
 
 
 
-@connect(({ dashboard,programming, loading }) => ({
+@connect(({ dashboard,programming,products, loading }) => ({
   dashboard,
   programming,
+  products,
   loading: loading.models.dashboard,
+  
   datesProductAll: programming.datesProductAll,
   currentSelectedDate: dashboard.currentSelectedDate,
   currentSelectedProduct: dashboard.currentSelectedProduct
@@ -49,7 +51,7 @@ export default class Dashboard extends PureComponent {
 
   componentDidMount() {
     this.props.dispatch({
-      type: 'programming/fetchProductAll',
+      type: 'products/getProducts',
       payload: {
           payload: {
            Authorization: sessionStorage.getItem('idToken'),
@@ -185,7 +187,8 @@ export default class Dashboard extends PureComponent {
 
   render() {
 
-    let { datesProductAll,loading, dashboard} = this.props;
+    let { datesProductAll,loading, products, dashboard} = this.props;
+    console.log(products.productsAll);
     this.setState({loading});
     const formItemLayout = {
       labelCol: { xs: { span: 24 }, sm: { span: 9 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 9 } },
@@ -252,7 +255,7 @@ export default class Dashboard extends PureComponent {
                   <div>
                   <span>{formatMessage({id: "general.button-product.product"})}: &nbsp;</span>
                   <SelectProduct 
-                  datesProductAll={datesProductAll} 
+                  datesProductAll={products.productsAll} 
                   handleProduct={this.onProductChange}/>
                   </div>
                 
