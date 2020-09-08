@@ -43,7 +43,7 @@ export default class TableAssignment extends PureComponent {
         width: isMobile ? 100 : 100,
         render: (record) => (
           <span>
-            {record.availables_pallets == 0 && record.availables_boxes == 0
+            {record.availables_pallets === 0 && record.availables_boxes === 0
               ? <a disabled onClick={() => { this.props.setDrawerAssignProduct(record) }}><FormattedMessage id="outComming.label.tableassignment-assign" /></a>
               : <a onClick={() => { this.props.setDrawerAssignProduct(record) }}><FormattedMessage id="outComming.label.tableassignment-assign" /></a>
             }

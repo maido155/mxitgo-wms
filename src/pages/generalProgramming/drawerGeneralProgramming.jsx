@@ -253,7 +253,7 @@ const DrawerGeneralProgramming  = Form.create()(
             };
             return(
                 <Drawer
-                    title={edit == false ? <FormattedMessage id="general.modal-title.title"/> : visualizar == true ? <FormattedMessage id="general.modal-visualize"/> : <FormattedMessage id="general.modal-title.Edit"/>} 
+                    title={edit === false ? <FormattedMessage id="general.modal-title.title"/> : visualizar == true ? <FormattedMessage id="general.modal-visualize"/> : <FormattedMessage id="general.modal-title.Edit"/>} 
                     width={isMobile ? "100%" : 550}
                     closable={true}
                     onClose={this.closeDrawerProduct}
