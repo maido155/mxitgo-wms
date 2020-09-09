@@ -21,7 +21,6 @@ class ConfirmationShipping extends PureComponent {
         datesGeneralNewLine: {},
         idShipping: "", 
         whName: "",
-        isFistValue: true
     }
     saveFormRefNewLine = (formRef) => {
         this.formRefNewLine = formRef;
@@ -149,7 +148,7 @@ class ConfirmationShipping extends PureComponent {
             wrapperCol: {xs: { span: 24 },sm: { span: 12 },md: { span: 14 },lg: { span: 14 },xl: { span: 14  }}
         };
         const { getFieldDecorator } = this.props.form;
-        const { oShippingItem, operatorAll, warehouses, masterMode, isSuccess, close, disableWarehouse } = this.props;
+        const { oShippingItem, operatorAll, warehouses, masterMode, close, disableWarehouse } = this.props;
         const { phoneOperator }= this.state;
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
         this.setState({ currentLoader });

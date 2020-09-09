@@ -37,7 +37,6 @@ class drawerEntry extends PureComponent {
         visisbleProducts: false ,
         product: "",
         temperatureProduct: "",
-        urlImageProduct: "",
         dataSource:[
             {
                 name: <FormattedMessage id='shipping.tablecomponent.label.premium'/>,

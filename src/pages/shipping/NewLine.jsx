@@ -20,7 +20,7 @@ const NewLine = Form.create()(
             this.props.newLineSelect(selectedKeys);
         }
         renderTreeNode = (treeData) => {
-            const { disableWarehouse, whName, masterMode, warehouses, locationTreeData } = this.props;
+            const { disableWarehouse, masterMode, warehouses, locationTreeData } = this.props;
             var disable = disableWarehouse;
             if(masterMode === "EDIT" && warehouses.length != 0){
                 var whNameEdit = locationTreeData.filter(function(data){
@@ -209,7 +209,7 @@ const NewLine = Form.create()(
                 labelCol: { xs: { span: 24 }, sm: { span: 8 }, md: { span: 8 }, lg: { span: 8 }, xl: { span: 6 } },
                 wrapperCol: { xs: { span: 24 }, sm: { span: 12 }, md: { span: 12 }, lg: { span: 12 }, xl: { span: 14 } }
             };
-            var { lineData, mode, productsAll, whName, oShippingItem } = this.props;
+            var { lineData, mode, productsAll, oShippingItem } = this.props;
             const { getFieldDecorator } = this.props.form;
             if (typeof lineData == "undefined") {
                 lineData = {};
