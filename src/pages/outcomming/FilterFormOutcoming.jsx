@@ -56,7 +56,7 @@ class FilterFormOutcomingForm extends PureComponent {
                                     (<Select 
                                         showSearch 
                                         style={{ width: 140 }} 
-                                        placeholder="Select product" 
+                                        placeholder={formatMessage({id: "component-placeholder-product"})}
                                         optionFilterProp="children" 
                                         onSelect={this.props.handleProduct}
                                         onFocus={this.onFocusProd} onBlur={this.onBlurProd} onSearch={this.onSearchProd} filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
@@ -76,7 +76,7 @@ class FilterFormOutcomingForm extends PureComponent {
                                     })
                                         (<Select showSearch 
                                             style={{ width: 140 }} 
-                                            placeholder="Select center" 
+                                            placeholder={formatMessage({id: "component-placeholder-center"})} 
                                             optionFilterProp="children" 
                                             onSelect={this.props.handleClient}
                                             onFocus={this.onFocusCent} 
