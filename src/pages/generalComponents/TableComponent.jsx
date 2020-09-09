@@ -103,20 +103,20 @@ class TableComponent extends PureComponent {
                 </span>
               :
                 <span>
-                  <a onClick={()=>{masterMode == "CONF" ? this.props.showNewLineConfirm("CONF" , record, "CONF") : this.props.showNewLine("EDIT" , record, "NEW||EDIT")}}>
+                  <a onClick={()=>{masterMode === "CONF" ? this.props.showNewLineConfirm("CONF" , record, "CONF") : this.props.showNewLine("EDIT" , record, "NEW||EDIT")}}>
                     { isMobile
-                      ? oShippingItem == undefined 
+                      ? oShippingItem === undefined 
                         ? <Icon type="edit"/>
-                        : oShippingItem.Operator == undefined
+                        : oShippingItem.Operator === undefined
                           ? <Icon type="edit"/>
-                          : oShippingItem.Operator == ""
+                          : oShippingItem.Operator === ""
                             ? <Icon type="edit"/>
                             : <Icon type="eye"/>
                       :oShippingItem == undefined 
                         ? <span><Icon type="edit"/> <FormattedMessage id="shipping.label.table-shipping.edit"/></span>
-                        : oShippingItem.Operator == undefined
+                        : oShippingItem.Operator === undefined
                           ? <span><Icon type="edit"/> <FormattedMessage id="shipping.label.table-shipping.edit"/></span>
-                          : oShippingItem.Operator == ""
+                          : oShippingItem.Operator === ""
                             ? <span><Icon type="edit"/> <FormattedMessage id="shipping.label.table-shipping.edit"/></span>
                             : <span><Icon type="eye"/> <FormattedMessage id="shipping.label.table-shipping.show"/></span>
                     }

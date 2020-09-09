@@ -134,7 +134,7 @@ class drawerEntry extends PureComponent {
                     messageProduct = true;
                 }
             }
-            if(messageProduct == true){
+            if(messageProduct === true){
                 this.props.showMessageFeatures('warning')
                 return;
             }
@@ -174,8 +174,8 @@ class drawerEntry extends PureComponent {
             for(var i = 0; i < products.length; i++){
                 for(var k = 0; k < oShippingItem.products[0].length; k++){
                     for(var j = 0; j < dataProduct.length; j++){
-                        if(products[i].id == oShippingItem.products[0][k].product && products[i].id == dataProduct[j].id){
-                            if(dataProduct[j].quantities == 0){
+                        if(products[i].id === oShippingItem.products[0][k].product && products[i].id === dataProduct[j].id){
+                            if(dataProduct[j].quantities === 0){
                                 var dataProdu = {
                                     quantitiesCaptured: dataProduct[j].quantities,
                                     id: products[i].id,

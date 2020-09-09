@@ -251,7 +251,7 @@ export default {
         disabledWarehouseReducer(state, action) {
             let getWarehouse = action.payload.locationTreeData.filter(function(data) {
                 for (var i = 0; i < data.childLevel1.length; i++) {
-                    if (data.childLevel1[i].key == action.payload.objWarehouse.warehouseId) {
+                    if (data.childLevel1[i].key === action.payload.objWarehouse.warehouseId) {
                         return data.childLevel1[i].key == action.payload.objWarehouse.warehouseId;
                     }
                 }
@@ -314,7 +314,7 @@ export default {
             products.splice(pos, 1);
             warehouse.splice(pos, 1);
             const warehouseIds = [...state.warehouseIds, action.payload.payload.warehouseId];
-            if (aWarehouse.length == 0) {
+            if (aWarehouse.length === 0) {
                 warehouseDisable = [];
             }
             return {

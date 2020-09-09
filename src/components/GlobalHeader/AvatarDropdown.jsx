@@ -15,7 +15,7 @@ import { Auth } from 'aws-amplify'
 class AvatarDropdown extends React.Component {
   async componentDidMount() {
     try {
-      if(localStorage.getItem('socialNetwork') == "false"){
+      if(localStorage.getItem('socialNetwork') === "false"){
         const user = await Auth.currentAuthenticatedUser();
         localStorage.setItem('userId', user.username);
         localStorage.setItem('emailVerified', user.attributes.email_verified);

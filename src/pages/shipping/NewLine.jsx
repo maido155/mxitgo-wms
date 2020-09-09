@@ -22,20 +22,20 @@ const NewLine = Form.create()(
         renderTreeNode = (treeData) => {
             const { disableWarehouse, whName, masterMode, warehouses, locationTreeData } = this.props;
             var disable = disableWarehouse;
-            if(masterMode == "EDIT" && warehouses.length != 0){
+            if(masterMode === "EDIT" && warehouses.length != 0){
                 var whNameEdit = locationTreeData.filter(function(data){
                     for(var i = 0; i < data.childLevel1.length; i++){
-                        if(data.childLevel1[i].key == warehouses[0].warehouseId){
+                        if(data.childLevel1[i].key === warehouses[0].warehouseId){
                             return data.childLevel1[i].key == warehouses[0].warehouseId;
                         }
                     }
                 });
                 disable = whNameEdit;
             }           
-            if(masterMode == "CONF" && warehouses.length != 0){
+            if(masterMode === "CONF" && warehouses.length != 0){
                 var whNameEdit = locationTreeData.filter(function(data){
                     for(var i = 0; i < data.childLevel1.length; i++){
-                        if(data.childLevel1[i].key == warehouses[0].warehouseId){
+                        if(data.childLevel1[i].key === warehouses[0].warehouseId){
                             return data.childLevel1[i].key == warehouses[0].warehouseId;
                         }
                     }
@@ -55,7 +55,7 @@ const NewLine = Form.create()(
             return treeNode;
         }
         disabledrenderChild1 = (data, item) => {
-            if(data.length == 0){
+            if(data.length === 0){
                 return false;
             }else{
                 if(data[0].key != item.key){
@@ -171,7 +171,7 @@ const NewLine = Form.create()(
                 }
                 _self.props.handleSubmitNewLine(_self.props.lineMode, { idShipping, datesGeneralNewLine }, { objWarehouse,products:productsAllLine});
                 _self.props.form.resetFields();
-                if(this.props.mode == "NEW||EDIT"){
+                if(this.props.mode === "NEW||EDIT"){
                     _self.props.closeNewLine();
                 }else{
                     _self.props.closeNewLineConfirm();
@@ -221,12 +221,12 @@ const NewLine = Form.create()(
                             title={formatMessage({ id: 'shipping.newline.label.title' })}
                             width={isMobile ? "100%" : "50%"}
                             closable={true}
-                            onClose={mode == "NEW||EDIT" ? () => {this.cancelNewLine()} : () => {this.cancelNewLineCon()}}
-                            visible={mode == "NEW||EDIT" ? this.props.visibleNewLine : this.props.visibleNewLineConfirm}
+                            onClose={mode === "NEW||EDIT" ? () => {this.cancelNewLine()} : () => {this.cancelNewLineCon()}}
+                            visible={mode === "NEW||EDIT" ? this.props.visibleNewLine : this.props.visibleNewLineConfirm}
                         >
                             <Form {...formItemLayout} className={Styles.formnweline}>
                                 <Form.Item label={formatMessage({ id: 'shipping.tablecomponent.label.center' })}>
-                                    {getFieldDecorator('centro',{ initialValue: lineData.warehouseId == undefined ? "" : lineData.warehouseId, rules: [{ required: true, message: <FormattedMessage id="shipping.newLine.missingCenter" /> }] })
+                                    {getFieldDecorator('centro',{ initialValue: lineData.warehouseId === undefined ? "" : lineData.warehouseId, rules: [{ required: true, message: <FormattedMessage id="shipping.newLine.missingCenter" /> }] })
                                         (<TreeSelect
                                             showSearch
                                             style={{ width: '100%' }}
@@ -235,7 +235,7 @@ const NewLine = Form.create()(
                                             allowClear
                                             treeDefaultExpandAll
                                             onSelect={this.onSelect}
-                                            disabled={oShippingItem.Operator == undefined ? false : oShippingItem.Operator == "" ? false : true}
+                                            disabled={oShippingItem.Operator == undefined ? false : oShippingItem.Operator === "" ? false : true}
                                         >
                                             {this.renderTreeNode(this.props.locationTreeData)}
                                         </TreeSelect>
@@ -256,7 +256,7 @@ const NewLine = Form.create()(
                                                         : formatMessage({ id: 'shipping.tablecomponent.label.no-label'})
                                     }>
                                         {getFieldDecorator(item['WMS-1-SK'],{initialValue: this.getNewLineEdit(item,lineData),rules: [{ required: true, message: <FormattedMessage id="shipping.newLine.missingValue" /> }] })
-                                        (<InputNumber min={0} max={500}  style={{ width: '100%' }} disabled={oShippingItem.Operator == undefined ? false : oShippingItem.Operator == "" ? false : true}/>)}
+                                        (<InputNumber min={0} max={500}  style={{ width: '100%' }} disabled={oShippingItem.Operator === undefined ? false : oShippingItem.Operator == "" ? false : true}/>)}
                                     </Form.Item>
                                 ))}
                                 <div
@@ -271,14 +271,14 @@ const NewLine = Form.create()(
                                         textAlign: 'right',
                                     }}
                                 >
-                                    <Button type="danger" className={Styles.cancelarfooter} onClick={mode == "NEW||EDIT" ? () => {this.cancelNewLine()} : () => {this.cancelNewLineCon()}}>
+                                    <Button type="danger" className={Styles.cancelarfooter} onClick={mode === "NEW||EDIT" ? () => {this.cancelNewLine()} : () => {this.cancelNewLineCon()}}>
                                         <FormattedMessage id="shipping.button.cancel" />
                                     </Button>
-                                    { oShippingItem.Operator == undefined
+                                    { oShippingItem.Operator === undefined
                                         ?   <Button type="primary" onClick={this.handleSubmitLine}>
                                                 <FormattedMessage id="shipping.button.add" />
                                             </Button>
-                                        : oShippingItem.Operator == ""
+                                        : oShippingItem.Operator === ""
                                             ?
                                                 <Button type="primary" onClick={this.handleSubmitLine}>   
                                                     <FormattedMessage id="shipping.button.add" />

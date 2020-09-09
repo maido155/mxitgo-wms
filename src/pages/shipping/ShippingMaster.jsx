@@ -192,7 +192,7 @@ class ShippingMaster extends PureComponent {
         let existsOperator = operators.filter(function(data){
             return data.operators.phone == datesShipping.phone && data.operators.name != datesShipping.operator;
         })
-        if(existsOperator.length == 0){
+        if(existsOperator.length === 0){
             this.props.dispatch({
                 type: 'shipping/confirmShipping',
                 payload: {
@@ -322,7 +322,7 @@ class ShippingMaster extends PureComponent {
     }
     /*****************************************************************/
     showDrawerShipping = (masterMode, oItem) => {
-        if(masterMode == "EDIT"){
+        if(masterMode === "EDIT"){
             this.props.dispatch({
                 type: 'shipping/getShipping',
                 payload: { id: oItem['WMS-1-PK'], status: "New" }

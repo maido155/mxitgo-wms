@@ -65,7 +65,7 @@ export default class TableOutComming extends PureComponent {
                              </Button>                                       
                         }    
                         <Divider type="vertical" />
-                        { record.key=="" 
+                        { record.key==="" 
                             ? <Checkbox defaultChecked={false} disabled onChange={()=>{this.props.onConfirm(record)}}><FormattedMessage id='outComming.table.confirm'/></Checkbox>
                             :   <span>
                                 {

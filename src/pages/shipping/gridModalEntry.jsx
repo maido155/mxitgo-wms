@@ -20,7 +20,7 @@ class gridModalEntry extends React.Component {
                     renderItem={item => (
                     <List.Item key={item.id} 
                     actions={
-                        item.quantitiesCaptured == 0
+                        item.quantitiesCaptured === 0
                         ? [<a onClick={() => {this.drawerProductInformation(item.id)}} key={`a-${item.id}`}><Icon type="eye"/></a>]
                         : [<a onClick={() => {this.drawerProductInformation(item.id)}} key={`a-${item.id}`}><Icon type="eye"/></a>, <a><Icon type="check"/></a>]
                     }>
