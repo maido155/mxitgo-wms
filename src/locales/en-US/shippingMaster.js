@@ -85,6 +85,9 @@ export default {
     'shipping.confirm.phoneMissing': 'You have to add a phone',
     'shipping.drawerEntry.messageSuccessConfirm': 'Confirmed successfully',
     'shipping.drawerEntry.messageSuccessEntry': 'Entry successfully',
-    'shipping.gridModalEntry.captured': 'Captured'
+    'shipping.gridModalEntry.captured': 'Captured',
+    'shipping.tablecomponent.title.deletd':'Are you sure want to delete this center?',
+    'shipping.tablecomponent.text.ok':'Yes',
+    'shipping.tablecomponent.text.cancel':'No'
 
 };
