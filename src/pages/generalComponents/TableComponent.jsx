@@ -18,11 +18,10 @@ class TableComponent extends PureComponent {
   showDeleteConfirm = (payload) => {
     let _self = this;
     confirm({
-      title: 'Are you sure delete this task?',
-      content: 'Some descriptions',
-      okText: 'Yes',
+      title: formatMessage({ id: 'shipping.tablecomponent.title.deletd' }) ,
+      okText: formatMessage({ id: 'shipping.tablecomponent.text.ok' }),
       okType: 'danger',
-      cancelText: 'No',
+      cancelText: formatMessage({ id: 'shipping.tablecomponent.text.cancel' }),
       onOk() {
         _self.props.dispatch({
           type: 'shipping/removeWarehouse',

@@ -86,7 +86,10 @@ export default {
     'shipping.confirm.phoneMissing': 'Tiene que agregar un telefono',
     'shipping.drawerEntry.messageSuccessConfirm': 'Se confirmó con éxito',
     'shipping.drawerEntry.messageSuccessEntry': 'Entrada exitosa',
-    'shipping.gridModalEntry.captured': 'Capturado'
+    'shipping.gridModalEntry.captured': 'Capturado',
+    'shipping.tablecomponent.title.deletd':'¿Seguro que quieres eliminar este centro?',
+    'shipping.tablecomponent.text.ok':'Si',
+    'shipping.tablecomponent.text.cancel':'No'
 
 
 
