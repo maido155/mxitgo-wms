@@ -33,12 +33,17 @@ export default class DrawerAssignmentProduct extends PureComponent {
 
             // Box - Updated Value
             remaingQtyBox = remaingQtyBox - (quantityBoxes * currentValuePallet);
-            currentValueBox = remaingQtyBox + (quantityBoxes * currentValuePallet)
+            // currentValueBox = remaingQtyBox + (quantityBoxes * currentValuePallet)
 
             if(remaingQtyBox < 0){
                 remaingQtyBox = 0;
             }
 
+            if(origiBox < (quantityBoxes * currentValuePallet)){
+                currentValueBox = origiBox
+            }else{
+                currentValueBox = (quantityBoxes * currentValuePallet);
+            }
             
 
             if (Math.sign(remaingQtyPallet) === -1) {
