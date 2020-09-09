@@ -280,7 +280,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                         <Col xs={24} sm={18} md={18} lg={18} xl={18}>
                                             <Form.Item label={formatMessage({id: "general.button-product.product"})}>
                                                 {getFieldDecorator('productNew',{rules: [{ required: true, message: formatMessage({id: "general.modal-product"}) }]})
-                                                    (<Select showSearch style={{ width: 200 }} placeholder="Select product" optionFilterProp="children" onChange={this.onChangeProd} style={{ width: '100%' }}
+                                                    (<Select showSearch style={{ width: 200 }} placeholder={formatMessage({id: "component-placeholder-product"})} optionFilterProp="children" onChange={this.onChangeProd} style={{ width: '100%' }}
                                                         onFocus={this.onFocusProd} onBlur={this.onBlurProd} onSearch={this.onSearchProd} filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                                     >
                                                         {datesProductAll.map(item => (<Option value={item["WMS-1-SK"]}>{item.productName}</Option>))}
@@ -295,7 +295,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                         <Col xs={24} sm={18} md={18} lg={18} xl={18}>
                                             <Form.Item label={formatMessage({id: "general.button-center.center"})}>
                                                 {getFieldDecorator('customerNew',{rules: [{ required: true, message: formatMessage({id: "general.modal-customer"}) }] })
-                                                    (<Select showSearch style={{ width: 200 }} placeholder="Select center" optionFilterProp="children" onChange={this.onChangeCent} style={{ width: '100%' }}
+                                                    (<Select showSearch style={{ width: 200 }} placeholder={formatMessage({id: "component-placeholder-center"})} optionFilterProp="children" onChange={this.onChangeCent} style={{ width: '100%' }}
                                                         onFocus={this.onFocusCent} onBlur={this.onBlurCent} onSearch={this.onSearchCent} filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                                     >
                                                         {datesCustomerAll.map(item => (<Option value={item["WMS-1-SK"]}>{item.clientName}</Option>))}
@@ -476,7 +476,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                                 <Col xs={24} sm={18} md={18} lg={18} xl={18}>
                                                     <Form.Item label={formatMessage({id: "general.button-product.product"})}>
                                                         {getFieldDecorator('productEdit',{initialValue: datesGetProgramming[0].skProduct, rules: [{ required: true, message: formatMessage({id: "general.modal-product"}) }]})
-                                                            (<Select showSearch style={{ width: 200 }} placeholder="Select product" optionFilterProp="children" onChange={this.onChangeProd} style={{ width: '100%' }}
+                                                            (<Select showSearch style={{ width: 200 }} placeholder={formatMessage({id: "component-placeholder-product"})} optionFilterProp="children" onChange={this.onChangeProd} style={{ width: '100%' }}
                                                                 onFocus={this.onFocusProd} onBlur={this.onBlurProd} onSearch={this.onSearchProd}filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}  disabled={edit == true ? true : false}
                                                             >
                                                                 {datesProductAll.map(item => (<Option value={item["WMS-1-SK"]}>{item.productName}</Option>))}
@@ -491,7 +491,7 @@ const DrawerGeneralProgramming  = Form.create()(
                                                 <Col xs={24} sm={18} md={18} lg={18} xl={18}>
                                                     <Form.Item label={formatMessage({id: "general.button-center.center"})}>
                                                         {getFieldDecorator('customerEdit',{initialValue: datesGetProgramming[0].skCustomer, rules: [{ required: true, message: formatMessage({id: "general.modal-customer"}) }]})
-                                                            (<Select showSearch style={{ width: 200 }} placeholder="Select center" optionFilterProp="children" onChange={this.onChangeCent} style={{ width: '100%' }}
+                                                            (<Select showSearch style={{ width: 200 }} placeholder={formatMessage({id: "component-placeholder-center"})} optionFilterProp="children" onChange={this.onChangeCent} style={{ width: '100%' }}
                                                                 onFocus={this.onFocusCent} onBlur={this.onBlurCent} onSearch={this.onSearchCent} filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0} disabled={edit == true ? true : false}
                                                             >
                                                                 {datesCustomerAll.map(item => (<Option value={item["WMS-1-SK"]}>{item.clientName}</Option>))}
