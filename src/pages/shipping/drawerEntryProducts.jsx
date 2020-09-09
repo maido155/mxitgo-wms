@@ -125,7 +125,7 @@ class drawerEntryProducts extends PureComponent {
             labelCol: {xs: { span: 24 },sm: { span: 24 },md: { span: 8 },lg: { span: 8 },xl: { span: 6 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 24 },md: { span: 12 },lg: { span: 12 },xl: { span: 14 }}
         };
-        const { oShippingItem, typeProduct } = this.props;
+        const { oShippingItem } = this.props;
         const { getFieldDecorator } = this.props.form;
         const uploadButton = (
             <div>

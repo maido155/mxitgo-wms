@@ -16,7 +16,7 @@ const rowSelection = {
 
 class TableGeneralProgramming extends PureComponent{
     render(){
-        const { datesPrograming, cancelProgramming, visibleNewDrawer, onCloseNewDrawer, showEditDrawer,showVisualizar } = this.props;
+        const { datesPrograming, cancelProgramming, showEditDrawer,showVisualizar } = this.props;
         const columns = [{
             title: formatMessage({id: "general.calendar.week"}),
             dataIndex: 'Week',

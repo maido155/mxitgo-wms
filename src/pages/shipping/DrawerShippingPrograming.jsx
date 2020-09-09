@@ -21,7 +21,6 @@ class DrawerShippingPrograming extends PureComponent {
         idShipping: "",
         datesGeneralNewLine: {},
         currentLoader: false,
-        removeLocation: false,
         whName: "",
     }
     saveFormRefNewLine = (formRef) => {

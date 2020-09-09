@@ -59,7 +59,6 @@ class ShippingMaster extends PureComponent {
         lineData: {},
         lineMode: "NEW",
         visibleModalProduct: false,
-        removeLocation: false,
         currentLoader: false,
         visibleEntry: false
     }

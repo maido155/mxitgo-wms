@@ -22,7 +22,7 @@ class TableShippingMaster extends PureComponent {
     }
   }
   render() {
-    const { datesTableShipping, operatorAll, deleteShipping, disableWarehouse } = this.props;
+    const { datesTableShipping, deleteShipping, disableWarehouse } = this.props;
     let columns = [
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.id' }),
