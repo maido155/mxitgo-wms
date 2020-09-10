@@ -33,7 +33,8 @@ export default class OutComming extends PureComponent {
         visibleAssignProduct: false, //flag for Assign Product
         currentShipping: {}, //Current Shipping for Assign
         currentOutbound: {}, //Current Selected Item from Table Outbound
-        outboundKey: "" //Current Outbound Key
+        outboundKey: "", //Current Outbound Key
+        disabledReset: false
     }
 
     componentDidMount() {
@@ -171,6 +172,7 @@ export default class OutComming extends PureComponent {
 
 
     postOutcomming = (payload, context) => {
+        this.setState({ disabledReset: true})
         this.props.dispatch({
             type: 'outcomming/postOutcomming',
             payload: {
@@ -199,7 +201,10 @@ export default class OutComming extends PureComponent {
     };
 
     restartOutcomming = (key, context) => {
-
+        this.setState({ disabledReset: false})
+        console.log("1212");
+        console.log("1212");
+        console.log("1212");
         this.props.dispatch({
             type: 'outcomming/restartOutcomming',
             payload: {
@@ -328,6 +333,8 @@ export default class OutComming extends PureComponent {
                         currentShipping={this.state.currentShipping}
                         onCloseDrawerAssigProduct={this.onCloseDrawerAssigProduct}
                         setDrawerAssignProduct={this.setDrawerAssignProduct}
+
+                        disabledReset={this.state.disabledReset}
                 />
                 <CompositionOutComming
                     loading = {this.props.loading}
@@ -351,6 +358,8 @@ export default class OutComming extends PureComponent {
                     currentShipping={this.state.currentShipping}
                     onCloseDrawerAssigProduct={this.onCloseDrawerAssigProduct}
                     setDrawerAssignProduct={this.setDrawerAssignProduct}
+
+                    disabledReset={this.state.disabledReset}
                 />
                     <Card>
                         <Row type="flex" justify="center">
