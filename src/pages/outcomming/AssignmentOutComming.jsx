@@ -11,7 +11,7 @@ export default class AssignmentOutComming extends PureComponent {
         _this.props.restartOutcomming(_this.props.currentOutcomming.key);
     }
     render() {
-        let { dataOutcommingsByEntry } = this.props;
+        let { dataOutcommingsByEntry, disabledReset } = this.props;
         console.log("AssignmentOutComming");
         console.log(dataOutcommingsByEntry);
         return (
@@ -34,7 +34,7 @@ export default class AssignmentOutComming extends PureComponent {
                         </Col>
                         <Col xs={24} sm={8} md={8} lg={6} xl={3} style={{ textAlign: "center" }}>
                             <Button
-                                disabled={this.props.recordKey == "" ? true : false}
+                                disabled={disabledReset == false ? true : false}
                                 type="danger"
                                 onClick={() => { this.onReset(this) }}>
                                 <FormattedMessage id="outComming.button.assignment-outcomming" />
