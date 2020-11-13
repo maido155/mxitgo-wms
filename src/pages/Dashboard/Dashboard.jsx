@@ -195,6 +195,22 @@ export default class Dashboard extends PureComponent {
 
     startDate = `${startDate}T00:00:00.000Z`;
 
+    var currentDate = moment(startDate, "YYYY-MM-DD");
+    var weekStart = currentDate;
+    //var weekEnd = currentDate.add(6, 'days');
+    var aDays = [0, 1, 2, 3, 4, 5, 6];
+
+    //startDate=`${startDate}T00:00:00.000Z`;
+    for (const i of aDays) {
+     this.props.dispatch({
+      type: 'dashboard/getDayReset',
+      payload: {
+        Authorization: sessionStorage.getItem('idToken'),
+        dayName: moment(weekStart).add(i, 'days').format("dddd")
+      }
+    })
+    }
+    
     for (const product of this.state.products) {
       this.props.dispatch({
         type: 'dashboard/getWeekProgrammingTotals',
@@ -217,6 +233,7 @@ export default class Dashboard extends PureComponent {
         Authorization: sessionStorage.getItem('idToken')
       }
     });
+
 
   }
 

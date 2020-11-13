@@ -4,8 +4,8 @@ import slash from 'slash2';
 import themePluginConfig from './themePluginConfig';
 const { pwa } = defaultSettings; // preview.pro.ant.design only do not use in your production ;
 // preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
-const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION } = process.env;
-const isAntDesignProPreview = ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site';
+// const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION } = process.env;
+// const isAntDesignProPreview = ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site';
 const plugins = [
     [
         'umi-plugin-react',
@@ -51,16 +51,16 @@ const plugins = [
     ],
 ];
 
-if (isAntDesignProPreview) {
-    // 针对 preview.pro.ant.design 的 GA 统计代码
-    plugins.push([
-        'umi-plugin-ga',
-        {
-            code: 'UA-72788897-6',
-        },
-    ]);
-    plugins.push(['umi-plugin-antd-theme', themePluginConfig]);
-}
+// if (isAntDesignProPreview) {
+//     // 针对 preview.pro.ant.design 的 GA 统计代码
+//     plugins.push([
+//         'umi-plugin-ga',
+//         {
+//             code: 'UA-72788897-6',
+//         },
+//     ]);
+//     plugins.push(['umi-plugin-antd-theme', themePluginConfig]);
+// }
 
 export default {
     plugins,
@@ -168,16 +168,16 @@ export default {
         /*'layout-sider-background': '#244999'  */
     },
     define: {
-        ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION: ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION || '',
+        // ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION: ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION || '',
+        // ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION: '',
         // preview.pro.ant.design only do not use in your production ; preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
-
-        //ANT_DESIGN_PRO_TARGET: ' https://yykyzygfwe.execute-api.us-east-1.amazonaws.com/Stage',
+        ANT_DESIGN_PRO_TARGET: ' https://yykyzygfwe.execute-api.us-east-1.amazonaws.com/Stage',
+        ANT_CURRENT_HOST: "https://master.d33oxsmkbrwh67.amplifyapp.com",
         // ANT_DESIGN_PRO_TARGET: 'https://9j8ucg1yhj.execute-api.us-east-1.amazonaws.com/desarrollo'
         ANT_DESIGN_PRO_USER_POOL_ID: 'us-east-1_9WJ8uxbk9',
         ANT_DESIGN_PRO_CLIENT_ID: '66vntbnp4mpgn1o1p50pqd43kl',
-        API_KEY:'qvWmpGYLQl6KNPdJqz40SavJ7EjyFPqy8CG4rz71',
-        ANT_DESIGN_PRO_TARGET: '/api',
-
+        API_KEY:'qvWmpGYLQl6KNPdJqz40SavJ7EjyFPqy8CG4rz71'
+        // ANT_DESIGN_PRO_TARGET: '/api',
     },
     ignoreMomentLocale: true,
     lessLoaderOptions: {

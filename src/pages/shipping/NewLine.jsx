@@ -21,6 +21,8 @@ const NewLine = Form.create()(
         }
         renderTreeNode = (treeData) => {
             const { disableWarehouse, masterMode, warehouses, locationTreeData ,whName} = this.props;
+
+            
             var disable = disableWarehouse;
             if(masterMode === "EDIT" && warehouses.length != 0){
                 var whNameEdit = locationTreeData.filter(function(data){
