@@ -53,8 +53,8 @@ class AvatarDropdown extends React.Component {
         localStorage.setItem('email', user.attributes.email);
         localStorage.setItem('isRemembered', "true");
         localStorage.setItem('socialNetwork', "true");
-        sessionStorage.setItem('idToken', user.storage["CognitoIdentityServiceProvider.66vntbnp4mpgn1o1p50pqd43kl.Facebook_3220880598031191.idToken"]);
-        sessionStorage.setItem('accessToken', user.storage["CognitoIdentityServiceProvider.66vntbnp4mpgn1o1p50pqd43kl.Facebook_3220880598031191.accessToken"]);
+        sessionStorage.setItem('idToken', user.storage["CognitoIdentityServiceProvider.7kbg772hu7v0nsvmcob7amj1ju.Facebook_3220880598031191.idToken"]);
+        sessionStorage.setItem('accessToken', user.storage["CognitoIdentityServiceProvider.7kbg772hu7v0nsvmcob7amj1ju.Facebook_3220880598031191.accessToken"]);
         this.props.dispatch({
           type: 'user/fetchUserByEmail',
           payload: {
