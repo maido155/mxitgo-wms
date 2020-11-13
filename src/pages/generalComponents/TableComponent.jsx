@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import {isMobile} from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 import { Table, Divider, Icon, Modal } from 'antd';
 import { _ } from 'lodash';
 import { connect } from 'dva';
@@ -14,11 +14,12 @@ const { confirm } = Modal;
 }))
 
 class TableComponent extends PureComponent {
-  
+
   showDeleteConfirm = (payload) => {
     let _self = this;
     confirm({
       title: formatMessage({ id: 'shipping.tablecomponent.title.deletd' }) ,
+      content: 'Some descriptions',
       okText: formatMessage({ id: 'shipping.tablecomponent.text.ok' }),
       okType: 'danger',
       cancelText: formatMessage({ id: 'shipping.tablecomponent.text.cancel' }),
@@ -147,8 +148,10 @@ class TableComponent extends PureComponent {
         name: record.name,
       }),
     };
-    return(
-      <Table rowSelection={rowSelection} columns={columns} dataSource={warehouse} pagination={false} scroll={isMobile ? {x: 700} :{x: 1000}} size="small"/>
+    return (
+      <Table
+        //  rowSelection={rowSelection} 
+        columns={columns} dataSource={warehouse} pagination={false} scroll={isMobile ? { x: 700 } : { x: 1000 }} size="small" />
     );
   }
 }

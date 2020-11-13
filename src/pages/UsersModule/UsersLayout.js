@@ -1,17 +1,18 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
-import { Card, Table, Icon, Divider, Button, Spin, Modal} from 'antd';
-import {isMobile} from 'react-device-detect';
+import { Card, Table, Icon, Divider, Button, Spin, Modal, Tabs } from 'antd';
+import { isMobile } from 'react-device-detect';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import ModalNewUser from './ModalNewUser';
 import { connect } from 'dva';
-
+const { TabPane } = Tabs;
+const { Meta } = Card;
 const { confirm } = Modal;
 @connect(({ user, loading }) => ({
     user,
     loading: loading.models.user,
-    allUsers:user.allUsers,
+    allUsers: user.allUsers,
     saveUser: user.saveUser,
     closeUser: user.closeUser,
     dataUser: user.dataUser,
@@ -150,39 +151,46 @@ export default class UsersLayout extends PureComponent {
                 });
             },
             onCancel() {
-              console.log('Cancel');
+                console.log('Cancel');
             },
         });
     }
-    render(){
+
+    callback(key) {
+        console.log(key);
+    }
+    render() {
         const { allUsers, loading, saveUser, closeUser, dataUser, updateUser } = this.props;
+
+        console.log("allUsers")
+        console.log(allUsers)
         const columns = [
             {
-              title: formatMessage({ id: 'usersModule.table.name' }),
-              dataIndex: 'nameUser',
-              key: 'nameUser',
-              width: isMobile ? 130 : 140,
-          
+                title: formatMessage({ id: 'usersModule.table.name' }),
+                dataIndex: 'nameUser',
+                key: 'nameUser',
+                width: isMobile ? 130 : 140,
+
             },
             {
-              title: formatMessage({ id: 'usersModule.table.family_name' }),
-              dataIndex: 'familyName',
-              key: 'familyName',
-              width: isMobile ? 130 : 130,
+                title: formatMessage({ id: 'usersModule.table.family_name' }),
+                dataIndex: 'familyName',
+                key: 'familyName',
+                width: isMobile ? 130 : 130,
             },
             {
-              title: formatMessage({ id: 'usersModule.table.middle_name' }), 
-              dataIndex: 'middleName',
-              key: 'middleName',
-              width: isMobile ? 130 : 130,
+                title: formatMessage({ id: 'usersModule.table.middle_name' }),
+                dataIndex: 'middleName',
+                key: 'middleName',
+                width: isMobile ? 130 : 130,
             },
             {
                 title: formatMessage({ id: 'usersModule.table.email' }),
-                dataIndex: 'mail', 
+                dataIndex: 'mail',
                 key: 'mail',
                 width: isMobile ? 300 : 270,
-            }, 
-            { 
+            },
+            {
                 title: formatMessage({ id: 'usersModule.table.phone' }),
                 dataIndex: 'phone',
                 key: 'phone',
@@ -197,45 +205,61 @@ export default class UsersLayout extends PureComponent {
                     <span>
                         <a onClick={() => this.editModal(record.mail)}>
                             {isMobile
-                                ? <Icon type="edit"/>
-                                : <span><Icon type="edit"/> <FormattedMessage id="shipping.label.table-shipping.edit"/></span>
+                                ? <Icon type="edit" />
+                                : <span><Icon type="edit" /> <FormattedMessage id="shipping.label.table-shipping.edit" /></span>
                             }
                         </a>
-                        <Divider type="vertical"/>
+                        <Divider type="vertical" />
                         <a onClick={() => this.deleteModal(record.mail, record.nameUser, record.familyName)}>
                             {isMobile
                                 ? <Icon type="delete" />
-                                : <span><Icon type="delete" /> <FormattedMessage id="shipping.label.table-shipping.delete"/></span>
+                                : <span><Icon type="delete" /> <FormattedMessage id="shipping.label.table-shipping.delete" /></span>
                             }
                         </a>
                     </span>
                 )
             }
         ];
-        return(
+        return (
             <PageHeaderWrapper>
-                <Card>
-                    <Spin tip={formatMessage({id: "usersModule.loading"})} spinning={loading}>
-                        <ModalNewUser 
-                            visible={this.state.visible} 
-                            cancel={this.handleCancel} 
-                            loading={loading}
-                            saveNewUser={this.saveNewUser}
-                            saveUser={saveUser}
-                            closeUser={closeUser}
-                            changedSuccess={this.changedSuccess}
-                            changedClosed={this.changedClosed}
-                            edit={this.state.edit} 
-                            dataUser={dataUser} 
-                            updateNewUser={this.updateNewUser}
-                            updateUser={updateUser}
-                        />
-                        <div align="right">
-                            <Button type="primary" shape="circle" size="large" onClick={this.showModal}><Icon type="plus"/></Button>
-                        </div>
-                        <Table style={{marginTop: "1rem"}} size="small" columns={columns} dataSource={allUsers} scroll={isMobile ? {x: 960, y: 400} : {x: 900 , y: 185}} pagination={false}/>
-                    </Spin>
-                </Card>
+
+
+                <Tabs defaultActiveKey="1" onChange={this.callback}>
+                    <TabPane tab="Before" key="1">
+                        <Card>
+                            <Spin tip={formatMessage({ id: "usersModule.loading" })} spinning={loading}>
+                                <ModalNewUser
+                                    visible={this.state.visible}
+                                    cancel={this.handleCancel}
+                                    loading={loading}
+                                    saveNewUser={this.saveNewUser}
+                                    saveUser={saveUser}
+                                    closeUser={closeUser}
+                                    changedSuccess={this.changedSuccess}
+                                    changedClosed={this.changedClosed}
+                                    edit={this.state.edit}
+                                    dataUser={dataUser}
+                                    updateNewUser={this.updateNewUser}
+                                    updateUser={updateUser}
+                                />
+                                <div align="right">
+                                    <Button type="primary" shape="circle" size="large" onClick={this.showModal}><Icon type="plus" /></Button>
+                                </div>
+                                <Table style={{ marginTop: "1rem" }} size="small" columns={columns} dataSource={allUsers} scroll={isMobile ? { x: 960, y: 400 } : { x: 900, y: 185 }} pagination={false} />
+                            </Spin>
+                        </Card>
+                    </TabPane>
+                    <TabPane tab="After" key="2">
+                        <Card
+                            hoverable
+                            style={{ width: 240 }}
+                            cover={<img alt="userImg" src="/static/MXITGO_LOGO2.b957515c.png" />}
+                        >
+                            <Meta title={"Carlomagno Lopez"} description={"clopez.odas@gmail.com"} />
+                        </Card>,
+                    </TabPane>
+
+                </Tabs>
             </PageHeaderWrapper>
         );
     }

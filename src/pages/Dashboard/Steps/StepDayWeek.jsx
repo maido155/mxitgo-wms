@@ -3,6 +3,7 @@ import {Steps, Progress, Icon, Typography} from 'antd';
 import styles from './stepsDashboard.less';
 
 import { FormattedMessage} from 'umi-plugin-react/locale';
+
 const { Step } = Steps;
 const { Text } = Typography;
 

@@ -28,22 +28,22 @@ class AvatarDropdown extends React.Component {
         this.props.dispatch({
           type: 'user/fetchUserByEmail',
           payload: {
-              payload: {
-                  email: localStorage.getItem('email'),
-                  Authorization: sessionStorage.getItem('idToken')
-              }
+            payload: {
+              email: localStorage.getItem('email'),
+              Authorization: sessionStorage.getItem('idToken')
+            }
           },
         });
         this.props.dispatch({
           type: 'user/fetchAvatarUser',
           payload: {
-              payload: {
-                  user: localStorage.getItem('email'),
-                  Authorization: sessionStorage.getItem('idToken')
-              }
+            payload: {
+              user: localStorage.getItem('email'),
+              Authorization: sessionStorage.getItem('idToken')
+            }
           },
         });
-      }else{
+      } else {
         let user = await Auth.currentAuthenticatedUser();
         localStorage.setItem('userId', user.username);
         localStorage.setItem('emailVerified', user.attributes.email_verified);
@@ -53,24 +53,24 @@ class AvatarDropdown extends React.Component {
         localStorage.setItem('email', user.attributes.email);
         localStorage.setItem('isRemembered', "true");
         localStorage.setItem('socialNetwork', "true");
-        sessionStorage.setItem('idToken',user.storage["CognitoIdentityServiceProvider.66vntbnp4mpgn1o1p50pqd43kl.Facebook_3220880598031191.idToken"]);
-        sessionStorage.setItem('accessToken',user.storage["CognitoIdentityServiceProvider.66vntbnp4mpgn1o1p50pqd43kl.Facebook_3220880598031191.accessToken"]);
+        sessionStorage.setItem('idToken', user.storage["CognitoIdentityServiceProvider.66vntbnp4mpgn1o1p50pqd43kl.Facebook_3220880598031191.idToken"]);
+        sessionStorage.setItem('accessToken', user.storage["CognitoIdentityServiceProvider.66vntbnp4mpgn1o1p50pqd43kl.Facebook_3220880598031191.accessToken"]);
         this.props.dispatch({
           type: 'user/fetchUserByEmail',
           payload: {
-              payload: {
-                  email: localStorage.getItem('email'),
-                  Authorization: sessionStorage.getItem('idToken')
-              }
+            payload: {
+              email: localStorage.getItem('email'),
+              Authorization: sessionStorage.getItem('idToken')
+            }
           },
         });
         this.props.dispatch({
           type: 'user/fetchAvatarUser',
           payload: {
-              payload: {
-                  user: localStorage.getItem('email'),
-                  Authorization: sessionStorage.getItem('idToken')
-              }
+            payload: {
+              user: localStorage.getItem('email'),
+              Authorization: sessionStorage.getItem('idToken')
+            }
           },
         });
       }
@@ -96,13 +96,13 @@ class AvatarDropdown extends React.Component {
       localStorage.removeItem('antd-pro-authority');
       localStorage.setItem('sessionActive', null);
       Auth.signOut();
-            //   if (dispatch) {
+      //   if (dispatch) {
       //     dispatch({
       //       type: 'login/logout',
       //     });
       //   }
       //   return;
-    }else{
+    } else {
       router.push(`/${key}`);
     }
   };
@@ -121,36 +121,60 @@ class AvatarDropdown extends React.Component {
       <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick}>
         <Menu.Item key="settings">
           <Icon type="setting" />
-            <FormattedMessage id="menu.account.settings" defaultMessage="account settings" />
+          <FormattedMessage id="menu.account.settings" defaultMessage="account settings" />
         </Menu.Item>
 
         <Menu.Item key="logout">
           <Icon type="logout" />
-            <FormattedMessage id="menu.account.logout" defaultMessage="logout" />
+          <FormattedMessage id="menu.account.logout" defaultMessage="logout" />
         </Menu.Item>
       </Menu>
     );
+    // const userSimplify = userByEmail.name ? (userByEmail.name.split(" ")[0].substr(0, 1) + "" + userByEmail.name.split(" ")[1].substr(0, 1)) : "";
+
+    let styleNoImage = {
+      backgroundColor: '#64a9dd'
+    }
+    let styleNoImageColorText = {
+      // backgroundColor: '#64a9dd',
+      color: "#fff"
+    }
+
+
+    if (avatarUser.urlImage) {
+      styleNoImage = {
+        backgroundColor: '#64a9dd00'
+      }
+      // styleNoImageColorText = {
+      //   color: "#fff"
+      // }
+    }
+
     return userByEmail && userByEmail.name ? (
       <HeaderDropdown overlay={menuHeaderDropdown}>
         <span className={`${styles.action} ${styles.account}`}>
-          <Avatar size="small" className={styles.avatar} src={avatarUser.urlImage} alt="avatar" />
+          <Avatar size="small" className={styles.avatar} src={avatarUser.urlImage} alt="avatar" style={styleNoImage}>
+            <div style={styleNoImageColorText}>
+              {userByEmail.name.substr(0, 1)}
+            </div>
+          </Avatar>
           <span className={styles.name}>{userByEmail.name}</span>
         </span>
       </HeaderDropdown>
     ) : (
-      <Spin
-        size="small"
-        style={{
-          marginLeft: 8,
-          marginRight: 8,
-        }}
-      />
-    );
+        <Spin
+          size="small"
+          style={{
+            marginLeft: 8,
+            marginRight: 8,
+          }}
+        />
+      );
   }
 }
 
 export default connect(({ user }) => ({
   currentUser: user.currentUser,
-  userByEmail:user.userByEmail,
-  avatarUser:user.avatarUser
+  userByEmail: user.userByEmail,
+  avatarUser: user.avatarUser
 }))(AvatarDropdown);

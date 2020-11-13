@@ -13,5 +13,5 @@ export default {
   },
   title: 'MXITGO',
   pwa: false,
-  iconfontUrl: '',
+  iconfontUrl: '../public/favicon.png',
 };

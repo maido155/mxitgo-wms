@@ -21,6 +21,7 @@ class DrawerShippingPrograming extends PureComponent {
         idShipping: "",
         datesGeneralNewLine: {},
         currentLoader: false,
+        removeLocation: false,
         whName: "",
     }
     saveFormRefNewLine = (formRef) => {
@@ -77,6 +78,8 @@ class DrawerShippingPrograming extends PureComponent {
         this.props.form.validateFields((err, values) => {
             if (err) {
                 return;
+            }else if (values["products"]==null){
+                this.props.showMessage('warning', formatMessage({id:'shipping.drawerConfirm.messageWarningProducts'}));
             }
             var date = new Date();
             values["createdBy"] = localStorage.getItem('userName');

@@ -28,4 +28,4 @@ export default {
   'app.setting.copyinfo': 'Copia exitosa, por favor remplaze defaultSettings en src/models/setting.js',
   'app.setting.production.hint':
     'El panel de configuración muestra se muestra en el ambiente de desarrollo únicamente, por favor modifquelo manualmente',
-};
+}
