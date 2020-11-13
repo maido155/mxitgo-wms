@@ -7,7 +7,7 @@
 _roadhog-api-doc
 
 # production
-#/dist
+/dist
 /.vscode
 
 # misc
@@ -46,7 +46,7 @@ amplify/mock-data
 amplify/backend/amplify-meta.json
 amplify/backend/awscloudformation
 build/
-#dist/
+dist/
 node_modules/
 aws-exports.js
 awsconfiguration.json
