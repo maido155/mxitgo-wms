@@ -67,6 +67,7 @@ export default class CompositionOutComming extends PureComponent {
                     restartOutcomming= {this.props.restartOutcomming}
                     recordKey= {this.props.recordKey}
                     dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
+                    disabledReset={this.props.disabledReset}
                     
                     //Props for Assign Product Drawer
                     visibleAssignProduct={this.props.visibleAssignProduct} 

@@ -43,7 +43,7 @@ class Login extends Component {
     showLogin: false
   };
   componentDidMount(){
-    if(localStorage.getItem('sessionActive') != 'null' && localStorage.getItem('isRemembered') == 'true'){
+    if(localStorage.getItem('sessionActive') != 'null' && localStorage.getItem('isRemembered') === 'true'){
       window.location.href = '/dashboard';
     }
   }
@@ -81,7 +81,7 @@ class Login extends Component {
    let userName     = self.formRefDraw.props.form.getFieldValue('email');
    let code         = self.formRefDraw.props.form.getFieldValue('code');
    let newPassword  = self.formRefDraw.props.form.getFieldValue('newPassword');
-   if(userName==undefined || code==undefined || newPassword==undefined){
+   if(userName===undefined || code===undefined || newPassword===undefined){
     return; 
    }
     var poolData = {

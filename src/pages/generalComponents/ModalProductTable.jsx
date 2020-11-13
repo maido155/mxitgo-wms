@@ -60,7 +60,7 @@ export default class ModalProductTable extends PureComponent{
                             <Text strong>{formatMessage({id: "shipping.modal.detail-table.product"})}</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
-                            <Text>{oShippingItem.products.length == 0 ? "0" : oShippingItem.products[0].productName}</Text>
+                            <Text>{oShippingItem.products.length === 0 ? "0" : oShippingItem.products[0].productName}</Text>
                         </Col>
                         <Col md={1} lg={3} xl={4}></Col>
                     </Row>
@@ -93,7 +93,7 @@ export default class ModalProductTable extends PureComponent{
                             <Text strong>{formatMessage({id: "shipping.modal.detail-table.entry"})}</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
-                            <Text>{oShippingItem.products.length == 0 ? "0" : oShippingItem.products[0].entry}</Text>
+                            <Text>{oShippingItem.products.length === 0 ? "0" : oShippingItem.products[0].entry}</Text>
                         </Col>
                         <Col md={1} lg={3} xl={4}></Col>
                     </Row>
@@ -104,7 +104,7 @@ export default class ModalProductTable extends PureComponent{
                             <Text type="danger" strong>{formatMessage({id: "shipping.modal.detail-table.missing"})}</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
-                        <Text type="danger">{this.faltante(oShippingItem.products.length == 0 ? "0" : oShippingItem.products[0].confirmed,oShippingItem.products.length == 0 ? "0" : oShippingItem.products[0].planned)}</Text>
+                        <Text type="danger">{this.faltante(oShippingItem.products.length === 0 ? "0" : oShippingItem.products[0].confirmed,oShippingItem.products.length == 0 ? "0" : oShippingItem.products[0].planned)}</Text>
                         </Col>
                         <Col md={1} lg={3} xl={4}></Col>
                     </Row>

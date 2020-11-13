@@ -178,7 +178,7 @@ class GeneralProgramming extends PureComponent {
         var allProduct = this.props.datesProductAll;
         var allCustomer = this.props.datesCustomerAll;
         var getProgramming = this.props.datesGetProgramming;
-        if(this.state.edit == true){
+        if(this.state.edit === true){
             form.validateFields((err, values) => {
                 if(err){
                     return;
@@ -187,7 +187,7 @@ class GeneralProgramming extends PureComponent {
                 let endDate = this.props.datesGetProgramming[0].endDate;
                 let dataWeek = 0;
                 let dataAllWeek = 0;
-                if(weekUntil == 0){
+                if(weekUntil === 0){
                     dataWeek = endDate;
                     dataAllWeek = this.betweenDateEdit(startDate, endDate);
                 }else{
@@ -237,13 +237,13 @@ class GeneralProgramming extends PureComponent {
                 let getProgrammingFormat = "PR-" + moment(getProgramming[0].startDate).format("DDMMYY") + moment(getProgramming[0].endDate).format("DDMMYY");
                 for(var i = 0; i < allProgramming.length; i++){
                     if(getProgrammingFormat != payload.idPk){
-                        if(payload.idPk == allProgramming[i].Sk){
+                        if(payload.idPk === allProgramming[i].Sk){
                             this.openNotificationWithIcon('warning');
                             return;    
                         }
                     }
                 }
-                if(this.state.rangeEdit == false){
+                if(this.state.rangeEdit === false){
                     var dataSim = this.props.datesGetProgramming[0].dateIso;
                     var dataIso = [];
                     for(var i = 0; i < dataSim.length; i++){
@@ -343,7 +343,7 @@ class GeneralProgramming extends PureComponent {
                     return dates["WMS-1-SK"] === values.customerNew;
                 })
                 for(var j = 0; j < week.length; j++){
-                    if(week[j].week == pkPayload && week[j].client == customerSelect[0].clientName && week[j].product == productSelect[0].productName){
+                    if(week[j].week === pkPayload && week[j].client === customerSelect[0].clientName && week[j].product === productSelect[0].productName){
                         this.openNotificationWithIcon('warning');
                         return;
                     }

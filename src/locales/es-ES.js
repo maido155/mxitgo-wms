@@ -23,7 +23,7 @@ export default {
     'app.preview.down.block': 'Descarga esta página a tu proyecto local',
     'app.welcome.link.fetch-blocks': 'Bloquear todl',
     'app.welcome.link.block-list': 'Construye páginas rápidamente basados en desarrollo de bloque',
-
+  
     ...globalHeader,
     ...menu,
     ...settingDrawer,

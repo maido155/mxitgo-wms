@@ -5,7 +5,7 @@ import { routerRedux } from 'dva/router';
 import { _ } from 'lodash';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import SelectProduct from '../generalComponents/SelectProduct';
-import { Row, Col, Card, Tooltip, Typography, Progress, Form, DatePicker, Statistic,Icon, Spin, notification} from 'antd';
+import { Row, Col, Card, Tooltip, Typography, Progress, Form, DatePicker, Statistic, Icon, Spin, notification } from 'antd';
 import { isMobile, isTablet } from "react-device-detect";
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import  StepsDashBoard from './Steps/StepsDashBoard';
@@ -34,10 +34,12 @@ function disabledDate (current) {
 
 
 
-@connect(({ dashboard,programming, loading }) => ({
+@connect(({ dashboard,programming,products, loading }) => ({
   dashboard,
   programming,
+  products,
   loading: loading.models.dashboard,
+  
   datesProductAll: programming.datesProductAll,
   currentSelectedDate: dashboard.currentSelectedDate,
   currentSelectedProduct: dashboard.currentSelectedProduct
@@ -49,7 +51,7 @@ export default class Dashboard extends PureComponent {
 
   componentDidMount() {
     this.props.dispatch({
-      type: 'programming/fetchProductAll',
+      type: 'products/getProducts',
       payload: {
           payload: {
            Authorization: sessionStorage.getItem('idToken'),
@@ -65,27 +67,26 @@ export default class Dashboard extends PureComponent {
     
   }
 
-  state = {
-    currentSelectedDate : "",
-    currentSelectedProduct: "",
-    currentSelectedProductDesc:"",
-    currentCustomer : "CUSTOMER-2",
-    products: ["PRODUCT-1", "PRODUCT-2"],
-    
-  };
 
-  selectionProduct = (product, customer, startDate) => {
-
-    if( product === "" || customer ==="" || startDate ==="")
-    {
-      notification["info"]({
-        message: "This option is not available",
-        description: "before continuing select a date",
-    });
-      return;
+   componentWillUnmount() {
+    for (const product of this.state.products) { 
+    this.props.dispatch({
+       type: 'dashboard/getWeekProgrammingTotalsReset',
+       payload: {
+          product,
+          Authorization: sessionStorage.getItem('idToken')
+       }
+     });
     }
+     this.props.dispatch({
+       type: 'dashboard/dashboardGetMasterTotalReset',
+       payload: {
+          products: this.state.products,
+          Authorization: sessionStorage.getItem('idToken')
+       }
+     });
 
-    startDate=`${startDate}T00:00:00.000Z`;
+     var startDate = `2020-11-11T00:00:00.000Z`;
 
 
 
@@ -97,42 +98,102 @@ export default class Dashboard extends PureComponent {
     var aDays = [0, 1, 2, 3, 4, 5, 6];
 
     //startDate=`${startDate}T00:00:00.000Z`;
-    
-    
-    
-    
     for (const i of aDays) {
-      
-        this.props.dispatch({
-          type: 'dashboard/getDay',
-          payload: {
-            Authorization: sessionStorage.getItem('idToken'),
-            startDate,
-            customer,
-            product,
-            deliveryDate: `${moment(weekStart).add(i, 'days').format("YYYY-MM-DD")}T00:00:00.000Z`,
-            dayName: moment(weekStart).add(i, 'days').format("dddd")
-          }
-        })
+     this.props.dispatch({
+      type: 'dashboard/getDayReset',
+      payload: {
+        Authorization: sessionStorage.getItem('idToken'),
+        dayName: moment(weekStart).add(i, 'days').format("dddd")
+      }
+    })
+    }
+   }
+
+  state = {
+    currentSelectedDate: "",
+    currentSelectedProduct: "",
+    currentSelectedProductDesc: "",
+    currentCustomer: "CUSTOMER-2",
+    products: ["PRODUCT-1", "PRODUCT-2"],
+
+  };
+
+  selectionProduct = (product, customer, startDate) => {
+
+    if (product === "" || customer === "" || startDate === "") {
+      notification["info"]({
+        message: "This option is not available",
+        description: "before continuing select a date",
+      });
+      return;
+    }
+
+    console.log("dashboard======")
+    console.log(this.props.dashboard)
+    if (product === "PRODUCT-2" && this.props.dashboard.programmingTotalPRODUCT2 === 0) {
+      notification["info"]({
+        message: "This option is not available",
+        description: "Premium prodcut does not have requirement",
+      });
+      return;
+    }
+
+    if (product === "PRODUCT-1" && this.props.dashboard.programmingTotalPRODUCT1 === 0) {
+      notification["info"]({
+        message: "This option is not available",
+        description: "Gold prodcut does not have requirement",
+      });
+      return;
+    }
+
+    startDate = `${startDate}T00:00:00.000Z`;
+
+
+
+    ///////// Bring 7 days
+
+    var currentDate = moment(startDate, "YYYY-MM-DD");
+    var weekStart = currentDate;
+    //var weekEnd = currentDate.add(6, 'days');
+    var aDays = [0, 1, 2, 3, 4, 5, 6];
+
+    //startDate=`${startDate}T00:00:00.000Z`;
+
+
+
+
+    for (const i of aDays) {
+
+      this.props.dispatch({
+        type: 'dashboard/getDay',
+        payload: {
+          Authorization: sessionStorage.getItem('idToken'),
+          startDate,
+          customer,
+          product,
+          deliveryDate: `${moment(weekStart).add(i, 'days').format("YYYY-MM-DD")}T00:00:00.000Z`,
+          dayName: moment(weekStart).add(i, 'days').format("dddd")
+        }
+      })
 
     }
 
-    
+
 
   };
-  
 
-  getNumberDay=()=>{
-    var dt= new Date();
-    let aWeek=[3,4,5,6,0,1,2];
-    return aWeek.findIndex( item => item ==  dt.getDay())
-    
+
+  getNumberDay = () => {
+    var dt = new Date();
+    let aWeek = [3, 4, 5, 6, 0, 1, 2];
+    return aWeek.findIndex(item => item == dt.getDay())
+
   }
 
-  getTotals=(startDate)=>{
-    if( startDate ==="") return;
+  getTotals = (startDate) => {
+    if (startDate === "") return;
 
-    startDate=`${startDate}T00:00:00.000Z`;
+    startDate = `${startDate}T00:00:00.000Z`;
 
     for (const product of this.state.products) {
       this.props.dispatch({
@@ -145,7 +206,7 @@ export default class Dashboard extends PureComponent {
       });
 
     }
-    
+
 
 
     this.props.dispatch({
@@ -156,36 +217,40 @@ export default class Dashboard extends PureComponent {
         Authorization: sessionStorage.getItem('idToken')
       }
     });
-    
+
   }
 
 
 
   onPickerChange = (oEvent) => {
-      this.setState({currentSelectedDate: oEvent.format("YYYY-MM-DD")},
-                      () => {this.getTotals(  oEvent.format("YYYY-MM-DD")) }
-                    )
+    this.setState({ currentSelectedDate: oEvent.format("YYYY-MM-DD") },
+      () => { this.getTotals(oEvent.format("YYYY-MM-DD")) }
+    )
   }
 
 
-  onProductChange  = (value,key) => {
+  onProductChange = (value, key) => {
 
-      this.setState(
-        {
-          currentSelectedProduct: value,
-          currentSelectedProductDesc:key.props.children
-        },() => {
-          this.selectionProduct(value,this.state.customer, this.state.currentSelectedDate);
+    this.setState(
+      {
+        currentSelectedProduct: value,
+        currentSelectedProductDesc: key.props.children
+      }, () => {
 
-        })
-        
-      
+        console.log("handle product")
+        console.log(value + " " + this.state.customer + " " + this.state.currentSelectedDate)
+        this.selectionProduct(value, this.state.customer, this.state.currentSelectedDate);
+
+      })
+
+
 
   }
 
   render() {
 
-    let { datesProductAll,loading, dashboard} = this.props;
+    let { datesProductAll,loading, products, dashboard} = this.props;
+    console.log(products.productsAll);
     this.setState({loading});
     const formItemLayout = {
       labelCol: { xs: { span: 24 }, sm: { span: 9 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 9 } },
@@ -194,7 +259,7 @@ export default class Dashboard extends PureComponent {
 
     return (
       <PageHeaderWrapper
-      spin={this.state.loading}
+        spin={this.state.loading}
         content={<div>
           <Spin spinning={this.state.loading}>
           <Card type="inner" size="small" style={{textAlign:"center"}}  title={<FormattedMessage id='dashboard.text.totals'/>}>
@@ -252,7 +317,7 @@ export default class Dashboard extends PureComponent {
                   <div>
                   <span>{formatMessage({id: "general.button-product.product"})}: &nbsp;</span>
                   <SelectProduct 
-                  datesProductAll={datesProductAll} 
+                  datesProductAll={products.productsAll} 
                   handleProduct={this.onProductChange}/>
                   </div>
                 

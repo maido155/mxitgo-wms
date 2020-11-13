@@ -25,6 +25,19 @@ export default {
                 type: 'queryProgrammingAll',
                 payload: response,
             });
+            const responseProduct = yield call(fetchProductAll, payload);
+            let typeProduct = responseProduct.Items.filter(function(data) {
+                return data.type == payload.payload.type
+            })
+            yield put({
+                type: 'queryProductAll',
+                payload: typeProduct,
+            });
+            const responseCus = yield call(fetchCustomerAll, payload);
+            yield put({
+                type: 'queryCustomerAll',
+                payload: responseCus,
+            });
         },
 
         * updateProgrammingStatus({ payload }, { call, put }) {

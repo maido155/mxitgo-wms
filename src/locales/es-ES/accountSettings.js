@@ -13,5 +13,5 @@ export default {
     'register.label.lastfam': 'Apellido Paterno: ',
     'register.label.phone': 'Telefono: ',
     'menu.Configuración': 'Configuración',
-    'menu.Configuración.Usuarios': 'Usuarios'
+    'menu.Configuración.Usuarios': 'Usuario'
 };

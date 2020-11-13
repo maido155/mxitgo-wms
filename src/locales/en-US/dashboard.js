@@ -12,6 +12,5 @@ export default {
     'dashboard.text.totals':'Totals',
     'dashboard.text.premium-necessity':'Premium requirement',
     'dashboard.text.gold-necessity':'Gold requirement',
-    'dashboard.text.total-necessity':'Total requirement',
-    'dashboard.text.total':'Total:'
+    'dashboard.text.total-necessity':'Total requirement'
 }

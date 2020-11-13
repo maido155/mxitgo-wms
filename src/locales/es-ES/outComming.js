@@ -7,8 +7,8 @@ export default {
     'outComming.label.tabs-one': 'Vallejo',
     'outComming.label.tabs-two': 'Cuauhtitlan',
     'outComming.label.tabs-three': 'Reparto',
-    'outComming.label.table-pallets': 'Tarimas asignadas/requeridas', 
-    'outComming.label.table-boxes': 'Cajas asignadas/requeridas',
+    'outComming.label.table-pallets': 'Tarima asignados/requeridos', //add
+    'outComming.label.table-boxes': 'Cajas asignados/requeridos',
     'outComming.button.assign': 'Asignar',
     'outComming.button.composition': 'Ver composición',
     'outComming.button.confirm': 'Confirmar',
@@ -19,27 +19,23 @@ export default {
     'outComming.button.ok-assignment-outcomming': 'Aceptar',
     'outComming.button.close-assignment-outcomming': 'Cerrar',
     'outComming.label.tableassignment-order': 'Envíos',
-    'outComming.label.tableassignment-pallets-re': 'Tarimas recibidas (Total)',
-    'outComming.label.tableassignment-boxes-re': 'Cajas recibidas (Total)',
-    'outComming.label.tableassignment-pallets-di': 'Tarimas disponibles',
+    'outComming.label.tableassignment-pallets-re': 'Tarima recibidos (Total)', //add
+    'outComming.label.tableassignment-boxes-re': 'Cajas recibidos (Total)',
+    'outComming.label.tableassignment-pallets-di': 'Tarima disponibles', //add
     'outComming.label.tableassignment-boxes-di': 'Cajas disponibles',
     'outComming.label.tableassignment-assign': 'Asignar',
     'outComming.label.composition-outcomming': 'Ver composición',
     'outComming.button.composition-outcomming-assing': 'Asignación',
     'outComming.button.composition-outcomming-ok': 'Aceptar',
-    'outComming.button.composition-outcomming-pallets-ass': 'Tarimas asignadas',
-    'outComming.button.composition-outcomming-boxes-ass': 'Cajas asignadas',
+    'outComming.button.composition-outcomming-pallets-ass': 'Tarima asignados',
+    'outComming.button.composition-outcomming-boxes-ass': 'Cajas asignados',
     'outComming.label.table-status': 'Estado',
     'menu.Salidas': 'Salidas',
     'outComming.drawerAssigment.title':'Asignación',
-    'outComming.drawerAssigment.pallets-availables':'Tarimas disponibles',
+    'outComming.drawerAssigment.pallets-availables':'Tarima disponibles',
     'outComming.drawerAssigment.boxes-availables':'Cajas disponibles',
-    'outComming.drawerAssigment.pallets':'Tarimas',
+    'outComming.drawerAssigment.pallets':'Tarima',
     'outComming.drawerAssigment.boxes':'Cajas',
-    'outComming.table.confirm':'Confirmar',
-    'outComming.table.confirmed':'Confirmado',
-    'outComming.label.table-outComming.status.pending': "PENDIENTE",
-    'outComming.label.table-outComming.status.confirmed':"CONFIRMADO",
-    'outComming.label.table-outComming.status.no-status':'SIN ESTATUS'
-
+    'outComming.drawerAssigment.cancel':'Cancel',
+    'outComming.drawerAssigment.accept':'Aceptar'
 };

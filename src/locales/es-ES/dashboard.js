@@ -10,8 +10,7 @@ export default {
     'dashboard.text.confirmed':'Confirmados: ',
     'dashboard.text.canceled':'Cancelados: ',
     'dashboard.text.totals':'Totales',
-    'dashboard.text.premium-necessity':'Necesidad Premium',
-    'dashboard.text.gold-necessity':'Necesidad Gold',
-    'dashboard.text.total-necessity':'Total Necesidades',
-    'dashboard.text.total':'Total:'
+    'dashboard.text.premium-necessity':'Total Premium',
+    'dashboard.text.gold-necessity':'Total Gold',
+    'dashboard.text.total-necessity':'Total requerido'
 }

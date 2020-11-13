@@ -14,6 +14,7 @@ export default {
     'shipping.label.table-shipping.show': 'Ver',
     'shipping.label.table-shipping.confirm': 'Confirmar',
     'shipping.label.table-shipping.delete': 'Eliminar',
+    'shipping.label.table-shipping.entry': 'Entrada',
     'shipping.drawershipping.label.title': 'Nuevo Envío',
     'shipping.drawershipping.label.title.edit': 'Editar Envío',
     'shipping.drawershipping.label.date-exit': 'Fecha de salida',
@@ -39,6 +40,7 @@ export default {
     'shipping.shippingconfirmation.driver': 'Chofer',
     'shipping.shippingconfirmation.phone': 'Telefono',
     'menu.Maestro de envíos': 'Maestro de envíos',
+    'shipping.label.table-shipping.id': 'Id',
     'shipping.label.table-shipping.ubication': 'Ubicación',
     'shipping.label.table-shipping.output': 'Envío',
     'shipping.shippingNew.title': 'Nueva entrada',
@@ -86,7 +88,8 @@ export default {
     'shipping.confirm.phoneMissing': 'Tiene que agregar un telefono',
     'shipping.drawerEntry.messageSuccessConfirm': 'Se confirmó con éxito',
     'shipping.drawerEntry.messageSuccessEntry': 'Entrada exitosa',
-    'shipping.gridModalEntry.captured': 'Capturado'
+    'shipping.gridModalEntry.captured': 'Capturado',
+    'shipping.drawerConfirm.messageWarningProducts':'Tiene que agregar un centro'
 
 
 

@@ -78,6 +78,8 @@ class DrawerShippingPrograming extends PureComponent {
         this.props.form.validateFields((err, values) => {
             if (err) {
                 return;
+            }else if (values["products"]==null){
+                this.props.showMessage('warning', formatMessage({id:'shipping.drawerConfirm.messageWarningProducts'}));
             }
             var date = new Date();
             values["createdBy"] = localStorage.getItem('userName');
@@ -112,7 +114,7 @@ class DrawerShippingPrograming extends PureComponent {
                 message.warning(<FormattedMessage id='shipping.drawerEntry.messageWarningNewLine'/>); //I18N *****************************************************************************************************
                 return;
             }
-            if(this.props.masterMode == "NEW"){
+            if(this.props.masterMode === "NEW"){
             // values["idShipping"] = this.state.idShipping + date.getDate() + (date.getMonth() + 1) + date.getFullYear() + date.getHours() + date.getMinutes();
             values["idShipping"] = this.state.idShipping +
             ( date.getDate().toString().length === 1 ? "0"+date.getDate().toString() : date.getDate().toString() ) +

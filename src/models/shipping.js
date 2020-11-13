@@ -1,4 +1,4 @@
-import { confirmShipping, saveShipping, updateShipping, getShipping, fetchShippingAll, getShippingDetail, deleteShipping } from '../services/api';
+import { confirmShipping, saveShipping, updateShipping, getShipping,  fetchShippingAll,  getShippingDetail, deleteShipping } from '../services/api';
 
 
 import moment from 'moment';
@@ -32,6 +32,12 @@ export default {
             yield put({
                 type: 'queryGetShippingAll',
                 payload: response,
+            });
+        },
+        * shippingAllRemove({payload},{call,put}){
+            yield put({
+                type: 'queryShippingAllRemove',
+                payload: payload
             });
         },
 
@@ -135,6 +141,8 @@ export default {
                 payload: payload,
             });
         },
+        
+
         * deleteShipping({ payload }, { call, put }) {
             const response = yield call(deleteShipping, payload);
             console.log(response);
@@ -202,8 +210,14 @@ export default {
                 datesShipping: action.payload
             }
         },
+        queryShippingAllRemove(state, action){
+            return  {
+                ...state,
+                datesShipping: []
+            }
+        },
         saveEntryReducer(state, action) {
-            if (action.payload.message === "Success") {
+            if(action.payload.message==="Success"){
                 return {
                     ...state,
                     isSuccessEntry: true
@@ -225,13 +239,13 @@ export default {
             }
         },
         saveShippingReducer(state, action) {
-            if (action.payload.message === "Success") {
+            if(action.payload.message==="Success"){
                 return {
                     ...state,
                     isSuccess: true
                 }
-            } else {
-                return {
+            }else{
+                return{
                     ...state,
                     isSuccess: false
                 }
@@ -251,7 +265,7 @@ export default {
         disabledWarehouseReducer(state, action) {
             let getWarehouse = action.payload.locationTreeData.filter(function(data) {
                 for (var i = 0; i < data.childLevel1.length; i++) {
-                    if (data.childLevel1[i].key == action.payload.objWarehouse.warehouseId) {
+                    if (data.childLevel1[i].key === action.payload.objWarehouse.warehouseId) {
                         return data.childLevel1[i].key == action.payload.objWarehouse.warehouseId;
                     }
                 }
@@ -314,7 +328,7 @@ export default {
             products.splice(pos, 1);
             warehouse.splice(pos, 1);
             const warehouseIds = [...state.warehouseIds, action.payload.payload.warehouseId];
-            if (aWarehouse.length == 0) {
+            if (aWarehouse.length === 0) {
                 warehouseDisable = [];
             }
             return {
@@ -347,10 +361,10 @@ export default {
             }
         },
         confirmShippingReducer(state, action) {
-            if (action.payload.message === "Success") {
+            if(action.payload.message==="Success"){
                 return {
-                    ...state,
-                    isSuccessConfirm: true
+                ...state,
+                isSuccessConfirm: true
                 }
             }
         },

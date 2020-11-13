@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import {isMobile} from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 import { Table, Divider, Icon, Modal } from 'antd';
 import { _ } from 'lodash';
 import { connect } from 'dva';
@@ -14,15 +14,15 @@ const { confirm } = Modal;
 }))
 
 class TableComponent extends PureComponent {
-  
+
   showDeleteConfirm = (payload) => {
     let _self = this;
     confirm({
-      title: 'Are you sure delete this task?',
+      title: formatMessage({ id: 'shipping.tablecomponent.title.deletd' }) ,
       content: 'Some descriptions',
-      okText: 'Yes',
+      okText: formatMessage({ id: 'shipping.tablecomponent.text.ok' }),
       okType: 'danger',
-      cancelText: 'No',
+      cancelText: formatMessage({ id: 'shipping.tablecomponent.text.cancel' }),
       onOk() {
         _self.props.dispatch({
           type: 'shipping/removeWarehouse',
@@ -103,20 +103,20 @@ class TableComponent extends PureComponent {
                 </span>
               :
                 <span>
-                  <a onClick={()=>{masterMode == "CONF" ? this.props.showNewLineConfirm("CONF" , record, "CONF") : this.props.showNewLine("EDIT" , record, "NEW||EDIT")}}>
+                  <a onClick={()=>{masterMode === "CONF" ? this.props.showNewLineConfirm("CONF" , record, "CONF") : this.props.showNewLine("EDIT" , record, "NEW||EDIT")}}>
                     { isMobile
-                      ? oShippingItem == undefined 
+                      ? oShippingItem === undefined 
                         ? <Icon type="edit"/>
-                        : oShippingItem.Operator == undefined
+                        : oShippingItem.Operator === undefined
                           ? <Icon type="edit"/>
-                          : oShippingItem.Operator == ""
+                          : oShippingItem.Operator === ""
                             ? <Icon type="edit"/>
                             : <Icon type="eye"/>
                       :oShippingItem == undefined 
                         ? <span><Icon type="edit"/> <FormattedMessage id="shipping.label.table-shipping.edit"/></span>
-                        : oShippingItem.Operator == undefined
+                        : oShippingItem.Operator === undefined
                           ? <span><Icon type="edit"/> <FormattedMessage id="shipping.label.table-shipping.edit"/></span>
-                          : oShippingItem.Operator == ""
+                          : oShippingItem.Operator === ""
                             ? <span><Icon type="edit"/> <FormattedMessage id="shipping.label.table-shipping.edit"/></span>
                             : <span><Icon type="eye"/> <FormattedMessage id="shipping.label.table-shipping.show"/></span>
                     }
@@ -148,8 +148,10 @@ class TableComponent extends PureComponent {
         name: record.name,
       }),
     };
-    return(
-      <Table rowSelection={rowSelection} columns={columns} dataSource={warehouse} pagination={false} scroll={isMobile ? {x: 700} :{x: 1000}} size="small"/>
+    return (
+      <Table
+        //  rowSelection={rowSelection} 
+        columns={columns} dataSource={warehouse} pagination={false} scroll={isMobile ? { x: 700 } : { x: 1000 }} size="small" />
     );
   }
 }
