@@ -2,13 +2,46 @@ import React, { PureComponent } from 'react';
 import { _ } from 'lodash'; 
 import { Table, Divider, Button, Checkbox  } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
+import AssignmentOutComming from './AssignmentOutComming';
+import CompositionOutComming from './CompositionOutComming';
 import {isMobile} from 'react-device-detect';
 
 export default class TableOutComming extends PureComponent {
+    state = { 
+        currentRecord: "",
+        recordKey: ""
+    };
+    showDrawerAssig = (item) => {
+        console.log("assign")
+        let oc = item.key;
+        this.props.setVisibleAssign(true);
+        this.setState({
+          currentRecord: item,
+          recordKey: oc,
+        });
+        
+        this.props.getOutcommingByEntry(oc,this.props.productKey);
+    };
+    showDrawerCompo = (id, item) => {
+        let oc = item.key;
+        this.setState({
+          currentRecord: item,
+          recordKey: oc,
+        });
+        this.props.onShowCompositionData(id);
+        this.props.setVisibleCompo(true);
+    };
+    onCloseDrawerAssig = () => {
+        this.props.setVisibleAssign(false);
+    };
+    onCloseDrawerCompo = () => {
+        this.props.setVisibleCompo(false);
+    };
     render() {
-        const { datesTableOutcomming } = this.props;
+        let {dataOutcommingsByEntry} = this.props;
+        const { datesOutcomming } = this.props;
         console.log("TableOutComming");
-        console.log(datesTableOutcomming);
+        console.log(dataOutcommingsByEntry);
 
         const columns = [
             {
@@ -30,48 +63,39 @@ export default class TableOutComming extends PureComponent {
             {
                 title: formatMessage({ id: 'outComming.label.table-status' }),
                 dataIndex: 'status',
-                width: isMobile ? 100 : 130,
-                render: (text, record) => (
-                    <span>
-                      {record.status === "PENDING"
-                        ? <FormattedMessage id="outComming.label.table-outComming.status.pending" />
-                        :  record.status === "CONFIRMED"
-                            ?<FormattedMessage id="outComming.label.table-outComming.status.confirmed" />
-                            : <FormattedMessage id="outComming.label.table-outComming.status.no-status" />
-                      } 
-                    </span>
-                )
+                width: isMobile ? 100 : 130
             },
             {
                 title: '',
+                key: 'action',
                 width: isMobile ? 400 : 360,
                 render: (record) => (
                   <span>
                       {
                             record.status=="PENDING" && record.pallets!="0/0" && record.boxs!="0/0"  ?
-                                <Button type="primary" onClick={()=>{this.props.showDrawerAssig(record)}}> 
+                                <Button type="primary" onClick={()=>{this.showDrawerAssig(record)}}> 
                                     <FormattedMessage id="outComming.button.assign"/>
                                 </Button>
-                                : <Button disabled type="primary" onClick={()=>{this.props.showDrawerAssig(record)}}> 
+                                : <Button disabled type="primary" onClick={()=>{this.showDrawerAssig(record)}}> 
                                 <FormattedMessage id="outComming.button.assign"/>
                             </Button>}
                         <Divider type="vertical" />
                         { record.key=="" 
-                            ?<Button disabled onClick={()=>{this.props.showDrawerCompo(record.key, record)}}>
+                            ?<Button disabled onClick={()=>{this.showDrawerCompo(record.key, record)}}>
                                 <FormattedMessage id="outComming.button.composition"/>
                              </Button>
-                            :<Button onClick={()=>{this.props.showDrawerCompo(record.key, record)}}>
+                            :<Button onClick={()=>{this.showDrawerCompo(record.key, record)}}>
                                 <FormattedMessage id="outComming.button.composition"/>
                              </Button>                                       
                         }    
                         <Divider type="vertical" />
-                        { record.key==="" 
-                            ? <Checkbox defaultChecked={false} disabled onChange={()=>{this.props.onConfirm(record)}}><FormattedMessage id='outComming.table.confirm'/></Checkbox>
+                        { record.key=="" 
+                            ? <Checkbox defaultChecked={false} disabled onChange={()=>{this.props.onConfirm(record)}}>Confirm</Checkbox>
                             :   <span>
                                 {
                                     record.status=="PENDING"
-                                    ? <Checkbox onChange={()=>{this.props.onConfirm(record)} } > <FormattedMessage id='outComming.table.confirm'/> </Checkbox>
-                                    : <Checkbox disabled onChange={()=>{this.props.onConfirm(record)} } > <FormattedMessage id='outComming.table.confirmed'/></Checkbox>
+                                    ? <Checkbox onChange={()=>{this.props.onConfirm(record)} } > Confirm </Checkbox>
+                                    : <Checkbox disabled onChange={()=>{this.props.onConfirm(record)} } > Confirmed </Checkbox>
                                 }
                                     
                                 </span> 
@@ -83,7 +107,39 @@ export default class TableOutComming extends PureComponent {
                    
         return (
             <div>
-                <Table rowKey="uid" loading = {this.props.loading} columns={columns} dataSource={datesTableOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
+                <AssignmentOutComming 
+                        loading = {this.props.loading}
+                        productDesc = {this.props.productDesc}
+                        datesProductAll = {this.props.datesProductAll}
+                        visibleOne={this.props.visibleAssign}
+                        currentOutcomming={this.state.currentRecord}
+                        closeOne={this.onCloseDrawerAssig}
+                        postOutcomming= {this.props.postOutcomming}
+                        restartOutcomming= {this.props.restartOutcomming}
+                        recordKey= {this.state.recordKey}
+                        visibleAssignProduct={this.props.visibleAssignProduct} 
+                        setVisibleAssignProduct={this.props.setVisibleAssignProduct}
+                        dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
+                />
+                <CompositionOutComming
+                    loading = {this.props.loading}
+                    compositionData = {this.props.compositionData}
+                    visibleTwo={this.props.visibleCompo}
+                    closeTwo={this.onCloseDrawerCompo}
+                    //Properties for drawer Assign
+                    productKey = {this.props.productKey}
+                    productDesc = {this.props.productDesc}
+                    datesProductAll = {this.props.datesProductAll}
+                    currentOutcomming={this.state.currentRecord}
+                    postOutcomming= {this.props.postOutcomming}
+                    restartOutcomming= {this.props.restartOutcomming}
+                    recordKey= {this.state.recordKey}
+                    visibleAssignProduct={this.props.visibleAssignProduct} 
+                    setVisibleAssignProduct={this.props.setVisibleAssignProduct}
+                    dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
+                    getOutcommingByEntry={this.props.getOutcommingByEntry}
+                />
+                <Table loading = {this.props.loading} columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
             </div>
         );            
     }

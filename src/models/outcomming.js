@@ -24,6 +24,12 @@ export default {
                 payload: responseGetOutComming,
             });
         },
+        *outcommingRemove({payload},{call,put}){
+            yield put({
+                type: 'outcommingReducerRemove',
+                payload: payload
+            })
+        },
         * getComposition({ payload }, { call, put }) {
             const response = yield call(getComposition, payload);
             console.log(response);
@@ -40,18 +46,22 @@ export default {
                 payload: response,
             });
         },
-        * postOutcomming({ payload }, { call, put }) {
-
-            const response = yield call(postOutcomming, payload);
+        * getShippingsByEntry({ payload }, { call, put }) {
+            const response = yield call(getShippingsByEntry, payload);
+            console.log(response);
             yield put({
-                type: 'postOutcommingReducer',
+                type: 'getShippingsByEntryReducer',
                 payload: response,
             });
-
+        },
+        * postOutcomming({ payload }, { call, put }) {
+            const response = yield call(postOutcomming, payload);
+            //console.log(response);
             const responseOutcomming = yield call(getOutcomming, payload.payload);
-            console.log(responseOutcomming);
+            //console.log(responseOutcomming);
+
             yield put({
-                type: 'getOutcommingReducer',
+                type: 'postOutcommingReducer',
                 payload: responseOutcomming,
             });
 
@@ -142,6 +152,12 @@ export default {
                 datesOutcomming: action.payload
             }
         },
+        getShippingsByEntryReducer(state, action) {
+            return {
+                ...state,
+                datesOutcomming: action.payload
+        	}
+        },
         postOutcommingReducer(state, action) {
             return {
                 ...state,
@@ -161,6 +177,8 @@ export default {
                 ...state,
                 dataOutcommingsByEntry: action.payload
             }
-        },
+        },        
     }
 }
+
+   

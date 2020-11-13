@@ -71,7 +71,7 @@ export default class ModalProductTable extends PureComponent{
                             <Text strong>{formatMessage({id: "shipping.modal.detail-table.planned"})}</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
-                            <Text>{oShippingItem.products.length === 0 ? "0" : oShippingItem.products[0].planned}</Text>
+                            <Text>{oShippingItem.products.length == 0 ? "0" : oShippingItem.products[0].planned}</Text>
                         </Col>
                         <Col md={1} lg={3} xl={4}></Col>
                     </Row>
@@ -82,7 +82,7 @@ export default class ModalProductTable extends PureComponent{
                             <Text strong>{formatMessage({id: "shipping.modal.detail-table.confirmed"})}</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={6} className={Styles.labeltwo}>
-                            <Text>{oShippingItem.products.length === 0 ? "0" : oShippingItem.products[0].confirmed}</Text>
+                            <Text>{oShippingItem.products.length == 0 ? "0" : oShippingItem.products[0].confirmed}</Text>
                         </Col>
                         <Col md={1} lg={3} xl={4}></Col>
                     </Row>

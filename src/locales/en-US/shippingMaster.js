@@ -1,5 +1,5 @@
 export default {
-    'shipping.label.table-shipping.id': 'ID/Centers',
+    'shipping.label.table-shipping.id': 'ID/Centros',
     'shipping.label.table-shipping.shipping': 'Shipping',
     'shipping.label.table-shipping.arrival': 'Arrival',
     'shipping.label.table-shipping.entry': 'Entry',
@@ -14,6 +14,7 @@ export default {
     'shipping.label.table-shipping.show': 'Show',
     'shipping.label.table-shipping.confirm': 'Confirm',
     'shipping.label.table-shipping.delete': 'Delete',
+    'shipping.label.table-shipping.entry': 'Entry',
     'shipping.drawershipping.label.title': 'New Shipping',
     'shipping.drawershipping.label.title.edit': 'Edit Shipping',
     'shipping.drawershipping.label.date-exit': 'Departure date',
@@ -39,6 +40,7 @@ export default {
     'shipping.shippingconfirmation.driver': 'Driver',
     'shipping.shippingconfirmation.phone': 'Phone',
     'menu.Maestro de envíos': 'Shipping Master',
+    'shipping.label.table-shipping.id': 'Id',
     'shipping.label.table-shipping.ubication': 'Location',
     'shipping.label.table-shipping.output': 'Shipping',
     'shipping.shippingconfirmation.comments': 'Comments',
@@ -86,8 +88,6 @@ export default {
     'shipping.drawerEntry.messageSuccessConfirm': 'Confirmed successfully',
     'shipping.drawerEntry.messageSuccessEntry': 'Entry successfully',
     'shipping.gridModalEntry.captured': 'Captured',
-    'shipping.tablecomponent.title.deletd':'Are you sure want to delete this center?',
-    'shipping.tablecomponent.text.ok':'Yes',
-    'shipping.tablecomponent.text.cancel':'No'
+    'shipping.drawerConfirm.messageWarningProducts':'You have to add a new center'
 
 };

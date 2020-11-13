@@ -21,6 +21,7 @@ class ConfirmationShipping extends PureComponent {
         datesGeneralNewLine: {},
         idShipping: "", 
         whName: "",
+        isFistValue: true
     }
     saveFormRefNewLine = (formRef) => {
         this.formRefNewLine = formRef;
@@ -29,7 +30,7 @@ class ConfirmationShipping extends PureComponent {
         let dataLocations = this.props.locationTreeData;
         let whSelect = dataLocations.filter(function(data){
             for (var i = 0; i < data.childLevel1.length; i++) {
-                if (data.childLevel1[i].key === newLine) {
+                if (data.childLevel1[i].key == newLine) {
                     return data;
                 }
             }
@@ -93,6 +94,8 @@ class ConfirmationShipping extends PureComponent {
         this.props.form.validateFields((err, values) => {
             if (err) {
                 return;
+            }else if (values["products"]==null){
+                this.props.showMessage('warning', formatMessage({id:'shipping.drawerConfirm.messageWarningProducts'}));
             }
             var date = new Date();
             values["createdBy"] = localStorage.getItem('userName');
@@ -148,7 +151,7 @@ class ConfirmationShipping extends PureComponent {
             wrapperCol: {xs: { span: 24 },sm: { span: 12 },md: { span: 14 },lg: { span: 14 },xl: { span: 14  }}
         };
         const { getFieldDecorator } = this.props.form;
-        const { oShippingItem, operatorAll, warehouses, masterMode, close, disableWarehouse } = this.props;
+        const { oShippingItem, operatorAll, warehouses, masterMode, close,isSuccess, disableWarehouse } = this.props;
         const { phoneOperator }= this.state;
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
         this.setState({ currentLoader });

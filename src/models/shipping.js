@@ -1,4 +1,4 @@
-import { confirmShipping, saveShipping, updateShipping, getShipping, fetchShippingAll, getShippingDetail, deleteShipping } from '../services/api';
+import { confirmShipping, saveShipping, updateShipping, getShipping,  fetchShippingAll,  getShippingDetail, deleteShipping } from '../services/api';
 
 
 import moment from 'moment';
@@ -32,6 +32,12 @@ export default {
             yield put({
                 type: 'queryGetShippingAll',
                 payload: response,
+            });
+        },
+        * shippingAllRemove({payload},{call,put}){
+            yield put({
+                type: 'queryShippingAllRemove',
+                payload: payload
             });
         },
 
@@ -135,6 +141,8 @@ export default {
                 payload: payload,
             });
         },
+        
+
         * deleteShipping({ payload }, { call, put }) {
             const response = yield call(deleteShipping, payload);
             console.log(response);
@@ -202,8 +210,14 @@ export default {
                 datesShipping: action.payload
             }
         },
+        queryShippingAllRemove(state, action){
+            return  {
+                ...state,
+                datesShipping: []
+            }
+        },
         saveEntryReducer(state, action) {
-            if (action.payload.message === "Success") {
+            if(action.payload.message==="Success"){
                 return {
                     ...state,
                     isSuccessEntry: true
@@ -225,13 +239,13 @@ export default {
             }
         },
         saveShippingReducer(state, action) {
-            if (action.payload.message === "Success") {
+            if(action.payload.message==="Success"){
                 return {
                     ...state,
                     isSuccess: true
                 }
-            } else {
-                return {
+            }else{
+                return{
                     ...state,
                     isSuccess: false
                 }
@@ -347,10 +361,10 @@ export default {
             }
         },
         confirmShippingReducer(state, action) {
-            if (action.payload.message === "Success") {
+            if(action.payload.message==="Success"){
                 return {
-                    ...state,
-                    isSuccessConfirm: true
+                ...state,
+                isSuccessConfirm: true
                 }
             }
         },
