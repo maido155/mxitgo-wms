@@ -47,7 +47,6 @@ export default class TableOutComming extends PureComponent {
             {
                 title: '',
                 dataIndex: 'date',
-                key:'date',
                 width: isMobile ? 100 : 130
             },
             {
@@ -119,6 +118,8 @@ export default class TableOutComming extends PureComponent {
                         recordKey= {this.state.recordKey}
                         visibleAssignProduct={this.props.visibleAssignProduct} 
                         setVisibleAssignProduct={this.props.setVisibleAssignProduct}
+                        setCurrentShipping={this.props.setCurrentShipping}
+                        currentShipping={this.props.currentShipping} 
                         dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
                 />
                 <CompositionOutComming
@@ -136,6 +137,8 @@ export default class TableOutComming extends PureComponent {
                     recordKey= {this.state.recordKey}
                     visibleAssignProduct={this.props.visibleAssignProduct} 
                     setVisibleAssignProduct={this.props.setVisibleAssignProduct}
+                    setCurrentShipping={this.props.setCurrentShipping}
+                    currentShipping={this.props.currentShipping} 
                     dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
                     getOutcommingByEntry={this.props.getOutcommingByEntry}
                 />

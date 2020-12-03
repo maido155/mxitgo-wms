@@ -194,6 +194,23 @@ export default class Dashboard extends PureComponent {
     if (startDate === "") return;
 
     startDate = `${startDate}T00:00:00.000Z`;
+    ///////// Bring 7 days
+
+    var currentDate = moment(startDate, "YYYY-MM-DD");
+    var weekStart = currentDate;
+    //var weekEnd = currentDate.add(6, 'days');
+    var aDays = [0, 1, 2, 3, 4, 5, 6];
+
+    //startDate=`${startDate}T00:00:00.000Z`;
+    for (const i of aDays) {
+      this.props.dispatch({
+      type: 'dashboard/getDayReset',
+      payload: {
+        Authorization: sessionStorage.getItem('idToken'),
+        dayName: moment(weekStart).add(i, 'days').format("dddd")
+      }
+    })
+    }
 
     for (const product of this.state.products) {
       this.props.dispatch({
@@ -286,7 +303,7 @@ export default class Dashboard extends PureComponent {
               <Col xs={18} sm={18} md={6} lg={4} xl={4} style={{textAlign: "center", padding:"0rem 0rem 0rem 2rem"}}>
                
                   {/* <p>Total Necesidades: <b style={{fontSize:"1.5rem"}}>{dashboard.programmingTotal.total}</b> </p> */}
-                  <Statistic title={<FormattedMessage id='dashboard.text.total-necessity'/>} value={dashboard.programmingTotal.total}/>
+                  <Statistic title={<FormattedMessage id='dashboard.text.total-necessity'/>} value={dashboard.programmingTotal.programmingTotal}/>
                   
 {/*                     <Progress percent={dashboard.programmingTotal.new} successPercent={dashboard.programmingTotal.confirmed} showInfo={false} strokeWidth={10} />
  */}                  
