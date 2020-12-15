@@ -33,5 +33,7 @@ export default {
     'general.modal-verify-programming-description': 'We have found a schedule on the same date. Please try again',
     'general.modal-visualize': 'Detail',
     'general.table.New': 'New',
-    'general.loading':'Loading...'
+    'general.loading': 'Loading...',
+    'general.placeholder.product': 'Select product',
+    "general.placeholder.center": "Select center"
 }

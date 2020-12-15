@@ -1,7 +1,7 @@
 import { fetchProgrammingAll, updateProgrammingStatus, getProgramming, fetchCustomerAll, fetchProductAll, updateProgramming, postProgramming } from '../services/api';
 
 import moment from 'moment';
-moment.locale('es');
+moment.locale(localStorage.getItem('language'));
 
 export default {
     namespace: 'programming',
@@ -25,19 +25,19 @@ export default {
                 type: 'queryProgrammingAll',
                 payload: response,
             });
-            const responseProduct = yield call(fetchProductAll, payload);
-            let typeProduct = responseProduct.Items.filter(function(data) {
-                return data.type == payload.payload.type
-            })
-            yield put({
-                type: 'queryProductAll',
-                payload: typeProduct,
-            });
-            const responseCus = yield call(fetchCustomerAll, payload);
-            yield put({
-                type: 'queryCustomerAll',
-                payload: responseCus,
-            });
+            // const responseProduct = yield call(fetchProductAll, payload);
+            // let typeProduct = responseProduct.Items.filter(function(data) {
+            //     return data.type == payload.payload.type
+            // })
+            // yield put({
+            //     type: 'queryProductAll',
+            //     payload: typeProduct,
+            // });
+            // const responseCus = yield call(fetchCustomerAll, payload);
+            // yield put({
+            //     type: 'queryCustomerAll',
+            //     payload: responseCus,
+            // });
         },
 
         * updateProgrammingStatus({ payload }, { call, put }) {
@@ -109,22 +109,34 @@ export default {
 
     reducers: {
         queryProgrammingAll(state, action) {
+            let dates = action.payload;
+            let sortDates = dates.sort(function(dateA, dateB) {
+                return new Date(dateA.Week.substr(0, 10)) - new Date(dateB.Week.substr(0, 10));
+            })
             return {
                 ...state,
-                datesPrograming: action.payload
+                datesPrograming: sortDates
             }
         },
         queryProgrammingAllEdit(state, action) {
+            let dates = action.payload;
+            let sortDates = dates.sort(function(dateA, dateB) {
+                return new Date(dateA.Week.substr(0, 10)) - new Date(dateB.Week.substr(0, 10));
+            })
             return {
                 ...state,
-                datesPrograming: action.payload,
+                datesPrograming: sortDates,
                 editSuccess: true
             }
         },
         queryProgrammingAllPost(state, action) {
+            let dates = action.payload;
+            let sortDates = dates.sort(function(dateA, dateB) {
+                return new Date(dateA.Week.substr(0, 10)) - new Date(dateB.Week.substr(0, 10));
+            })
             return {
                 ...state,
-                datesPrograming: action.payload,
+                datesPrograming: sortDates,
                 postSuccess: true
             }
         },

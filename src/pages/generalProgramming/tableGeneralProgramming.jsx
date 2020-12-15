@@ -1,8 +1,13 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
 import { isMobile } from 'react-device-detect';
-import { Table, Divider, Icon } from 'antd';
+import { Table, Divider, Icon, DatePicker } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
+import moment from 'moment';
+
+const { RangePicker } = DatePicker;
+
+const dateFormat = 'YYYY-MM-DD';
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -16,12 +21,19 @@ const rowSelection = {
 
 class TableGeneralProgramming extends PureComponent {
     render() {
-        const { datesPrograming, cancelProgramming, visibleNewDrawer, onCloseNewDrawer, showEditDrawer, showVisualizar } = this.props;
+        const { datesPrograming, cancelProgramming, visibleNewDrawer, onCloseNewDrawer, showEditDrawer, showVisualizar, filterDates, showFilters } = this.props;
         const columns = [{
             title: formatMessage({ id: "general.calendar.week" }),
             dataIndex: 'Week',
             key: 'Week',
-            width: isMobile ? 100 : 100
+            width: isMobile ? 100 : 150,
+            render: (record) => (
+                <>         
+                    <label>{record.substr(0, 10)  }  </label>      
+                    <Icon type="swap-right"/>
+                    <label>  {  record.substr(11, 10)}</label>   
+                </>
+            )
         },
         {
             title: formatMessage({ id: "general.table.kingproduct" }),
@@ -91,7 +103,7 @@ class TableGeneralProgramming extends PureComponent {
             <div>
                 <Table style={{ marginTop: "2%" }} size="small"
                     // rowSelection={rowSelection}
-                    columns={columns} dataSource={datesPrograming} scroll={isMobile ? { x: 720 } : { x: 950 }} />
+                    columns={columns} dataSource={showFilters === false ? datesPrograming : filterDates} scroll={isMobile ? { x: 720 } : { x: 950 }}/>
             </div>
         );
     }
