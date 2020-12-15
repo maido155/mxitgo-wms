@@ -61,7 +61,7 @@ export default {
         },
         * fetchProductAll({ payload }, { call, put }) {
             const response = yield call(fetchProductAll, payload);
-            let typeProduct = response.Items.filter(function(data) {
+            let typeProduct = response.filter(function(data) {
                 return data.type == payload.payload.type
             })
             yield put({
@@ -111,7 +111,7 @@ export default {
         queryProgrammingAll(state, action) {
             let dates = action.payload;
             let sortDates = dates.sort(function(dateA, dateB) {
-                return new Date(dateA.Week.substr(0, 10)) - new Date(dateB.Week.substr(0, 10));
+                return new Date(dateB.Week.substr(0, 10)) - new Date(dateA.Week.substr(0, 10));
             })
             return {
                 ...state,
@@ -121,7 +121,7 @@ export default {
         queryProgrammingAllEdit(state, action) {
             let dates = action.payload;
             let sortDates = dates.sort(function(dateA, dateB) {
-                return new Date(dateA.Week.substr(0, 10)) - new Date(dateB.Week.substr(0, 10));
+                return new Date(dateB.Week.substr(0, 10)) - new Date(dateA.Week.substr(0, 10));
             })
             return {
                 ...state,
@@ -132,7 +132,7 @@ export default {
         queryProgrammingAllPost(state, action) {
             let dates = action.payload;
             let sortDates = dates.sort(function(dateA, dateB) {
-                return new Date(dateA.Week.substr(0, 10)) - new Date(dateB.Week.substr(0, 10));
+                return new Date(dateB.Week.substr(0, 10)) - new Date(dateA.Week.substr(0, 10));
             })
             return {
                 ...state,

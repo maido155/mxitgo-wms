@@ -406,7 +406,8 @@ class GeneralProgramming extends PureComponent {
     onChangeWeek = (date, dateString) => {
         const { datesPrograming } = this.props;
         let getData = datesPrograming.filter(function(data) {
-            return new Date(data.Week.substr(0, 10)) > new Date(dateString[0]) && new Date(data.Week.substr(0, 10)) < new Date(dateString[1])
+            let dateFind = data.Week.substr(0, 10);
+            return new Date(dateFind.split('/').join('-')).getTime() >= new Date(dateString[0]).getTime() && new Date(dateFind.split('/').join('-')).getTime() <= new Date(dateString[1]).getTime()
         })
         this.setState({
             filterDates: getData,
