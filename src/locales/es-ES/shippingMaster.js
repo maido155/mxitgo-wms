@@ -52,6 +52,7 @@ export default {
     'shipping.entryProducts.title': 'Detalle del producto',
     'shipping.shippingEntry.title': 'Entrada',
     'shipping.modal-delete': '¿Está seguro que quieres cancelar este envío?',
+    'shipping.tablecomponent.title.deletd': '¿Está seguro que quieres eliminar este nueva linea?',
     'shipping.modal-delete-yes': 'Si',
     'shipping.modal-delete-no': 'No',
     'shipping.label.table-shipping.status.new': 'Nuevo',
@@ -89,7 +90,7 @@ export default {
     'shipping.drawerEntry.messageSuccessConfirm': 'Se confirmó con éxito',
     'shipping.drawerEntry.messageSuccessEntry': 'Entrada exitosa',
     'shipping.gridModalEntry.captured': 'Capturado',
-    'shipping.drawerConfirm.messageWarningProducts':'Tiene que agregar un centro'
+    'shipping.drawerConfirm.messageWarningProducts': 'Tiene que agregar un centro'
 
 
 

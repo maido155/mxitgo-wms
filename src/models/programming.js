@@ -26,7 +26,7 @@ export default {
                 payload: response,
             });
             const responseProduct = yield call(fetchProductAll, payload);
-            let typeProduct = responseProduct.Items.filter(function(data) {
+            let typeProduct = responseProduct.filter(function(data) {
                 return data.type == payload.payload.type
             })
             yield put({
@@ -61,7 +61,7 @@ export default {
         },
         * fetchProductAll({ payload }, { call, put }) {
             const response = yield call(fetchProductAll, payload);
-            let typeProduct = response.Items.filter(function(data) {
+            let typeProduct = response.filter(function(data) {
                 return data.type == payload.payload.type
             })
             yield put({

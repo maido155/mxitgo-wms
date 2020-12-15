@@ -51,6 +51,7 @@ export default {
     'shipping.entryProducts.title': 'Product detail',
     'shipping.shippingEntry.title': 'Entry',
     'shipping.modal-delete': 'Are you sure you want to cancel this shipping?',
+    'shipping.tablecomponent.title.deletd': 'Are you sure you want to delete this new line?',
     'shipping.modal-delete-yes': 'Yes',
     'shipping.modal-delete-no': 'No',
     'shipping.label.table-shipping.status.new': 'New',
@@ -88,6 +89,6 @@ export default {
     'shipping.drawerEntry.messageSuccessConfirm': 'Confirmed successfully',
     'shipping.drawerEntry.messageSuccessEntry': 'Entry successfully',
     'shipping.gridModalEntry.captured': 'Captured',
-    'shipping.drawerConfirm.messageWarningProducts':'You have to add a new center'
+    'shipping.drawerConfirm.messageWarningProducts': 'You have to add a new center'
 
 };

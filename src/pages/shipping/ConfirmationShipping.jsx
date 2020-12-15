@@ -94,9 +94,10 @@ class ConfirmationShipping extends PureComponent {
         this.props.form.validateFields((err, values) => {
             if (err) {
                 return;
-            }else if (values["products"]==null){
-                this.props.showMessage('warning', formatMessage({id:'shipping.drawerConfirm.messageWarningProducts'}));
             }
+            // else if (values["products"]==null){
+            //     this.props.showMessage('warning', formatMessage({id:'shipping.drawerConfirm.messageWarningProducts'}));
+            // }
             var date = new Date();
             values["createdBy"] = localStorage.getItem('userName');
             values["date"] = moment().format("YYYY-MM-DD") + "T00:00:00.000Z";
@@ -127,7 +128,8 @@ class ConfirmationShipping extends PureComponent {
             values["warehousesSelect"] = whSelect;
             
             if (this.props.warehouseIds.length === 0) {
-                message.warning(<FormattedMessage id='shipping.drawerEntry.messageWarningCenter'/>); //I18N *****************************************************************************************************
+                this.props.showMessage('warning', formatMessage({id:'shipping.drawerEntry.messageWarningCenter'}));
+                // message.warning(<FormattedMessage id='shipping.drawerEntry.messageWarningCenter'/>); //I18N *****************************************************************************************************
                 return;
             }
             if(this.props.masterMode === "NEW"){
