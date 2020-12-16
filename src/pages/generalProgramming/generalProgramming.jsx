@@ -405,14 +405,20 @@ class GeneralProgramming extends PureComponent {
     }
     onChangeWeek = (date, dateString) => {
         const { datesPrograming } = this.props;
-        let getData = datesPrograming.filter(function(data) {
-            let dateFind = data.Week.substr(0, 10);
-            return new Date(dateFind.split('/').join('-')).getTime() >= new Date(dateString[0]).getTime() && new Date(dateFind.split('/').join('-')).getTime() <= new Date(dateString[1]).getTime()
-        })
-        this.setState({
-            filterDates: getData,
-            showFilters: true
-       })
+        if(date.length !== 0){
+            let getData = datesPrograming.filter(function(data) {
+                let dateFind = data.Week.substr(0, 10);
+                return new Date(dateFind.split('/').join('-')).getTime() >= new Date(dateString[0]).getTime() && new Date(dateFind.split('/').join('-')).getTime() <= new Date(dateString[1]).getTime()
+            })
+            this.setState({
+                filterDates: getData,
+                showFilters: true
+           })
+        }else{
+            this.setState({
+                showFilters: false
+           })
+        }
     }
     render(){
         const { datesPrograming, loading, datesGetProgramming, datesCustomerAll, datesProductAll, editSuccess, postSuccess, boxesEdit, palletsEdit } = this.props;
@@ -477,7 +483,7 @@ class GeneralProgramming extends PureComponent {
                         <div> 
                             <Form style={{paddingRight:"1rem"}} layout="inline" >
                                 <Form.Item {...formItemLayout}>
-                                    <RangePicker style={{ width: 270 }} onChange={this.onChangeWeek} allowClear={false}/>
+                                    <RangePicker style={{ width: 270 }} onChange={this.onChangeWeek}/>
                                 </Form.Item>
                                 <Form.Item style={{padding:"0rem 1rem 0rem 7rem"}} {...formItemLayout}>
                                     <Button type="primary" shape="circle" size="large" onClick={this.showNewDrawer}>
