@@ -128,7 +128,7 @@ class ConfirmationShipping extends PureComponent {
             values["warehousesSelect"] = whSelect;
             
             if (this.props.warehouseIds.length === 0) {
-                this.props.showMessage('warning', formatMessage({id:'shipping.drawerEntry.messageWarningCenter'}));
+                this.props.showMessage('warning', formatMessage({id:'shipping.drawerEntry.messageWarningNewLine'}));
                 // message.warning(<FormattedMessage id='shipping.drawerEntry.messageWarningCenter'/>); //I18N *****************************************************************************************************
                 return;
             }

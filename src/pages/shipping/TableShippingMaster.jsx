@@ -8,11 +8,17 @@ import Styles from './StylesShipping.css';
 import moment from 'moment';
 import { _ } from 'lodash';
 
+
+
 const { Text } = Typography;
 
 class TableShippingMaster extends PureComponent {
+
+
+
   formatDate = (mydate) => {
-    return moment(mydate).format('dddd');
+    let dateFormat = moment(mydate).format('dddd');
+    return dateFormat.charAt(0).toUpperCase() + dateFormat.slice(1)
   };
   dates = (planned, confirmed) => {
     if (confirmed < planned) {
@@ -29,7 +35,7 @@ class TableShippingMaster extends PureComponent {
         dataIndex: 'WMS-1-PK',
         key: 'WMS-1-PK',
         width: isMobile ? 120 : 140,
-        render: text => <a>{text}</a>
+        // render: text => <a>{text}</a>
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.shipping' }),
@@ -116,7 +122,7 @@ class TableShippingMaster extends PureComponent {
         title: formatMessage({ id: 'shipping.label.table-shipping.actions' }),
         key: 'action',
         fixed: 'right',
-        width: isMobile ? 100 : 470,
+        width: isMobile ? 100 : 430,
         render: (record) => (
           <a>
             {record.status == "NEW"
