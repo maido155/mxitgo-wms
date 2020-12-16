@@ -1,13 +1,15 @@
 import React, { PureComponent } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import DrawerGeneralProgramming from './drawerGeneralProgramming'; 
-import { Card, Button, Icon, Modal, Spin, message, notification } from 'antd'; 
+import { Card, Button, Icon, Modal, Spin, message, notification, DatePicker, Form  } from 'antd'; 
 import TableProgramming from './tableGeneralProgramming';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { connect } from 'dva';
 import moment from 'moment';
-moment.locale('es');
+
+moment.locale(localStorage.getItem('language'));
 const { confirm } = Modal;
+const { RangePicker } = DatePicker;
 
 @connect(({ programming, loading }) => ({
     programming,
@@ -33,6 +35,8 @@ class GeneralProgramming extends PureComponent {
         showNew: true,
         editSumPallet: false,
         editSumBoxes: false,
+        filterDates: [],
+        showFilters: false
     }
     componentDidMount() {
         this.props.dispatch({
@@ -399,8 +403,29 @@ class GeneralProgramming extends PureComponent {
     showeditSumBoxes = () => {
         this.setState({ editSumBoxes: true })
     }
+    onChangeWeek = (date, dateString) => {
+        const { datesPrograming } = this.props;
+        if(date.length !== 0){
+            let getData = datesPrograming.filter(function(data) {
+                let dateFind = data.Week.substr(0, 10);
+                return new Date(dateFind.split('/').join('-')).getTime() >= new Date(dateString[0]).getTime() && new Date(dateFind.split('/').join('-')).getTime() <= new Date(dateString[1]).getTime()
+            })
+            this.setState({
+                filterDates: getData,
+                showFilters: true
+           })
+        }else{
+            this.setState({
+                showFilters: false
+           })
+        }
+    }
     render(){
         const { datesPrograming, loading, datesGetProgramming, datesCustomerAll, datesProductAll, editSuccess, postSuccess, boxesEdit, palletsEdit } = this.props;
+        const formItemLayout = {
+            labelCol: { xs: { span: 24 }, sm: { span: 7 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 5 } },
+            wrapperCol: { xs: { span: 24 }, sm: { span: 14 }, md: { span: 15 }, lg: { span: 15 }, xl: { span: 15 } }
+        };
         if(editSuccess){
             this.UpdateValidation();
             this.onCloseNewDrawer();
@@ -455,16 +480,30 @@ class GeneralProgramming extends PureComponent {
                 />
                 <PageHeaderWrapper 
                     extra={
-                        <div style={{paddingRight:"2rem"}}> 
-                            <Button type="primary" shape="circle" size="large" onClick={this.showNewDrawer}>
-                                <Icon type="plus"/>
-                            </Button>
+                        <div> 
+                            <Form style={{paddingRight:"1rem"}} layout="inline" >
+                                <Form.Item {...formItemLayout}>
+                                    <RangePicker style={{ width: 270 }} onChange={this.onChangeWeek}/>
+                                </Form.Item>
+                                <Form.Item style={{padding:"0rem 1rem 0rem 7rem"}} {...formItemLayout}>
+                                    <Button type="primary" shape="circle" size="large" onClick={this.showNewDrawer}>
+                                        <Icon type="plus"/>
+                                    </Button>
+                                </Form.Item>
+                            </Form>
                         </div>}>
                     <Card>
                         <Spin tip={formatMessage({id: "general.loading"})} spinning={loading}>
                             <div align="right">
                                 
-                                <TableProgramming datesPrograming={datesPrograming} cancelProgramming={this.cancelProgramming} showEditDrawer={this.showEditDrawer} showVisualizar={this.showVisualizar}/>
+                                <TableProgramming 
+                                    datesPrograming={datesPrograming} 
+                                    cancelProgramming={this.cancelProgramming} 
+                                    showEditDrawer={this.showEditDrawer} 
+                                    showVisualizar={this.showVisualizar}
+                                    filterDates={this.state.filterDates}
+                                    showFilters={this.state.showFilters}
+                                />
                             </div>
                         </Spin>
                     </Card>
