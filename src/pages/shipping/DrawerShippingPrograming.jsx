@@ -10,9 +10,6 @@ import moment from 'moment';
 
 const { TextArea } = Input;
 
-function disabledDate(current) {
-    return current && current < moment().endOf('day');
-}
 class DrawerShippingPrograming extends PureComponent {
     state= {
         departureDate: '',
@@ -23,6 +20,19 @@ class DrawerShippingPrograming extends PureComponent {
         currentLoader: false,
         removeLocation: false,
         whName: "",
+        deliveryDateShow: true,
+        entryDateShow: true
+    }
+    disabledDateDeparture = (current) => {
+        return current && current < moment().endOf('day');
+    }
+    disabledDateDelivery = (current) => {
+        const { departureDate } = this.state
+        return current && current < departureDate
+    }
+    disabledDateEntry = (current) => {
+        const { deliveryDate } = this.state
+        return current && current < deliveryDate
     }
     saveFormRefNewLine = (formRef) => {
         this.formRefNewLine = formRef;
@@ -43,7 +53,8 @@ class DrawerShippingPrograming extends PureComponent {
         this.props.closeNewLine();
     }
     drawerCancelSelect = () => {
-        this.setState({whName: ""});
+        this.setState({whName: "", deliveryDateShow: true, entryDateShow: true});
+        this.props.form.resetFields();
         this.props.closeDrawerShipping();
     }
     handleSubmitNewLine = (sLineMode, oState, oWarehouseData) => {
@@ -131,14 +142,15 @@ class DrawerShippingPrograming extends PureComponent {
             values["entryDate"] == "" ? values["entryDate"] = this.props.oShippingItem.originalEntryDate : values["entryDate"]; 
         }
             _self.props.saveShipping(values);
+            this.setState({deliveryDateShow: true, entryDateShow: true});
             this.props.form.resetFields();
         });
     }
     onDepartureDate = (value, dateString) => {
-        this.setState({ departureDate: value })
+        this.setState({ departureDate: value, deliveryDateShow: false})
     }
     onDeliveryDate = (value, dateString) => {
-        this.setState({ deliveryDate: value })
+        this.setState({ deliveryDate: value,  entryDateShow: false})
     }
     onEntryDate = (value, dateString) => {
         this.setState({ entryDate: value })
@@ -198,21 +210,21 @@ class DrawerShippingPrograming extends PureComponent {
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-exit' })}>
                                         {getFieldDecorator('departureDate',
                                             { initialValue: masterMode == "NEW" ? "" : moment(oShippingItem.departureDate, "YYYY-MM-DD") , rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.dateMissing'/> }] })
-                                            (<DatePicker style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onDepartureDate} />)}
+                                            (<DatePicker style={{ width: '100%' }} disabledDate={this.disabledDateDeparture} onChange={this.onDepartureDate} />)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-arrival' })}>
                                         {getFieldDecorator('deliveryDate',
                                             { initialValue: masterMode == "NEW" ? "" : moment(oShippingItem.deliveryDate, "YYYY-MM-DD") , rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.dateMissing'/> }] })
-                                            (<DatePicker style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onDeliveryDate} />)}
+                                            (<DatePicker style={{ width: '100%' }} disabledDate={this.disabledDateDelivery} onChange={this.onDeliveryDate} disabled={this.state.deliveryDateShow}/>)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>
                                     <Form.Item label={formatMessage({ id: 'shipping.drawershipping.label.date-entry' })}>
                                         {getFieldDecorator('entryDate',
                                             { initialValue: masterMode == "NEW" ? "" : moment(oShippingItem.entryDate, "YYYY-MM-DD") , rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.dateMissing'/> }] })
-                                            (<DatePicker style={{ width: '100%' }} disabledDate={disabledDate} onChange={this.onEntryDate} />)}
+                                            (<DatePicker style={{ width: '100%' }} disabledDate={this.disabledDateEntry} onChange={this.onEntryDate} disabled={this.state.entryDateShow}/>)}
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>

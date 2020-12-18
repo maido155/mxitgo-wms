@@ -35,7 +35,9 @@ class TableShippingMaster extends PureComponent {
         dataIndex: 'WMS-1-PK',
         key: 'WMS-1-PK',
         width: isMobile ? 120 : 140,
-        // render: text => <a>{text}</a>
+        render: (record) => (
+          record.substr(7)
+        )
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.shipping' }),
@@ -122,7 +124,7 @@ class TableShippingMaster extends PureComponent {
         title: formatMessage({ id: 'shipping.label.table-shipping.actions' }),
         key: 'action',
         fixed: 'right',
-        width: isMobile ? 100 : 430,
+        width: isMobile ? 100 : 460,
         render: (record) => (
           <a>
             {record.status == "NEW"

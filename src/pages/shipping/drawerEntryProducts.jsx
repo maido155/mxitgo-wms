@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
-import { Drawer, Button, Form, InputNumber,Upload, Icon, message, Input, notification } from 'antd';
+import { Drawer, Button, Form, InputNumber,Upload, Icon, message, Input, notification, Typography } from 'antd';
 import {isMobile} from 'react-device-detect';
 import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
 
+const { Text } = Typography;
 
 function getBase64(img, callback) {
     const reader = new FileReader();
@@ -125,7 +126,7 @@ class drawerEntryProducts extends PureComponent {
             labelCol: {xs: { span: 24 },sm: { span: 24 },md: { span: 8 },lg: { span: 8 },xl: { span: 6 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 24 },md: { span: 12 },lg: { span: 12 },xl: { span: 14 }}
         };
-        const { oShippingItem, typeProduct } = this.props;
+        const { oShippingItem, typeProduct, quantities } = this.props;
         const { getFieldDecorator } = this.props.form;
         const uploadButton = (
             <div>
@@ -143,6 +144,9 @@ class drawerEntryProducts extends PureComponent {
                 bodyStyle={{ paddingBottom: 80 }}
             >
                 <Form {...formItemLayout} onSubmit={this.handleEntryProduct} style={{marginTop: "5rem"}} >
+                    <Form.Item label={formatMessage({ id: 'shipping.entryProducts.confirmed' })}>
+                        <Text strong>{quantities}</Text>  
+                    </Form.Item>
                     <Form.Item label={formatMessage({ id: 'shipping.entryProducts.amounts' })}>
                         {getFieldDecorator('entryProduct',{ initialValue: this.typeProductName(oShippingItem), 
                         rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.amountMissing'/> }] })(<InputNumber style={{ width: "100%"}} disabled={disabledInputs}/>)}

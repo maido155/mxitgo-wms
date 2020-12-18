@@ -62,31 +62,31 @@ class drawerEntry extends PureComponent {
         ],
         dataProduct: [{
             id: "PRODUCT-1",
-            quantities: 0,
+            quantities: '0',
             temperature: "",
             urlImage: ""
         },
         {
             id: "PRODUCT-2",
-            quantities: 0,
+            quantities: '0',
             temperature: "",
             urlImage: ""
         },
         {
             id: "PRODUCT-3",
-            quantities: 0,
+            quantities: '0',
             temperature: "",
             urlImage: ""
         },
         {
             id: "PRODUCT-4",
-            quantities: 0,
+            quantities: '0',
             temperature: "",
             urlImage: ""
         },
         {
             id: "PRODUCT-5",
-            quantities: 0,
+            quantities: '0',
             temperature: "",
             urlImage: ""
         }

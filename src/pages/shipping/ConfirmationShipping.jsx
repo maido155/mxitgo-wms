@@ -197,7 +197,7 @@ class ConfirmationShipping extends PureComponent {
                             <Row>
                                 <Col lg={12} xl={12}>
                                     < Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.id-order' })}>
-                                        <Text strong>{oShippingItem.idShipping}</Text>  
+                                        <Text strong>{oShippingItem.idShipping === undefined ? '' : oShippingItem.idShipping.substr(7)}</Text>  
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>

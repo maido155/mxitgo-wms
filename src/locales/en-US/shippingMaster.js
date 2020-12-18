@@ -46,6 +46,7 @@ export default {
     'shipping.shippingconfirmation.comments': 'Comments',
     'shipping.shippingconfirmation.photo': 'Photo',
     'shipping.entryProducts.amounts': 'Amounts',
+    'shipping.entryProducts.confirmed': 'Confirmed',
     'shipping.entryProducts.temperature': 'Temperature',
     'shipping.entryProducts.photo': 'Photo',
     'shipping.entryProducts.title': 'Product detail',

@@ -8,13 +8,16 @@ const columns = [
       title: formatMessage({ id: 'shipping.label.table-shipping.id' }),
       dataIndex: 'idShipping',
       key: 'idShipping',
-      width: 110,
+      width: 95,
+      render: (record) => (
+        record.substr(7)
+      )
     },
     {
       title: formatMessage({ id: 'shipping.label.table-shipping.ubication' }),
       dataIndex: 'destinity',
       key: 'destinity',
-      width: 100,
+      width: 115,
     },
     {
       title: formatMessage({ id: 'shipping.label.table-shipping.output' }),
