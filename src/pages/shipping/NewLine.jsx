@@ -259,7 +259,7 @@ const NewLine = Form.create()(
                                                         : formatMessage({ id: 'shipping.tablecomponent.label.no-label'})
                                     }>
                                         {getFieldDecorator(item['WMS-1-SK'],{initialValue: this.getNewLineEdit(item,lineData),rules: [{ required: true, message: <FormattedMessage id="shipping.newLine.missingValue" /> }] })
-                                        (<InputNumber min={0} max={500}  style={{ width: '100%' }} disabled={oShippingItem.Operator == undefined ? false : oShippingItem.Operator == "" ? false : true}/>)}
+                                        (<InputNumber min={0}  style={{ width: '100%' }} disabled={oShippingItem.Operator == undefined ? false : oShippingItem.Operator == "" ? false : true}/>)}
                                     </Form.Item>
                                 ))}
                                 <div

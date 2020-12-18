@@ -19,10 +19,10 @@ class TableComponent extends PureComponent {
     let _self = this;
     confirm({
       title: formatMessage({ id: 'shipping.tablecomponent.title.deletd' }) ,
-      content: 'Some descriptions',
-      okText: formatMessage({ id: 'shipping.tablecomponent.text.ok' }),
+      // content: 'Some descriptions',
+      okText: formatMessage({ id: 'shipping.modal-delete-yes' }),
       okType: 'danger',
-      cancelText: formatMessage({ id: 'shipping.tablecomponent.text.cancel' }),
+      cancelText: formatMessage({ id: 'shipping.modal-delete-no' }),
       onOk() {
         _self.props.dispatch({
           type: 'shipping/removeWarehouse',
