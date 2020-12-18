@@ -476,7 +476,7 @@ class ShippingMaster extends PureComponent {
                     <div >
                         <Form style={{paddingRight:"1rem"}} layout="inline" >  
                             <Form.Item {...formItemLayout}  label={formatMessage({id: "outComming.label.week"})}>
-                                <DatePicker format="YYYY-MM-DD" style={{ width: 200 }} disabledDate={disabledDate} onChange={(date,dateString)=>{this.onChangeWeek(date,dateString,this)}}/>
+                                <DatePicker format="YYYY-MM-DD" style={{ width: 200 }} disabledDate={disabledDate} onChange={(date,dateString)=>{this.onChangeWeek(date,dateString,this)}} disabled={this.state.currentLoader}/>
                             </Form.Item>
                             <Form.Item style={{padding:"0rem 1rem 0rem 7rem"}} {...formItemLayout}>
                                 <Button type="primary" shape="circle" size="large" onClick={() => {this.showDrawerShipping("NEW")}}>
