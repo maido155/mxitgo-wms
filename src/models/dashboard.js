@@ -227,7 +227,11 @@ export default {
         dashboardGetMasterTotalReducer(state, action) {
 
             console.log("dashboardGetMasterTotalReducer: " + JSON.stringify(action.payload));
-
+            if(action.payload.programmingTotal==0){
+                action.payload.confirmed = 0;
+                action.payload.cancelled = 0;
+                action.payload.new = 0;
+            }
 
 
             return {
