@@ -276,8 +276,19 @@ export default class Dashboard extends PureComponent {
 
     return (
       <PageHeaderWrapper
-        spin={this.state.loading}
-        content={<div>
+      spin={this.state.loading}
+      extra={
+        <Form  layout="inline" >
+          <Form.Item {...formItemLayout} label={formatMessage({id: "general.calendar.week"})}>
+            <DatePicker format="YYYY-MM-DD" disabledDate={disabledDate} onChange={this.onPickerChange} allowClear={false} disabled={this.state.loading}/>
+          </Form.Item>
+          
+
+     
+        </Form>
+      }
+        >
+        <Card type="inner">
           <Spin spinning={this.state.loading}>
           <Card type="inner" size="small" style={{textAlign:"center"}}  title={<FormattedMessage id='dashboard.text.totals'/>}>
           
@@ -316,17 +327,8 @@ export default class Dashboard extends PureComponent {
           </Row>
           </Card>
           </Spin>
-        </div>}
-        extra={
-          <Form  layout="inline" >
-            <Form.Item {...formItemLayout} label={formatMessage({id: "general.calendar.week"})}>
-              <DatePicker format="YYYY-MM-DD" disabledDate={disabledDate} onChange={this.onPickerChange} allowClear={false}/>
-            </Form.Item>
-            
-
-       
-          </Form>
-        }>
+          </Card>
+        
         <Card type="inner" 
               style={{textAlign:"center"}}  
               
@@ -334,8 +336,10 @@ export default class Dashboard extends PureComponent {
                   <div>
                   <span>{formatMessage({id: "general.button-product.product"})}: &nbsp;</span>
                   <SelectProduct 
-                  datesProductAll={products.productsAll} 
-                  handleProduct={this.onProductChange}/>
+                  datesProductAll={products.productsAll.Items} 
+                  handleProduct={this.onProductChange}
+                  disabled={this.state.currentSelectedDate}
+                  loading={this.state.loading}/>
                   </div>
                 
               }>
