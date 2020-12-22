@@ -7,11 +7,19 @@ import { isMobile } from 'react-device-detect';
 
 
 export default class AssignmentOutComming extends PureComponent {
+    state = {
+        boxesAssgn: 0
+    }
+
     onReset = (_this) => {
         _this.props.restartOutcomming(_this.props.currentOutcomming.key);
     }
+    boxesRequired = (data) => {
+        const { boxesAssgn } = this.state;
+        return boxesAssgn + ' de ' + data + ' cajas asignadas'
+    }
     render() {
-        let { dataOutcommingsByEntry } = this.props;
+        let { dataOutcommingsByEntry, boxesRequired } = this.props;
         console.log("AssignmentOutComming");
         console.log(dataOutcommingsByEntry);
         return (
@@ -29,7 +37,7 @@ export default class AssignmentOutComming extends PureComponent {
                         <Icon type="shopping-cart" />
                     </Col>
                     <Col xs={24} sm={12} md={9} lg={7} xl={5} style={{ textAlign: "center" }}>
-                        <FormattedMessage id="outComming.label.products-assignment-outcomming" />
+                        {this.boxesRequired(boxesRequired)}
                     </Col>
                     <Col xs={24} sm={8} md={8} lg={6} xl={3} style={{ textAlign: "center" }}>
                         <Button
@@ -50,7 +58,16 @@ export default class AssignmentOutComming extends PureComponent {
                             currentOutcomming={this.props.currentOutcomming}
                             visibleAssignProduct={this.props.visibleAssignProduct}
                             setVisibleAssignProduct={this.props.setVisibleAssignProduct}
-                            currentShipping={this.props.currentShipping} 
+                            
+                            pallets={this.props.pallets}
+                            box={this.props.box}
+                            currentValuePallet={this.props.currentValuePallet}
+                            currentValueBox={this.props.currentValueBox}
+                            isFirstTime={this.props.isFirstTime}
+                            shipment={this.props.shipment}
+
+                            boxesRequired={boxesRequired}
+                            
                             setCurrentShipping={this.props.setCurrentShipping}
                             dataOutcommingsByEntry={dataOutcommingsByEntry}
                         />

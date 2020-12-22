@@ -9,7 +9,8 @@ import {isMobile} from 'react-device-detect';
 export default class TableOutComming extends PureComponent {
     state = { 
         currentRecord: "",
-        recordKey: ""
+        recordKey: "",
+        boxesAssign: ''
     };
     showDrawerAssig = (item) => {
         console.log("assign")
@@ -18,6 +19,7 @@ export default class TableOutComming extends PureComponent {
         this.setState({
           currentRecord: item,
           recordKey: oc,
+          boxesAssign: item.boxs.split('/')[1]
         });
         
         this.props.getOutcommingByEntry(oc,this.props.productKey);
@@ -119,8 +121,16 @@ export default class TableOutComming extends PureComponent {
                         visibleAssignProduct={this.props.visibleAssignProduct} 
                         setVisibleAssignProduct={this.props.setVisibleAssignProduct}
                         setCurrentShipping={this.props.setCurrentShipping}
-                        currentShipping={this.props.currentShipping} 
+                        
+                        pallets={this.props.pallets}
+                        box={this.props.box}
+                        currentValuePallet={this.props.currentValuePallet}
+                        currentValueBox={this.props.currentValueBox}
+                        isFirstTime={this.props.isFirstTime}
+                        shipment={this.props.shipment}
+
                         dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
+                        boxesRequired={this.state.boxesAssign}
                 />
                 <CompositionOutComming
                     loading = {this.props.loading}
@@ -137,12 +147,20 @@ export default class TableOutComming extends PureComponent {
                     recordKey= {this.state.recordKey}
                     visibleAssignProduct={this.props.visibleAssignProduct} 
                     setVisibleAssignProduct={this.props.setVisibleAssignProduct}
-                    setCurrentShipping={this.props.setCurrentShipping}
-                    currentShipping={this.props.currentShipping} 
+                   
+                    pallets={this.props.pallets}
+                    box={this.props.box}
+                    currentValuePallet={this.props.currentValuePallet}
+                    currentValueBox={this.props.currentValueBox}
+                    isFirstTime={this.props.isFirstTime}
+                    shipment={this.props.shipment}
+
                     dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
                     getOutcommingByEntry={this.props.getOutcommingByEntry}
+
+                    boxesRequired={this.state.boxesAssign}
                 />
-                <Table loading = {this.props.loading} columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
+                <Table rowKey="uid" loading = {this.props.loading} columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
             </div>
         );            
     }

@@ -29,7 +29,7 @@ export default class TableAssignment extends PureComponent {
     this.props.setVisibleAssignProduct(false);
   }
   render() {
-    let { dataOutcommingsByEntry } = this.props;
+    let { dataOutcommingsByEntry, boxesRequired } = this.props;
     console.log("TableAssignment");
     console.log(dataOutcommingsByEntry);
     const columns = [
@@ -82,7 +82,14 @@ export default class TableAssignment extends PureComponent {
           onClose={this.onDrawerAssigProduct}
           currentOutcomming={this.props.currentOutcomming}
           // currentShipping={this.state.currentItem} />
-          currentShipping={this.props.currentShipping} />
+          pallets={this.props.pallets}
+          box={this.props.box}
+          currentValuePallet={this.props.currentValuePallet}
+          currentValueBox={this.props.currentValueBox}
+          isFirstTime={this.props.isFirstTime}
+          shipment={this.props.shipment}
+          boxesRequired={boxesRequired}
+          />
         <Table
           loading={this.props.loading}
           columns={columns}
