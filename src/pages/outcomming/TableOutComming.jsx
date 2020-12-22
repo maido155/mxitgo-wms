@@ -10,7 +10,9 @@ export default class TableOutComming extends PureComponent {
     state = { 
         currentRecord: "",
         recordKey: "",
-        boxesAssign: ''
+        boxesAssign: '',
+        assignedBox: '',
+        dayDatedatesOutcomming: ''
     };
     showDrawerAssig = (item) => {
         console.log("assign")
@@ -19,7 +21,9 @@ export default class TableOutComming extends PureComponent {
         this.setState({
           currentRecord: item,
           recordKey: oc,
-          boxesAssign: item.boxs.split('/')[1]
+          boxesAssign: item.boxs.split('/')[1],
+          assignedBox: item.assignedBox,
+          dayDatedatesOutcomming: item.dayDate
         });
         
         this.props.getOutcommingByEntry(oc,this.props.productKey);
@@ -131,6 +135,9 @@ export default class TableOutComming extends PureComponent {
 
                         dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
                         boxesRequired={this.state.boxesAssign}
+                        assignedBox={this.state.assignedBox}
+                        dayDatedatesOutcomming={this.state.dayDatedatesOutcomming}
+                        datesOutcomming={datesOutcomming}
                 />
                 <CompositionOutComming
                     loading = {this.props.loading}
@@ -159,6 +166,9 @@ export default class TableOutComming extends PureComponent {
                     getOutcommingByEntry={this.props.getOutcommingByEntry}
 
                     boxesRequired={this.state.boxesAssign}
+                    assignedBox={this.state.assignedBox}
+                    dayDatedatesOutcomming={this.state.dayDatedatesOutcomming}
+                    datesOutcomming={datesOutcomming}
                 />
                 <Table rowKey="uid" loading = {this.props.loading} columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
             </div>

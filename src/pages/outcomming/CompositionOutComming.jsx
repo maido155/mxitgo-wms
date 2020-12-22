@@ -80,6 +80,9 @@ export default class CompositionOutComming extends PureComponent {
                     dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
 
                     boxesRequired={this.props.boxesRequired}
+                    assignedBox={this.props.assignedBox}
+                    dayDatedatesOutcomming={this.props.dayDatedatesOutcomming}
+                    datesOutcomming={this.props.datesOutcomming}
                 />
             </div>
         );            
