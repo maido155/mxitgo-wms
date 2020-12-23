@@ -7,13 +7,51 @@ import { isMobile } from 'react-device-detect';
 
 
 export default class AssignmentOutComming extends PureComponent {
+    state = {
+        boxesAssgn: 0,
+        buttonAssign: false,
+        buttonReset: true
+    }
+
     onReset = (_this) => {
-        _this.props.restartOutcomming(_this.props.currentOutcomming.key);
+        const { datesOutcomming, currentOutcomming } = this.props;
+        let getOutComming = datesOutcomming.filter(function(data){
+            return data.dayDate === currentOutcomming.dayDate;
+        })
+        _this.props.restartOutcomming(getOutComming[0].key);
+    }
+    boxesRequired = (boxes, assignedBox) => {
+        const { dayDatedatesOutcomming, datesOutcomming } = this.props;
+        let getOutComming = datesOutcomming.filter(function(data){
+            return data.dayDate === dayDatedatesOutcomming;
+        })
+        let boxesShow = getOutComming.length === 0 || getOutComming === undefined ? 0 : getOutComming[0].assignedBox;
+
+        if( boxesShow === parseInt(boxes)){
+            this.setState({
+                buttonAssign: true
+            })
+        }else{
+            this.setState({
+                buttonAssign: false
+            }) 
+        }
+
+        if(boxesShow === 0 || parseInt(boxesShow) === 0){
+            this.setState({
+                buttonReset: true
+            })   
+        }else{
+            this.setState({
+                buttonReset: false
+            }) 
+        }
+
+        return boxesShow + ' de ' + boxes + ' cajas asignadas'
     }
     render() {
-        let { dataOutcommingsByEntry } = this.props;
-        console.log("AssignmentOutComming");
-        console.log(dataOutcommingsByEntry);
+        let { dataOutcommingsByEntry, boxesRequired, assignedBox, currentOutcomming } = this.props;
+        const { buttonReset } = this.state;
         return (
             <Drawer
                 title={`${formatMessage({ id: 'outComming.label.assignment-outcomming' })} -  ${this.props.productDesc}  `}
@@ -29,11 +67,11 @@ export default class AssignmentOutComming extends PureComponent {
                         <Icon type="shopping-cart" />
                     </Col>
                     <Col xs={24} sm={12} md={9} lg={7} xl={5} style={{ textAlign: "center" }}>
-                        <FormattedMessage id="outComming.label.products-assignment-outcomming" />
+                        {this.boxesRequired(boxesRequired, assignedBox)}
                     </Col>
                     <Col xs={24} sm={8} md={8} lg={6} xl={3} style={{ textAlign: "center" }}>
                         <Button
-                            disabled={this.props.recordKey == "" ? true : false}
+                            disabled={buttonReset}
                             type="danger"
                             onClick={() => { this.onReset(this) }}>
                             <FormattedMessage id="outComming.button.assignment-outcomming" />
@@ -50,9 +88,23 @@ export default class AssignmentOutComming extends PureComponent {
                             currentOutcomming={this.props.currentOutcomming}
                             visibleAssignProduct={this.props.visibleAssignProduct}
                             setVisibleAssignProduct={this.props.setVisibleAssignProduct}
-                            currentShipping={this.props.currentShipping} 
+                            
+                            pallets={this.props.pallets}
+                            box={this.props.box}
+                            currentValuePallet={this.props.currentValuePallet}
+                            currentValueBox={this.props.currentValueBox}
+                            isFirstTime={this.props.isFirstTime}
+                            shipment={this.props.shipment}
+
+                            boxesRequired={boxesRequired}
+                            assignedBox={this.props.assignedBox}
+                            datesOutcomming={this.props.datesOutcomming}
+                            dayDatedatesOutcomming={this.props.dayDatedatesOutcomming}
+                            
                             setCurrentShipping={this.props.setCurrentShipping}
                             dataOutcommingsByEntry={dataOutcommingsByEntry}
+
+                            buttonAssign={this.state.buttonAssign}
                         />
                     </Col>
                 </Row>

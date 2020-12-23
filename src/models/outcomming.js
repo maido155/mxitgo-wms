@@ -24,7 +24,7 @@ export default {
                 payload: responseGetOutComming,
             });
         },
-        *outcommingRemove({payload},{call,put}){
+        * outcommingRemove({ payload }, { call, put }) {
             yield put({
                 type: 'outcommingReducerRemove',
                 payload: payload
@@ -72,7 +72,7 @@ export default {
                 payload: responseOCvsSH,
             });
         },
-        * restartOutcomming({ payload }, { call, put }) {
+        * restartOutcomming(payload, { call, put }) {
 
             const response = yield call(restartOutcomming, payload.payload);
             console.log(response);
@@ -156,20 +156,20 @@ export default {
             return {
                 ...state,
                 datesOutcomming: action.payload
-        	}
+            }
         },
         postOutcommingReducer(state, action) {
             return {
                 ...state,
                 postOutcommingSuccess: true,
-               // datesOutcomming: []
+                datesOutcomming: action.payload
             }
         },
         restartOutcommingReducer(state, action) {
             return {
                 ...state,
                 restartOutcommingSuccess: true,
-               // datesOutcomming: []
+                // datesOutcomming: []
             }
         },
         getOutcommingsByEntryReducer(state, action) {
@@ -177,8 +177,12 @@ export default {
                 ...state,
                 dataOutcommingsByEntry: action.payload
             }
-        },        
+        },
+        outcommingReducerRemove(state, action) {
+            return {
+                ...state,
+                datesOutcomming: []
+            }
+        }
     }
 }
-
-   

@@ -31,7 +31,13 @@ export default class OutComming extends PureComponent {
         visibleAssign: false, //flag for tableOutcooming
         visibleCompo: false, //flag for tableOutcooming
         visibleAssignProduct: false, //flag for Assign Product
-        currentShipping:{}
+
+        pallets: 0,
+        box: 0,
+        currentValuePallet: 0,
+        currentValueBox: 0,
+        isFirstTime: false,
+        shipment: ''
     }
     
     componentDidMount() {
@@ -157,7 +163,10 @@ export default class OutComming extends PureComponent {
          
         this.props.dispatch({  
             type: 'outcomming/getComposition',  
-            payload: {PK: id}
+            payload: {
+                PK: id,
+                Authorization: sessionStorage.getItem('idToken')
+            }
         }); 
 
     };
@@ -184,7 +193,8 @@ export default class OutComming extends PureComponent {
                     DateFrom: context.state.dateFrom, //for getOutcomming
                     DateTo: context.state.dateTo, //for getOutcomming
                     Product: payload.skProduct, //for getOutcomming
-                    Customer: payload.skCustomer //for getOutcomming
+                    Customer: payload.skCustomer, //for getOutcomming
+                    Authorization: sessionStorage.getItem('idToken')
                 }    
             }
         }); 
@@ -199,7 +209,8 @@ export default class OutComming extends PureComponent {
                 Product: context.state.product,
                 Customer: context.state.customer, 
                 DateFrom: context.state.dateFrom, 
-                DateTo: context.state.dateTo
+                DateTo: context.state.dateTo,
+                Authorization: sessionStorage.getItem('idToken')
             }
         }); 
     }
@@ -242,7 +253,12 @@ export default class OutComming extends PureComponent {
 
     setCurrentShipping=(value)=>{
         this.setState({
-            currentShipping: value,
+            pallets: value.availables_pallets,
+            box: value.availables_boxes,
+            currentValuePallet: value.availables_pallets,
+            currentValueBox: value.availables_boxes,
+            isFirstTime: false,
+            shipment: value.shipment
         })
     };
 
@@ -276,7 +292,15 @@ export default class OutComming extends PureComponent {
                                     productDesc={this.state.productDesc} 
                                     productKey={this.state.product} 
                                     visibleAssignProduct={this.state.visibleAssignProduct} 
-                                    currentShipping={this.state.currentShipping} 
+
+                                    pallets={this.state.pallets}
+                                    box={this.state.box}
+                                    currentValuePallet={this.state.currentValuePallet}
+                                    currentValueBox={this.state.currentValueBox}
+                                    isFirstTime={this.state.isFirstTime}
+                                    shipment={this.state.shipment}
+
+
                                     setVisibleAssignProduct={this.setVisibleAssignProduct} 
                                     setCurrentShipping={this.setCurrentShipping} 
                                     visibleAssign={this.state.visibleAssign} 

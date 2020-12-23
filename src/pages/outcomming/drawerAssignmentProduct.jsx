@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
-import { Drawer, Button, Form, InputNumber, Input } from 'antd';
+import { Drawer, Button, Form, InputNumber, Input, message } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { isMobile } from 'react-device-detect';
 import { Typography } from 'antd';
@@ -9,94 +9,92 @@ const { Text } = Typography;
 
 export default class DrawerAssignmentProduct extends PureComponent {
     state = {
-        pallets: 0,
-        box: 0,
-        //isFirstTime: true,
-        // newBoxValue: 0,
-        currentValuePallet: 0,
-        currentValueBox: 0
+        palletsResult: '',
+        boxesResult: 0,
+        iValuePallet: 0,
+        iValueBox: 0,
     }
 
     onChangeQuantityPallet = (e) => {
-        let quantityBoxes = this.handleChangePallet();
-        this.props.datesProductAll;
 
+        const { pallets,  box, currentValuePallet , currentValueBox, isFirstTime, boxesRequired } = this.props;
 
-        let remaingQtyPallet = this.state.originalPallets;
-        // var newBoxValue = remaingQtyPallet * quantityBoxes;
+        let quantityBoxes = this.handleChangePallet(); // obtenemos la cantidad del tipo de producto ( premium = 25, gold = 20)
 
-        var remaingQtyBox = this.state.originalBox;
+        let remaingQtyPallet = currentValuePallet; // pallets disponibles
+        let remaingQtyBox = currentValueBox; // cajas disponibles
 
-        var currentValuePallet = e;
+        let valuePallet = e; // pallets seleccionadas
 
-        if (e === "") {
-            remaingQtyPallet;
-            currentValuePallet = 0;
-        } else {
-            remaingQtyPallet = remaingQtyPallet - currentValuePallet;
+        let rPallets = remaingQtyPallet - valuePallet; // pallets resultado 
 
-            // Box - Updated Value
-            remaingQtyBox = remaingQtyBox - (quantityBoxes * currentValuePallet);
+        let boxesDis = remaingQtyBox - (valuePallet * quantityBoxes); // boxes resultado 
 
-            // newBoxValue = quantityBoxes * currentValuePallet;
-            if (Math.sign(remaingQtyPallet) === -1) {
-                remaingQtyPallet = 0;
-                remaingQtyBox = 0;
-            }
+        let boxesShow;
 
-
+        if(boxesDis > 0 ){
+            boxesShow = remaingQtyBox - boxesDis;
+        }else{
+            boxesDis = 0;
+            boxesShow = remaingQtyBox;
         }
 
         this.setState({
-            pallets: remaingQtyPallet,
-            currentValueBox: quantityBoxes * currentValuePallet,
-            box: remaingQtyBox,
-            currentValuePallet: currentValuePallet
-        });
+            palletsResult: rPallets,
+            iValuePallet: valuePallet,
+            iValueBox: boxesShow,
+            boxesResult: boxesDis
+        })
+
     }
 
     onChangeQuantityBox = (e) => {
-        var remaingQtyBox = this.state.originalBox;
+
+        const { pallets,  box, currentValuePallet , currentValueBox, isFirstTime } = this.props;
+
         let quantityBoxes = this.handleChangePallet();
-        var currentValuePallet = this.state.originalPallets;
 
-        var a = currentValuePallet;
+        let palletsMath = e / quantityBoxes;
 
-        var currentValueBox = e;
+        palletsMath = Math.ceil(palletsMath);
 
-        if (e === "") {
-            remaingQtyBox;
-            currentValueBox = 0;
-            a = 0;
-        } else {
-            currentValuePallet = (remaingQtyBox / quantityBoxes) - currentValueBox;
-            a = (remaingQtyBox / quantityBoxes) - currentValueBox;
-            // remaingQtyBox = remaingQtyBox - (quantityBoxes * currentValuePallet);
-            remaingQtyBox = remaingQtyBox - e;
-
-            if (Math.sign(remaingQtyBox) === -1) {
-                remaingQtyPallet = 0;
-                remaingQtyBox = 0;
-            }
-        }
+        let palletsDis = currentValuePallet - palletsMath;
+        let boxesDis = currentValueBox - e
 
         this.setState({
-            box: remaingQtyBox,
-            currentValueBox: currentValueBox,
-            pallets: currentValuePallet,
-            currentValuePallet: currentValuePallet
-        });
+            iValueBox: e,
+            iValuePallet: palletsMath,
+            palletsResult: palletsDis,
+            boxesResult: boxesDis
+        })
     };
 
     handleChangePallet = () => {
+
         let currentProduct = this.props.currentOutcomming.product;
+
         var filteredItem = this.props.datesProductAll.filter((el) => {
             if (el.productName === currentProduct) return el;
         });
+
         return filteredItem[0].quantityBoxes;
+
     }
 
     onAccept = (_this) => {
+        const { iValuePallet, iValueBox } = this.state;
+        const { boxesRequired, datesOutcomming } = this.props;
+
+        if(iValuePallet === 0 & iValueBox === 0){
+            message.warning('You did not assign Pallets or Boxes');
+            return;
+        }
+
+        if(iValueBox > boxesRequired){
+            message.warning('Only ' +  boxesRequired + ' boxes needed');
+            return;
+        }
+
         let payload = {
             key: "",
             date: "",//"2020-07-16T00:00:00.000Z",
@@ -108,42 +106,35 @@ export default class DrawerAssignmentProduct extends PureComponent {
             pallet: 0 //assignments
         }
 
-        payload.key = _this.props.currentOutcomming.key;
+        let getOutComming = datesOutcomming.filter(function(data){
+            return data.dayDate === _this.props.currentOutcomming.dayDate;
+        })
+
+        payload.key = getOutComming[0].key;
         payload.date = _this.props.currentOutcomming.dayDate;
         payload.status = _this.props.currentOutcomming.status;
         payload.skProduct = _this.props.currentOutcomming.skProduct;
         payload.skCustomer = _this.props.currentOutcomming.skCustomer;
-        payload.skShipping = _this.props.currentShipping.shipment;
-        payload.box = _this.state.currentValueBox;
-        payload.pallet = _this.state.currentValuePallet;
-        console.log("---> Console.loged 3")
-        console.log(_this)
-        console.log(payload)
+        payload.skShipping = _this.props.shipment;
+        payload.box = _this.state.iValueBox;
+        payload.pallet = _this.state.iValuePallet;
         _this.props.postOutcomming(payload);
+        this.setState({
+            // isFirstTime: true
+            palletsResult: '',
+            boxesResult: 0,
+            iValuePallet: 0,
+            iValueBox: 0,
+        })
         _this.props.onClose();
     }
 
-    setCurrentValues = (pallets, box) => {
-        //if (this.state.isFirstTime && pallets !== undefined) {
-        this.setState({
-            pallets,
-            box,
-            originalPallets: pallets,
-            originalBox: box,
-            isFirstTime: false
-        });
-        //}
-    }
 
     render() {
-        if (this.props.currentShipping) {
-            console.log("exist")
-            this.setCurrentValues(this.props.currentShipping.availables_pallets, this.props.currentShipping.availables_boxes);
 
-        }else{
-            console.log("no exist")
+        const {pallets,  box, currentValuePallet , currentValueBox, isFirstTime, boxesRequired} = this.props;
+        const { iValuePallet, iValueBox } = this.state;
 
-        }
         const formItemLayout = {
             labelCol: { xs: { span: 24 }, sm: { span: 8 }, md: { span: 8 }, lg: { span: 8 }, xl: { span: 6 } },
             wrapperCol: { xs: { span: 24 }, sm: { span: 12 }, md: { span: 12 }, lg: { span: 12 }, xl: { span: 14 } }
@@ -156,7 +147,11 @@ export default class DrawerAssignmentProduct extends PureComponent {
                 closable={true}
                 onClose={(e) => {
                     this.setState({
-                        isFirstTime: true
+                        // isFirstTime: true
+                        palletsResult: '',
+                        boxesResult: 0,
+                        iValuePallet: 0,
+                        iValueBox: 0,
                     })
                     this.props.onClose(e, this)
                 }}
@@ -164,16 +159,16 @@ export default class DrawerAssignmentProduct extends PureComponent {
             >
                 <Form {...formItemLayout} style={{ marginTop: "5rem" }}>
                     <Form.Item label={<FormattedMessage id='outComming.drawerAssigment.pallets-availables' />}>
-                        <Text>{this.state.pallets}</Text>
+                        <Text>{pallets}</Text>
                     </Form.Item>
                     <Form.Item label={<FormattedMessage id='outComming.drawerAssigment.boxes-availables' />}>
-                        <Text>{this.state.box}</Text>
+                        <Text>{box}</Text>
                     </Form.Item>
                     <Form.Item label={<FormattedMessage id='outComming.drawerAssigment.pallets' />}>
-                        <InputNumber min={0} value={this.state.currentValuePallet} onChange={(e) => { this.onChangeQuantityPallet(e, this) }} />
+                        <InputNumber min={0} max={pallets}  value={iValuePallet} onChange={(e) => { this.onChangeQuantityPallet(e, this) }} />
                     </Form.Item>
                     <Form.Item label={<FormattedMessage id='outComming.drawerAssigment.boxes' />}>
-                        <InputNumber min={0} value={this.state.currentValueBox} onChange={(e) => { this.onChangeQuantityBox(e, this) }} />
+                        <InputNumber min={0}  max={box} value={iValueBox} onChange={(e) => { this.onChangeQuantityBox(e, this) }} />
                     </Form.Item>
                     <div
                         style={{
@@ -189,7 +184,11 @@ export default class DrawerAssignmentProduct extends PureComponent {
                     >
                         <Button onClick={(e) => {
                             this.setState({
-                                isFirstTime: true
+                                // isFirstTime: true
+                                palletsResult: '',
+                                boxesResult: 0,
+                                iValuePallet: 0,
+                                iValueBox: 0,
                             })
                             this.props.onClose((e, this))
                         }} style={{ marginRight: 8 }} type="danger">

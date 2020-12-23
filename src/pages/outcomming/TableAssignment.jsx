@@ -29,7 +29,7 @@ export default class TableAssignment extends PureComponent {
     this.props.setVisibleAssignProduct(false);
   }
   render() {
-    let { dataOutcommingsByEntry } = this.props;
+    let { dataOutcommingsByEntry, boxesRequired, buttonAssign, currentOutcomming } = this.props;
     console.log("TableAssignment");
     console.log(dataOutcommingsByEntry);
     const columns = [
@@ -37,7 +37,9 @@ export default class TableAssignment extends PureComponent {
         title: formatMessage({ id: 'outComming.label.tableassignment-order' }),
         dataIndex: 'shipment',
         width: isMobile ? 120 : 120,
-        render: text => <a>{text}</a>,
+        render: (record) => (
+          record.substr(3)
+        )
       },
       {
         title: formatMessage({ id: 'outComming.label.tableassignment-pallets-re' }),
@@ -67,7 +69,7 @@ export default class TableAssignment extends PureComponent {
           <span>
             { record.availables_pallets == 0 && record.availables_boxes == 0
               ? <a disabled onClick={() => { this.showDrawerAssigProduct(record) }}><FormattedMessage id="outComming.label.tableassignment-assign" /></a>
-              : <a onClick={() => { this.showDrawerAssigProduct(record) }}><FormattedMessage id="outComming.label.tableassignment-assign" /></a>
+              : <a disabled={buttonAssign} onClick={() => { this.showDrawerAssigProduct(record) }}><FormattedMessage id="outComming.label.tableassignment-assign" /></a>
             }
           </span>
         )
@@ -82,7 +84,17 @@ export default class TableAssignment extends PureComponent {
           onClose={this.onDrawerAssigProduct}
           currentOutcomming={this.props.currentOutcomming}
           // currentShipping={this.state.currentItem} />
-          currentShipping={this.props.currentShipping} />
+          pallets={this.props.pallets}
+          box={this.props.box}
+          currentValuePallet={this.props.currentValuePallet}
+          currentValueBox={this.props.currentValueBox}
+          isFirstTime={this.props.isFirstTime}
+          shipment={this.props.shipment}
+          boxesRequired={boxesRequired}
+          assignedBox={this.props.assignedBox}
+          dayDatedatesOutcomming={this.props.dayDatedatesOutcomming}
+          datesOutcomming={this.props.datesOutcomming}
+          />
         <Table
           loading={this.props.loading}
           columns={columns}
