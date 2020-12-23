@@ -124,103 +124,103 @@ class TableShippingMaster extends PureComponent {
         title: formatMessage({ id: 'shipping.label.table-shipping.actions' }),
         key: 'action',
         fixed: 'right',
-        width: isMobile ? 100 : 460,
+        width: isMobile ? 100 : 390,
         render: (record) => (
-          <a>
+          <>
             {record.status == "NEW"
               ?
-                <a>
-                  <Button type="link" onClick={() => { this.props.showDrawerShipping("EDIT",record) }}>
+                <>
+                  <Button type="link" onClick={() => { this.props.showDrawerShipping("EDIT",record) }} style={{paddingRight: '1px', paddingLeft: '1px'}}>
                     {isMobile
                       ? <Icon type="edit" />
-                      : <a><Icon type="edit" /> <FormattedMessage id="shipping.label.table-shipping.edit" /></a>
+                      : <><Icon type="edit" /> <FormattedMessage id="shipping.label.table-shipping.edit" /></>
                     }
                   </Button>
                   <Divider type="vertical"/>
-                  <Button type="link" onClick={() =>{this.props.showConfirmation("CONF", record)}}>
+                  <Button type="link" onClick={() =>{this.props.showConfirmation("CONF", record)}} style={{paddingRight: '1px', paddingLeft: '1px'}}>
                     {isMobile
                       ? <Icon type="check" />
-                      : <a><Icon type="check" /> <FormattedMessage id="shipping.label.table-shipping.confirm"/></a>
+                      : <><Icon type="check" /> <FormattedMessage id="shipping.label.table-shipping.confirm"/></>
                     }
                   </Button>
                   <Divider type="vertical"/>
-                  <Button type="link" onClick={()=>{deleteShipping(record["WMS-1-PK"])}}>
+                  <Button type="link" onClick={()=>{deleteShipping(record["WMS-1-PK"])}} style={{paddingRight: '1px', paddingLeft: '1px'}}>
                       {isMobile
                         ? <Icon type="delete"/>
-                        : <span><Icon type="delete"/><FormattedMessage id="general.table.delete"/></span>
+                        : <><Icon type="delete"/><FormattedMessage id="general.table.delete"/></>
                       }
                     </Button>
                   <Divider type="vertical"/>
-                  <Button type="link" disabled={true}>
+                  <Button type="link" disabled={true} style={{paddingRight: '1px', paddingLeft: '1px'}}>
                     {isMobile
                       ? <Icon type="form" />
-                      : <a><Icon type="form" /> <FormattedMessage id="shipping.label.table-shipping.entry" /></a>
+                      : <><Icon type="form" /> <FormattedMessage id="shipping.label.table-shipping.entry" /></>
                     }
                   </Button>
-                </a>
+                </>
               : record.status == "CONFIRMED"
                 ?
-                <a>
-                  <Button type="link" disabled={true}>
+                <>
+                  <Button type="link" disabled={true} style={{paddingRight: '1px', paddingLeft: '1px'}}>
                     {isMobile
                       ? <Icon type="edit" />
-                      : <a><Icon type="edit" /> <FormattedMessage id="shipping.label.table-shipping.edit" /></a>
+                      : <><Icon type="edit" /> <FormattedMessage id="shipping.label.table-shipping.edit" /></>
                     }
                   </Button>
                   <Divider type="vertical" />
-                  <Button type="link" onClick={() => { this.props.showConfirmation("CONF", record) }}>
+                  <Button type="link" onClick={() => { this.props.showConfirmation("CONF", record) }} style={{paddingRight: '1px', paddingLeft: '1px'}}>
                     {isMobile
                       ? <Icon type="eye" />
-                      : <a><Icon type="eye" /> <FormattedMessage id="shipping.label.table-shipping.confirm" /></a>
+                      : <><Icon type="eye" /> <FormattedMessage id="shipping.label.table-shipping.confirm" /></>
                     }
                   </Button>
                   <Divider type="vertical" />
-                  <Button type="link" disabled={true}>
+                  <Button type="link" disabled={true} style={{paddingRight: '1px', paddingLeft: '1px'}}>
                     {isMobile
                       ? <Icon type="delete" />
-                      : <span><Icon type="delete" /><FormattedMessage id="general.table.delete" /></span>
+                      : <><Icon type="delete" /><FormattedMessage id="general.table.delete" /></>
                     }
                   </Button>
                   <Divider type="vertical" />
-                  <Button type="link" onClick={() => { this.props.showEntry(record["WMS-1-PK"], record.status) }}>
+                  <Button type="link" onClick={() => { this.props.showEntry(record["WMS-1-PK"], record.status) }} style={{paddingRight: '1px', paddingLeft: '1px'}}>
                     {isMobile
                       ? <Icon type="form" />
-                      : <a><Icon type="form" /> <FormattedMessage id="shipping.label.table-shipping.entry" /></a>
+                      : <><Icon type="form" /> <FormattedMessage id="shipping.label.table-shipping.entry" /></>
                     }
                   </Button>
-                </a>
+                </>
                 :
-                <a>
-                  <Button type="link" disabled={true}>
+                <>
+                  <Button type="link" disabled={true} style={{paddingRight: '1px', paddingLeft: '1px'}}>
                     {isMobile
                       ? <Icon type="edit" />
-                      : <a><Icon type="edit" /> <FormattedMessage id="shipping.label.table-shipping.edit" /></a>
+                      : <><Icon type="edit" /> <FormattedMessage id="shipping.label.table-shipping.edit" /></>
                     }
                   </Button>
                   <Divider type="vertical" />
-                  <Button type="link" disabled={true}>
+                  <Button type="link" disabled={true} style={{paddingRight: '1px', paddingLeft: '1px'}}>
                     {isMobile
                       ? <Icon type="check" />
-                      : <a><Icon type="check" /> <FormattedMessage id="shipping.label.table-shipping.confirm" /></a>
+                      : <><Icon type="check" /> <FormattedMessage id="shipping.label.table-shipping.confirm" /></>
                     }
                   </Button>
                   <Divider type="vertical" />
-                  <Button type="link" disabled={true}>
+                  <Button type="link" disabled={true} style={{paddingRight: '1px', paddingLeft: '1px'}}>
                     {isMobile
                       ? <Icon type="delete" />
-                      : <span><Icon type="delete" /><FormattedMessage id="general.table.delete" /></span>
+                      : <><Icon type="delete" /><FormattedMessage id="general.table.delete" /></>
                     }
                   </Button>
                   <Divider type="vertical" />
-                  <Button type="link" onClick={() => { this.props.showEntry(record["WMS-1-PK"], record.status) }}>
+                  <Button type="link" onClick={() => { this.props.showEntry(record["WMS-1-PK"], record.status) }} style={{paddingRight: '1px', paddingLeft: '1px'}}>
                     {isMobile
                       ? <Icon type="eye" />
-                      : <a><Icon type="eye" /> <FormattedMessage id="shipping.label.table-shipping.entry" /></a>
+                      : <><Icon type="eye" /> <FormattedMessage id="shipping.label.table-shipping.entry" /></>
                     }
                   </Button>
-                </a>
+                </>
             }
-          </a>
+          </>
         ),
       }
     ];

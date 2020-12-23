@@ -73,6 +73,7 @@ class TableGeneralProgramming extends PureComponent {
             key: 'action',
             fixed: 'right',
             width: isMobile ? 120 : 240,
+
             render: (record) => (
                 <span>
                     <a onClick={() => { showEditDrawer(record.Sk, record.Client, record.Product) }}>

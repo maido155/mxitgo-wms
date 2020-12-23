@@ -176,6 +176,7 @@ class drawerEntry extends PureComponent {
                     for(var j = 0; j < dataProduct.length; j++){
                         if(products[i].id === oShippingItem.products[0][k].product && products[i].id === dataProduct[j].id){
                             if(dataProduct[j].quantities === '0'){
+
                                 if(oShippingItem.products[0][k].confAmount !== undefined){
                                     var dataProdu = {
                                         quantitiesCaptured: oShippingItem.products[0][k].amount,
@@ -194,6 +195,7 @@ class drawerEntry extends PureComponent {
                                         urlImage: "",
                                         quantities: oShippingItem.products[0][k].amount
                                     }
+
                                 }
                             }else{
                                 var dataProdu = {

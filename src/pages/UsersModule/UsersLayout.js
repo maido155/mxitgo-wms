@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
-import { Card, Table, Icon, Divider, Button, Spin, Modal, Tabs } from 'antd';
+import { Card, Table, Icon, Divider, Button, Spin, Modal, Tabs,Form } from 'antd';
 import { isMobile } from 'react-device-detect';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
@@ -161,6 +161,10 @@ export default class UsersLayout extends PureComponent {
     }
     render() {
         const { allUsers, loading, saveUser, closeUser, dataUser, updateUser } = this.props;
+        const formItemLayout = {
+            labelCol: { xs: { span: 24 }, sm: { span: 7 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 5 } },
+            wrapperCol: { xs: { span: 24 }, sm: { span: 14 }, md: { span: 15 }, lg: { span: 15 }, xl: { span: 15 } }
+        };
 
         console.log("allUsers")
         console.log(allUsers)
@@ -188,7 +192,7 @@ export default class UsersLayout extends PureComponent {
                 title: formatMessage({ id: 'usersModule.table.email' }),
                 dataIndex: 'mail',
                 key: 'mail',
-                width: isMobile ? 300 : 270,
+                width: isMobile ? 250 : 200,
             },
             {
                 title: formatMessage({ id: 'usersModule.table.phone' }),
@@ -221,12 +225,19 @@ export default class UsersLayout extends PureComponent {
             }
         ];
         return (
-            <PageHeaderWrapper>
-
-
-                <Tabs defaultActiveKey="1" onChange={this.callback}>
-                    <TabPane tab="Before" key="1">
-                        <Card>
+            <div>
+            <PageHeaderWrapper
+                extra={
+                        <div> 
+                            <Form style={{paddingRight:"1rem"}} layout="inline" >
+                                <Form.Item style={{padding:"0rem 1rem 0rem 7rem"}} {...formItemLayout}>
+                                    <Button type="primary" shape="circle" size="large" onClick={this.showNewDrawer}>
+                                        <Icon type="plus"/>
+                                    </Button>
+                                </Form.Item>
+                            </Form>
+                        </div>}>
+                    <Card>
                             <Spin tip={formatMessage({ id: "usersModule.loading" })} spinning={loading}>
                                 <ModalNewUser
                                     visible={this.state.visible}
@@ -242,25 +253,12 @@ export default class UsersLayout extends PureComponent {
                                     updateNewUser={this.updateNewUser}
                                     updateUser={updateUser}
                                 />
-                                <div align="right">
-                                    <Button type="primary" shape="circle" size="large" onClick={this.showModal}><Icon type="plus" /></Button>
-                                </div>
-                                <Table style={{ marginTop: "1rem" }} size="small" columns={columns} dataSource={allUsers} scroll={isMobile ? { x: 960, y: 400 } : { x: 900, y: 185 }} pagination={false} />
+                                <Table style={{ marginTop: "2%" }} size="small" columns={columns} dataSource={allUsers} scroll={isMobile ? { x: 720 } : { x: 950 }} />
                             </Spin>
-                        </Card>
-                    </TabPane>
-                    <TabPane tab="After" key="2">
-                        <Card
-                            hoverable
-                            style={{ width: 240 }}
-                            cover={<img alt="userImg" src="/static/MXITGO_LOGO2.b957515c.png" />}
-                        >
-                            <Meta title={"Carlomagno Lopez"} description={"clopez.odas@gmail.com"} />
-                        </Card>,
-                    </TabPane>
-
-                </Tabs>
-            </PageHeaderWrapper>
+                    </Card>
+                </PageHeaderWrapper>
+                </div>
+            
         );
     }
 }
