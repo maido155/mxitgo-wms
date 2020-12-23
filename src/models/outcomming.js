@@ -178,5 +178,11 @@ export default {
                 dataOutcommingsByEntry: action.payload
             }
         },
+        outcommingReducerRemove(state, action) {
+            return {
+                ...state,
+                datesOutcomming: []
+            }
+        }
     }
 }

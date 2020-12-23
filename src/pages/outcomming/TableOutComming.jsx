@@ -12,7 +12,8 @@ export default class TableOutComming extends PureComponent {
         recordKey: "",
         boxesAssign: '',
         assignedBox: '',
-        dayDatedatesOutcomming: ''
+        dayDatedatesOutcomming: '',
+        disableButtonAssign: false
     };
     showDrawerAssig = (item) => {
         console.log("assign")
@@ -33,7 +34,19 @@ export default class TableOutComming extends PureComponent {
         this.setState({
           currentRecord: item,
           recordKey: oc,
+          boxesAssign: item.boxs.split('/')[1],
+          assignedBox: item.assignedBox,
+          dayDatedatesOutcomming: item.dayDate
         });
+        if(item.status === 'CONFIRMED'){
+            this.setState({
+                disableButtonAssign: true
+            })
+        }else{
+            this.setState({
+                disableButtonAssign: false
+            })
+        }
         this.props.onShowCompositionData(id);
         this.props.setVisibleCompo(true);
     };
@@ -169,6 +182,9 @@ export default class TableOutComming extends PureComponent {
                     assignedBox={this.state.assignedBox}
                     dayDatedatesOutcomming={this.state.dayDatedatesOutcomming}
                     datesOutcomming={datesOutcomming}
+
+                    setCurrentShipping={this.props.setCurrentShipping}
+                    disableButtonAssign={this.state.disableButtonAssign}
                 />
                 <Table rowKey="uid" loading = {this.props.loading} columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
             </div>

@@ -477,7 +477,7 @@ export async function getShippingsByEntry(payload) {
 }
 
 export async function getComposition(payload) {
-    return request(`${ANT_DESIGN_PRO_TARGET}/outcommings/composition?payload=${encodeURI(JSON.stringify(payload))}`, {
+    return request(`${ANT_DESIGN_PRO_TARGET}/outcomming/composition?payload=${encodeURI(JSON.stringify(payload))}`, {
         method: 'GET',
         // headers: { 'Authorization': payload.Authorization }
         headers: {
