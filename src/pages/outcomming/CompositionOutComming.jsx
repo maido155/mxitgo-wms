@@ -22,6 +22,7 @@ export default class CompositionOutComming extends PureComponent {
         });
     };
     render() {
+        const { disableButtonAssign } = this.props;
         return (
             <div>
                 <Drawer
@@ -48,9 +49,11 @@ export default class CompositionOutComming extends PureComponent {
                             borderRadius: '0 0 4px 4px',
                         }}
                     >
-                        <Button style={{marginRight: 8,}} onClick={()=>{this.showDrawerAssig(this)}}>
-                            <FormattedMessage id="outComming.button.composition-outcomming-assing"/>
-                        </Button>
+                        { disableButtonAssign === false &&
+                            <Button style={{marginRight: 8,}} onClick={()=>{this.showDrawerAssig(this)}}>
+                                <FormattedMessage id="outComming.button.composition-outcomming-assing"/>
+                            </Button>
+                        }
                         <Button onClick={this.props.closeTwo} type="primary">
                             <FormattedMessage id="outComming.button.close-assignment-outcomming"/>
                         </Button>
@@ -69,8 +72,20 @@ export default class CompositionOutComming extends PureComponent {
                     visibleAssignProduct={this.props.visibleAssignProduct} 
                     setVisibleAssignProduct={this.props.setVisibleAssignProduct}
                     setCurrentShipping={this.props.setCurrentShipping}
-                    currentShipping={this.props.currentShipping} 
+                    
+                    pallets={this.props.pallets}
+                    box={this.props.box}
+                    currentValuePallet={this.props.currentValuePallet}
+                    currentValueBox={this.props.currentValueBox}
+                    isFirstTime={this.props.isFirstTime}
+                    shipment={this.props.shipment}
+                    
                     dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
+
+                    boxesRequired={this.props.boxesRequired}
+                    assignedBox={this.props.assignedBox}
+                    dayDatedatesOutcomming={this.props.dayDatedatesOutcomming}
+                    datesOutcomming={this.props.datesOutcomming}
                 />
             </div>
         );            

@@ -176,13 +176,26 @@ class drawerEntry extends PureComponent {
                     for(var j = 0; j < dataProduct.length; j++){
                         if(products[i].id === oShippingItem.products[0][k].product && products[i].id === dataProduct[j].id){
                             if(dataProduct[j].quantities === '0'){
-                                var dataProdu = {
-                                    quantitiesCaptured: dataProduct[j].quantities,
-                                    id: products[i].id,
-                                    name: products[i].name,
-                                    temperature: "",
-                                    urlImage: "",
-                                    quantities: oShippingItem.products[0][k].amount
+
+                                if(oShippingItem.products[0][k].confAmount !== undefined){
+                                    var dataProdu = {
+                                        quantitiesCaptured: oShippingItem.products[0][k].amount,
+                                        id: products[i].id,
+                                        name: products[i].name,
+                                        temperature: "",
+                                        urlImage: "",
+                                        quantities: oShippingItem.products[0][k].confAmount
+                                    }
+                                }else{
+                                    var dataProdu = {
+                                        quantitiesCaptured: dataProduct[j].quantities,
+                                        id: products[i].id,
+                                        name: products[i].name,
+                                        temperature: "",
+                                        urlImage: "",
+                                        quantities: oShippingItem.products[0][k].amount
+                                    }
+
                                 }
                             }else{
                                 var dataProdu = {

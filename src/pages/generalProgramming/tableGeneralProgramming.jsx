@@ -72,7 +72,8 @@ class TableGeneralProgramming extends PureComponent {
             title: <FormattedMessage id="general.table.actions-mobil" />,
             key: 'action',
             fixed: 'right',
-            width: isMobile ? 120 : 250,
+            width: isMobile ? 120 : 240,
+
             render: (record) => (
                 <span>
                     <a onClick={() => { showEditDrawer(record.Sk, record.Client, record.Product) }}>

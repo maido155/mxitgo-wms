@@ -477,7 +477,7 @@ export async function getShippingsByEntry(payload) {
 }
 
 export async function getComposition(payload) {
-    return request(`${ANT_DESIGN_PRO_TARGET}/outcommings/composition?payload=${encodeURI(JSON.stringify(payload))}`, {
+    return request(`${ANT_DESIGN_PRO_TARGET}/outcomming/composition?payload=${encodeURI(JSON.stringify(payload))}`, {
         method: 'GET',
         // headers: { 'Authorization': payload.Authorization }
         headers: {
@@ -568,7 +568,7 @@ export async function getLocations(payload) {
 
 export async function getOutcomming(payload) {
     // return request(`${ANT_DESIGN_PRO_TARGET}/outcomming?payload=${encodeURI(JSON.stringify(payload))}`, {
-        return request(`${ANT_DESIGN_PRO_TARGET}/outcomming?payload=${encodeURI(JSON.stringify(payload))}`, {
+    return request(`${ANT_DESIGN_PRO_TARGET}/outcomming?payload=${encodeURI(JSON.stringify(payload))}`, {
         method: 'GET',
         // headers: { 'Authorization': payload.Authorization }
         headers: {
@@ -582,15 +582,15 @@ export async function getOutcomming(payload) {
 export async function getProgramming({ payload }) {
     return request(
         `${ANT_DESIGN_PRO_TARGET}/programming?payload=${encodeURI(JSON.stringify(payload))}`, {
-        method: 'GET',
-        // headers: { 'Authorization': payload.Authorization },
-        headers: {
-            'Authorization': payload.Authorization,
-            'Content-Type': 'application/json',
-            'x-api-key': API_KEY,
-        }
-        // body: JSON.stringify(payload)
-    });
+            method: 'GET',
+            // headers: { 'Authorization': payload.Authorization },
+            headers: {
+                'Authorization': payload.Authorization,
+                'Content-Type': 'application/json',
+                'x-api-key': API_KEY,
+            }
+            // body: JSON.stringify(payload)
+        });
 }
 
 export async function fetchProductAll({ payload }) {
