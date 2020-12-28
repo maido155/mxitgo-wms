@@ -112,7 +112,6 @@ class GeneralProgramming extends PureComponent {
         let clientName = this.props.datesCustomerAll.filter(function(data){
             return data.clientName == client;
         })
-        console.log(clientName);
         this.props.dispatch({
             type: 'programming/getProgramming',
             payload: {
@@ -148,7 +147,6 @@ class GeneralProgramming extends PureComponent {
                 })
             }, 
             onCancel() {
-              console.log('Cancel');
             },
         });
     }
@@ -177,18 +175,19 @@ class GeneralProgramming extends PureComponent {
         return dateName
     }
     handleSubmit = (pallets, boxes, data, weekUntil, palletsEdit, boxesEdit) => {
+        const { datesPrograming, datesProductAll, datesCustomerAll, datesGetProgramming } = this.props;
         const form = this.formRefNewLine.props.form;
-        var allProgramming = this.props.datesPrograming;
-        var allProduct = this.props.datesProductAll;
-        var allCustomer = this.props.datesCustomerAll;
-        var getProgramming = this.props.datesGetProgramming;
+        var allProgramming = datesPrograming;
+        var allProduct = datesProductAll;
+        var allCustomer = datesCustomerAll;
+        var getProgramming = datesGetProgramming;
         if(this.state.edit === true){
             form.validateFields((err, values) => {
                 if(err){
                     return;
                 }
-                let startDate = this.props.datesGetProgramming[0].startDate;
-                let endDate = this.props.datesGetProgramming[0].endDate;
+                let startDate = datesGetProgramming[0].startDate;
+                let endDate = datesGetProgramming[0].endDate;
                 let dataWeek = 0;
                 let dataAllWeek = 0;
                 if(weekUntil === 0){
@@ -203,8 +202,8 @@ class GeneralProgramming extends PureComponent {
                     status: "NEW",
                     startDate: moment(values.weekEdit).format("YYYY-MM-DD") + "T00:00:00.000Z",
                     endDate:  moment(dataWeek).format("YYYY-MM-DD") + "T00:00:00.000Z",
-                    idSkEdit: values.productNew + "|" + values.customerEdit,
-                    idSk: this.props.datesGetProgramming[0].skProduct + "|" + this.props.datesGetProgramming[0].skCustomer,
+                    idSkEdit: values.productEdit + "|" + values.customerEdit,
+                    idSk: datesGetProgramming[0].skProduct + "|" + datesGetProgramming[0].skCustomer,
                     idPk: "PR-" + moment(values.weekEdit).format("DDMMYY") + moment(dataAllWeek[6]).format("DDMMYY"),
                     idPkOri: this.state.pk,
                     dates: [

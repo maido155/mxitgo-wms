@@ -11,7 +11,7 @@ const dateFormat = 'YYYY-MM-DD';
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        
     },
     getCheckboxProps: record => ({
         disabled: record.name === 'Disabled User',

@@ -42,25 +42,25 @@ const DrawerGeneralProgramming  = Form.create()(
             inputsBoxesEdit: []
         }
         onBlurProd() {
-            console.log('blur');
+            
         }  
         onFocusProd() {
-            console.log('focus');
+            
         } 
         onSearchProd(val) {
-            console.log('search:', val);
+            
         }
         onChangeCent(value) {
-            console.log(`selected ${value}`);
+            
         } 
         onBlurCent() {
-            console.log('blur');
+           
         }  
         onFocusCent() {
-            console.log('focus');
+            
         } 
         onSearchCent(val) {
-            console.log('search:', val);
+           
         }
         onChangeProd = value => {
             const { inputsPallets } = this.state;
