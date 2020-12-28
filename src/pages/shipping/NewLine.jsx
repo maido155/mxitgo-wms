@@ -52,7 +52,7 @@ const NewLine = Form.create()(
             }
             var validationLocation = ""
             if(warehouses == undefined || warehouses.length == 0){
-                validationLocation = whName;
+                validationLocation = warehouses;
             }else{
                 validationLocation = whNameEdit;
             }
