@@ -111,7 +111,7 @@ const BasicLayout = props => {
   return (
     <div>
       {
-        localStorage.length === 0 &&
+        localStorage.getItem("sessionActive") === "null" &&
         router.push('/user/login')
       }
       {
