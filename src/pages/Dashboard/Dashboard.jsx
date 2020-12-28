@@ -329,14 +329,15 @@ export default class Dashboard extends PureComponent {
           </Spin>
           </Card>
         
-        <Card type="inner" 
+        <Card type="inner" style={{marginTop: 25}}   >
+        <Card type="inner" size="small"
               style={{textAlign:"center"}}  
               
               extra={
                   <div>
                   <span>{formatMessage({id: "general.button-product.product"})}: &nbsp;</span>
                   <SelectProduct 
-                  datesProductAll={products.productsAll.Items} 
+                  datesProductAll={products.productsAll} 
                   handleProduct={this.onProductChange}
                   disabled={this.state.currentSelectedDate}
                   loading={this.state.loading}/>
@@ -347,6 +348,7 @@ export default class Dashboard extends PureComponent {
         <Spin spinning={this.state.loading}>
           <StepsDashBoard currentDay={this.getNumberDay()} data={dashboard} />
           </Spin>
+          </Card>
         </Card>
       </PageHeaderWrapper>
     );
