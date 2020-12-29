@@ -207,9 +207,9 @@ export default {
             var productTotal = 0;
 
             if (action.payload.Items && action.payload.Items.length > 0) {
-
-                action.payload.Items[0].dates.forEach((oItem) => { productTotal += oItem.box; })
-
+                for(let i = 0; i<action.payload.Items.length;i++){
+                    action.payload.Items[i].dates.forEach((oItem) => { productTotal += oItem.box; })
+                }
             }
 
             var oNewState = {
@@ -227,7 +227,11 @@ export default {
         dashboardGetMasterTotalReducer(state, action) {
 
             console.log("dashboardGetMasterTotalReducer: " + JSON.stringify(action.payload));
-
+            if(action.payload.programmingTotal==0){
+                action.payload.confirmed = 0;
+                action.payload.cancelled = 0;
+                action.payload.new = 0;
+            }
 
 
             return {

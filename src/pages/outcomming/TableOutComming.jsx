@@ -9,7 +9,11 @@ import {isMobile} from 'react-device-detect';
 export default class TableOutComming extends PureComponent {
     state = { 
         currentRecord: "",
-        recordKey: ""
+        recordKey: "",
+        boxesAssign: '',
+        assignedBox: '',
+        dayDatedatesOutcomming: '',
+        disableButtonAssign: false
     };
     showDrawerAssig = (item) => {
         console.log("assign")
@@ -18,6 +22,9 @@ export default class TableOutComming extends PureComponent {
         this.setState({
           currentRecord: item,
           recordKey: oc,
+          boxesAssign: item.boxs.split('/')[1],
+          assignedBox: item.assignedBox,
+          dayDatedatesOutcomming: item.dayDate
         });
         
         this.props.getOutcommingByEntry(oc,this.props.productKey);
@@ -27,7 +34,19 @@ export default class TableOutComming extends PureComponent {
         this.setState({
           currentRecord: item,
           recordKey: oc,
+          boxesAssign: item.boxs.split('/')[1],
+          assignedBox: item.assignedBox,
+          dayDatedatesOutcomming: item.dayDate
         });
+        if(item.status === 'CONFIRMED'){
+            this.setState({
+                disableButtonAssign: true
+            })
+        }else{
+            this.setState({
+                disableButtonAssign: false
+            })
+        }
         this.props.onShowCompositionData(id);
         this.props.setVisibleCompo(true);
     };
@@ -47,7 +66,6 @@ export default class TableOutComming extends PureComponent {
             {
                 title: '',
                 dataIndex: 'date',
-                key:'date',
                 width: isMobile ? 100 : 130
             },
             {
@@ -119,7 +137,20 @@ export default class TableOutComming extends PureComponent {
                         recordKey= {this.state.recordKey}
                         visibleAssignProduct={this.props.visibleAssignProduct} 
                         setVisibleAssignProduct={this.props.setVisibleAssignProduct}
+                        setCurrentShipping={this.props.setCurrentShipping}
+                        
+                        pallets={this.props.pallets}
+                        box={this.props.box}
+                        currentValuePallet={this.props.currentValuePallet}
+                        currentValueBox={this.props.currentValueBox}
+                        isFirstTime={this.props.isFirstTime}
+                        shipment={this.props.shipment}
+
                         dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
+                        boxesRequired={this.state.boxesAssign}
+                        assignedBox={this.state.assignedBox}
+                        dayDatedatesOutcomming={this.state.dayDatedatesOutcomming}
+                        datesOutcomming={datesOutcomming}
                 />
                 <CompositionOutComming
                     loading = {this.props.loading}
@@ -136,10 +167,26 @@ export default class TableOutComming extends PureComponent {
                     recordKey= {this.state.recordKey}
                     visibleAssignProduct={this.props.visibleAssignProduct} 
                     setVisibleAssignProduct={this.props.setVisibleAssignProduct}
+                   
+                    pallets={this.props.pallets}
+                    box={this.props.box}
+                    currentValuePallet={this.props.currentValuePallet}
+                    currentValueBox={this.props.currentValueBox}
+                    isFirstTime={this.props.isFirstTime}
+                    shipment={this.props.shipment}
+
                     dataOutcommingsByEntry={this.props.dataOutcommingsByEntry}
                     getOutcommingByEntry={this.props.getOutcommingByEntry}
+
+                    boxesRequired={this.state.boxesAssign}
+                    assignedBox={this.state.assignedBox}
+                    dayDatedatesOutcomming={this.state.dayDatedatesOutcomming}
+                    datesOutcomming={datesOutcomming}
+
+                    setCurrentShipping={this.props.setCurrentShipping}
+                    disableButtonAssign={this.state.disableButtonAssign}
                 />
-                <Table loading = {this.props.loading} columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
+                <Table rowKey="uid" loading = {this.props.loading} columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
             </div>
         );            
     }

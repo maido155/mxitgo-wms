@@ -1,13 +1,15 @@
 import React, { PureComponent } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import DrawerGeneralProgramming from './drawerGeneralProgramming'; 
-import { Card, Button, Icon, Modal, Spin, message, notification } from 'antd'; 
+import { Card, Button, Icon, Modal, Spin, message, notification, DatePicker, Form  } from 'antd'; 
 import TableProgramming from './tableGeneralProgramming';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { connect } from 'dva';
 import moment from 'moment';
-moment.locale('es');
+
+moment.locale(localStorage.getItem('language'));
 const { confirm } = Modal;
+const { RangePicker } = DatePicker;
 
 @connect(({ programming, loading }) => ({
     programming,
@@ -33,6 +35,8 @@ class GeneralProgramming extends PureComponent {
         showNew: true,
         editSumPallet: false,
         editSumBoxes: false,
+        filterDates: [],
+        showFilters: false
     }
     componentDidMount() {
         this.props.dispatch({
@@ -108,7 +112,6 @@ class GeneralProgramming extends PureComponent {
         let clientName = this.props.datesCustomerAll.filter(function(data){
             return data.clientName == client;
         })
-        console.log(clientName);
         this.props.dispatch({
             type: 'programming/getProgramming',
             payload: {
@@ -144,7 +147,6 @@ class GeneralProgramming extends PureComponent {
                 })
             }, 
             onCancel() {
-              console.log('Cancel');
             },
         });
     }
@@ -173,18 +175,19 @@ class GeneralProgramming extends PureComponent {
         return dateName
     }
     handleSubmit = (pallets, boxes, data, weekUntil, palletsEdit, boxesEdit) => {
+        const { datesPrograming, datesProductAll, datesCustomerAll, datesGetProgramming } = this.props;
         const form = this.formRefNewLine.props.form;
-        var allProgramming = this.props.datesPrograming;
-        var allProduct = this.props.datesProductAll;
-        var allCustomer = this.props.datesCustomerAll;
-        var getProgramming = this.props.datesGetProgramming;
+        var allProgramming = datesPrograming;
+        var allProduct = datesProductAll;
+        var allCustomer = datesCustomerAll;
+        var getProgramming = datesGetProgramming;
         if(this.state.edit === true){
             form.validateFields((err, values) => {
                 if(err){
                     return;
                 }
-                let startDate = this.props.datesGetProgramming[0].startDate;
-                let endDate = this.props.datesGetProgramming[0].endDate;
+                let startDate = datesGetProgramming[0].startDate;
+                let endDate = datesGetProgramming[0].endDate;
                 let dataWeek = 0;
                 let dataAllWeek = 0;
                 if(weekUntil === 0){
@@ -199,8 +202,8 @@ class GeneralProgramming extends PureComponent {
                     status: "NEW",
                     startDate: moment(values.weekEdit).format("YYYY-MM-DD") + "T00:00:00.000Z",
                     endDate:  moment(dataWeek).format("YYYY-MM-DD") + "T00:00:00.000Z",
-                    idSkEdit: values.productNew + "|" + values.customerEdit,
-                    idSk: this.props.datesGetProgramming[0].skProduct + "|" + this.props.datesGetProgramming[0].skCustomer,
+                    idSkEdit: values.productEdit + "|" + values.customerEdit,
+                    idSk: datesGetProgramming[0].skProduct + "|" + datesGetProgramming[0].skCustomer,
                     idPk: "PR-" + moment(values.weekEdit).format("DDMMYY") + moment(dataAllWeek[6]).format("DDMMYY"),
                     idPkOri: this.state.pk,
                     dates: [
@@ -399,8 +402,29 @@ class GeneralProgramming extends PureComponent {
     showeditSumBoxes = () => {
         this.setState({ editSumBoxes: true })
     }
+    onChangeWeek = (date, dateString) => {
+        const { datesPrograming } = this.props;
+        if(date.length !== 0){
+            let getData = datesPrograming.filter(function(data) {
+                let dateFind = data.Week.substr(0, 10);
+                return new Date(dateFind.split('/').join('-')).getTime() >= new Date(dateString[0]).getTime() && new Date(dateFind.split('/').join('-')).getTime() <= new Date(dateString[1]).getTime()
+            })
+            this.setState({
+                filterDates: getData,
+                showFilters: true
+           })
+        }else{
+            this.setState({
+                showFilters: false
+           })
+        }
+    }
     render(){
         const { datesPrograming, loading, datesGetProgramming, datesCustomerAll, datesProductAll, editSuccess, postSuccess, boxesEdit, palletsEdit } = this.props;
+        const formItemLayout = {
+            labelCol: { xs: { span: 24 }, sm: { span: 7 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 5 } },
+            wrapperCol: { xs: { span: 24 }, sm: { span: 14 }, md: { span: 15 }, lg: { span: 15 }, xl: { span: 15 } }
+        };
         if(editSuccess){
             this.UpdateValidation();
             this.onCloseNewDrawer();
@@ -455,16 +479,30 @@ class GeneralProgramming extends PureComponent {
                 />
                 <PageHeaderWrapper 
                     extra={
-                        <div style={{paddingRight:"2rem"}}> 
-                            <Button type="primary" shape="circle" size="large" onClick={this.showNewDrawer}>
-                                <Icon type="plus"/>
-                            </Button>
+                        <div> 
+                            <Form style={{paddingRight:"1rem"}} layout="inline" >
+                                <Form.Item {...formItemLayout}>
+                                    <RangePicker style={{ width: 270 }} onChange={this.onChangeWeek}/>
+                                </Form.Item>
+                                <Form.Item style={{padding:"0rem 1rem 0rem 7rem"}} {...formItemLayout}>
+                                    <Button type="primary" shape="circle" size="large" onClick={this.showNewDrawer}>
+                                        <Icon type="plus"/>
+                                    </Button>
+                                </Form.Item>
+                            </Form>
                         </div>}>
                     <Card>
                         <Spin tip={formatMessage({id: "general.loading"})} spinning={loading}>
                             <div align="right">
                                 
-                                <TableProgramming datesPrograming={datesPrograming} cancelProgramming={this.cancelProgramming} showEditDrawer={this.showEditDrawer} showVisualizar={this.showVisualizar}/>
+                                <TableProgramming 
+                                    datesPrograming={datesPrograming} 
+                                    cancelProgramming={this.cancelProgramming} 
+                                    showEditDrawer={this.showEditDrawer} 
+                                    showVisualizar={this.showVisualizar}
+                                    filterDates={this.state.filterDates}
+                                    showFilters={this.state.showFilters}
+                                />
                             </div>
                         </Spin>
                     </Card>

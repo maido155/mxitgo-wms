@@ -1,12 +1,14 @@
 @import '~antd/es/style/themes/default.less';
 .dayContainer{
     padding: 0.5rem 1rem 0.5rem 1rem !important;
+   
 }
+
 
 .dayContainer::after {
     position: absolute;
-    top: 50%;
-    left: 100%;
+    top: 46%;
+    left: 96%;
     display: inline-block;
     width: 12px;
     height: 12px;
@@ -19,27 +21,35 @@
     content: '';
 }
 .dayContainerLast{
-    padding: 0.5rem 1rem !important;
+    padding: 0.5rem 1rem 0.5rem 1rem !important;
 }
 .dayName{
     font-size: 14px !important;
+    text-align: end !important;
 }
-.dayContainer-last:after {
+.dayContainerLast:after {
     content: none !important;
  }
  .dayIcon{
     font-size: 1rem !important;
-    position: absolute !important;
-    top: 10px;
-    left: 10px;
+    padding-right: 0.5rem;
+    // position: absolute !important;
+    // top: 10px;
+    // left: 10px;
+ }
+ .currentDay{
+    border-top-color: #001529;
+    border-top-style: solid;
+    border-width: .2rem;
  }
  .dayTotal{
     padding-top: 0.5rem;
-    font-weight: 400 !important;
-    text-align: left !important;
+    // font-weight: 400 !important;
+    font-weight:bold;
+    text-align: end !important;
  }
  .dayDetailContainer{
-    text-align: left !important;
+    text-align: end !important;
     padding-top:0.5rem;
     line-height: 1.8;
     font-weight: 400 !important;
@@ -49,23 +59,33 @@
  @media (max-width: 575.98px) {
     .dayIcon{
         font-size: 1rem !important;
-        position: absolute !important;
-        top: 10px;
-        left: 80px;
+        // position: absolute !important;
+        // top: 10px;
+        // left: 80px;
      }
      .dayContainer{
-        padding: 0.5rem 2rem !important;
+        // padding: 0.5rem 2rem !important;
+        padding: 1rem 1rem 3rem 1rem !important;
+    }
+    .dayContainerLast{
+        // padding: 0.5rem 2rem !important;
+        padding: 1rem 1rem 3rem 1rem !important;
+    }
+    .dayContainer::after {
+        left: 46%;
+        top: 96%;
+        transform: rotate(135deg);
     }
 
   }
   @media (min-width: 1600px) { 
     .dayContainer{
-        padding: 0.5rem 2.5rem !important;
+        // padding: 0.5rem 2.5rem !important;
     }
     .dayIcon{
         font-size: 1rem !important;
-        position: absolute !important;
-        top: 10px;
-        left: 40px;
+        // position: absolute !important;
+        // top: 10px;
+        // left: 40px;
      }
    }

@@ -175,8 +175,10 @@ export default {
         ANT_DESIGN_PRO_TARGET: 'https://xv0uk3iu8h.execute-api.us-east-1.amazonaws.com/Stage',
         ANT_DESIGN_PRO_USER_POOL_ID: 'us-east-1_9WJ8uxbk9',
         ANT_DESIGN_PRO_CLIENT_ID: '66vntbnp4mpgn1o1p50pqd43kl',
+
         API_KEY:'v81NNnGY9R7uYhqlGbzTf8gQeqZDruJNIYbF8pLb'//
         // ANT_DESIGN_PRO_TARGET: '/api',
+
     },
     ignoreMomentLocale: true,
     lessLoaderOptions: {

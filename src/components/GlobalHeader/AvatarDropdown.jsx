@@ -96,12 +96,12 @@ class AvatarDropdown extends React.Component {
       localStorage.removeItem('antd-pro-authority');
       localStorage.setItem('sessionActive', null);
       Auth.signOut();
-      //   if (dispatch) {
-      //     dispatch({
-      //       type: 'login/logout',
-      //     });
-      //   }
-      //   return;
+         if (dispatch) {
+           dispatch({
+             type: 'login/logout',
+           });
+         }
+         return;
     } else {
       router.push(`/${key}`);
     }

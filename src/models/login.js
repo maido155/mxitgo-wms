@@ -53,8 +53,8 @@ const Model = {
                 localStorage.setItem('familyName', response.family_name);
                 localStorage.setItem('email', response.email);
                 localStorage.setItem('isRemembered', payload[1]);
-                //localStorage.setItem('sessionActive', sessionStorage.getItem('accessToken'));
-                localStorage.setItem('sessionActive', localStorage.getItem('CognitoIdentityServiceProvider.25h6ahb7sda3lvk1qs8v5u0ol0.c14be52e-be78-4949-a8c2-d815fe62b088.accessToken'));
+                localStorage.setItem('sessionActive', sessionStorage.getItem('accessToken'));
+                //localStorage.setItem('sessionActive', localStorage.getItem('CognitoIdentityServiceProvider.25h6ahb7sda3lvk1qs8v5u0ol0.c14be52e-be78-4949-a8c2-d815fe62b088.accessToken'));
 
                 window.location.href = '/dashboard';
             }

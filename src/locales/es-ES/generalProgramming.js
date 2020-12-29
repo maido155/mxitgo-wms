@@ -33,5 +33,7 @@ export default {
     'general.modal-verify-programming-description': 'Hemos encontrado una programación con la misma fecha. Por favor intente de nuevo',
     'general.modal-visualize': 'Detalle',
     'general.table.New': 'Nuevo',
-    'general.loading': 'Cargando...'
+    'general.loading': 'Cargando...',
+    'general.placeholder.product': 'Select product',
+    "general.placeholder.center": "Select center"
 }
