@@ -1,50 +1,49 @@
 import React, { PureComponent } from 'react';
-import {Steps, Progress, Icon, Typography} from 'antd';
+import { Steps, Progress, Icon, Typography } from 'antd';
 import styles from './stepsDashboard.less';
 
-import { FormattedMessage} from 'umi-plugin-react/locale';
+import { FormattedMessage } from 'umi-plugin-react/locale';
 
 const { Step } = Steps;
 const { Text } = Typography;
 
 class StepDayWeek extends PureComponent {
-  getTotal=(dataPerDay)=>{
-    return dataPerDay.planned+dataPerDay.confirmed+dataPerDay.cancelled;
+  getTotal = (dataPerDay) => {
+    return dataPerDay.planned + dataPerDay.confirmed + dataPerDay.cancelled;
 
   }
   render() {
 
-    const {dataPerDay,title} = this.props;
+    const { dataPerDay, title } = this.props;
     console.log(dataPerDay);
 
-    
-      
-        return (
 
+
+    return (
+
+      <div >
+        <div className={styles.dayName}>
+
+          <span ><Icon className={styles.dayIcon} theme="twoTone" twoToneColor="#244999" type="calendar" />{title}</span>
+        </div>
+        <div className={styles.dayTotal}>
+          <FormattedMessage id='dashboard.text.total' /> {this.getTotal(dataPerDay)}
+        </div>
+        <div>
+          <Progress percent={dataPerDay.plannedPercentage} successPercent={dataPerDay.confirmedPercentage} showInfo={false} />
+        </div>
+        <div className={styles.dayDetailContainer}>
           <div>
-              <div>
-                <Icon className={styles.dayIcon} theme="twoTone" twoToneColor="#244999" type="calendar" /> &nbsp;
-                <Text className={styles.dayName} strong>{title}</Text> 
-              </div>
-              <div className={styles.dayTotal}>
-              <FormattedMessage id='dashboard.text.total'/> {this.getTotal(dataPerDay)}
-              </div>
-              <div>
-              <Progress percent={dataPerDay.plannedPercentage} successPercent={dataPerDay.confirmedPercentage} showInfo={false} />
-              </div>
-              <div className={styles.dayDetailContainer}>
-                <div>
-                
-                <FormattedMessage id='dashboard.text.planned'/>&nbsp;<b>{dataPerDay.planned}</b>
-                </div>
-                <div>
-                <FormattedMessage id='dashboard.text.confirmed'/>&nbsp;<b>{dataPerDay.confirmed}</b>
-                </div>
-                <div>
-                <FormattedMessage id='dashboard.text.canceled'/>&nbsp;<b>{dataPerDay.cancelled}</b>
-                </div>
-              </div>
-               {/* <Steps.Step {...this.props}
+            <FormattedMessage id='dashboard.text.planned' /><b>{dataPerDay.planned}</b>
+          </div>
+          <div>
+            <FormattedMessage id='dashboard.text.confirmed' /><b>{dataPerDay.confirmed}</b>
+          </div>
+          <div>
+            <FormattedMessage id='dashboard.text.canceled' /><b>{dataPerDay.cancelled}</b>
+          </div>
+        </div>
+        {/* <Steps.Step {...this.props}
             style={{width:"50%"}}
               icon={<Icon theme="twoTone" twoToneColor="#244999" type="calendar" />} 
               title={this.props.title}
@@ -68,14 +67,14 @@ class StepDayWeek extends PureComponent {
                             </div>
                             
                             </div>} /> */}
-          </div>
+      </div>
 
-           
-          
-              
 
-          
-        );
-    }
+
+
+
+
+    );
+  }
 }
 export default StepDayWeek;
