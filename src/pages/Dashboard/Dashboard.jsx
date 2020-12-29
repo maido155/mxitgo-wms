@@ -8,11 +8,11 @@ import SelectProduct from '../generalComponents/SelectProduct';
 import { Row, Col, Card, Tooltip, Typography, Progress, Form, DatePicker, Statistic, Icon, Spin, notification } from 'antd';
 import { isMobile, isTablet } from "react-device-detect";
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import  StepsDashBoard from './Steps/StepsDashBoard';
+import StepsDashBoard from './Steps/StepsDashBoard';
 import 'moment/locale/en-au';
 import GridDashboard from './GridDashboard';
-const { Text, Title } = Typography; 
-function disabledDate (current) {
+const { Text, Title } = Typography;
+function disabledDate(current) {
   let dateMonday = moment(current).isoWeekday(1);
   let dateThursday = moment(current).isoWeekday(2);
   let dateTuesday = moment(current).isoWeekday(4);
@@ -26,20 +26,20 @@ function disabledDate (current) {
   let compareFriday = moment(dateFriday).format('dddd DD MMMM');
   let compareSaturday = moment(dateSaturday).format('dddd DD MMMM');
   let compareSunday = moment(dateSunday).format('dddd DD MMMM');
-  if(dateAll === compareMonday || dateAll === compareThursday || dateAll === compareTuesday || dateAll === compareFriday || dateAll === compareSaturday || dateAll === compareSunday){
-      return true;
+  if (dateAll === compareMonday || dateAll === compareThursday || dateAll === compareTuesday || dateAll === compareFriday || dateAll === compareSaturday || dateAll === compareSunday) {
+    return true;
   }
 }
 
 
 
 
-@connect(({ dashboard,programming,products, loading }) => ({
+@connect(({ dashboard, programming, products, loading }) => ({
   dashboard,
   programming,
   products,
   loading: loading.models.dashboard,
-  
+
   datesProductAll: programming.datesProductAll,
   currentSelectedDate: dashboard.currentSelectedDate,
   currentSelectedProduct: dashboard.currentSelectedProduct
@@ -53,40 +53,40 @@ export default class Dashboard extends PureComponent {
     this.props.dispatch({
       type: 'products/getProducts',
       payload: {
-          payload: {
-           Authorization: sessionStorage.getItem('idToken'),
-           type: "Primary"
-          }
-       },
+        payload: {
+          Authorization: sessionStorage.getItem('idToken'),
+          type: "Primary"
+        }
+      },
     });
     this.props.dispatch({
       type: 'dashboard/init',
       payload: {
-       },
+      },
     });
-    
+
   }
 
 
-   componentWillUnmount() {
-    for (const product of this.state.products) { 
-    this.props.dispatch({
-       type: 'dashboard/getWeekProgrammingTotalsReset',
-       payload: {
+  componentWillUnmount() {
+    for (const product of this.state.products) {
+      this.props.dispatch({
+        type: 'dashboard/getWeekProgrammingTotalsReset',
+        payload: {
           product,
           Authorization: sessionStorage.getItem('idToken')
-       }
-     });
+        }
+      });
     }
-     this.props.dispatch({
-       type: 'dashboard/dashboardGetMasterTotalReset',
-       payload: {
-          products: this.state.products,
-          Authorization: sessionStorage.getItem('idToken')
-       }
-     });
+    this.props.dispatch({
+      type: 'dashboard/dashboardGetMasterTotalReset',
+      payload: {
+        products: this.state.products,
+        Authorization: sessionStorage.getItem('idToken')
+      }
+    });
 
-     var startDate = `2020-11-11T00:00:00.000Z`;
+    var startDate = `2020-11-11T00:00:00.000Z`;
 
 
 
@@ -99,15 +99,15 @@ export default class Dashboard extends PureComponent {
 
     //startDate=`${startDate}T00:00:00.000Z`;
     for (const i of aDays) {
-     this.props.dispatch({
-      type: 'dashboard/getDayReset',
-      payload: {
-        Authorization: sessionStorage.getItem('idToken'),
-        dayName: moment(weekStart).add(i, 'days').format("dddd")
-      }
-    })
+      this.props.dispatch({
+        type: 'dashboard/getDayReset',
+        payload: {
+          Authorization: sessionStorage.getItem('idToken'),
+          dayName: moment(weekStart).add(i, 'days').format("dddd")
+        }
+      })
     }
-   }
+  }
 
   state = {
     currentSelectedDate: "",
@@ -204,12 +204,12 @@ export default class Dashboard extends PureComponent {
     //startDate=`${startDate}T00:00:00.000Z`;
     for (const i of aDays) {
       this.props.dispatch({
-      type: 'dashboard/getDayReset',
-      payload: {
-        Authorization: sessionStorage.getItem('idToken'),
-        dayName: moment(weekStart).add(i, 'days').format("dddd")
-      }
-    })
+        type: 'dashboard/getDayReset',
+        payload: {
+          Authorization: sessionStorage.getItem('idToken'),
+          dayName: moment(weekStart).add(i, 'days').format("dddd")
+        }
+      })
     }
 
     for (const product of this.state.products) {
@@ -266,9 +266,9 @@ export default class Dashboard extends PureComponent {
 
   render() {
 
-    let { datesProductAll,loading, products, dashboard} = this.props;
+    let { datesProductAll, loading, products, dashboard } = this.props;
     console.log(products.productsAll);
-    this.setState({loading});
+    this.setState({ loading });
     const formItemLayout = {
       labelCol: { xs: { span: 24 }, sm: { span: 9 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 9 } },
       wrapperCol: { xs: { span: 24 }, sm: { span: 15 }, md: { span: 15 }, lg: { span: 15 }, xl: { span: 15 } }
@@ -276,80 +276,105 @@ export default class Dashboard extends PureComponent {
 
     return (
       <PageHeaderWrapper
-      spin={this.state.loading}
-      extra={
-        <Form  layout="inline" >
-          <Form.Item {...formItemLayout} label={formatMessage({id: "general.calendar.week"})}>
-            <DatePicker format="YYYY-MM-DD" disabledDate={disabledDate} onChange={this.onPickerChange} allowClear={false} disabled={this.state.loading}/>
-          </Form.Item>
-          
+        spin={this.state.loading}
+      // extra={
+      //   <Form layout="inline" >
+      //     <Form.Item {...formItemLayout} label={formatMessage({ id: "general.calendar.week" })}>
+      //       <DatePicker format="YYYY-MM-DD" disabledDate={disabledDate} onChange={this.onPickerChange} allowClear={false} disabled={this.state.loading} />
+      //     </Form.Item>
 
-     
-        </Form>
-      }
-        >
-        <Card type="inner">
-          <Spin spinning={this.state.loading}>
-          <Card type="inner" size="small" style={{textAlign:"center"}}  title={<FormattedMessage id='dashboard.text.totals'/>}>
-          
-          <Row type="flex" justify="center" align-content="center">
-              <Col xs={12} sm={12} md={6} lg={9} xl={9} style={{textAlign: "center"}}>
-                
-                <Statistic title={<FormattedMessage id='dashboard.text.gold-necessity'/>} value={dashboard.programmingTotalPRODUCT1} prefix={<Icon type="layout" theme="twoTone" twoToneColor="#ffd700" />} />
+
+
+      //   </Form>
+      // }
+      >
+        {/* <Card type="inner"> */}
+        <Spin spinning={this.state.loading}>
+          <Card type="inner" size="small"
+            extra={
+              <Form layout="inline" >
+
+
+                <Form.Item {...formItemLayout} label={isMobile ? "" : formatMessage({ id: "general.calendar.week" })}>
+                  <DatePicker format="YYYY-MM-DD" placeholder={formatMessage({ id: "general.calendar.week" })} disabledDate={disabledDate} onChange={this.onPickerChange} allowClear={false} disabled={this.state.loading} style={{ width: 140 }}/>
+                </Form.Item>
+
+              </Form>
+            }
+            style={{ textAlign: "center" }}
+          // title={<FormattedMessage id='dashboard.text.totals' />}
+          >
+
+            <Row type="flex" justify="space-around" align-content="center">
+              <Col xs={18} sm={18} md={6} lg={4} xl={4} style={{ textAlign: "center" }}>
+
+                <Statistic title={<FormattedMessage id='dashboard.text.gold-necessity' />} value={dashboard.programmingTotalPRODUCT1} prefix={<Icon type="layout" theme="twoTone" twoToneColor="#ffd700" />} />
 
 
                 {/* <p>Necesidad Gold: </p>
                 <p><Title level={2}>{ {this.props.programmingTotalPRODUCT1} }</Title></p> */}
-                
+
               </Col>
-              
-              <Col xs={12} sm={12} md={6} lg={9} xl={9} style={{textAlign: "center"}}>
-                
+
+              <Col xs={18} sm={18} md={6} lg={4} xl={4} style={{ textAlign: "center" }}>
+
                 {/* <p>Necesidad Premium: </p> */}
                 {/* <p><Title level={2} >{/* {this.props.programmingTotalPRODUCT2} </Title></p> */}
-                <Statistic title={<FormattedMessage id='dashboard.text.premium-necessity'/>} value={dashboard.programmingTotalPRODUCT2} prefix={<Icon type="layout" theme="twoTone" twoToneColor="#7fc07b" />} />
-              </Col>
-              
-
-              <Col xs={18} sm={18} md={6} lg={4} xl={4} style={{textAlign: "center", padding:"0rem 0rem 0rem 2rem"}}>
-               
-                  {/* <p>Total Necesidades: <b style={{fontSize:"1.5rem"}}>{dashboard.programmingTotal.total}</b> </p> */}
-                  <Statistic title={<FormattedMessage id='dashboard.text.total-necessity'/>} value={dashboard.programmingTotal.programmingTotal}/>
-                  
-{/*                     <Progress percent={dashboard.programmingTotal.new} successPercent={dashboard.programmingTotal.confirmed} showInfo={false} strokeWidth={10} />
- */}                  
-                
+                <Statistic title={<FormattedMessage id='dashboard.text.premium-necessity' />} value={dashboard.programmingTotalPRODUCT2} prefix={<Icon type="layout" theme="twoTone" twoToneColor="#7fc07b" />} />
               </Col>
 
-              <Col xs={6} sm={6} md={6} lg={2} xl={2} style={{textAlign: "left"}}>
-                <Progress percent={dashboard.programmingTotal.new} successPercent={dashboard.programmingTotal.confirmed} type="circle" width={70}  showInfo={false} />
+
+              <Col xs={18} sm={18} md={6} lg={4} xl={4} style={{ textAlign: "center" }}>
+
+                {/* <p>Total Necesidades: <b style={{fontSize:"1.5rem"}}>{dashboard.programmingTotal.total}</b> </p> */}
+                <Statistic title={<FormattedMessage id='dashboard.text.total-necessity' />} value={dashboard.programmingTotal.programmingTotal} prefix={<Icon type="layout" theme="twoTone" />} />
+
+                {/*                     <Progress percent={dashboard.programmingTotal.new} successPercent={dashboard.programmingTotal.confirmed} showInfo={false} strokeWidth={10} />
+ */}
+
               </Col>
-          </Row>
+
+              <Col xs={18} sm={18} md={6} lg={4} xl={4} style={{ textAlign: "center" }}>
+                <Progress percent={dashboard.programmingTotal.new} successPercent={dashboard.programmingTotal.confirmed} type="circle" width={70} showInfo={false} />
+              </Col>
+            </Row>
           </Card>
-          </Spin>
+          {/* </Spin> */}
+          {/* </Card> */}
+
+          {/* <Card type="inner" style={{ marginTop: 25 }}   > */}
+          <Card type="inner" size="small"
+            style={{ textAlign: "center", marginTop: 25 }}
+
+            extra={
+
+              // <Form layout="inline" >
+              //   <Form.Item {...formItemLayout} label={formatMessage({ id: "general.button-product.product" })}>
+                  <SelectProduct
+                    
+                    datesProductAll={products.productsAll}
+                    handleProduct={this.onProductChange}
+                    disabled={this.state.currentSelectedDate}
+                    loading={this.state.loading} />
+              //   </Form.Item>
+              // </Form>
+              // <div>
+              //   <span>{formatMessage({ id: "general.button-product.product" })}: &nbsp;</span>
+              //   <SelectProduct
+              //     datesProductAll={products.productsAll}
+              //     handleProduct={this.onProductChange}
+              //     disabled={this.state.currentSelectedDate}
+              //     loading={this.state.loading} />
+              // </div>
+
+            }>
+
+            {/* <Spin spinning={this.state.loading}> */}
+            <StepsDashBoard currentDay={this.getNumberDay()} data={dashboard} />
+            {/* </Spin> */}
           </Card>
-        
-        <Card type="inner" style={{marginTop: 25}}   >
-        <Card type="inner" size="small"
-              style={{textAlign:"center"}}  
-              
-              extra={
-                  <div>
-                  <span>{formatMessage({id: "general.button-product.product"})}: &nbsp;</span>
-                  <SelectProduct 
-                  datesProductAll={products.productsAll} 
-                  handleProduct={this.onProductChange}
-                  disabled={this.state.currentSelectedDate}
-                  loading={this.state.loading}/>
-                  </div>
-                
-              }>
-          
-        <Spin spinning={this.state.loading}>
-          <StepsDashBoard currentDay={this.getNumberDay()} data={dashboard} />
-          </Spin>
-          </Card>
-        </Card>
+        </Spin>
+        {/* </Card> */}
       </PageHeaderWrapper>
     );
   }
