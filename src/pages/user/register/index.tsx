@@ -219,14 +219,14 @@ class Register extends Component{
 
     return(
       <div className={styles.main}>
-        <Divider plain><FormattedMessage id="register.social-Network.register"/></Divider>
-        <div className={styles.iconsSocial}>
-          {/* <Button type="primary" className={styles.btnFb} onClick={() => Auth.federatedSignIn({ provider: "Facebook" })}><FacebookOutlined />Facebook</Button> */}
-          <Button type="danger"   onClick={() => Auth.federatedSignIn({ provider: "Google" })}><GoogleOutlined />Google</Button>
-          {/* className={styles.btnGo} */}
-        </div>
         {visibleResultSuccess === false && 
-          <div>
+         <div>
+              <Divider plain><FormattedMessage id="register.social-Network.register"/></Divider>
+               <div className={styles.iconsSocial}>
+                {/* <Button type="primary" className={styles.btnFb} onClick={() => Auth.federatedSignIn({ provider: "Facebook" })}><FacebookOutlined />Facebook</Button> */}
+                <Button type="danger"   onClick={() => Auth.federatedSignIn({ provider: "Google" })}><GoogleOutlined />Google</Button>
+              {/* className={styles.btnGo} */}
+            </div>
             <Divider plain style={{paddingTop: "12px"}}><FormattedMessage id="register.modal.register"/></Divider>
             <Form onSubmit={this.handleSubmit}>
               <FormItem>

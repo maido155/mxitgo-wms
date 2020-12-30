@@ -163,7 +163,7 @@ class ModalNewUser extends PureComponent{
                 </Form.Item>
               </Col>
             </Row>
-            { edit === false &&
+            {/* { edit === false &&
               <span>
                 <Row>
                   <Col span={24}>
@@ -184,7 +184,7 @@ class ModalNewUser extends PureComponent{
                   </Col>
                 </Row>
               </span>
-            }
+            } */}
             <Row>
               <Col span={24}>
                 <Form.Item label={formatMessage({ id: 'usersModule.modal.phone' })}>

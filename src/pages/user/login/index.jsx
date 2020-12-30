@@ -40,7 +40,7 @@ class Login extends Component {
     user: {},
     userAttributes: {},
     loading: false,
-    showLogin: false
+    showLogin: false,
   };
   componentDidMount(){
     if(localStorage.getItem('sessionActive') != 'null' && localStorage.getItem('isRemembered') === 'true'){
@@ -206,7 +206,11 @@ class Login extends Component {
 
     this.onResetModal();
   };
-  
+  handleCancelNew = () => {
+    this.setState({
+      visibleNew: false
+    });
+  }
   onResetModal = () => {
     const form = this.formRefDraw.props.form;
     form.resetFields();
