@@ -90,6 +90,7 @@ export default {
     'shipping.drawerEntry.messageSuccessConfirm': 'Confirmed successfully',
     'shipping.drawerEntry.messageSuccessEntry': 'Entry successfully',
     'shipping.gridModalEntry.captured': 'Captured',
-    'shipping.drawerConfirm.messageWarningProducts': 'You have to add a new center'
+    'shipping.drawerConfirm.messageWarningProducts': 'You have to add a new center',
+    'shipping.notification.operator': 'There is a driver with the same number'
 
 };

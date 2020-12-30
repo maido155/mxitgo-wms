@@ -38,7 +38,7 @@ export default class ModalProductTable extends PureComponent{
                             <Text strong>{formatMessage({id: "shipping.modal.detail-table.shipping"})}</Text>
                         </Col>
                         <Col xs={24} sm={14} md={12} lg={8} xl={10} className={Styles.labeltwo}>
-                        <Text>{oShippingItem['WMS-1-PK']}</Text>
+                        <Text>{oShippingItem['WMS-1-PK'] === undefined ? oShippingItem['WMS-1-PK']: oShippingItem['WMS-1-PK'].substr(7)}</Text>
                         </Col>
                         <Col md={1} lg={3} ></Col>
                     </Row>
