@@ -221,7 +221,6 @@ class Register extends Component{
       <div className={styles.main}>
         <Divider plain><FormattedMessage id="register.social-Network.register"/></Divider>
         <div className={styles.iconsSocial}>
-          <Button type="primary" className={styles.btnFb} onClick={() => Auth.federatedSignIn({ provider: "Facebook" })}><FacebookOutlined />Facebook</Button>
           <Button type="danger"  className={styles.btnGo} onClick={() => Auth.federatedSignIn({ provider: "Google" })}><GoogleOutlined />Google</Button>
         </div>
         {visibleResultSuccess === false && 
