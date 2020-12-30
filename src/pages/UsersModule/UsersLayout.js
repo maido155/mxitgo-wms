@@ -231,7 +231,7 @@ export default class UsersLayout extends PureComponent {
                         <div> 
                             <Form style={{paddingRight:"1rem"}} layout="inline" >
                                 <Form.Item style={{padding:"0rem 1rem 0rem 7rem"}} {...formItemLayout}>
-                                    <Button type="primary" shape="circle" size="large" onClick={this.showNewDrawer}>
+                                    <Button type="primary" shape="circle" size="large" onClick={this.showModal}>
                                         <Icon type="plus"/>
                                     </Button>
                                 </Form.Item>

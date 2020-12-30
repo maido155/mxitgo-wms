@@ -47,6 +47,7 @@ class AccountSettings extends PureComponent {
     }
 
     handleSubmit = e => {
+        const { avatarUser } = this.props;
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             let vali = localStorage.getItem('url');
@@ -202,21 +203,19 @@ class AccountSettings extends PureComponent {
                         <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                             <Row>
                                 <Col lg={12} xl={24} className={Styles.avatar}>
-                                    {/* {
+                                    {
                                         avatarUser != undefined
-                                            ? <div>
-                                                <Upload changeImagen={this.handleChange} customRequest={this.dummyRequest} stateImage={avatarUser.urlImage} />
-                                                {localStorage.setItem("url", this.props.avatarUser.urlImage)}
-                                            </div>
-                                            :  */}
-
-                                    <div>
-                                        <Upload changeImagen={this.handleChange} customRequest={this.dummyRequest} stateImage={(avatarUser != undefined ? avatarUser.urlImage : "")} stateName={userByEmail.name ? userByEmail.name.substr(0, 1) : ""} />
-                                        {avatarUser != undefined ? localStorage.setItem("url", this.props.avatarUser.urlImage) : ""}
-                                    </div>
-
-
-                                    {/* } */}
+                                            ? 
+                                                <div>
+                                                    <Upload changeImagen={this.handleChange} customRequest={this.dummyRequest} stateImage={avatarUser.urlImage} />
+                                                    {localStorage.setItem("url", this.props.avatarUser.urlImage)}
+                                                </div>
+                                            : 
+                                                <div>
+                                                    <Upload changeImagen={this.handleChange} customRequest={this.dummyRequest} stateImage={(avatarUser != undefined ? avatarUser.urlImage : "")} stateName={userByEmail.name ? userByEmail.name.substr(0, 1) : ""} />
+                                                    {avatarUser != undefined ? localStorage.setItem("url", this.props.avatarUser.urlImage) : ""}
+                                                 </div>
+                                    } 
                                 </Col>
                             </Row>
                             <Divider />
