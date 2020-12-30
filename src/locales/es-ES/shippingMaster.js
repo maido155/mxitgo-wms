@@ -91,8 +91,8 @@ export default {
     'shipping.drawerEntry.messageSuccessConfirm': 'Se confirmó con éxito',
     'shipping.drawerEntry.messageSuccessEntry': 'Entrada exitosa',
     'shipping.gridModalEntry.captured': 'Capturado',
-    'shipping.drawerConfirm.messageWarningProducts': 'Tiene que agregar un centro'
-
+    'shipping.drawerConfirm.messageWarningProducts': 'Tiene que agregar un centro',
+    'shipping.notification.operator': 'Hay un conductor con el mismo numero'
 
 
 

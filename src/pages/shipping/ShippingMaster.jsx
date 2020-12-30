@@ -364,6 +364,14 @@ class ShippingMaster extends PureComponent {
             type: 'shipping/getShipping',
             payload: { id: oItem['WMS-1-PK'], status: "New"}
         })
+        this.props.dispatch({
+            type: 'operator/getOperators',
+            payload: {
+                payload: {
+                 Authorization: sessionStorage.getItem('idToken')
+                }
+            },
+        })
         this.setState({ visibleConfirmation: true, masterMode: masterMode})
     }
     closeConfirmation = () => {
