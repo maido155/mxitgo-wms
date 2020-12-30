@@ -68,7 +68,7 @@ class drawerEntryProducts extends PureComponent {
             this.props.onCancel();
         });
     }
-    typeProductName = (data) => {
+    typeProductName = (data, dataProduct) => {
         const { typeProduct } = this.props;
         if(data.commentEntry != undefined){
             if(data.products.length != 0){
@@ -80,10 +80,13 @@ class drawerEntryProducts extends PureComponent {
             }
         }else{
             disabledInputs = false;
-            return ""
+            let getProduct = dataProduct.filter(function(data){
+                return data.id === typeProduct
+            })
+            return getProduct.length === 0 ? '' : getProduct[0].quantities
         }
     }
-    typeTemName = (data) => {
+    typeTemName = (data,dataProduct) => {
         const { typeProduct } = this.props;
         if(data.commentEntry != undefined){
             if(data.products.length != 0){
@@ -95,7 +98,10 @@ class drawerEntryProducts extends PureComponent {
             }
         }else{
             disabledInputs = false;
-            return ""
+            let getProduct = dataProduct.filter(function(data){
+                return data.id === typeProduct
+            })
+            return getProduct.length === 0 ? '' : getProduct[0].temperature
         }
     }
     typePictureName = (data, uploadButton) => {
@@ -126,7 +132,7 @@ class drawerEntryProducts extends PureComponent {
             labelCol: {xs: { span: 24 },sm: { span: 24 },md: { span: 8 },lg: { span: 8 },xl: { span: 6 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 24 },md: { span: 12 },lg: { span: 12 },xl: { span: 14 }}
         };
-        const { oShippingItem, typeProduct, quantities } = this.props;
+        const { oShippingItem, typeProduct, quantities, dataProduct } = this.props;
         const { getFieldDecorator } = this.props.form;
         const uploadButton = (
             <div>
@@ -148,11 +154,11 @@ class drawerEntryProducts extends PureComponent {
                         <Text strong>{quantities}</Text>  
                     </Form.Item>
                     <Form.Item label={formatMessage({ id: 'shipping.entryProducts.amounts' })}>
-                        {getFieldDecorator('entryProduct',{ initialValue: this.typeProductName(oShippingItem), 
+                        {getFieldDecorator('entryProduct',{ initialValue: this.typeProductName(oShippingItem, dataProduct), 
                         rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.amountMissing'/> }] })(<InputNumber style={{ width: "100%"}} disabled={disabledInputs}/>)}
                     </Form.Item>
                     <Form.Item label={formatMessage({ id: 'shipping.entryProducts.temperature' })}>
-                        {getFieldDecorator('temperatureProduct',{ initialValue: this.typeTemName(oShippingItem),
+                        {getFieldDecorator('temperatureProduct',{ initialValue: this.typeTemName(oShippingItem, dataProduct),
                         rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.temperatureMissing'/> }] })(<Input disabled={disabledInputs}/>)}
                     </Form.Item>
                     <Form.Item label={formatMessage({ id: 'shipping.entryProducts.photo' })}>
