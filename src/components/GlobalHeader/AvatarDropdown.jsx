@@ -13,88 +13,14 @@ Amplify.configure(config);
 import { Auth } from 'aws-amplify'
 /******/
 class AvatarDropdown extends React.Component {
-  async componentDidMount() {
-    try {
-      if(localStorage.getItem('socialNetwork') === "false"){
-        const user = await Auth.currentAuthenticatedUser();
-        localStorage.setItem('userId', user.username);
-        localStorage.setItem('emailVerified', user.attributes.email_verified);
-        localStorage.setItem('userName', user.attributes.name);
-        localStorage.setItem('middleName', user.attributes.middle_name);
-        localStorage.setItem('familyName', user.attributes.family_name);
-        localStorage.setItem('email', user.attributes.email);
-        localStorage.setItem('isRemembered', "true");
-        localStorage.setItem('socialNetwork', "false");
-        this.props.dispatch({
-          type: 'user/fetchUserByEmail',
-          payload: {
-            payload: {
-              email: localStorage.getItem('email'),
-              Authorization: sessionStorage.getItem('idToken')
-            }
-          },
-        });
-        this.props.dispatch({
-          type: 'user/fetchAvatarUser',
-          payload: {
-            payload: {
-              user: localStorage.getItem('email'),
-              Authorization: sessionStorage.getItem('idToken')
-            }
-          },
-        });
-      } else {
-        let user = await Auth.currentAuthenticatedUser();
-        localStorage.setItem('userId', user.username);
-        localStorage.setItem('emailVerified', user.attributes.email_verified);
-        localStorage.setItem('userName', user.attributes.name);
-        localStorage.setItem('middleName', user.attributes.middle_name);
-        localStorage.setItem('familyName', user.attributes.family_name);
-        localStorage.setItem('email', user.attributes.email);
-        localStorage.setItem('isRemembered', "true");
-        localStorage.setItem('socialNetwork', "true");
-        sessionStorage.setItem('idToken', user.storage["CognitoIdentityServiceProvider.66vntbnp4mpgn1o1p50pqd43kl.Facebook_3220880598031191.idToken"]);
-        sessionStorage.setItem('accessToken', user.storage["CognitoIdentityServiceProvider.66vntbnp4mpgn1o1p50pqd43kl.Facebook_3220880598031191.accessToken"]);
-        this.props.dispatch({
-          type: 'user/fetchUserByEmail',
-          payload: {
-            payload: {
-              email: localStorage.getItem('email'),
-              Authorization: sessionStorage.getItem('idToken')
-            }
-          },
-        });
-        this.props.dispatch({
-          type: 'user/fetchAvatarUser',
-          payload: {
-            payload: {
-              user: localStorage.getItem('email'),
-              Authorization: sessionStorage.getItem('idToken')
-            }
-          },
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   onMenuClick = event => {
     const { key } = event;
 
     if (key === 'logout') {
       const { dispatch } = this.props;
-      localStorage.removeItem('userId');
-      localStorage.removeItem('emailVerified');
-      localStorage.removeItem('userName');
-      localStorage.removeItem('phoneNumberVerified');
-      localStorage.removeItem('phoneNumber');
-      localStorage.removeItem('middleName');
-      localStorage.removeItem('familyName');
-      localStorage.removeItem('email');
-      localStorage.removeItem('socialNetwork');
-      localStorage.removeItem('antd-pro-authority');
-      localStorage.setItem('sessionActive', null);
+      localStorage.clear();
+      sessionStorage.clear();
       Auth.signOut();
          if (dispatch) {
            dispatch({

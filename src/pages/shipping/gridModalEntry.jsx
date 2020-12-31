@@ -14,7 +14,7 @@ class gridModalEntry extends React.Component {
         console.log(quantitiesShow);
     }
     render() {
-        const { dataSource, oShippingItem } = this.props;
+        const { dataSource, oShippingItem, dataProduct } = this.props;
         return (
             //I18N ***************************************************************************************************** Cantidad en linea 22
             <div>
@@ -26,7 +26,7 @@ class gridModalEntry extends React.Component {
                     actions={
                         item.quantitiesCaptured === '0'
                         ? [<a onClick={() => {this.drawerProductInformation(item.id, item.quantities)}} key={`a-${item.id}`}><Icon type="eye"/></a>]
-                        : [<a onClick={() => {this.drawerProductInformation(item.id, item.quantities)}} key={`a-${item.id}`}><Icon type="eye"/></a>, <a><Icon type="check"/></a>]
+                        : [<a onClick={() => {this.drawerProductInformation(item.id, item.quantities)}} key={`a-${item.id}`}><Icon type="eye"/></a>, <a style={{cursor: 'default'}}><Icon type="check"/></a>]
                     }>
                         <List.Item.Meta title={item.name} 
                             description={<div><FormattedMessage id='shipping.gridModalEntry.amount'/>{item.quantities}<br /><FormattedMessage id='shipping.gridModalEntry.captured'/> {item.quantitiesCaptured} </div>  }/> 
@@ -40,6 +40,7 @@ class gridModalEntry extends React.Component {
                     handleProduct={this.props.handleProduct}
                     typeProduct={typeProduct}
                     quantities={quantitiesShow}
+                    dataProduct={dataProduct}
                 />
           </div>
         );
