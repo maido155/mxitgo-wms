@@ -10,6 +10,12 @@ import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { isAntDesignPro, getAuthorityFromRouter } from '@/utils/utils';
 import logo from '../assets/MXITGO_LOGO2.png';
+import Amplify from 'aws-amplify'
+import config from './../aws-config/cognito-config';
+
+Amplify.configure(config);
+import { Auth } from 'aws-amplify'
+
 const noMatch = (
   <Result
     status="403"
@@ -86,12 +92,50 @@ const BasicLayout = props => {
    */
 
   useEffect(() => {
-    if (dispatch) {
-      dispatch({
-        type: 'user/fetchCurrent',
-      });
+
+    async function fetchMyAuth() {
+      const user = await Auth.currentAuthenticatedUser();
+      localStorage.setItem('userId', user.username);
+      localStorage.setItem('emailVerified', user.attributes.email_verified);
+      localStorage.setItem('userName', user.attributes.name);
+      localStorage.setItem('middleName', user.attributes.middle_name);
+      localStorage.setItem('familyName', user.attributes.family_name);
+      localStorage.setItem('email', user.attributes.email);
+      localStorage.setItem('isRemembered', "true");
+      
+      user.storage["CognitoIdentityServiceProvider.66vntbnp4mpgn1o1p50pqd43kl.Google_114367382908127381142.idToken"] === undefined ? 
+      sessionStorage.setItem('idToken', user.storage["CognitoIdentityServiceProvider.66vntbnp4mpgn1o1p50pqd43kl.1b7e2042-5362-4cca-bd27-3df98ba03d32.idToken"]) :
+      sessionStorage.setItem('idToken', user.storage["CognitoIdentityServiceProvider.66vntbnp4mpgn1o1p50pqd43kl.Google_114367382908127381142.idToken"]);
+
+      user.storage["CognitoIdentityServiceProvider.66vntbnp4mpgn1o1p50pqd43kl.Google_114367382908127381142.accessToken"] === undefined ? 
+      sessionStorage.setItem('idToken', user.storage["CognitoIdentityServiceProvider.66vntbnp4mpgn1o1p50pqd43kl.1b7e2042-5362-4cca-bd27-3df98ba03d32.accessToken"]) :
+      sessionStorage.setItem('idToken', user.storage["CognitoIdentityServiceProvider.66vntbnp4mpgn1o1p50pqd43kl.Google_114367382908127381142.accessToken"]);
+      
+      if (dispatch) {
+        dispatch({
+          type: 'user/fetchUserByEmail',
+          payload: {
+            payload: {
+              email: localStorage.getItem('email'),
+              Authorization: sessionStorage.getItem('idToken')
+            }
+          },
+        });
+        dispatch({
+          type: 'user/fetchAvatarUser',
+          payload: {
+            payload: {
+              user: localStorage.getItem('email'),
+              Authorization: sessionStorage.getItem('idToken')
+            }
+          },
+        });
+      }
     }
-  }, []);
+
+    fetchMyAuth();
+
+  }, [])
   /**
    * init variables
    */
@@ -109,9 +153,9 @@ const BasicLayout = props => {
     authority: undefined,
   };
   return (
-    <div>
+    <>
       {
-        localStorage.getItem("sessionActive") === "null" &&
+        localStorage.length === 0 &&
         router.push('/user/login')
       }
       {
@@ -164,7 +208,7 @@ const BasicLayout = props => {
           </Authorized>
         </ProLayout>
       }
-    </div>
+    </>
   );
 };
 
