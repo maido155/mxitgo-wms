@@ -17,7 +17,7 @@ class TableShippingMaster extends PureComponent {
 
 
   formatDate = (mydate) => {
-    let dateFormat = moment(mydate).format('dddd');
+    let dateFormat = moment(mydate.slice(0, 10)).format('dddd');
     return dateFormat.charAt(0).toUpperCase() + dateFormat.slice(1)
   };
   dates = (planned, confirmed) => {
