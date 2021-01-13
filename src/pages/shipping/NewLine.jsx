@@ -32,13 +32,6 @@ const NewLine = Form.create()(
 
                 return data
 
-
-                // return data
-                    // if(key !== validationLocation[0].childLevel1[0].key && key !== validationLocation[0].childLevel1[1].key && key !== validationLocation[0].childLevel1[2].key){
-                    //     return true;
-                    // }else{
-                    //     return false;
-                    // }
             }
         }
 

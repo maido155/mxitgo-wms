@@ -181,6 +181,8 @@ export default {
                 type: 'saveEntryReducer',
                 payload: response,
             });
+            delete payload.payload.POST.products;
+            delete payload.payload.POST.picture;
             const responseGetAll = yield call(fetchShippingAll, payload);
             console.log(responseGetAll);
             console.log(responseGetAll);
@@ -389,6 +391,19 @@ export default {
             oItem.originalDepartureDate = oItem.departureDate;
             oItem.originalDeliveryDate = oItem.deliveryDate;
             oItem.originalEntryDate = oItem.entryDate;
+
+            if (oItem.picture !== undefined) {
+                var p = 1;
+                let pictureGeneral = oItem.picture.map(function(data) {
+                    return {
+                        uid: p++,
+                        url: data
+                    }
+                })
+
+                oItem.picture = pictureGeneral;
+            }
+
 
             return {
                 ...state,

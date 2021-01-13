@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
-import { Drawer,Button, Row, Col, Form, Input, Upload, Icon, message, Spin, notification} from 'antd';
+import { Drawer,Button, Row, Col, Form, Input, Upload, Icon, message, Spin, notification, Modal} from 'antd';
 import TableModal from './tableModalEntry';
 import GridModal from './gridModalEntry';
 import {isMobile} from 'react-device-detect';
@@ -11,10 +11,13 @@ import moment from 'moment';
 const { TextArea } = Input;
 var productsEdit = [];
 
-function getBase64(img, callback) {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
-    reader.readAsDataURL(img);
+function getBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
 }
 function beforeUpload(file) {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -28,6 +31,12 @@ function beforeUpload(file) {
         return isJpgOrPng && isLt2M;
 }
 
+const openNotificationWithImage = type => {
+    notification[type]({
+      message: formatMessage({ id: 'shipping.drawerEntry.messagePhoto' }),
+    });
+};
+
 class drawerEntry extends PureComponent {
     state = {
         loading: false,
@@ -38,6 +47,9 @@ class drawerEntry extends PureComponent {
         product: "",
         temperatureProduct: "",
         urlImageProduct: "",
+        fileList: [],
+        previewVisible: false,
+        previewImage: '',
         dataSource:[
             {
                 name: <FormattedMessage id='shipping.tablecomponent.label.premium'/>,
@@ -91,54 +103,40 @@ class drawerEntry extends PureComponent {
             urlImage: ""
         }
     ]};
-    handleChange = info => {
-        if (info.file.status === 'uploading') {
-          this.setState({ loading: true });
-          return;
-        }
-        if (info.file.status === 'done') {
-          getBase64(info.file.originFileObj, imageUrl =>
-            this.setState({
-              imageUrl,
-              loading: false,
-            }),
-          );
-        }
-    };
     handleEntry = e => {
         e.preventDefault();
-        // const { imageUrl } = this.state;
+        const { fileList } = this.state;
         const { oShippingItem } = this.props;
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (err) {
                 return;
             }
-            // if(imageUrl == undefined){
-            //     this.openNotificationWithImage();
-            //     return;
-            // }
-            var products = [];
-            var messageProduct = false;
-            for(var i = 0; i < productsEdit.length; i++){
-                //&& productsEdit[i].urlImage != ""
-                if(productsEdit[i].temperature != ""){
-                    var product = {
-                        amount: productsEdit[i].quantitiesCaptured,
-                        product: productsEdit[i].id,
-                        productName: productsEdit[i].nameProduct,
-                        temp: productsEdit[i].temperature,
-                        // picture: productsEdit[i].urlImage
-                    }
-                    products.push(product)
-                }else{
-                    messageProduct = true;
-                }
+            if(fileList.length == 0){
+                openNotificationWithImage('warning')
+                return;
             }
-            if(messageProduct === true){
+            let getProductInsert = productsEdit.filter(function(data){
+                return data.temperature !== ""
+            })
+            if(getProductInsert.length === 0){
                 this.props.showMessageFeatures('warning')
                 return;
             }
-            // values["urlImageGeneral"] = imageUrl;
+            let products = productsEdit.map(function(data){
+                return {
+                    amount: data.quantitiesCaptured,
+                    product: data.id,
+                    productName: data.nameProduct,
+                    temp: data.temperature,
+                    picture: data.urlImage 
+                }
+            });
+            let imagesGeneral = fileList.map(function(data){
+                return {
+                    dataImage: data.thumbUrl
+                }
+            })
+            values["urlImageGeneral"] = imagesGeneral;
             values["createdBy"] = localStorage.getItem('userName'),
             values["date"] = moment().format("YYYY-MM-DD") + "T00:00:00.000Z";
             values["products"] = products;
@@ -157,14 +155,9 @@ class drawerEntry extends PureComponent {
                 }
                 productsCancel.push(data);
             }
-            this.setState({dataProduct: productsCancel})
+            this.setState({dataProduct: productsCancel, fileList: []})
             this.props.form.resetFields();
         });
-    }
-    openNotificationWithImage = (type) => {
-        notification[type]({
-            message: <FormattedMessage id='shipping.drawerEntry.messagePhoto'/>, //I18N*****************************************************************
-          });
     }
     productsEntry = (products) => {
         const { oShippingItem } = this.props;
@@ -184,7 +177,8 @@ class drawerEntry extends PureComponent {
                                         name: products[i].name,
                                         temperature: "",
                                         urlImage: "",
-                                        quantities: oShippingItem.products[0][k].confAmount
+                                        quantities: oShippingItem.products[0][k].confAmount,
+                                        nameProduct: oShippingItem.products[0][k].productName,
                                     }
                                 }else{
                                     var dataProdu = {
@@ -193,7 +187,8 @@ class drawerEntry extends PureComponent {
                                         name: products[i].name,
                                         temperature: "",
                                         urlImage: "",
-                                        quantities: oShippingItem.products[0][k].amount
+                                        quantities: oShippingItem.products[0][k].amount,
+                                        nameProduct: oShippingItem.products[0][k].productName,
                                     }
 
                                 }
@@ -225,7 +220,7 @@ class drawerEntry extends PureComponent {
         let newState = Object.assign({}, this.state);
         newState.dataProduct[getProduct].quantities = dataProducts.entryProduct;
         newState.dataProduct[getProduct].temperature = dataProducts.temperatureProduct;
-        // newState.dataProduct[getProduct].urlImage = dataProducts.urlImage;
+        newState.dataProduct[getProduct].urlImage = dataProducts.urlImage;
         this.setState({ 
             dataProduct : newState.dataProduct,
         })
@@ -258,6 +253,19 @@ class drawerEntry extends PureComponent {
         this.props.form.resetFields();
         this.props.closeEntry();
     }
+    onPreview = async file => {
+        if (!file.url && !file.preview) {
+            file.preview = await getBase64(file.originFileObj);
+        }  
+        this.setState({
+            previewImage: file.url || file.preview,
+            previewVisible: true,
+        });
+    }
+    handleChange = ({ fileList }) => {
+        this.setState({ fileList });
+    }
+    handleCancelModal = () => this.setState({ previewVisible: false });
     render() {
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 24 },md: { span: 9 },lg: { span: 8 },xl: { span: 7 }},
@@ -266,19 +274,19 @@ class drawerEntry extends PureComponent {
         const { getFieldDecorator } = this.props.form;
         const uploadButton = (
             <div>
-              <Icon type={this.state.loading ? 'loading' : 'camera'} />
+              <Icon type="plus" />
+              <div className="ant-upload-text">Upload</div>
             </div>
         );
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
         const { oShippingItem } = this.props;
-        const { dataSource, imageUrl } = this.state;
+        const { dataSource, imageUrl, fileList,  previewVisible, previewImage} = this.state;
         this.setState({ currentLoader });
         
         if (this.props.close == true) {
             this.props.closeEntry();
             this.props.changedClose();
         }
-        //I18N ******************************************* COMENTARIO LINEA 306
       return (
         <div>
             <Drawer
@@ -314,24 +322,22 @@ class drawerEntry extends PureComponent {
                                 </Form.Item>
                                 <Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.photo' })}>
                                     <Upload
-                                        name="avatar"
                                         listType="picture-card"
-                                        className="avatar-uploader"
-                                        showUploadList={false}
+                                        fileList={oShippingItem.commentEntry !== undefined ? oShippingItem.picture : fileList}
+                                        onPreview = {this.onPreview}
                                         beforeUpload={beforeUpload}
                                         onChange={this.handleChange}
                                         disabled={oShippingItem == undefined || oShippingItem.commentEntry == undefined ? false : true}
                                     >
-                                        {/* <img src={""} alt="avatar" style={{ width: '100%' }}/> */}
-
-                                        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-                                        {/* { oShippingItem == undefined || oShippingItem.commentEntry == undefined ?
-                                            imageUrl ? 
-                                                <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/> 
+                                        {
+                                            fileList.length >= 8 
+                                                ? null 
                                                 : uploadButton
-                                            : <img src={oShippingItem.picture} alt="avatar" style={{ width: '100%' }}/>
-                                        } */}
+                                        }
                                     </Upload> 
+                                    <Modal visible={previewVisible} footer={null} onCancel={this.handleCancelModal} width={'50%'}>
+                                        <img alt="example" style={{ width: '100%', paddingTop: '1rem' }} src={previewImage} />
+                                    </Modal>
                                 </Form.Item>
                             </Col>
                         </Row>
