@@ -141,6 +141,9 @@ class ConfirmationShipping extends PureComponent {
             values["entryDate"] === "" ? values["entryDate"] = this.props.oShippingItem.originalEntryDate : values["entryDate"]; 
         }
             _self.props.confirmShipping(values);
+            this.setState({
+                phoneOperator: ''
+            })
             this.props.form.resetFields();
             
         });
@@ -198,6 +201,11 @@ class ConfirmationShipping extends PureComponent {
                                 <Col lg={12} xl={12}>
                                     < Form.Item label={formatMessage({ id: 'shipping.shippingconfirmation.id-order' })}>
                                         <Text strong>{oShippingItem.idShipping === undefined ? '' : oShippingItem.idShipping.substr(7)}</Text>  
+                                    </Form.Item>
+                                </Col>
+                                <Col lg={12} xl={12}>
+                                    < Form.Item label={formatMessage({ id: 'shipping.label.table-shipping.des' })}>
+                                        <Text strong>{oShippingItem.destinity === undefined ? '' : oShippingItem.destinity}</Text>  
                                     </Form.Item>
                                 </Col>
                                 <Col lg={12} xl={12}>

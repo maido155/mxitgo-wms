@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
-import { Drawer, Button, Form, InputNumber,Upload, Icon, message, Input, notification, Typography } from 'antd';
+import { Drawer, Button, Form, InputNumber,Upload, Icon, message, Input, Typography } from 'antd';
 import {isMobile} from 'react-device-detect';
 import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
 
@@ -45,23 +45,19 @@ class drawerEntryProducts extends PureComponent {
           );
         }
     };
-    openNotificationWithImage = (type) => {
-        notification[type]({
-            message: <FormattedMessage id='shipping.drawerEntry.messagePhoto'/>, //I18N*****************************************************************
-          });
-    }
+
     handleEntryProduct = e => {
         e.preventDefault();
-        // const { imageUrl } = this.state;
+        const { imageUrl } = this.state;
         this.props.form.validateFields((err, values) => {
             if (err) {
                 return;
             }
             // if(imageUrl == undefined){
-            //     this.openNotificationWithImage();
+            //     message.warning(formatMessage({ id: 'shipping.drawerEntry.messagePhoto' }));
             //     return;
             // }
-            // values["urlImage"] = imageUrl;
+            values["urlImage"] = imageUrl;
             this.props.handleProduct(values);
             this.props.form.resetFields();
             this.setState({imageUrl: undefined})
@@ -76,14 +72,14 @@ class drawerEntryProducts extends PureComponent {
                     return data.product == typeProduct;
                 })
                 disabledInputs = true;
-                return getProducto.length == 0 ? "" : getProducto[0].amount
+                return getProducto.length == 0 ? "" : getProducto[0].amount === '0' ? '' : getProducto[0].amount
             }
         }else{
             disabledInputs = false;
             let getProduct = dataProduct.filter(function(data){
                 return data.id === typeProduct
             })
-            return getProduct.length === 0 ? '' : getProduct[0].quantities
+            return getProduct.length === 0 ? '' : getProduct[0].quantities === '0' ? '' : getProduct[0].quantities
         }
     }
     typeTemName = (data,dataProduct) => {
@@ -104,7 +100,7 @@ class drawerEntryProducts extends PureComponent {
             return getProduct.length === 0 ? '' : getProduct[0].temperature
         }
     }
-    typePictureName = (data, uploadButton) => {
+    typePictureName = (data, uploadButton, dataProduct) => {
         const { typeProduct } = this.props;
         const { imageUrl } = this.state;
         if(data.commentEntry != undefined){
@@ -113,19 +109,34 @@ class drawerEntryProducts extends PureComponent {
                     return data.product == typeProduct;
                 })
                 disabledInputs = true;
-                return getProducto.length == 0 ? imageUrl ?
-                    <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/>
-                    : uploadButton
-                :<img src={getProducto[0].picture} alt="avatar" style={{ width: '100%' }}/>
+                return getProducto.length === 0
+                    ? uploadButton
+                    : getProducto[0].pictureProduct === ''
+                        ? uploadButton
+                        : <img src={getProducto[0].pictureProduct} alt="avatar" style={{ width: '100%' }}/>
             }
         }else{
             disabledInputs = false;
-            return imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/> : uploadButton
+            let getProduct = dataProduct.filter(function(data){
+                return data.id === typeProduct
+            })
+            return  getProduct.length === 0
+                ? imageUrl 
+                    ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/> 
+                    : uploadButton
+                : getProduct.length === 1 && getProduct[0].urlImage === '' || getProduct[0].urlImage === undefined
+                    ? imageUrl
+                        ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/> 
+                        : uploadButton
+                    : <img src={getProduct[0].urlImage} alt="avatar" style={{ width: '100%' }}/>
         }
     }
     onCloseDrawer = () => {
         this.props.form.resetFields();
         this.props.onCancel();
+        this.setState({
+            imageUrl: undefined
+        })
     }
     render() {
         const formItemLayout = {
@@ -171,8 +182,8 @@ class drawerEntryProducts extends PureComponent {
                             onChange={this.handleChange}
                             disabled={disabledInputs}
                         >
-                            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-                            {/* {this.typePictureName(oShippingItem, uploadButton)} */}
+                            {/* {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton} */}
+                            {this.typePictureName(oShippingItem, uploadButton,dataProduct)}
                         </Upload>
                     </Form.Item>
                     <div

@@ -14,18 +14,18 @@ const { confirm } = Modal; //ADD
 function disabledDate(current) {
     let dateMonday = moment(current).isoWeekday(1);
     let dateThursday = moment(current).isoWeekday(2);
-    let dateTuesday = moment(current).isoWeekday(4);
+    let dateWednesday = moment(current).isoWeekday(3);
     let dateFriday = moment(current).isoWeekday(5);
     let dateSaturday = moment(current).isoWeekday(6);
     let dateSunday = moment(current).isoWeekday(7);
     let dateAll = moment(current).format('dddd DD MMMM');
     let compareMonday = moment(dateMonday).format('dddd DD MMMM');
     let compareThursday = moment(dateThursday).format('dddd DD MMMM');
-    let compareTuesday = moment(dateTuesday).format('dddd DD MMMM');
+    let compareWednesday = moment(dateWednesday).format('dddd DD MMMM');
     let compareFriday = moment(dateFriday).format('dddd DD MMMM');
     let compareSaturday = moment(dateSaturday).format('dddd DD MMMM');
     let compareSunday = moment(dateSunday).format('dddd DD MMMM');
-    if(dateAll === compareMonday || dateAll === compareThursday || dateAll === compareTuesday || dateAll === compareFriday || dateAll === compareSaturday || dateAll === compareSunday){
+    if(dateAll === compareMonday || dateAll === compareThursday || dateAll === compareWednesday || dateAll === compareFriday || dateAll === compareSaturday || dateAll === compareSunday){
         return true;
     }
 }
@@ -266,6 +266,7 @@ class ShippingMaster extends PureComponent {
     }
     saveEntryShipping = (entry) => {
         let _self = this;
+        const { oShippingItem } = this.props.shipping;
         this.props.dispatch({
             type: 'shipping/saveEntry',
             payload: {
@@ -282,6 +283,7 @@ class ShippingMaster extends PureComponent {
                         sk: entry["WMS-1-SK"],
                         skWh: entry.skWh,
                         picture: entry.urlImageGeneral,
+                        destinity: oShippingItem.destinity,
                         Authorization: sessionStorage.getItem('idToken'),
 
                     }

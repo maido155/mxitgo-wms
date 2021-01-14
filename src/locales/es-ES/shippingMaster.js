@@ -92,8 +92,7 @@ export default {
     'shipping.drawerEntry.messageSuccessEntry': 'Entrada exitosa',
     'shipping.gridModalEntry.captured': 'Capturado',
     'shipping.drawerConfirm.messageWarningProducts': 'Tiene que agregar un centro',
-    'shipping.notification.operator': 'Hay un conductor con el mismo numero'
-
-
+    'shipping.notification.operator': 'Hay un conductor con el mismo numero',
+    'shipping.label.table-shipping.des': 'Destino'
 
 };
