@@ -266,28 +266,30 @@ class ShippingMaster extends PureComponent {
     }
     saveEntryShipping = (entry) => {
         let _self = this;
-        // this.props.dispatch({
-        //     type: 'shipping/saveEntry',
-        //     payload: {
-        //         payload: {
-        //             POST: {
-        //                 initialDate: this.state.dateFrom,
-        //                 typeCondition: "Entry",
-        //                 isMasterModified: true,
-        //                 comment: entry.textEntry,
-        //                 createdBy: entry.createdBy,
-        //                 date: entry.date,
-        //                 products: entry.products,
-        //                 pk: entry["WMS-1-PK"],
-        //                 sk: entry["WMS-1-SK"],
-        //                 skWh: entry.skWh,
-        //                 picture: entry.urlImageGeneral,
-        //                 Authorization: sessionStorage.getItem('idToken'),
+        const { oShippingItem } = this.props.shipping;
+        this.props.dispatch({
+            type: 'shipping/saveEntry',
+            payload: {
+                payload: {
+                    POST: {
+                        initialDate: this.state.dateFrom,
+                        typeCondition: "Entry",
+                        isMasterModified: true,
+                        comment: entry.textEntry,
+                        createdBy: entry.createdBy,
+                        date: entry.date,
+                        products: entry.products,
+                        pk: entry["WMS-1-PK"],
+                        sk: entry["WMS-1-SK"],
+                        skWh: entry.skWh,
+                        picture: entry.urlImageGeneral,
+                        destinity: oShippingItem.destinity,
+                        Authorization: sessionStorage.getItem('idToken'),
 
-        //             }
-        //         }
-        //     }
-        // });
+                    }
+                }
+            }
+        });
     }
     openNotificationWithIcon = type => {
         notification[type]({

@@ -91,6 +91,7 @@ export default {
     'shipping.drawerEntry.messageSuccessEntry': 'Entry successfully',
     'shipping.gridModalEntry.captured': 'Captured',
     'shipping.drawerConfirm.messageWarningProducts': 'You have to add a new center',
-    'shipping.notification.operator': 'There is a driver with the same number'
+    'shipping.notification.operator': 'There is a driver with the same number',
+    'shipping.label.table-shipping.des': 'Destiny'
 
 };

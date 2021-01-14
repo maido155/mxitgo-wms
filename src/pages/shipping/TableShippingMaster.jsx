@@ -40,6 +40,12 @@ class TableShippingMaster extends PureComponent {
         )
       },
       {
+        title: formatMessage({ id: 'shipping.label.table-shipping.des' }),
+        dataIndex: 'destinity',
+        key: 'destinity',
+        width: isMobile ? 120 : 150,
+      },
+      {
         title: formatMessage({ id: 'shipping.label.table-shipping.shipping' }),
         dataIndex: 'departureDate',
         width: isMobile ? 70 : 90,
@@ -106,7 +112,7 @@ class TableShippingMaster extends PureComponent {
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.status' }),
         dataIndex: 'status',
-        width: isMobile ? 90 : 100,
+        width: isMobile ? 90 : 90,
         render: (text, record) => (
           <span>
             {record.status === "NEW"
