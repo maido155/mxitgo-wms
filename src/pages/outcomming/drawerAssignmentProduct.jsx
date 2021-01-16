@@ -85,15 +85,20 @@ export default class DrawerAssignmentProduct extends PureComponent {
         const { iValuePallet, iValueBox } = this.state;
         const { boxesRequired, datesOutcomming } = this.props;
 
-        if(iValuePallet === 0 & iValueBox === 0){
-            message.warning('You did not assign Pallets or Boxes');
-            return;
-        }
+        let getOutComming = datesOutcomming.filter(function(data){
+            return data.dayDate === _this.props.currentOutcomming.dayDate;
+        })
 
-        if(iValueBox > boxesRequired){
+        let numSum = parseInt(getOutComming[0].assignedBox) + iValueBox;
+        if(numSum > parseInt(boxesRequired)){
             message.warning('Only ' +  boxesRequired + ' boxes needed');
             return;
         }
+
+        // if(iValuePallet === 0 & iValueBox === 0){
+        //     message.warning('You did not assign Pallets or Boxes');
+        //     return;
+        // }
 
         let payload = {
             key: "",
@@ -105,10 +110,6 @@ export default class DrawerAssignmentProduct extends PureComponent {
             box: 0, //assignments
             pallet: 0 //assignments
         }
-
-        let getOutComming = datesOutcomming.filter(function(data){
-            return data.dayDate === _this.props.currentOutcomming.dayDate;
-        })
 
         payload.key = getOutComming[0].key;
         payload.date = _this.props.currentOutcomming.dayDate;

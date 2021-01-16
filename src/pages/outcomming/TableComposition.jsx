@@ -9,6 +9,9 @@ const columns = [
       title: formatMessage({ id: 'outComming.label.tableassignment-order' }),
       dataIndex: 'key',
       width: isMobile ? 50 : 100,
+      render: (record) => (
+        record.substr(3)
+      )
     },
     {
       title: formatMessage({ id: 'outComming.label.tableassignment-des' }),

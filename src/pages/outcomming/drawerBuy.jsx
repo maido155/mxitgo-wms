@@ -15,7 +15,12 @@ const DrawerBuy = Form.create()(
                     return;
                 }
 
-                if(values.boxes > boxesRequired){
+                let getOutComming = datesOutcomming.filter(function(data){
+                    return data.dayDate === currentOutcomming.dayDate;
+                })
+
+                let numSum = parseInt(getOutComming[0].assignedBox) + values.boxes;
+                if(numSum > parseInt(boxesRequired)){
                     message.warning('Only ' +  boxesRequired + ' boxes needed');
                     return;
                 }
@@ -30,10 +35,6 @@ const DrawerBuy = Form.create()(
                     box: 0, //assignments
                     pallet: 0 //assignments
                 }
-
-                let getOutComming = datesOutcomming.filter(function(data){
-                    return data.dayDate === currentOutcomming.dayDate;
-                })
 
                 payload.key = getOutComming[0].key;
                 payload.date = currentOutcomming.dayDate;
