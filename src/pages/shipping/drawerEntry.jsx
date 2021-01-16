@@ -128,7 +128,7 @@ class drawerEntry extends PureComponent {
                     product: data.id,
                     productName: data.nameProduct,
                     temp: data.temperature,
-                    picture: data.urlImage 
+                    picture: data.urlImage === undefined ? "" : data.urlImage
                 }
             });
             let imagesGeneral = fileList.map(function(data){
