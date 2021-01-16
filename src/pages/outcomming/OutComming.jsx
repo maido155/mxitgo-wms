@@ -31,6 +31,7 @@ export default class OutComming extends PureComponent {
         visibleAssign: false, //flag for tableOutcooming
         visibleCompo: false, //flag for tableOutcooming
         visibleAssignProduct: false, //flag for Assign Product
+        visibleBuy: false,
 
         pallets: 0,
         box: 0,
@@ -173,31 +174,58 @@ export default class OutComming extends PureComponent {
     
 
     postOutcomming = (payload, context) => {
-
-        this.props.dispatch({  
-            type: 'outcomming/postOutcomming',  
-            payload: { 
-                payload: {
-                    key: payload.key,
-                    date: payload.date,
-                    status: payload.status,
-                    skProduct: payload.skProduct, 
-                    skCustomer: payload.skCustomer, 
-                    assignSh: {
-                            skShipping: payload.skShipping, 
-                            assignments: {
-                                    box: payload.box,
-                                    pallet: payload.pallet
-                                }
-                    },
-                    DateFrom: context.state.dateFrom, //for getOutcomming
-                    DateTo: context.state.dateTo, //for getOutcomming
-                    Product: payload.skProduct, //for getOutcomming
-                    Customer: payload.skCustomer, //for getOutcomming
-                    Authorization: sessionStorage.getItem('idToken')
-                }    
-            }
-        }); 
+        if(payload.buy === false){
+            this.props.dispatch({  
+                type: 'outcomming/postOutcomming',  
+                payload: { 
+                    payload: {
+                        key: payload.key,
+                        date: payload.date,
+                        status: payload.status,
+                        skProduct: payload.skProduct, 
+                        skCustomer: payload.skCustomer, 
+                        assignSh: {
+                                skShipping: payload.skShipping, 
+                                assignments: {
+                                        box: payload.box,
+                                        pallet: payload.pallet
+                                    }
+                        },
+                        DateFrom: context.state.dateFrom, //for getOutcomming
+                        DateTo: context.state.dateTo, //for getOutcomming
+                        Product: payload.skProduct, //for getOutcomming
+                        Customer: payload.skCustomer, //for getOutcomming
+                        Authorization: sessionStorage.getItem('idToken')
+                    }    
+                }
+            });
+        }else{
+            this.props.dispatch({  
+                type: 'outcomming/postOutcomming',  
+                payload: { 
+                    payload: {
+                        key: payload.key,
+                        date: payload.date,
+                        status: payload.status,
+                        skProduct: payload.skProduct, 
+                        skCustomer: payload.skCustomer, 
+                        assignSh: {
+                                skShipping: payload.skShipping, 
+                                assignments: {
+                                        box: payload.box,
+                                        pallet: payload.pallet
+                                    }
+                        },
+                        comments: payload.comment,
+                        DateFrom: context.state.dateFrom, //for getOutcomming
+                        DateTo: context.state.dateTo, //for getOutcomming
+                        Product: payload.skProduct, //for getOutcomming
+                        Customer: payload.skCustomer, //for getOutcomming
+                        Authorization: sessionStorage.getItem('idToken')
+                    }    
+                }
+            });
+        } 
     };
 
     restartOutcomming = (key, context) => {
@@ -262,6 +290,17 @@ export default class OutComming extends PureComponent {
         })
     };
 
+    setVisibleBuy = () => {
+        this.setState({
+            visibleBuy: true
+        })
+    }
+
+    onCloseVisibleBuy = () => {
+        this.setState({
+            visibleBuy: false
+        })
+    }
 
     render() {
         console.log('Context--->', this);  
@@ -316,7 +355,13 @@ export default class OutComming extends PureComponent {
                                     compositionData={compositionData} 
                                     onShowCompositionData = {this.onShowCompositionData}
                                     getOutcommingByEntry = {this.getOutcommingByEntry}
-                                    dataOutcommingsByEntry = {dataOutcommingsByEntry}/>
+                                    dataOutcommingsByEntry = {dataOutcommingsByEntry}
+
+                                    visibleBuy={this.state.visibleBuy}
+                                    setVisibleBuy={this.setVisibleBuy}
+                                    onCloseVisibleBuy={this.onCloseVisibleBuy}
+
+                                    />
                             </Col>
                         </Row>
                         

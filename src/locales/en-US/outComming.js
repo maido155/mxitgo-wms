@@ -38,5 +38,8 @@ export default {
     'outComming.drawerAssigment.pallets': 'Pallets',
     'outComming.drawerAssigment.boxes': 'Boxes',
     'outComming.drawerAssigment.cancel': 'Cancel',
-    'outComming.drawerAssigment.accept': 'Accept'
+    'outComming.drawerAssigment.accept': 'Accept',
+    'outComming.button.assignment-outcomming-sale-comme': 'Comments',
+    'outComming.button.assignment-outcomming-sale-boxes': 'Boxes',
+    'outComming.button.assignment-outcomming-sale-floor': 'Buy'
 };

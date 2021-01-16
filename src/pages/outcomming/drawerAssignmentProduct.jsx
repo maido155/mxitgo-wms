@@ -118,6 +118,7 @@ export default class DrawerAssignmentProduct extends PureComponent {
         payload.skShipping = _this.props.shipment;
         payload.box = _this.state.iValueBox;
         payload.pallet = _this.state.iValuePallet;
+        payload.buy = false;
         _this.props.postOutcomming(payload);
         this.setState({
             // isFirstTime: true

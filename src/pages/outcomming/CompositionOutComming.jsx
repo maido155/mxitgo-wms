@@ -86,6 +86,10 @@ export default class CompositionOutComming extends PureComponent {
                     assignedBox={this.props.assignedBox}
                     dayDatedatesOutcomming={this.props.dayDatedatesOutcomming}
                     datesOutcomming={this.props.datesOutcomming}
+
+                    visibleBuy={this.props.visibleBuy}
+                    setVisibleBuy={this.props.setVisibleBuy}
+                    onCloseVisibleBuy={this.props.onCloseVisibleBuy}
                 />
             </div>
         );            
