@@ -38,5 +38,8 @@ export default {
     'outComming.drawerAssigment.pallets': 'Tarima',
     'outComming.drawerAssigment.boxes': 'Cajas',
     'outComming.drawerAssigment.cancel': 'Cancel',
-    'outComming.drawerAssigment.accept': 'Aceptar'
+    'outComming.drawerAssigment.accept': 'Aceptar',
+    'outComming.button.assignment-outcomming-sale-comme': 'Comentarios',
+    'outComming.button.assignment-outcomming-sale-boxes': 'Cajas',
+    'outComming.button.assignment-outcomming-sale-floor': 'Compra'
 };

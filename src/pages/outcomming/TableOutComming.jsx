@@ -151,6 +151,10 @@ export default class TableOutComming extends PureComponent {
                         assignedBox={this.state.assignedBox}
                         dayDatedatesOutcomming={this.state.dayDatedatesOutcomming}
                         datesOutcomming={datesOutcomming}
+
+                        visibleBuy={this.props.visibleBuy}
+                        setVisibleBuy={this.props.setVisibleBuy}
+                        onCloseVisibleBuy={this.props.onCloseVisibleBuy}
                 />
                 <CompositionOutComming
                     loading = {this.props.loading}
@@ -185,6 +189,10 @@ export default class TableOutComming extends PureComponent {
 
                     setCurrentShipping={this.props.setCurrentShipping}
                     disableButtonAssign={this.state.disableButtonAssign}
+                    
+                    visibleBuy={this.props.visibleBuy}
+                    setVisibleBuy={this.props.setVisibleBuy}
+                    onCloseVisibleBuy={this.props.onCloseVisibleBuy}
                 />
                 <Table rowKey="uid" loading = {this.props.loading} columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
             </div>
