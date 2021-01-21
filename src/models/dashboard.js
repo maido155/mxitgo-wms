@@ -206,9 +206,9 @@ export default {
 
             var productTotal = 0;
 
-            if (action.payload.Items && action.payload.Items.length > 0) {
-                for(let i = 0; i<action.payload.Items.length;i++){
-                    action.payload.Items[i].dates.forEach((oItem) => { productTotal += oItem.box; })
+            if (action.payload && action.payload.length > 0) {
+                for(let i = 0; i<action.payload.length;i++){
+                    action.payload[i].dates.forEach((oItem) => { productTotal += oItem.box; })
                 }
             }
 
