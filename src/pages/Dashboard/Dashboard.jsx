@@ -369,7 +369,7 @@ export default class Dashboard extends PureComponent {
               //   <Form.Item {...formItemLayout} label={formatMessage({ id: "general.button-product.product" })}>
                   <SelectProduct
                     
-                    datesProductAll={products.productsAll}
+                    datesProductAll={products.productsAll.Items}
                     handleProduct={this.onProductChange}
                     disabled={this.state.currentSelectedDate}
                     loading={this.state.loading} />
