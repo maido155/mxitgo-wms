@@ -151,13 +151,11 @@ export default class UsersLayout extends PureComponent {
                 });
             },
             onCancel() {
-                console.log('Cancel');
             },
         });
     }
 
     callback(key) {
-        console.log(key);
     }
     render() {
         const { allUsers, loading, saveUser, closeUser, dataUser, updateUser } = this.props;
@@ -166,8 +164,6 @@ export default class UsersLayout extends PureComponent {
             wrapperCol: { xs: { span: 24 }, sm: { span: 14 }, md: { span: 15 }, lg: { span: 15 }, xl: { span: 15 } }
         };
 
-        console.log("allUsers")
-        console.log(allUsers)
         const columns = [
             {
                 title: formatMessage({ id: 'usersModule.table.name' }),

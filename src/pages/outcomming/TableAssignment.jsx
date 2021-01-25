@@ -11,14 +11,9 @@ export default class TableAssignment extends PureComponent {
   }
 
   showDrawerAssigProduct = (e) => {
-    console.log("---> Console.loged 1")
-    console.log(e)
-
     this.setState({
       currentItem: e
     }, (state, props) => {
-      console.log("---> Console.loged 2")
-      console.log(this.state.currentItem)
 
       this.props.setCurrentShipping(this.state.currentItem);
       this.props.setVisibleAssignProduct(true);
@@ -30,8 +25,7 @@ export default class TableAssignment extends PureComponent {
   }
   render() {
     let { dataOutcommingsByEntry, boxesRequired, buttonAssign, currentOutcomming } = this.props;
-    console.log("TableAssignment");
-    console.log(dataOutcommingsByEntry);
+
     const columns = [
       {
         title: formatMessage({ id: 'outComming.label.tableassignment-order' }),

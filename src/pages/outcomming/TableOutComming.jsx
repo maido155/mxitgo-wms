@@ -16,7 +16,6 @@ export default class TableOutComming extends PureComponent {
         disableButtonAssign: false
     };
     showDrawerAssig = (item) => {
-        console.log("assign")
         let oc = item.key;
         this.props.setVisibleAssign(true);
         this.setState({
@@ -59,8 +58,6 @@ export default class TableOutComming extends PureComponent {
     render() {
         let {dataOutcommingsByEntry} = this.props;
         const { datesOutcomming } = this.props;
-        console.log("TableOutComming");
-        console.log(dataOutcommingsByEntry);
 
         const columns = [
             {

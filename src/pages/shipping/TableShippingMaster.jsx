@@ -233,7 +233,6 @@ class TableShippingMaster extends PureComponent {
 
     const rowSelection = {
       onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
       },
       getCheckboxProps: record => ({
         disabled: record.name === 'Disabled User',
@@ -289,6 +288,16 @@ class TableShippingMaster extends PureComponent {
           isSuccess={this.props.isSuccess}
           changedClose={this.props.changedClose}
           showMessageFeatures={this.props.showMessageFeatures}
+
+          showPartial={this.props.showPartial}
+          closePartial={this.props.closePartial}
+          visiblePartial={this.props.visiblePartial}
+
+          insertpartialProducts={this.props.insertpartialProducts}
+          partialProducts={this.props.partialProducts}
+          deletepartialProducts={this.props.deletepartialProducts}
+          modalDeletePartial={this.props.modalDeletePartial}
+
         />
         <Table size="small"
           // rowSelection={rowSelection}

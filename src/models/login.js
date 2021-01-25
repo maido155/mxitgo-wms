@@ -17,8 +17,7 @@ const Model = {
                 type: 'changeLoginStatus',
                 payload: response,
             }); // Login successfully
-            console.log("***RESPONSE");
-            console.log(response);
+
 
             if (response) {
                 const urlParams = new URL(window.location.href);

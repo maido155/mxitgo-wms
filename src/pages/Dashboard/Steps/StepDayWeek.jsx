@@ -16,7 +16,6 @@ class StepDayWeek extends PureComponent {
   render() {
 
     const { dataPerDay, title } = this.props;
-    console.log(dataPerDay);
 
 
 

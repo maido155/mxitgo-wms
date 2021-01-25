@@ -1,17 +1,16 @@
 import React, { PureComponent } from 'react';
 import { List, Icon } from 'antd';
-import DrawerProducts from './drawerEntryProducts';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
+import DrawerPartial from './drawerPartials'
 
 var typeProduct = "";
 var quantitiesShow = '';
 
 class gridModalEntry extends React.Component {
     drawerProductInformation = (data,quantities) => {
-        this.props.showDrawerProducts(data)
+        this.props.showPartial(data, this.props.dataProduct, this.props.oShippingItem);
         typeProduct = data;
         quantitiesShow = quantities;
-        console.log(quantitiesShow);
     }
     render() {
         const { dataSource, oShippingItem, dataProduct } = this.props;
@@ -33,14 +32,21 @@ class gridModalEntry extends React.Component {
                     </List.Item>
                     )}
                 />
-                <DrawerProducts
-                    visibleDrawer={this.props.visisbleProducts}
-                    oShippingItem={oShippingItem}
-                    onCancel={this.props.onCloseProducts}
-                    handleProduct={this.props.handleProduct}
+                <DrawerPartial
+                    closePartial={this.props.closePartial}
+                    visiblePartial={this.props.visiblePartial}
                     typeProduct={typeProduct}
                     quantities={quantitiesShow}
                     dataProduct={dataProduct}
+                    handleProductPar={this.props.handleProductPar}
+                    onCancel={this.props.onCloseProducts}
+                    oShippingItem={oShippingItem}
+                    visibleDrawer={this.props.visisbleProducts}
+                    showDrawerProducts={this.props.showDrawerProducts}
+                    insertpartialProducts={this.props.insertpartialProducts}
+                    partialProducts={this.props.partialProducts}
+                    typePartial={this.props.typePartial}
+                    modalDeletePartial={this.props.modalDeletePartial}
                 />
           </div>
         );
