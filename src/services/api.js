@@ -206,48 +206,35 @@ export async function generateHotlist(params) {
 }
 
 export async function getInterviewDetail({ payload }) {
-    console.log(payload.link);
-    console.log(`${ANT_DESIGN_PRO_TARGET}/interview?link=${payload.link}`);
     return request(
         `${ANT_DESIGN_PRO_TARGET}/interview?responseLink=${payload.link}&companyId=${payload.companyId}&userId=${payload.userId}`,
     );
 }
 export async function getQuestionsByCandidate({ questionsPayload }) {
-    console.log(questionsPayload);
     return request(
         `/api/interview/questions?candidateId=${questionsPayload.candidateId}&interviewId=${questionsPayload.interviewId}`,
     );
 }
 
 export async function getCandidates({ payload }) {
-    console.log('payload');
-    console.log(payload);
     return request(`${ANT_DESIGN_PRO_TARGET}/getcandidates?rlink=${payload.rlink}`);
 }
 export async function getCandidatesOnHotlist({ payload }) {
-    console.log('testing');
-    console.log('testing');
     return request(
         `${ANT_DESIGN_PRO_TARGET}/hotlist/candidatesonhotlist?companyId=${payload.companyId}`,
     );
 }
 
 export async function getInterviews({ payload }) {
-    console.log(payload);
     return request(`${ANT_DESIGN_PRO_TARGET}/interviews?companyId=${payload.companyId}`);
 }
 
 export async function getCandidatesByHotlist({ payload }) {
-    console.log(payload.link);
-    console.log(`${ANT_DESIGN_PRO_TARGET}/candidatesiByHotlist?hotlistLink=${payload.link}`);
     return request(
         `/api/hotlist/candidates?hotlistlink=${payload.link}&companyId=${payload.companyId}`,
     );
 }
 export async function getCandidateByLink({ payload }) {
-    console.log(payload);
-    //console.log(payload.interviewLink);
-    //console.log(`${ANT_DESIGN_PRO_TARGET}/candidate?interviewLink=${payload.interviewLink}`);
     return request(
         `/api/getcandidate?responseLink=${payload.interviewLink}&companyId=${payload.companyId}&userId=${payload.userId}`,
     );
@@ -274,33 +261,26 @@ export async function getIndustries() {
 }
 
 // export async function getUsers({ payload }) {
-//     console.log(payload);
 //     return request(`${ANT_DESIGN_PRO_TARGET}/dev/user/email?email=${payload.userId}`);
 // }
 
 export async function getCompaniesByUsers({ payload }) {
-    console.log(payload);
     return request(`${ANT_DESIGN_PRO_TARGET}/users/company?userId=${payload.userId}`);
 }
 export async function getDepartmentsByUsers({ payload }) {
-    console.log('payload');
-    console.log(payload);
     return request(`${ANT_DESIGN_PRO_TARGET}/companies/departments?companyId=${payload.companyId}`);
 }
 
 export async function getRolesByUsers({ payload }) {
-    console.log(payload);
     return request(`${ANT_DESIGN_PRO_TARGET}/users/roles?userId=${payload.userId}`);
 }
 
 export async function getStats({ payload }) {
-    console.log(payload);
     return request(
         `${ANT_DESIGN_PRO_TARGET}/stats?userId=${payload.userId}&companyId=${payload.companyId}`,
     );
 }
 export async function getComments({ payload }) {
-    console.log('Payload ' + payload);
     return request(`${ANT_DESIGN_PRO_TARGET}/user/comments/?payload=${encodeURI(JSON.stringify(payload))}`);
 }
 
@@ -318,8 +298,6 @@ export async function generateCompany(params) {
 }
 
 export async function generateDepartment(params) {
-    console.log('parametros');
-    console.log(params);
     return request(`${ANT_DESIGN_PRO_TARGET}/companies/departments`, {
         method: 'POST',
         // headers: { 'content-type': 'application/json' },
@@ -335,8 +313,6 @@ export async function generateDepartment(params) {
     });
 }
 export async function deleteDepartment(params) {
-    console.log('delete');
-    console.log(params);
     return request(`${ANT_DESIGN_PRO_TARGET}/companies/departments`, {
         method: 'DELETE',
         // headers: { 'content-type': 'application/json' },
@@ -370,8 +346,6 @@ export async function updateCompany(params) {
 }
 
 export async function updateDepartment(params) {
-    console.log('params');
-    console.log(params);
     return request(`${ANT_DESIGN_PRO_TARGET}/companies/departments`, {
         method: 'PUT',
         // headers: { 'content-type': 'application/json' },
@@ -408,7 +382,6 @@ export async function updateInterviewStatus(payload) {
     });
 }
 export async function getInterviewStatus({ payload }) {
-    console.log('Payload ' + payload);
     return request(
         `${ANT_DESIGN_PRO_TARGET}/user/getCandidateInterviewStatus?payload=${JSON.stringify(payload)}`,
     );
@@ -697,7 +670,6 @@ export async function getDay(payload) {
 }
 
 export async function fetchShippingAll({ payload }) {
-    console.log(payload)
     return request(`${ANT_DESIGN_PRO_TARGET}/shipping/all?payload=${encodeURI(JSON.stringify(payload.POST))}`, {
         method: 'GET',
         // headers: { 'Authorization': payload.POST.Authorization },

@@ -20,15 +20,14 @@ export default {
         productsAll: [],
         operatorAll: [],
         disabledLocation: false,
-        disableWarehouse: []
+        disableWarehouse: [],
+        partialProducts: []
     },
     effects: {
 
         * getShippingAll({ payload }, { call, put }) {
             const response = yield call(fetchShippingAll, payload);
-            console.log(response);
-            console.log(response);
-            console.log(response);
+
             yield put({
                 type: 'queryGetShippingAll',
                 payload: response,
@@ -43,15 +42,13 @@ export default {
 
         * saveShipping({ payload }, { call, put }) {
             const response = yield call(saveShipping, payload);
-            console.log(response);
-            console.log(response);
+
             yield put({
                 type: 'saveShippingReducer',
                 payload: response,
             });
             const responseGetAll = yield call(fetchShippingAll, payload);
-            console.log(responseGetAll);
-            console.log(responseGetAll);
+
             yield put({
                 type: 'queryGetShippingAll',
                 payload: responseGetAll,
@@ -99,14 +96,13 @@ export default {
         },
         * updateShipping({ payload }, { call, put }) {
             const response = yield call(updateShipping, payload);
-            console.log(response);
+
             yield put({
                 type: 'updateShippingReducer',
                 payload: response,
             });
             const responseGetAll = yield call(fetchShippingAll, payload);
-            console.log(responseGetAll);
-            console.log(responseGetAll);
+
             yield put({
                 type: 'queryGetShippingAll',
                 payload: responseGetAll,
@@ -114,7 +110,7 @@ export default {
         },
         * getShipping({ payload }, { call, put }) {
             const response = yield call(getShipping, payload);
-            console.log(response);
+
             yield put({
                 type: 'getShippingReducer',
                 payload: response,
@@ -122,7 +118,7 @@ export default {
         },
         * getShippingDetail({ payload }, { call, put }) {
             const response = yield call(getShippingDetail, payload);
-            console.log(response);
+
             yield put({
                 type: 'getShippingDetailReducer',
                 payload: response,
@@ -135,7 +131,7 @@ export default {
             });
         },
         * resetValues({ payload }, { call, put }) {
-            console.log("Reset values called");
+
             yield put({
                 type: 'resetValuesReducer',
                 payload: payload,
@@ -145,7 +141,7 @@ export default {
 
         * deleteShipping({ payload }, { call, put }) {
             const response = yield call(deleteShipping, payload);
-            console.log(response);
+
             const responseShippingAll = yield call(fetchShippingAll, payload);
             yield put({
                 type: 'deleteShippingReducer',
@@ -155,13 +151,13 @@ export default {
         },
         * confirmShipping({ payload }, { call, put }) {
             const response = yield call(confirmShipping, payload);
-            console.log(response);
+
             yield put({
                 type: 'confirmShippingReducer',
                 payload: response,
             });
             const responseShippingAll = yield call(fetchShippingAll, payload);
-            console.log(responseShippingAll);
+
             yield put({
                 type: 'queryGetShippingAll',
                 payload: responseShippingAll,
@@ -175,8 +171,8 @@ export default {
         },
         * saveEntry({ payload }, { call, put }) {
             const response = yield call(saveShipping, payload);
-            console.log(response);
-            console.log(response);
+
+
             yield put({
                 type: 'saveEntryReducer',
                 payload: response,
@@ -184,8 +180,7 @@ export default {
             delete payload.payload.POST.products;
             delete payload.payload.POST.picture;
             const responseGetAll = yield call(fetchShippingAll, payload);
-            console.log(responseGetAll);
-            console.log(responseGetAll);
+
             yield put({
                 type: 'queryGetShippingAll',
                 payload: responseGetAll,
@@ -197,6 +192,29 @@ export default {
                 payload: {},
             });
         },
+        * insertpartialProducts({ payload }, { call, put }) {
+            yield put({
+                type: 'queryinsertpartialProducts',
+                payload: payload,
+            });
+        },
+        * deletepartialProducts({ payload }, { call, put }) {
+            yield put({
+                type: 'querydeletepartialProducts',
+            });
+        },
+        * insertpartialProductsEye({ payload }, { call, put }) {
+            yield put({
+                type: 'queryinsertpartialProductsEye',
+                payload: payload,
+            });
+        },
+        * deletepartialModal({ payload }, { call, put }) {
+            yield put({
+                type: 'querydeletepartialModal',
+                payload: payload,
+            });
+        }
     },
 
     reducers: {
@@ -215,7 +233,8 @@ export default {
         queryShippingAllRemove(state, action) {
             return {
                 ...state,
-                datesShipping: []
+                datesShipping: [],
+                partialProducts: []
             }
         },
         saveEntryReducer(state, action) {
@@ -227,7 +246,7 @@ export default {
             }
         },
         resetValuesReducer(state, action) {
-            console.log("Reset values reducer called");
+
             return {
                 ...state,
                 warehouses: [],
@@ -462,5 +481,105 @@ export default {
                 isSuccess: false
             }
         },
+        queryinsertpartialProducts(state, action) {
+
+            if (action.payload.typePartial === "new") {
+
+                return {
+                    ...state,
+                    partialProducts: [...state.partialProducts, ...action.payload.data]
+                }
+
+            } else {
+
+                let aModify = [];
+
+                let aExist = state.partialProducts;
+
+                let getPartialEdit = aExist.map(function(data) {
+                    return data.idPartial
+                }).indexOf(action.payload.data[0].idPartial);
+
+                aExist.splice(getPartialEdit, 1);
+
+                aModify.push(...aExist, ...action.payload.data)
+
+                return {
+                    ...state,
+                    partialProducts: aModify
+                }
+
+            }
+
+        },
+        querydeletepartialProducts(state, action) {
+            return {
+                ...state,
+                partialProducts: []
+            }
+        },
+        queryinsertpartialProductsEye(state, action) {
+
+            let getDataTable = action.payload.dataProduct.filter(function(data) {
+                return data.id === action.payload.data
+            })
+
+            if (getDataTable[0].partials.length === 0) {
+
+                for (var i = 0; i < action.payload.oShippingItem.length; i++) {
+                    var getPartial = action.payload.oShippingItem[i].filter(function(data) {
+                        return data.product === action.payload.data
+                    })
+                }
+
+                if (getPartial[0].partials === undefined) {
+
+                    return {
+                        ...state,
+                        partialProducts: [...state.partialProducts]
+                    }
+
+                } else {
+
+                    let newPartial = getPartial[0].partials.map(function(data) {
+                        return {
+                            dateToday: data.date,
+                            entryProduct: data.amount,
+                            urlImage: data.picture,
+                            temperatureProduct: data.temp,
+                            idPartial: data.idPartial
+                        }
+                    })
+
+                    return {
+                        ...state,
+                        partialProducts: [...state.partialProducts, ...newPartial]
+                    }
+                }
+
+            } else {
+
+                return {
+                    ...state,
+                    partialProducts: [...state.partialProducts, ...getDataTable[0].partials]
+                }
+
+            }
+        },
+        querydeletepartialModal(state, action) {
+
+            let aPartial = state.partialProducts;
+
+            let getDeletePartial = aPartial.map(function(data) {
+                return data.idPartial
+            }).indexOf(action.payload.data.idPartial);
+
+            aPartial.splice(getDeletePartial, 1);
+
+            return {
+                ...state,
+                partialProducts: aPartial
+            }
+        }
     },
 }

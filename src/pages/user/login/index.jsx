@@ -69,8 +69,6 @@ class Login extends Component {
       });
      
     } catch (error) {
-      console.log("*****Err");
-      console.log(error);
     }
   };
 
@@ -242,7 +240,6 @@ class Login extends Component {
     let _self = this;
     form.validateFields((err, values) => {
         if (err) {
-            console.log(err);
             return;
         }
         var authenticationData = {

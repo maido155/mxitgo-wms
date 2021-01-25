@@ -50,6 +50,7 @@ class drawerEntry extends PureComponent {
         fileList: [],
         previewVisible: false,
         previewImage: '',
+        typePartial: 'new',
         dataSource:[
             {
                 name: <FormattedMessage id='shipping.tablecomponent.label.premium'/>,
@@ -75,32 +76,27 @@ class drawerEntry extends PureComponent {
         dataProduct: [{
             id: "PRODUCT-1",
             quantities: '0',
-            temperature: "",
-            urlImage: ""
+            partials: []
         },
         {
             id: "PRODUCT-2",
             quantities: '0',
-            temperature: "",
-            urlImage: ""
+            partials: []
         },
         {
             id: "PRODUCT-3",
             quantities: '0',
-            temperature: "",
-            urlImage: ""
+            partials: []
         },
         {
             id: "PRODUCT-4",
             quantities: '0',
-            temperature: "",
-            urlImage: ""
+            partials: []
         },
         {
             id: "PRODUCT-5",
             quantities: '0',
-            temperature: "",
-            urlImage: ""
+            partials: []
         }
     ]};
     handleEntry = e => {
@@ -116,7 +112,7 @@ class drawerEntry extends PureComponent {
                 return;
             }
             let getProductInsert = productsEdit.filter(function(data){
-                return data.temperature !== ""
+                return data.partials.length !== 0
             })
             if(getProductInsert.length === 0){
                 this.props.showMessageFeatures('warning')
@@ -127,8 +123,7 @@ class drawerEntry extends PureComponent {
                     amount: data.quantitiesCaptured,
                     product: data.id,
                     productName: data.nameProduct,
-                    temp: data.temperature,
-                    picture: data.urlImage === undefined ? "" : data.urlImage
+                    partials: data.partials
                 }
             });
             let imagesGeneral = fileList.map(function(data){
@@ -150,8 +145,7 @@ class drawerEntry extends PureComponent {
                 let data = {
                     id: dataProduct[i].id,
                     quantities: '0',
-                    temperature: "",
-                    urlImage: "",
+                    partials: []
                 }
                 productsCancel.push(data);
             }
@@ -172,35 +166,44 @@ class drawerEntry extends PureComponent {
 
                                 if(oShippingItem.products[0][k].confAmount !== undefined){
                                     var dataProdu = {
-                                        quantitiesCaptured: oShippingItem.products[0][k].amount,
                                         id: products[i].id,
                                         name: products[i].name,
-                                        temperature: "",
-                                        urlImage: "",
-                                        quantities: oShippingItem.products[0][k].confAmount,
                                         nameProduct: oShippingItem.products[0][k].productName,
+                                        quantities: oShippingItem.products[0][k].confAmount,
+                                        quantitiesCaptured: oShippingItem.products[0][k].amount,
+                                        partials: []
                                     }
                                 }else{
                                     var dataProdu = {
-                                        quantitiesCaptured: dataProduct[j].quantities,
                                         id: products[i].id,
                                         name: products[i].name,
-                                        temperature: "",
-                                        urlImage: "",
-                                        quantities: oShippingItem.products[0][k].amount,
                                         nameProduct: oShippingItem.products[0][k].productName,
+                                        quantities: oShippingItem.products[0][k].amount,
+                                        quantitiesCaptured: dataProduct[j].quantities,
+                                        partials: []
                                     }
 
                                 }
                             }else{
+                                var partials = [];
+                                for(var l = 0; l < dataProduct[j].partials.length; l++){
+                                    let data = {
+                                        temp: dataProduct[j].partials[l].temperatureProduct,
+                                        picture: dataProduct[j].partials[l].urlImage === undefined ? '' : dataProduct[j].partials[l].urlImage,
+                                        date:  dataProduct[j].partials[l].dateToday,
+                                        amount:  dataProduct[j].partials[l].entryProduct,
+                                        idPartial: dataProduct[j].partials[l].idPartial,
+                                    }
+
+                                    partials.push(data)
+                                }
                                 var dataProdu = {
                                     quantitiesCaptured: dataProduct[j].quantities,
                                     id: products[i].id,
                                     name: products[i].name,
                                     nameProduct: oShippingItem.products[0][k].productName,
-                                    temperature: dataProduct[j].temperature,
-                                    urlImage: dataProduct[j].urlImage,
-                                    quantities: oShippingItem.products[0][k].amount
+                                    quantities: oShippingItem.products[0][k].amount,
+                                    partials: partials
                                 }
                             }
                             productsList.push(dataProdu);
@@ -212,24 +215,56 @@ class drawerEntry extends PureComponent {
         productsEdit = productsList;
         return productsList;
     }
-    handleProduct = (dataProducts) => {
+    handleProductPar = () => {
+
         const { dataProduct, typeProduct } = this.state;
+
+        const { closePartial, partialProducts,deletepartialProducts } = this.props;
+
         let getProduct = dataProduct.map(function(dataPro){
             return dataPro.id;
         }).indexOf(typeProduct);
+
         let newState = Object.assign({}, this.state);
-        newState.dataProduct[getProduct].quantities = dataProducts.entryProduct;
-        newState.dataProduct[getProduct].temperature = dataProducts.temperatureProduct;
-        newState.dataProduct[getProduct].urlImage = dataProducts.urlImage;
+
+        let aNumber = partialProducts.map(function(data){
+            return data.entryProduct
+        })
+
+        var sum = aNumber.reduce(function(a, b){
+            return a + b;
+        })
+
+        newState.dataProduct[getProduct].quantities = sum;
+
+        var aDataProduct = [];
+
+        for(var i = 0; i < partialProducts.length; i++){
+            let dataProdu = {
+                entryProduct: partialProducts[i].entryProduct,
+                urlImage: partialProducts[i].urlImage,
+                temperatureProduct: partialProducts[i].temperatureProduct,
+                dateToday: partialProducts[i].dateToday,
+                idPartial: partialProducts[i].idPartial
+            }
+            aDataProduct.push(dataProdu)
+        }
+
+        newState.dataProduct[getProduct].partials = aDataProduct;
+
+
         this.setState({ 
             dataProduct : newState.dataProduct,
         })
+
+        closePartial();
     }
     /****************************/
-    showDrawerProducts = (product) => {
+    showDrawerProducts = (product, type) => {
         this.setState({
           visisbleProducts: true,
-          typeProduct: product
+          typeProduct: product,
+          typePartial: type
         });
     };
     onCloseProducts = () => {
@@ -244,8 +279,7 @@ class drawerEntry extends PureComponent {
             let data = {
                 id: dataProduct[i].id,
                 quantities: '0',
-                temperature: "",
-                urlImage: "",
+                partials: []
             }
             productsCancel.push(data);
         }
@@ -308,11 +342,19 @@ class drawerEntry extends PureComponent {
                                     oShippingItem={oShippingItem}
                                     dataSource={dataSource}
                                     productsEntry={this.productsEntry}
-                                    handleProduct={this.handleProduct}
+                                    handleProductPar={this.handleProductPar}
                                     showDrawerProducts={this.showDrawerProducts}
                                     visisbleProducts={this.state.visisbleProducts}
                                     onCloseProducts={this.onCloseProducts}
                                     dataProduct={this.state.dataProduct}
+
+                                    showPartial={this.props.showPartial}
+                                    closePartial={this.props.closePartial}
+                                    visiblePartial={this.props.visiblePartial}
+                                    insertpartialProducts={this.props.insertpartialProducts}
+                                    partialProducts={this.props.partialProducts}
+                                    typePartial={this.state.typePartial}
+                                    modalDeletePartial={this.props.modalDeletePartial}
                                 />
                             </Col>
                             <Col xs={24} sm={24} md={12} lg={12} xl={12}>

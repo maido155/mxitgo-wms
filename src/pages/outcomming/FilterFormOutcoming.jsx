@@ -32,7 +32,6 @@ class FilterFormOutcomingForm extends PureComponent {
             wrapperCol: {xs: { span: 12 },sm: { span: 12 },md: { span: 14 },lg: { span: 14 },xl: { span: 14 }}
         };
         const { getFieldDecorator } = this.props.form;
-        console.log(this.props.datesProductAll===undefined)
        if(this.props.datesProductAll===undefined){
             return (
                 <span>loading...</span>

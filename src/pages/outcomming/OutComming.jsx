@@ -130,13 +130,11 @@ export default class OutComming extends PureComponent {
 
     handleProduct= (value,key)=> {
         //message.info('Click on menu item.');
-        //console.log('click', e);
         // let productName = e.key;
         this.setState({
             product:value,
             productDesc: key.props.children
         })
-        //console.log(e);
         if( !this.isEmpty(value) && !this.isEmpty(this.state.customer) && !this.isEmpty(this.state.dateTo) && !this.isEmpty(this.state.dateFrom)){
 
             this.props.dispatch({
@@ -257,7 +255,6 @@ export default class OutComming extends PureComponent {
     };
 
     onChangeProd = (id) => {
-        console.log(id)
 
     };
 
@@ -303,11 +300,8 @@ export default class OutComming extends PureComponent {
     }
 
     render() {
-        console.log('Context--->', this);  
-        console.log(this.props);
         let { datesProductAll, datesCustomerAll,shippingsByEntry} = this.props;
         let {compositionData, datesOutcomming, dataOutcommingsByEntry} = this.props.outcomming;
-        console.log(shippingsByEntry);
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 6 },md: { span: 6  },lg: { span: 6 },xl: { span: 6 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 18 },md: { span: 18 },lg: { span: 18 },xl: { span: 18 }}

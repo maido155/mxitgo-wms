@@ -14,7 +14,7 @@ export default {
     effects: {
         * confirmOutcomming({ payload }, { call, put }) {
             const response = yield call(confirmOutcomming, payload);
-            console.log(response);
+
 
             //const responseGetAll = yield call(fetchProgrammingAll, payload);
             const responseGetOutComming = yield call(getOutcomming, payload);
@@ -32,7 +32,7 @@ export default {
         },
         * getComposition({ payload }, { call, put }) {
             const response = yield call(getComposition, payload);
-            console.log(response);
+
             yield put({
                 type: 'getCompositionReducer',
                 payload: response,
@@ -40,7 +40,7 @@ export default {
         },
         * getOutcomming({ payload }, { call, put }) {
             const response = yield call(getOutcomming, payload);
-            console.log(response);
+
             yield put({
                 type: 'getOutcommingReducer',
                 payload: response,
@@ -48,7 +48,7 @@ export default {
         },
         * getShippingsByEntry({ payload }, { call, put }) {
             const response = yield call(getShippingsByEntry, payload);
-            console.log(response);
+
             yield put({
                 type: 'getShippingsByEntryReducer',
                 payload: response,
@@ -56,9 +56,9 @@ export default {
         },
         * postOutcomming({ payload }, { call, put }) {
             const response = yield call(postOutcomming, payload);
-            //console.log(response);
+
             const responseOutcomming = yield call(getOutcomming, payload.payload);
-            //console.log(responseOutcomming);
+
 
             yield put({
                 type: 'postOutcommingReducer',
@@ -66,7 +66,7 @@ export default {
             });
 
             const responseOCvsSH = yield call(getOutcommingsByEntry, payload);
-            console.log(responseOCvsSH);
+
             yield put({
                 type: 'getOutcommingsByEntryReducer',
                 payload: responseOCvsSH,
@@ -75,7 +75,7 @@ export default {
         * restartOutcomming(payload, { call, put }) {
 
             const response = yield call(restartOutcomming, payload.payload);
-            console.log(response);
+
 
             yield put({
                 type: 'restartOutcommingReducer',
@@ -83,14 +83,14 @@ export default {
             });
 
             const responseOutcomming = yield call(getOutcomming, payload.payload);
-            console.log(responseOutcomming);
+
             yield put({
                 type: 'getOutcommingReducer',
                 payload: responseOutcomming,
             });
 
             const responseOCvsSH = yield call(getOutcommingsByEntry, payload);
-            console.log(responseOCvsSH);
+
             yield put({
                 type: 'getOutcommingsByEntryReducer',
                 payload: responseOCvsSH,
@@ -98,7 +98,7 @@ export default {
         },
         * getOutcommingsByEntry({ payload }, { call, put }) {
             const response = yield call(getOutcommingsByEntry, payload);
-            console.log(response);
+
             yield put({
                 type: 'getOutcommingsByEntryReducer',
                 payload: response,

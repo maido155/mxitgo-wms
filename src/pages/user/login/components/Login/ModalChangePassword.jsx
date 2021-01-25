@@ -89,7 +89,6 @@ const ModalChangePassword = Form.create()(
             const { onChangePass } = this.props;
             this.props.form.validateFieldsAndScroll((err, values) => {
                 if (!err) {
-                   console.log("BIEN")
                    this.setState({visibleFormCode:true, disabledBtnSendMail:true});
                    onChangePass();
                   }
@@ -100,7 +99,6 @@ const ModalChangePassword = Form.create()(
             const { onConfirmCode } = this.props;
             this.props.form.validateFields((err, values) => {
                 if (!err) {
-                   console.log("BIEN")
                    this.setState({visibleHelp:false});
                     let code        = this.props.form.getFieldValue('code');
                     let newPassword = this.props.form.getFieldValue('newPassword');

@@ -4,8 +4,7 @@ import { Avatar } from 'antd';
 
 export default class AvatarAccount extends PureComponent {
     render() {
-        console.log("AvatarAccount")
-        console.log(this.props)
+
         // const styleNoImage = {
         //     backgroundColor: '#64a9dd',
         // }

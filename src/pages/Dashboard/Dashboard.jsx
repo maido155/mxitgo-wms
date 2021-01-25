@@ -128,8 +128,6 @@ export default class Dashboard extends PureComponent {
       return;
     }
 
-    console.log("dashboard======")
-    console.log(this.props.dashboard)
     if (product === "PRODUCT-2" && this.props.dashboard.programmingTotalPRODUCT2 === 0) {
       notification["info"]({
         message: "This option is not available",
@@ -271,8 +269,6 @@ export default class Dashboard extends PureComponent {
         currentSelectedProductDesc: key.props.children
       }, () => {
 
-        console.log("handle product")
-        console.log(value + " " + this.state.customer + " " + this.state.currentSelectedDate)
         this.selectionProduct(value, this.state.customer, this.state.currentSelectedDate);
 
       })
@@ -284,7 +280,6 @@ export default class Dashboard extends PureComponent {
   render() {
 
     let { datesProductAll, loading, products, dashboard } = this.props;
-    console.log(products.productsAll);
     this.setState({ loading });
     const formItemLayout = {
       labelCol: { xs: { span: 24 }, sm: { span: 9 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 9 } },

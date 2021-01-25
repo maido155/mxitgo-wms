@@ -51,6 +51,7 @@ export default {
     'shipping.entryProducts.temperature': 'Temperatura',
     'shipping.entryProducts.photo': 'Foto',
     'shipping.entryProducts.title': 'Detalle del producto',
+    'shipping.entryProducts.title.partial': 'Producto Parcial',
     'shipping.shippingEntry.title': 'Entrada',
     'shipping.modal-delete': '¿Está seguro que quieres cancelar este envío?',
     'shipping.tablecomponent.title.deletd': '¿Está seguro que quieres eliminar este nueva linea?',
@@ -93,6 +94,15 @@ export default {
     'shipping.gridModalEntry.captured': 'Capturado',
     'shipping.drawerConfirm.messageWarningProducts': 'Tiene que agregar un centro',
     'shipping.notification.operator': 'Hay un conductor con el mismo numero',
-    'shipping.label.table-shipping.des': 'Destino'
+    'shipping.label.table-shipping.des': 'Destino',
+
+    'shipping.label.table-shipping-partial.date': 'Fecha',
+    'shipping.label.table-shipping-partial.ammount': 'Cantidad',
+    'shipping.label.table-shipping-partial.action': 'Acciones',
+
+    'shipping.label.form-shipping.totalConf': 'Total Confirmados',
+    'shipping.label.form-shipping.totalPartial': 'Total Entrada',
+
+    'shipping.modal-delete-partial': '¿Está seguro que quieres eliminarlo?',
 
 };

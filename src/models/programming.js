@@ -20,7 +20,7 @@ export default {
     effects: {
         * fetchProgrammingAll({ payload }, { call, put }) {
             const response = yield call(fetchProgrammingAll, payload);
-            console.log(response);
+
             yield put({
                 type: 'queryProgrammingAll',
                 payload: response,
@@ -65,7 +65,7 @@ export default {
         * updateProgramming({ payload }, { call, put }) {
             const response = yield call(updateProgramming, payload);
             const responseGetAll = yield call(fetchProgrammingAll, payload);
-            console.log(response);
+
             yield put({
                 type: 'queryProgrammingAllEdit',
                 payload: responseGetAll,
