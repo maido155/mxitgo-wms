@@ -261,8 +261,13 @@ class Login extends Component {
           Pool : userPool
         };
         var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-  
-        AWS.config.update({ region: 'us-east-1', accessKeyId: 'AKIAWDTBANJH3M5N4UES', secretAccessKey: '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' });
+        var awsValues = {
+          region : ANT_DESING_PRO_REGION,
+          accessKeyId: ANT_DESING_PRO_ACCESSKEYID,
+          secretAccessKey: ANT_DESING_PRO_SECRETACCESSKEY
+        };
+        console.log(awsValues);
+        AWS.config.update(awsValues);
         var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 
 
