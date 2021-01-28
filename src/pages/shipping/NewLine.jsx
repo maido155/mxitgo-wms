@@ -19,6 +19,22 @@ const NewLine = Form.create()(
             this.setState({ e });
             this.props.newLineSelect(selectedKeys);
         }
+        disabledChild1 = (validationLocation, key) => {
+            if(validationLocation.length === 0 || validationLocation === undefined){
+                return false
+            }else{
+
+                const even = (element) => element.key !== key;
+
+                let array = validationLocation[0].childLevel1;
+                
+                const data = array.every(even)
+
+                return data
+
+            }
+        }
+
         renderTreeNode = (treeData) => {
             const { disableWarehouse, masterMode, warehouses, locationTreeData ,whName} = this.props;
 
@@ -76,7 +92,7 @@ const NewLine = Form.create()(
                 element.childLevel1.map((item, i) => {
                     childLevel1.push(
                         <TreeNode parentTitle={element.title} parentValue={element.value} parentKey={element.key} value={item.value} title={item.title} 
-                            key={item.key} disabled={validationLocation == "" || validationLocation == undefined ? false : validationLocation[0].childLevel1.length == 1 ? item.key != validationLocation[0].childLevel1[0].key : item.key != validationLocation[0].childLevel1[0].key && item.key != validationLocation[0].childLevel1[1].key}>
+                            key={item.key} disabled={this.disabledChild1(validationLocation, item.key)}>
                             {this.renderChild2(item)}
                         </TreeNode>
                     );

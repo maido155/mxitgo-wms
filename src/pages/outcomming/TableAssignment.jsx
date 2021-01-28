@@ -11,14 +11,9 @@ export default class TableAssignment extends PureComponent {
   }
 
   showDrawerAssigProduct = (e) => {
-    console.log("---> Console.loged 1")
-    console.log(e)
-
     this.setState({
       currentItem: e
     }, (state, props) => {
-      console.log("---> Console.loged 2")
-      console.log(this.state.currentItem)
 
       this.props.setCurrentShipping(this.state.currentItem);
       this.props.setVisibleAssignProduct(true);
@@ -30,36 +25,40 @@ export default class TableAssignment extends PureComponent {
   }
   render() {
     let { dataOutcommingsByEntry, boxesRequired, buttonAssign, currentOutcomming } = this.props;
-    console.log("TableAssignment");
-    console.log(dataOutcommingsByEntry);
+
     const columns = [
       {
         title: formatMessage({ id: 'outComming.label.tableassignment-order' }),
         dataIndex: 'shipment',
-        width: isMobile ? 120 : 120,
+        width: isMobile ? 120 : 130,
         render: (record) => (
           record.substr(3)
         )
+      },      
+      {
+        title: formatMessage({ id: 'outComming.label.tableassignment-des' }),
+        dataIndex: 'destinity',
+        width: isMobile ? 120 : 140,
       },
       {
         title: formatMessage({ id: 'outComming.label.tableassignment-pallets-re' }),
         dataIndex: 'received_pallets',
-        width: isMobile ? 160 : 160,
+        width: isMobile ? 160 : 150,
       },
       {
         title: formatMessage({ id: 'outComming.label.tableassignment-boxes-re' }),
         dataIndex: 'received_boxes',
-        width: isMobile ? 160 : 160,
+        width: isMobile ? 160 : 150,
       },
       {
         title: formatMessage({ id: 'outComming.label.tableassignment-pallets-di' }),
         dataIndex: 'availables_pallets',
-        width: isMobile ? 160 : 150,
+        width: isMobile ? 160 : 140,
       },
       {
         title: formatMessage({ id: 'outComming.label.tableassignment-boxes-di' }),
         dataIndex: 'availables_boxes',
-        width: isMobile ? 160 : 150,
+        width: isMobile ? 160 : 140,
       },
       {
         title: formatMessage({ id: 'outComming.label.tableassignment-assign' }),

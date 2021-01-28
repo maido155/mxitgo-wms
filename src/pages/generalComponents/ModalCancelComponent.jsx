@@ -31,7 +31,6 @@ export default class ModalDeleteComponent extends PureComponent{
         cancelText: 'No',
         onOk : okFunction,
         onCancel() {
-          console.log('Cancel');
         },
       });
 

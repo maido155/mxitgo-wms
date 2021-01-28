@@ -14,18 +14,18 @@ const { confirm } = Modal; //ADD
 function disabledDate(current) {
     let dateMonday = moment(current).isoWeekday(1);
     let dateThursday = moment(current).isoWeekday(2);
-    let dateTuesday = moment(current).isoWeekday(4);
+    let dateWednesday = moment(current).isoWeekday(3);
     let dateFriday = moment(current).isoWeekday(5);
     let dateSaturday = moment(current).isoWeekday(6);
     let dateSunday = moment(current).isoWeekday(7);
     let dateAll = moment(current).format('dddd DD MMMM');
     let compareMonday = moment(dateMonday).format('dddd DD MMMM');
     let compareThursday = moment(dateThursday).format('dddd DD MMMM');
-    let compareTuesday = moment(dateTuesday).format('dddd DD MMMM');
+    let compareWednesday = moment(dateWednesday).format('dddd DD MMMM');
     let compareFriday = moment(dateFriday).format('dddd DD MMMM');
     let compareSaturday = moment(dateSaturday).format('dddd DD MMMM');
     let compareSunday = moment(dateSunday).format('dddd DD MMMM');
-    if(dateAll === compareMonday || dateAll === compareThursday || dateAll === compareTuesday || dateAll === compareFriday || dateAll === compareSaturday || dateAll === compareSunday){
+    if(dateAll === compareMonday || dateAll === compareThursday || dateAll === compareWednesday || dateAll === compareFriday || dateAll === compareSaturday || dateAll === compareSunday){
         return true;
     }
 }
@@ -45,7 +45,8 @@ function disabledDate(current) {
     datesShipping: shipping.datesShipping,
     productsAll: products.productsAll,
     operatorAll: operator.operatorAll,
-    disableWarehouse: shipping.disableWarehouse
+    disableWarehouse: shipping.disableWarehouse,
+    partialProducts: shipping.partialProducts
 }))
 
 class ShippingMaster extends PureComponent {
@@ -61,7 +62,8 @@ class ShippingMaster extends PureComponent {
         visibleModalProduct: false,
         removeLocation: false,
         currentLoader: false,
-        visibleEntry: false
+        visibleEntry: false,
+        visiblePartial: false
     }
     componentDidMount() {
         this.props.dispatch({
@@ -245,7 +247,7 @@ class ShippingMaster extends PureComponent {
             okType: 'danger',
             cancelText: formatMessage({ id: 'shipping.modal-delete-no' }),
             onOk(){
-                console.log('Deleting..........'); //I18N *****************************************************************************************************
+               
                 _self.props.dispatch({
                     type: 'shipping/deleteShipping',
                     payload: {
@@ -260,12 +262,13 @@ class ShippingMaster extends PureComponent {
                 })
             }, 
             onCancel() {
-              console.log('Deleting shipping cancelled'); //I18N *****************************************************************************************************
+             
             },
         });
     }
     saveEntryShipping = (entry) => {
         let _self = this;
+        const { oShippingItem } = this.props.shipping;
         this.props.dispatch({
             type: 'shipping/saveEntry',
             payload: {
@@ -282,6 +285,7 @@ class ShippingMaster extends PureComponent {
                         sk: entry["WMS-1-SK"],
                         skWh: entry.skWh,
                         picture: entry.urlImageGeneral,
+                        destinity: oShippingItem.destinity,
                         Authorization: sessionStorage.getItem('idToken'),
 
                     }
@@ -423,12 +427,57 @@ class ShippingMaster extends PureComponent {
             this.changedSuccess();
         }
     }
+    showPartial = (data, dataProduct, oShippingItem) => {
+        this.setState({ visiblePartial: true })
+        this.props.dispatch({
+            type: 'shipping/insertpartialProductsEye',
+            payload: {data, dataProduct,oShippingItem: oShippingItem.products},
+        })
+    }
+    closePartial = () => {
+        this.setState({ visiblePartial: false })
+        this.props.dispatch({
+            type: 'shipping/deletepartialProducts',
+            payload: {},
+        })
+    }
+    insertpartialProducts = (data,typePartial) => {
+        this.props.dispatch({
+            type: 'shipping/insertpartialProducts',
+            payload: { data, typePartial }
+        })
+    }
+    deletepartialProducts = () => {
+        this.props.dispatch({
+            type: 'shipping/deletepartialProducts',
+            payload: {},
+        })
+    }
+    // modalDeletePartial = (data) => {
+    //     let _self = this;
+    //     confirm({
+    //         title: formatMessage({ id: 'shipping.modal-delete-partial' }),
+    //         okText: formatMessage({ id: 'shipping.modal-delete-yes' }),
+    //         okType: 'danger',
+    //         cancelText: formatMessage({ id: 'shipping.modal-delete-no' }),
+    //         onOk(){
+    //             _self.props.dispatch({
+    //                 type: 'shipping/deletepartialModal',
+    //                 payload: {
+    //                     data
+    //                 }
+    //             })
+    //         }, 
+    //         onCancel() {
+    //         },
+    //     });
+    // }
     render() {
         const formItemLayout = {
             labelCol: { xs: { span: 24 }, sm: { span: 7 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 5 } },
             wrapperCol: { xs: { span: 24 }, sm: { span: 14 }, md: { span: 15 }, lg: { span: 15 }, xl: { span: 15 } }
         };
-        const {  warehouses, warehouseIds, oShippingItem, products } = this.props.shipping;
+        const {  warehouses, warehouseIds, oShippingItem, products, partialProducts } = this.props.shipping;
         const {locationTreeData}= this.props.locations;
         const { productsAll, loading, isSuccess,isSuccessEdit,isSuccessConfirm,isSuccessEntry, close, datesShipping, operatorAll, disableWarehouse } = this.props;
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
@@ -554,6 +603,16 @@ class ShippingMaster extends PureComponent {
                                         isSuccess={isSuccess}
                                         changedClose={this.changedClose}
                                         showMessageFeatures={this.showMessageFeatures}
+
+                                        showPartial={this.showPartial}
+                                        closePartial={this.closePartial}
+                                        visiblePartial={this.state.visiblePartial}
+
+                                        insertpartialProducts={this.insertpartialProducts}
+                                        partialProducts={partialProducts}
+                                        deletepartialProducts={this.deletepartialProducts}
+
+                                        modalDeletePartial={this.modalDeletePartial}
                                     />
                                 </Spin>
                             </Col>

@@ -7,11 +7,16 @@ import {isMobile} from 'react-device-detect';
 const columns = [
     {
       title: formatMessage({ id: 'outComming.label.tableassignment-order' }),
-      dataIndex: 'shipment',
+      dataIndex: 'key',
       width: isMobile ? 50 : 100,
       render: (record) => (
         record.substr(3)
       )
+    },
+    {
+      title: formatMessage({ id: 'outComming.label.tableassignment-des' }),
+      dataIndex: 'shipment',
+      width: isMobile ? 50 : 100,
     },
     {
       title: formatMessage({ id: 'outComming.button.composition-outcomming-pallets-ass' }),

@@ -19,6 +19,7 @@ export default {
     'outComming.button.ok-assignment-outcomming': 'Aceptar',
     'outComming.button.close-assignment-outcomming': 'Cerrar',
     'outComming.label.tableassignment-order': 'Envíos',
+    'outComming.label.tableassignment-des': 'Destino',
     'outComming.label.tableassignment-pallets-re': 'Tarima recibidos (Total)', //add
     'outComming.label.tableassignment-boxes-re': 'Cajas recibidos (Total)',
     'outComming.label.tableassignment-pallets-di': 'Tarima disponibles', //add
@@ -31,11 +32,14 @@ export default {
     'outComming.button.composition-outcomming-boxes-ass': 'Cajas asignados',
     'outComming.label.table-status': 'Estado',
     'menu.Salidas': 'Salidas',
-    'outComming.drawerAssigment.title':'Asignación',
-    'outComming.drawerAssigment.pallets-availables':'Tarima disponibles',
-    'outComming.drawerAssigment.boxes-availables':'Cajas disponibles',
-    'outComming.drawerAssigment.pallets':'Tarima',
-    'outComming.drawerAssigment.boxes':'Cajas',
-    'outComming.drawerAssigment.cancel':'Cancel',
-    'outComming.drawerAssigment.accept':'Aceptar'
+    'outComming.drawerAssigment.title': 'Asignación',
+    'outComming.drawerAssigment.pallets-availables': 'Tarima disponibles',
+    'outComming.drawerAssigment.boxes-availables': 'Cajas disponibles',
+    'outComming.drawerAssigment.pallets': 'Tarima',
+    'outComming.drawerAssigment.boxes': 'Cajas',
+    'outComming.drawerAssigment.cancel': 'Cancel',
+    'outComming.drawerAssigment.accept': 'Aceptar',
+    'outComming.button.assignment-outcomming-sale-comme': 'Comentarios',
+    'outComming.button.assignment-outcomming-sale-boxes': 'Cajas',
+    'outComming.button.assignment-outcomming-sale-floor': 'Compra'
 };

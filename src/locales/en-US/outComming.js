@@ -19,6 +19,7 @@ export default {
     'outComming.button.ok-assignment-outcomming': 'Agree',
     'outComming.button.close-assignment-outcomming': 'Close',
     'outComming.label.tableassignment-order': 'Shipments',
+    'outComming.label.tableassignment-des': 'Destinity',
     'outComming.label.tableassignment-pallets-re': 'Pallets received (Total)',
     'outComming.label.tableassignment-boxes-re': 'Boxes received (Total)',
     'outComming.label.tableassignment-pallets-di': 'Pallets availables',
@@ -37,5 +38,8 @@ export default {
     'outComming.drawerAssigment.pallets': 'Pallets',
     'outComming.drawerAssigment.boxes': 'Boxes',
     'outComming.drawerAssigment.cancel': 'Cancel',
-    'outComming.drawerAssigment.accept': 'Accept'
+    'outComming.drawerAssigment.accept': 'Accept',
+    'outComming.button.assignment-outcomming-sale-comme': 'Comments',
+    'outComming.button.assignment-outcomming-sale-boxes': 'Boxes',
+    'outComming.button.assignment-outcomming-sale-floor': 'Buy'
 };

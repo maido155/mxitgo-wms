@@ -13,13 +13,11 @@ export default class ModalProductTable extends PureComponent{
     }  
     faltante =(confirmed,planned)=>{
     let faltante = planned-confirmed;
-    console.log(faltante);    
     return (faltante)
    }
     render(){
         const { oShippingItem} = this.props;
         let deliveryDate = moment(oShippingItem.deliveryDate).format('dddd');
-        console.log(deliveryDate);
         let currentLoader = this.props.loading === undefined ? false : this.props.loading;
         this.setState({ currentLoader });
         return(

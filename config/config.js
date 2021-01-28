@@ -177,7 +177,12 @@ export default {
         ANT_DESIGN_PRO_CLIENT_ID: '66vntbnp4mpgn1o1p50pqd43kl',
 
         API_KEY: 'v81NNnGY9R7uYhqlGbzTf8gQeqZDruJNIYbF8pLb', //
-        // ANT_DESIGN_PRO_TARGET: '/api',
+
+     //   ANT_DESIGN_PRO_TARGET: '/api',
+        ANT_DESING_PRO_REGION: 'us-east-1', 
+        ANT_DESING_PRO_ACCESSKEYID: 'AKIAWDTBANJH3M5N4UES', 
+        ANT_DESING_PRO_SECRETACCESSKEY: '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'
+
 
     },
     ignoreMomentLocale: true,

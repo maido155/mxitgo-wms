@@ -17,7 +17,7 @@ class TableShippingMaster extends PureComponent {
 
 
   formatDate = (mydate) => {
-    let dateFormat = moment(mydate).format('dddd');
+    let dateFormat = moment(mydate.slice(0, 10)).format('dddd');
     return dateFormat.charAt(0).toUpperCase() + dateFormat.slice(1)
   };
   dates = (planned, confirmed) => {
@@ -38,6 +38,12 @@ class TableShippingMaster extends PureComponent {
         render: (record) => (
           record.substr(7)
         )
+      },
+      {
+        title: formatMessage({ id: 'shipping.label.table-shipping.des' }),
+        dataIndex: 'destinity',
+        key: 'destinity',
+        width: isMobile ? 120 : 150,
       },
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.shipping' }),
@@ -106,7 +112,7 @@ class TableShippingMaster extends PureComponent {
       {
         title: formatMessage({ id: 'shipping.label.table-shipping.status' }),
         dataIndex: 'status',
-        width: isMobile ? 90 : 100,
+        width: isMobile ? 90 : 90,
         render: (text, record) => (
           <span>
             {record.status === "NEW"
@@ -227,7 +233,6 @@ class TableShippingMaster extends PureComponent {
 
     const rowSelection = {
       onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
       },
       getCheckboxProps: record => ({
         disabled: record.name === 'Disabled User',
@@ -283,6 +288,16 @@ class TableShippingMaster extends PureComponent {
           isSuccess={this.props.isSuccess}
           changedClose={this.props.changedClose}
           showMessageFeatures={this.props.showMessageFeatures}
+
+          showPartial={this.props.showPartial}
+          closePartial={this.props.closePartial}
+          visiblePartial={this.props.visiblePartial}
+
+          insertpartialProducts={this.props.insertpartialProducts}
+          partialProducts={this.props.partialProducts}
+          deletepartialProducts={this.props.deletepartialProducts}
+          modalDeletePartial={this.props.modalDeletePartial}
+
         />
         <Table size="small"
           // rowSelection={rowSelection}

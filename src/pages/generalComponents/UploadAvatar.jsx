@@ -7,8 +7,7 @@ import Styles from './StylesGeneral.css';
 
 export default class UploadAvatar extends PureComponent {
   render() {
-    console.log("UploadAvatar")
-    console.log(this.props)
+
     return (
       <div>
         <Upload

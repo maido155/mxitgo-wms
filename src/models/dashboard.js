@@ -81,7 +81,7 @@ export default {
         * getWeekProgrammingTotalsReset({ payload }, { call, put }) {
 
 
-            // console.log("getWeekProgrammingTotals: " + JSON.stringify(payload));
+
 
             // var response = yield call(getWeekProgrammingTotals, payload);
 
@@ -90,7 +90,7 @@ export default {
             // /// response.dayName = "Friday"
 
 
-            // console.log(response);
+
             yield put({
                 type: 'getWeekProgrammingTotalsReducerReset',
                 payload: payload,
@@ -98,12 +98,7 @@ export default {
         },
 
         * dashboardGetMasterTotal({ payload }, { call, put }) {
-
-            console.log("dashboardGetMasterTotal: " + JSON.stringify(payload));
-
-            console.log(JSON.stringify(payload));
             const response = yield call(dashboardGetMasterTotal, payload);
-            console.log(response);
             yield put({
                 type: 'dashboardGetMasterTotalReducer',
                 payload: response,
@@ -112,17 +107,12 @@ export default {
 
         * getWeekProgrammingTotals({ payload }, { call, put }) {
 
-
-            console.log("getWeekProgrammingTotals: " + JSON.stringify(payload));
-
             var response = yield call(getWeekProgrammingTotals, payload);
 
 
             response.productName = payload.product; /// response.dayName = payload.dayName   
             /// response.dayName = "Friday"
 
-
-            console.log(response);
             yield put({
                 type: 'getWeekProgrammingTotalsReducer',
                 payload: response,
@@ -130,11 +120,11 @@ export default {
         },
         * dashboardGetMasterTotalReset({ payload }, { call, put }) {
 
-            // console.log("dashboardGetMasterTotal: " + JSON.stringify(payload));
 
-            // console.log(JSON.stringify(payload));
+
+
             // const response = yield call(dashboardGetMasterTotal, payload);
-            // console.log(response);
+
             yield put({
                 type: 'dashboardGetMasterTotalReducerReset',
                 payload: payload,
@@ -144,11 +134,8 @@ export default {
 
             var response = yield call(getDay, payload);
 
-            console.log("Day:" + JSON.stringify(payload));
-
             response.dayName = payload.dayName;
 
-            console.log(response);
             yield put({
                 type: 'getDayReducer',
                 payload: response,
@@ -158,7 +145,7 @@ export default {
 
             // var response = yield call(getDay, payload);
 
-            // console.log("Day:" + JSON.stringify(payload));
+
 
             // response.dayName = payload.dayName;
 
@@ -173,11 +160,11 @@ export default {
     reducers: {
         getWeekProgrammingTotalsReducerReset(state, action) {
 
-            // console.log("getWeekProgrammingTotalsReducer: " + JSON.stringify(action.payload));
 
 
 
-             var productTotal = 0;
+
+            var productTotal = 0;
 
             // if (action.payload.Items && action.payload.Items.length > 0) {
 
@@ -185,13 +172,13 @@ export default {
 
             // }
 
-             var oNewState = {
-                 ...state
-             };
+            var oNewState = {
+                ...state
+            };
 
 
-             oNewState["programmingTotalPRODUCT1"] = productTotal
-             oNewState["programmingTotalPRODUCT2"] = productTotal
+            oNewState["programmingTotalPRODUCT1"] = productTotal
+            oNewState["programmingTotalPRODUCT2"] = productTotal
             return oNewState;
 
             //// state
@@ -200,15 +187,11 @@ export default {
 
         getWeekProgrammingTotalsReducer(state, action) {
 
-            console.log("getWeekProgrammingTotalsReducer: " + JSON.stringify(action.payload));
-
-
-
             var productTotal = 0;
 
-            if (action.payload.Items && action.payload.Items.length > 0) {
-                for(let i = 0; i<action.payload.Items.length;i++){
-                    action.payload.Items[i].dates.forEach((oItem) => { productTotal += oItem.box; })
+            if (action.payload && action.payload.length > 0) {
+                for (let i = 0; i < action.payload.length; i++) {
+                    action.payload[i].dates.forEach((oItem) => { productTotal += oItem.box; })
                 }
             }
 
@@ -226,8 +209,7 @@ export default {
         },
         dashboardGetMasterTotalReducer(state, action) {
 
-            console.log("dashboardGetMasterTotalReducer: " + JSON.stringify(action.payload));
-            if(action.payload.programmingTotal==0){
+            if (action.payload.programmingTotal == 0) {
                 action.payload.confirmed = 0;
                 action.payload.cancelled = 0;
                 action.payload.new = 0;
@@ -241,7 +223,7 @@ export default {
         },
         dashboardGetMasterTotalReducerReset(state, action) {
 
-            // console.log("dashboardGetMasterTotalReducer: " + JSON.stringify(action.payload));
+
 
 
 
@@ -251,8 +233,6 @@ export default {
             }
         },
         getDayReducer(state, action) {
-
-            console.log("getDayReducer:" + JSON.stringify(action.payload));
 
             var oNewState = {
                 ...state
@@ -283,32 +263,30 @@ export default {
         },
         getDayReducerReset(state, action) {
 
-            console.log("getDayReducerRecet:" + JSON.stringify(action.payload));
-
             var oNewState = {
                 ...state
 
             };
 
-             var programmed = "";
-             var confirmed = "";
-             var planned = "";
-             var cancelled = "";
+            var programmed = "";
+            var confirmed = "";
+            var planned = "";
+            var cancelled = "";
 
-             var plannedPercentage = "";
-             var confirmedPercentage = "";
+            var plannedPercentage = "";
+            var confirmedPercentage = "";
 
-             oNewState[action.payload.dayName] = {
+            oNewState[action.payload.dayName] = {
 
-                 programmed,
-                 planned,
-                 confirmed,
-                 cancelled,
-                 plannedPercentage,
-                 confirmedPercentage
+                programmed,
+                planned,
+                confirmed,
+                cancelled,
+                plannedPercentage,
+                confirmedPercentage
 
 
-             };
+            };
 
             return oNewState;
         }

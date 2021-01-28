@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { _ } from 'lodash';
-import { Drawer, Button, Form, InputNumber,Upload, Icon, message, Input, notification, Typography } from 'antd';
+import { Drawer, Button, Form, InputNumber,Upload, Icon, message, Input, Typography } from 'antd';
 import {isMobile} from 'react-device-detect';
 import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
 
@@ -45,94 +45,176 @@ class drawerEntryProducts extends PureComponent {
           );
         }
     };
-    openNotificationWithImage = (type) => {
-        notification[type]({
-            message: <FormattedMessage id='shipping.drawerEntry.messagePhoto'/>, //I18N*****************************************************************
-          });
-    }
+
     handleEntryProduct = e => {
         e.preventDefault();
-        // const { imageUrl } = this.state;
+        const { imageUrl } = this.state;
+        const { typeProduct, partialEdit, typePartial } = this.props;
         this.props.form.validateFields((err, values) => {
             if (err) {
                 return;
             }
-            // if(imageUrl == undefined){
-            //     this.openNotificationWithImage();
-            //     return;
-            // }
-            // values["urlImage"] = imageUrl;
-            this.props.handleProduct(values);
+
+            if(typePartial === "new"){
+
+                values["urlImage"] = imageUrl;
+
+            }else{
+
+                if(imageUrl === undefined){
+
+                    values["urlImage"] = partialEdit[0].urlImage
+
+                }else{
+
+                    values["urlImage"] = imageUrl;
+                    
+                }
+
+            }
+            
+            this.props.showTablePartial(values, typeProduct, partialEdit, typePartial)
             this.props.form.resetFields();
             this.setState({imageUrl: undefined})
             this.props.onCancel();
         });
     }
-    typeProductName = (data, dataProduct) => {
+    typeProductName = (oShippingItem, dataProduct, typePartial, partialProducts,partialEdit) => {
+
         const { typeProduct } = this.props;
-        if(data.commentEntry != undefined){
-            if(data.products.length != 0){
-                var getProducto = data.products[0].filter(function(data){
-                    return data.product == typeProduct;
+
+        if(oShippingItem.commentEntry != undefined){
+
+            disabledInputs = true;
+
+            if(partialEdit.length !== 0){
+
+                
+                let getProduct = partialProducts.filter(function(data){
+                    return data.idPartial === partialEdit[0].idPartial
                 })
-                disabledInputs = true;
-                return getProducto.length == 0 ? "" : getProducto[0].amount
+
+                return  getProduct.length === 0  ? '' :  getProduct[0].entryProduct
+
             }
+
         }else{
+
             disabledInputs = false;
-            let getProduct = dataProduct.filter(function(data){
-                return data.id === typeProduct
-            })
-            return getProduct.length === 0 ? '' : getProduct[0].quantities
+
+            if(typePartial === "new"){
+
+                return ''
+
+            }else{
+
+                let getProduct = partialProducts.filter(function(data){
+                    return data.idPartial === partialEdit[0].idPartial
+                })
+
+                return  getProduct.length === 0  ? '' :  getProduct[0].entryProduct
+
+            }
         }
     }
-    typeTemName = (data,dataProduct) => {
+    typeTemName = (oShippingItem, dataProduct, typePartial, partialProducts,partialEdit) => {
+
         const { typeProduct } = this.props;
-        if(data.commentEntry != undefined){
-            if(data.products.length != 0){
-                var getProducto = data.products[0].filter(function(data){
-                    return data.product == typeProduct;
+
+        if(oShippingItem.commentEntry != undefined){
+
+            disabledInputs = true;
+
+            if(partialEdit.length !== 0){
+
+                let getProduct = partialProducts.filter(function(data){
+                    return data.idPartial === partialEdit[0].idPartial
                 })
-                disabledInputs = true;
-                return getProducto.length == 0 ? "" : getProducto[0].temp
+    
+                return getProduct.length === 0 ? '' : getProduct[0].temperatureProduct
+
             }
+
         }else{
+
             disabledInputs = false;
-            let getProduct = dataProduct.filter(function(data){
-                return data.id === typeProduct
-            })
-            return getProduct.length === 0 ? '' : getProduct[0].temperature
+
+            if(typePartial === "new"){
+
+                return ''
+
+            }else{
+
+                let getProduct = partialProducts.filter(function(data){
+                    return data.idPartial === partialEdit[0].idPartial
+                })
+    
+                return getProduct.length === 0 ? '' : getProduct[0].temperatureProduct
+
+            }
         }
     }
-    typePictureName = (data, uploadButton) => {
+    typePictureName = (oShippingItem, uploadButton,dataProduct, typePartial, partialProducts,partialEdit) => {
+
         const { typeProduct } = this.props;
         const { imageUrl } = this.state;
-        if(data.commentEntry != undefined){
-            if(data.products.length != 0){
-                var getProducto = data.products[0].filter(function(data){
-                    return data.product == typeProduct;
+
+        if(oShippingItem.commentEntry != undefined){
+
+            disabledInputs = true;
+
+            if(partialEdit.length !== 0){
+
+                let getProduct = partialProducts.filter(function(data){
+                    return data.idPartial === partialEdit[0].idPartial
                 })
-                disabledInputs = true;
-                return getProducto.length == 0 ? imageUrl ?
-                    <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/>
+
+                return getProduct.length === 0 || getProduct[0].urlImage === undefined
+                ? imageUrl
+                    ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/>
                     : uploadButton
-                :<img src={getProducto[0].picture} alt="avatar" style={{ width: '100%' }}/>
+                : getProduct[0].urlImage === ""
+                    ? uploadButton
+                    : <img src={getProduct[0].urlImage} alt="avatar" style={{ width: '100%' }}/>
+
             }
+
         }else{
+
             disabledInputs = false;
-            return imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/> : uploadButton
+
+            if(typePartial === "new"){
+
+                return imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/> : uploadButton
+
+            }else{
+
+                let getProduct = partialProducts.filter(function(data){
+                    return data.idPartial === partialEdit[0].idPartial
+                })
+
+                return getProduct.length === 0 || getProduct[0].urlImage === undefined
+                    ? imageUrl
+                        ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }}/>
+                        : uploadButton
+                    : <img src={getProduct[0].urlImage} alt="avatar" style={{ width: '100%' }}/>
+
+            }
         }
     }
     onCloseDrawer = () => {
         this.props.form.resetFields();
         this.props.onCancel();
+        this.setState({
+            imageUrl: undefined
+        })
     }
     render() {
         const formItemLayout = {
             labelCol: {xs: { span: 24 },sm: { span: 24 },md: { span: 8 },lg: { span: 8 },xl: { span: 6 }},
             wrapperCol: {xs: { span: 24 },sm: { span: 24 },md: { span: 12 },lg: { span: 12 },xl: { span: 14 }}
         };
-        const { oShippingItem, typeProduct, quantities, dataProduct } = this.props;
+        const { oShippingItem, typeProduct, quantities, dataProduct, typePartial,partialProducts,partialEdit } = this.props;
         const { getFieldDecorator } = this.props.form;
         const uploadButton = (
             <div>
@@ -154,11 +236,11 @@ class drawerEntryProducts extends PureComponent {
                         <Text strong>{quantities}</Text>  
                     </Form.Item>
                     <Form.Item label={formatMessage({ id: 'shipping.entryProducts.amounts' })}>
-                        {getFieldDecorator('entryProduct',{ initialValue: this.typeProductName(oShippingItem, dataProduct), 
+                        {getFieldDecorator('entryProduct',{ initialValue: this.typeProductName(oShippingItem, dataProduct, typePartial, partialProducts,partialEdit), 
                         rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.amountMissing'/> }] })(<InputNumber style={{ width: "100%"}} disabled={disabledInputs}/>)}
                     </Form.Item>
                     <Form.Item label={formatMessage({ id: 'shipping.entryProducts.temperature' })}>
-                        {getFieldDecorator('temperatureProduct',{ initialValue: this.typeTemName(oShippingItem, dataProduct),
+                        {getFieldDecorator('temperatureProduct',{ initialValue: this.typeTemName(oShippingItem, dataProduct, typePartial, partialProducts,partialEdit),
                         rules: [{ required: true, message: <FormattedMessage id='shipping.drawerEntry.temperatureMissing'/> }] })(<Input disabled={disabledInputs}/>)}
                     </Form.Item>
                     <Form.Item label={formatMessage({ id: 'shipping.entryProducts.photo' })}>
@@ -171,8 +253,7 @@ class drawerEntryProducts extends PureComponent {
                             onChange={this.handleChange}
                             disabled={disabledInputs}
                         >
-                            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-                            {/* {this.typePictureName(oShippingItem, uploadButton)} */}
+                            {this.typePictureName(oShippingItem, uploadButton,dataProduct, typePartial, partialProducts,partialEdit)}
                         </Upload>
                     </Form.Item>
                     <div

@@ -9,13 +9,13 @@ const { Text } = Typography;
 
 class StepDayWeek extends PureComponent {
   getTotal = (dataPerDay) => {
-    return dataPerDay.planned + dataPerDay.confirmed + dataPerDay.cancelled;
+    return dataPerDay.planned;
+    // + dataPerDay.confirmed + dataPerDay.cancelled;
 
   }
   render() {
 
     const { dataPerDay, title } = this.props;
-    console.log(dataPerDay);
 
 
 

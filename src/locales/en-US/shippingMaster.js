@@ -50,6 +50,7 @@ export default {
     'shipping.entryProducts.temperature': 'Temperature',
     'shipping.entryProducts.photo': 'Photo',
     'shipping.entryProducts.title': 'Product detail',
+    'shipping.entryProducts.title.partial': 'Product Partial',
     'shipping.shippingEntry.title': 'Entry',
     'shipping.modal-delete': 'Are you sure you want to cancel this shipping?',
     'shipping.tablecomponent.title.deletd': 'Are you sure you want to delete this new line?',
@@ -91,6 +92,17 @@ export default {
     'shipping.drawerEntry.messageSuccessEntry': 'Entry successfully',
     'shipping.gridModalEntry.captured': 'Captured',
     'shipping.drawerConfirm.messageWarningProducts': 'You have to add a new center',
-    'shipping.notification.operator': 'There is a driver with the same number'
+    'shipping.notification.operator': 'There is a driver with the same number',
+    'shipping.label.table-shipping.des': 'Destiny',
+
+    'shipping.label.table-shipping-partial.date': 'Date',
+    'shipping.label.table-shipping-partial.ammount': 'Amount',
+    'shipping.label.table-shipping-partial.action': 'Actions',
+
+    'shipping.label.form-shipping.totalConf': 'Total Confirmed',
+    'shipping.label.form-shipping.totalPartial': 'Total Entry',
+
+    'shipping.modal-delete-partial': 'Are you sure you want to delete it?',
+
 
 };

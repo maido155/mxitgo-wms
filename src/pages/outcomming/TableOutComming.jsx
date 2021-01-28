@@ -16,7 +16,6 @@ export default class TableOutComming extends PureComponent {
         disableButtonAssign: false
     };
     showDrawerAssig = (item) => {
-        console.log("assign")
         let oc = item.key;
         this.props.setVisibleAssign(true);
         this.setState({
@@ -59,8 +58,6 @@ export default class TableOutComming extends PureComponent {
     render() {
         let {dataOutcommingsByEntry} = this.props;
         const { datesOutcomming } = this.props;
-        console.log("TableOutComming");
-        console.log(dataOutcommingsByEntry);
 
         const columns = [
             {
@@ -151,6 +148,10 @@ export default class TableOutComming extends PureComponent {
                         assignedBox={this.state.assignedBox}
                         dayDatedatesOutcomming={this.state.dayDatedatesOutcomming}
                         datesOutcomming={datesOutcomming}
+
+                        visibleBuy={this.props.visibleBuy}
+                        setVisibleBuy={this.props.setVisibleBuy}
+                        onCloseVisibleBuy={this.props.onCloseVisibleBuy}
                 />
                 <CompositionOutComming
                     loading = {this.props.loading}
@@ -185,6 +186,10 @@ export default class TableOutComming extends PureComponent {
 
                     setCurrentShipping={this.props.setCurrentShipping}
                     disableButtonAssign={this.state.disableButtonAssign}
+                    
+                    visibleBuy={this.props.visibleBuy}
+                    setVisibleBuy={this.props.setVisibleBuy}
+                    onCloseVisibleBuy={this.props.onCloseVisibleBuy}
                 />
                 <Table rowKey="uid" loading = {this.props.loading} columns={columns} dataSource={datesOutcomming} pagination={false} scroll={isMobile ? { x: 1000} : {x: 990}} size="small"/>
             </div>

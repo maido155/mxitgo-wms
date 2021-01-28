@@ -10,9 +10,7 @@ class StepsDashBoard extends PureComponent {
 
   render() {
     const { currentDay, data } = this.props
-    console.log("----")
-    console.log(currentDay)
-    console.log("----")
+
 
     let classZero = styles.dayContainer + " " + (currentDay === 0 ? styles.currentDay : "");
     let classOne = styles.dayContainer + " " + (currentDay === 1 ? styles.currentDay : "");
