@@ -18,8 +18,10 @@ export default class SelectProduct extends PureComponent {
                 <span> loading...</span>
             );
         }
-        if (this.props.disabled != "" && this.props.loading == false) {
+        if (this.props.disabled != "" && this.props.loading == false ) {
+            if(this.props.dates.programmingTotalPRODUCT1 != 0 || this.props.dates.programmingTotalPRODUCT2 !=0){
             dis = false;
+            }
         }
         let productsFilter = this.props.datesProductAll.filter(item => item.type == "Primary")
         return (
