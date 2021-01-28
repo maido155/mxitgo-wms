@@ -3,4 +3,5 @@ export default {
     'menu.home': 'Inicio',
     'menu.account.logout': 'Salir',
     'menu.register': 'Registrar',
+    'menu.Dashboard': 'Dashboard',
 };
