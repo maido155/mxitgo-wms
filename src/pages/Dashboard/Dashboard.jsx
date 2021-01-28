@@ -390,6 +390,7 @@ export default class Dashboard extends PureComponent {
                 datesProductAll={products.productsAll}
                 handleProduct={this.onProductChange}
                 disabled={this.state.currentSelectedDate}
+                dates={dashboard}
                 loading={this.state.loading} />
               //   </Form.Item>
               // </Form>
