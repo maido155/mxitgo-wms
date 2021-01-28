@@ -1,11 +1,13 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
-import { routerRedux } from 'dva/router';
+// import { routerRedux } from 'dva/router';
+import { routerRedux } from 'dva';
 import { _ } from 'lodash';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import SelectProduct from '../generalComponents/SelectProduct';
 import { Row, Col, Card, Tooltip, Typography, Progress, Form, DatePicker, Statistic, Icon, Spin, notification } from 'antd';
+
 import { isMobile, isTablet } from "react-device-detect";
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import StepsDashBoard from './Steps/StepsDashBoard';
@@ -217,15 +219,15 @@ export default class Dashboard extends PureComponent {
 
     //startDate=`${startDate}T00:00:00.000Z`;
     for (const i of aDays) {
-     this.props.dispatch({
-      type: 'dashboard/getDayReset',
-      payload: {
-        Authorization: sessionStorage.getItem('idToken'),
-        dayName: moment(weekStart).add(i, 'days').format("dddd")
-      }
-    })
+      this.props.dispatch({
+        type: 'dashboard/getDayReset',
+        payload: {
+          Authorization: sessionStorage.getItem('idToken'),
+          dayName: moment(weekStart).add(i, 'days').format("dddd")
+        }
+      })
     }
-    
+
     for (const product of this.state.products) {
       this.props.dispatch({
         type: 'dashboard/getWeekProgrammingTotals',
@@ -280,6 +282,23 @@ export default class Dashboard extends PureComponent {
   render() {
 
     let { datesProductAll, loading, products, dashboard } = this.props;
+
+    // console.log(dashboard)
+
+    // console.log(dashboard.programmingTotal.confirmed)
+    // console.log(dashboard.programmingTotal.new)
+    let totalPercent = (dashboard.programmingTotal.confirmed ? parseInt(dashboard.programmingTotal.confirmed) : 0) + (dashboard.programmingTotal.confirmed ? parseInt(dashboard.programmingTotal.new) : 0);
+
+    let percentConfirmed = 0
+    let percentNew = 0
+
+    if (totalPercent > 0) {
+      percentConfirmed = (dashboard.programmingTotal.confirmed * 100) / totalPercent;
+      percentNew = (dashboard.programmingTotal.new * 100) / totalPercent;
+    }
+
+    console.log(percentConfirmed)
+    console.log(percentNew)
     this.setState({ loading });
     const formItemLayout = {
       labelCol: { xs: { span: 24 }, sm: { span: 9 }, md: { span: 9 }, lg: { span: 9 }, xl: { span: 9 } },
@@ -308,7 +327,7 @@ export default class Dashboard extends PureComponent {
 
 
                 <Form.Item {...formItemLayout} label={isMobile ? "" : formatMessage({ id: "general.calendar.week" })}>
-                  <DatePicker format="YYYY-MM-DD" placeholder={formatMessage({ id: "general.calendar.week" })} disabledDate={disabledDate} onChange={this.onPickerChange} allowClear={false} disabled={this.state.loading} style={{ width: 140 }}/>
+                  <DatePicker format="YYYY-MM-DD" placeholder={formatMessage({ id: "general.calendar.week" })} disabledDate={disabledDate} onChange={this.onPickerChange} allowClear={false} disabled={this.state.loading} style={{ width: 140 }} />
                 </Form.Item>
 
               </Form>
@@ -347,7 +366,11 @@ export default class Dashboard extends PureComponent {
               </Col>
 
               <Col xs={18} sm={18} md={6} lg={4} xl={4} style={{ textAlign: "center" }}>
-                <Progress percent={dashboard.programmingTotal.new} successPercent={dashboard.programmingTotal.confirmed} type="circle" width={70} showInfo={false} />
+
+
+                {/* <Progress percent={percentNew} successPercent={percentConfirmed} type="dashboard" width={70} showInfo={false} /> */}
+                <Progress percent={(percentNew !== 0 ? 100 : percentNew)} successPercent={percentConfirmed} type="dashboard" width={70} showInfo={false} />
+                {/* <Progress percent={dashboard.programmingTotal.new} successPercent={dashboard.programmingTotal.confirmed} type="dashboard" width={70} showInfo={false} /> */}
               </Col>
             </Row>
           </Card>
@@ -362,12 +385,12 @@ export default class Dashboard extends PureComponent {
 
               // <Form layout="inline" >
               //   <Form.Item {...formItemLayout} label={formatMessage({ id: "general.button-product.product" })}>
-                  <SelectProduct
-                    
-                    datesProductAll={products.productsAll}
-                    handleProduct={this.onProductChange}
-                    disabled={this.state.currentSelectedDate}
-                    loading={this.state.loading} />
+              <SelectProduct
+
+                datesProductAll={products.productsAll}
+                handleProduct={this.onProductChange}
+                disabled={this.state.currentSelectedDate}
+                loading={this.state.loading} />
               //   </Form.Item>
               // </Form>
               // <div>
